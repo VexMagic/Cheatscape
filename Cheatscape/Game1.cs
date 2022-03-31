@@ -18,7 +18,9 @@ namespace Cheatscape
 
         protected override void Initialize()
         {
-            // TODO: Add your initialization logic here
+            _graphics.PreferredBackBufferWidth = (int)Global_Info.AccessWindowSize.X;
+            _graphics.PreferredBackBufferHeight = (int)Global_Info.AccessWindowSize.Y;
+            _graphics.ApplyChanges();
 
             base.Initialize();
         }
@@ -26,8 +28,9 @@ namespace Cheatscape
         protected override void LoadContent()
         {
             _spriteBatch = new SpriteBatch(GraphicsDevice);
+            Global_Info.AccessContentManager = Content;
 
-            // TODO: use this.Content to load your game content here
+            Global_Info.Load();
         }
 
         protected override void Update(GameTime gameTime)
@@ -35,7 +38,7 @@ namespace Cheatscape
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
-            // TODO: Add your update logic here
+            Global_Info.Update();
 
             base.Update(gameTime);
         }
@@ -44,7 +47,11 @@ namespace Cheatscape
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
-            // TODO: Add your drawing code here
+            _spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.NonPremultiplied, SamplerState.PointClamp, null, null, null, Matrix.CreateScale(Global_Info.AccessScreenScale));
+
+            Global_Info.Draw(_spriteBatch);
+
+            _spriteBatch.End();
 
             base.Draw(gameTime);
         }
