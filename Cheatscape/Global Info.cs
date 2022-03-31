@@ -17,11 +17,9 @@ namespace Cheatscape
         public static float AccessScreenScale { get => ScreenScale; set => ScreenScale = value; }
         public static Vector2 AccessWindowSize { get => WindowSize; set => WindowSize = value; }
 
-        static Texture2D Test;
-
         public static void Load()
         {
-            Test = ContentManager.Load<Texture2D>("Box");
+            Game_Board.Load();
         }
 
         public static void Update()
@@ -31,7 +29,7 @@ namespace Cheatscape
 
         public static void Draw(SpriteBatch aSpriteBatch)
         {
-            aSpriteBatch.Draw(Test, new Vector2(0, 0), Color.White);
+            Game_Board.Draw(aSpriteBatch);
         }
     }
 }

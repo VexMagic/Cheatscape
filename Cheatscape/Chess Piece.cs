@@ -14,12 +14,12 @@ namespace Cheatscape
         public Chess_Piece(int aPieceType)
         {
             myPieceType = aPieceType;
-            myTexture = Global_Info.AccessContentManager.Load<Texture2D>(Game_Board.AccessPieceTextures[myPieceType]);
+            myTexture = Global_Info.AccessContentManager.Load<Texture2D>("Chess Pieces");
         }
 
-        public void Draw(SpriteBatch aSpriteBatch, Vector2 aPosition)
+        public void Draw(SpriteBatch aSpriteBatch, Vector2 aPos)
         {
-            aSpriteBatch.Draw(myTexture, aPosition, Color.White);
+            aSpriteBatch.Draw(myTexture, new Rectangle((int)aPos.X, (int)aPos.Y, 32, 32), new Rectangle(32 * myPieceType, 0, 32, 32), Color.White, 0, new Vector2(0, 0), SpriteEffects.None, 0);
         }
     }
 }
