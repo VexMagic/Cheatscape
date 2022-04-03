@@ -19,17 +19,22 @@ namespace Cheatscape
             ChessBoard = Global_Info.AccessContentManager.Load<Texture2D>("Chess Board");
 
             int tempPiece = 0;
+            bool tempOwner = true;
 
             for (int i = 0; i < ChessPiecesOnBoard.GetLength(0); i++)
             {
                 for (int j = 0; j < ChessPiecesOnBoard.GetLength(1); j++)
                 {
-                    ChessPiecesOnBoard[i, j] = new Chess_Piece(tempPiece);
+                    ChessPiecesOnBoard[i, j] = new Chess_Piece(tempPiece, tempOwner);
                     tempPiece++;
                     if (tempPiece >= 7)
                     {
                         tempPiece = 0;
-                    }    
+                    }
+                    if (tempOwner)
+                        tempOwner = false;
+                    else
+                        tempOwner = true;
                 }
             }
         }

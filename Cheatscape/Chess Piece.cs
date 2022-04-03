@@ -10,16 +10,21 @@ namespace Cheatscape
     {
         Texture2D myTexture;
         public int myPieceType;
+        public bool isWhitePiece;
 
-        public Chess_Piece(int aPieceType)
+        public Chess_Piece(int aPieceType, bool isWhite)
         {
             myPieceType = aPieceType;
+            isWhitePiece = isWhite;
             myTexture = Global_Info.AccessContentManager.Load<Texture2D>("Chess Pieces");
         }
 
         public void Draw(SpriteBatch aSpriteBatch, Vector2 aPos)
         {
-            aSpriteBatch.Draw(myTexture, new Rectangle((int)aPos.X, (int)aPos.Y, 32, 32), new Rectangle(32 * myPieceType, 0, 32, 32), Color.White, 0, new Vector2(0, 0), SpriteEffects.None, 0);
+            if (isWhitePiece)
+                aSpriteBatch.Draw(myTexture, new Rectangle((int)aPos.X, (int)aPos.Y, 32, 32), new Rectangle(32 * myPieceType, 0, 32, 32), Color.White, 0, new Vector2(0, 0), SpriteEffects.None, 0);
+            else
+                aSpriteBatch.Draw(myTexture, new Rectangle((int)aPos.X, (int)aPos.Y, 32, 32), new Rectangle(32 * myPieceType, 32, 32, 32), Color.White, 0, new Vector2(0, 0), SpriteEffects.None, 0);
         }
     }
 }
