@@ -9,7 +9,7 @@ namespace Cheatscape
     class Chess_Piece
     {
         Texture2D myTexture;
-        int myPieceType;
+        public int myPieceType;
 
         public Chess_Piece(int aPieceType)
         {

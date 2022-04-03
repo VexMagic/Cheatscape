@@ -20,11 +20,12 @@ namespace Cheatscape
         public static void Load()
         {
             Game_Board.Load();
+            File_Manager.LoadLevel();
         }
 
         public static void Update()
         {
-            
+            Level_Manager.Update();
         }
 
         public static void Draw(SpriteBatch aSpriteBatch)
