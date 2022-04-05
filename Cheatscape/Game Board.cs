@@ -18,11 +18,6 @@ namespace Cheatscape
         {
             ChessBoard = Global_Info.AccessContentManager.Load<Texture2D>("Chess Board");
 
-            SetBasicBoardState();
-        }
-
-        public static void SetBasicBoardState()
-        {
             for (int x = 0; x < ChessPiecesOnBoard.GetLength(0); x++)
             {
                 for (int y = 0; y < ChessPiecesOnBoard.GetLength(1); y++)
@@ -80,16 +75,6 @@ namespace Cheatscape
             ChessPiecesOnBoard[(int)aMove.myEndingPos.X, (int)aMove.myEndingPos.Y].myPieceType = ChessPiecesOnBoard[(int)aMove.myStartingPos.X, (int)aMove.myStartingPos.Y].myPieceType;
             ChessPiecesOnBoard[(int)aMove.myEndingPos.X, (int)aMove.myEndingPos.Y].isWhitePiece = ChessPiecesOnBoard[(int)aMove.myStartingPos.X, (int)aMove.myStartingPos.Y].isWhitePiece;
             ChessPiecesOnBoard[(int)aMove.myStartingPos.X, (int)aMove.myStartingPos.Y].myPieceType = 0;
-        }
-
-        public static void MoveBack()
-        {
-            SetBasicBoardState();
-
-            for (int i = 0; i < Level_Manager.AccessCurrentSlide - 1; i++)
-            {
-                MoveChessPiece(Level_Manager.AccessAllMoves[i]);
-            }
         }
 
         public static void Draw(SpriteBatch aSpriteBatch)

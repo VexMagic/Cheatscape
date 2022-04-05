@@ -15,7 +15,6 @@ namespace Cheatscape
 
         public static int AccessCurrentLevel { get => CurrentLevel; set => CurrentLevel = value; }
         public static List<Chess_Move> AccessAllMoves { get => AllMoves; set => AllMoves = value; }
-        public static int AccessCurrentSlide { get => CurrentSlide; set => CurrentSlide = value; }
 
         public static void Update()
         {
@@ -24,7 +23,6 @@ namespace Cheatscape
 
             if (Keyboard.GetState().IsKeyDown(Keys.Left) && CurrentSlide > 0 && ButtonCooldown == 0)
             {
-                Game_Board.MoveBack();
                 CurrentSlide--;
                 ButtonCooldown = 12;
             }
