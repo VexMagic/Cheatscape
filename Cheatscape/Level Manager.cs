@@ -24,17 +24,20 @@ namespace Cheatscape
 
             if (Keyboard.GetState().IsKeyDown(Keys.Left) && CurrentSlide > 0 && ButtonCooldown == 0)
             {
-                Game_Board.MoveBack();
+                Hand_Animation_Manager.ResetAllHands();
+                Game_Board.SetBoardState();
                 CurrentSlide--;
                 ButtonCooldown = 12;
             }
             else if(Keyboard.GetState().IsKeyDown(Keys.Right) && CurrentSlide < AllMoves.Count && ButtonCooldown == 0)
             {
+                Hand_Animation_Manager.ResetAllHands();
                 for (int i = 0; i < AllMoves[CurrentSlide].Count; i++)
                 {
-                    Game_Board.MoveChessPiece(AllMoves[CurrentSlide][i]);
+                    Game_Board.MoveChessPiece(AllMoves[CurrentSlide][i], true);
                 }
                 CurrentSlide++;
+                Game_Board.SetBoardState();
                 ButtonCooldown = 12;
             }
         }

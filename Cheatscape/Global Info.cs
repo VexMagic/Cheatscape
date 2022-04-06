@@ -21,16 +21,19 @@ namespace Cheatscape
         {
             Game_Board.Load();
             File_Manager.LoadLevel();
+            Hand_Animation_Manager.Load();
         }
 
         public static void Update()
         {
             Level_Manager.Update();
+            Hand_Animation_Manager.Update();
         }
 
         public static void Draw(SpriteBatch aSpriteBatch)
         {
             Game_Board.Draw(aSpriteBatch);
+            Hand_Animation_Manager.Draw(aSpriteBatch);
         }
     }
 }

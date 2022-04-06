@@ -9,9 +9,13 @@ namespace Cheatscape
     static class Game_Board
     {
         static Chess_Piece[,] ChessPiecesOnBoard = new Chess_Piece[8, 8];
-
         static Vector2 BoardPosition = new Vector2(112, 7);
         static int TileSize = 32;
+
+        public static Chess_Piece[,] AccessChessPiecesOnBoard { get => ChessPiecesOnBoard; set => ChessPiecesOnBoard = value; }
+        public static Vector2 AccessBoardPosition { get => BoardPosition; set => BoardPosition = value; }
+        public static int AccessTileSize { get => TileSize; set => TileSize = value; }
+
         static Texture2D ChessBoard;
 
         public static void Load()
@@ -75,14 +79,21 @@ namespace Cheatscape
             }
         }
 
-        public static void MoveChessPiece(Chess_Move aMove)
+        public static void MoveChessPiece(Chess_Move aMove, bool isAnimated)
         {
-            ChessPiecesOnBoard[(int)aMove.myEndingPos.X, (int)aMove.myEndingPos.Y].myPieceType = ChessPiecesOnBoard[(int)aMove.myStartingPos.X, (int)aMove.myStartingPos.Y].myPieceType;
-            ChessPiecesOnBoard[(int)aMove.myEndingPos.X, (int)aMove.myEndingPos.Y].isWhitePiece = ChessPiecesOnBoard[(int)aMove.myStartingPos.X, (int)aMove.myStartingPos.Y].isWhitePiece;
-            ChessPiecesOnBoard[(int)aMove.myStartingPos.X, (int)aMove.myStartingPos.Y].myPieceType = 0;
+            if (isAnimated)
+            {
+                Hand_Animation_Manager.GiveHandDirection(aMove);
+            }
+            else
+            {
+                ChessPiecesOnBoard[(int)aMove.myEndingPos.X, (int)aMove.myEndingPos.Y].myPieceType = ChessPiecesOnBoard[(int)aMove.myStartingPos.X, (int)aMove.myStartingPos.Y].myPieceType;
+                ChessPiecesOnBoard[(int)aMove.myEndingPos.X, (int)aMove.myEndingPos.Y].isWhitePiece = ChessPiecesOnBoard[(int)aMove.myStartingPos.X, (int)aMove.myStartingPos.Y].isWhitePiece;
+                ChessPiecesOnBoard[(int)aMove.myStartingPos.X, (int)aMove.myStartingPos.Y].myPieceType = 0;
+            }
         }
 
-        public static void MoveBack()
+        public static void SetBoardState()
         {
             SetBasicBoardState();
 
@@ -90,7 +101,7 @@ namespace Cheatscape
             {
                 for (int j = 0; j < Level_Manager.AccessAllMoves[i].Count; j++)
                 {
-                    MoveChessPiece(Level_Manager.AccessAllMoves[i][j]);
+                    MoveChessPiece(Level_Manager.AccessAllMoves[i][j], false);
                 }
             }
         }

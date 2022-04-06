@@ -19,6 +19,13 @@ namespace Cheatscape
             myTexture = Global_Info.AccessContentManager.Load<Texture2D>("Chess Pieces");
         }
 
+        public Chess_Piece(Chess_Piece aPiece)
+        {
+            myPieceType = aPiece.myPieceType;
+            isWhitePiece = aPiece.isWhitePiece;
+            myTexture = Global_Info.AccessContentManager.Load<Texture2D>("Chess Pieces");
+        }
+
         public void Draw(SpriteBatch aSpriteBatch, Vector2 aPos)
         {
             if (isWhitePiece)
