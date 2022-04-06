@@ -14,6 +14,8 @@ namespace Cheatscape
         {
             myStartingPos = DecryptPosition(aStart);
             myEndingPos = DecryptPosition(anEnd);
+
+            //add so you can specify that a piece gets removed instead of moving
         }
 
         Vector2 DecryptPosition(string aPosition)

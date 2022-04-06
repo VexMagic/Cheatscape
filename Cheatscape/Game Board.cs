@@ -88,7 +88,10 @@ namespace Cheatscape
 
             for (int i = 0; i < Level_Manager.AccessCurrentSlide - 1; i++)
             {
-                MoveChessPiece(Level_Manager.AccessAllMoves[i]);
+                for (int j = 0; j < Level_Manager.AccessAllMoves[i].Count; j++)
+                {
+                    MoveChessPiece(Level_Manager.AccessAllMoves[i][j]);
+                }
             }
         }
 

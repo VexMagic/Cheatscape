@@ -17,9 +17,17 @@ namespace Cheatscape
             StreamReader file = new StreamReader(tempDirectory);
             while ((tempLine = file.ReadLine()) != null)
             {
-                string[] tempSeperatedData = tempLine.Split(';');
+                string[] tempSeperatedMoves = tempLine.Split(',');
+                List<Chess_Move> tempMoves = new List<Chess_Move>();
 
-                Level_Manager.AccessAllMoves.Add(new Chess_Move(tempSeperatedData[0], tempSeperatedData[1]));
+                for (int i = 0; i < tempSeperatedMoves.Length; i++)
+                {
+                    string[] tempSeperatedData = tempSeperatedMoves[i].Split(';');
+
+                    tempMoves.Add(new Chess_Move(tempSeperatedData[0], tempSeperatedData[1]));
+                }
+
+                Level_Manager.AccessAllMoves.Add(tempMoves);
 
                 tempCounter++;
             }
