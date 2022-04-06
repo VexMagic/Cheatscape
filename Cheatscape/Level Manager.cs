@@ -8,7 +8,6 @@ namespace Cheatscape
     static class Level_Manager
     {
         static int CurrentLevel = 0;
-
         static List<List<Chess_Move>> AllMoves = new List<List<Chess_Move>>();
         static int CurrentSlide = 0;
         static int ButtonCooldown = 0;

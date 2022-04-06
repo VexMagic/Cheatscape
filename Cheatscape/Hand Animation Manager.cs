@@ -12,8 +12,8 @@ namespace Cheatscape
 
         public static void Load()
         {
-            AllHands.Add(new Hand(new Vector2(416, 206)));
-            AllHands.Add(new Hand(new Vector2(0, 0)));
+            AllHands.Add(new Hand(new Vector2(416, 206))); //White Hand
+            AllHands.Add(new Hand(new Vector2(0, 0))); //Black Hand
         }
 
         public static void GiveHandDirection(Chess_Move aMove)
