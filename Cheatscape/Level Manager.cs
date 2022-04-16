@@ -12,6 +12,7 @@ namespace Cheatscape
         static List<List<Chess_Move>> AllMoves = new List<List<Chess_Move>>();
         static int CurrentSlide = 0;
         static bool FindingCheat = false;
+        static int AmountOfRuleLists = 3;
 
         public static int AccessCurrentLevel { get => CurrentLevel; set => CurrentLevel = value; }
         public static List<List<Chess_Move>> AccessAllMoves { get => AllMoves; set => AllMoves = value; }
@@ -33,7 +34,7 @@ namespace Cheatscape
                     Rules_List.AccessCurrentRuleList--;
                     if (Rules_List.AccessCurrentRuleList < 0)
                     {
-                        Rules_List.AccessCurrentRuleList = 3;
+                        Rules_List.AccessCurrentRuleList = AmountOfRuleLists - 1;
                     }
                     Rules_List.AccessCurrentRule = 0;
                     Global_Info.AccessButtonCooldown = 12;
@@ -52,7 +53,7 @@ namespace Cheatscape
                 else if (Keyboard.GetState().IsKeyDown(Keys.Right) && FindingCheat)
                 {
                     Rules_List.AccessCurrentRuleList++;
-                    if (Rules_List.AccessCurrentRuleList > 3)
+                    if (Rules_List.AccessCurrentRuleList >= AmountOfRuleLists)
                     {
                         Rules_List.AccessCurrentRuleList = 0;
                     }

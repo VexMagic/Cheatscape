@@ -20,24 +20,30 @@ namespace Cheatscape
         static int MaximumTextBoxWidth = 100;
         static int LineSize = 9;
         static int BetweenLineSize = 12;
-        static Vector2 TextPosition = new Vector2(6, 6);
+        static Vector2 TextPosition = new Vector2(6, 26);
 
         static string[] GeneralRules = { 
             "The white player always starts.", 
             "The starting board state is shown below.", 
-            "Only one piece may be moved per turn (not including castling).", 
+            "Only one piece may be moved per turn (not including Castling).", 
             "A piece can only move to an unoccupied space or one occupied by an opposing piece.", 
             "If a piece is moved to a space occupied by an opposing piece, the opposing piece is captured and removed from the game.",
-            "If a Pawn reaches the other side of the board, it is replaced by a new queen, rook, bishop, or knight of the same color.",
-            "A tie happens when the same board state occurs 3 times or when both players have made 50 moves."};
+            "If a Pawn reaches the other side of the board, it is replaced by a new queen, rook, bishop, or knight of the same color."};
         static string[] MovementRules = { 
             "The Pawn moves one space forward but on its first move it can move one or two spaces forward.",
             "The Pawn can only attack one space diagonally ahead and not straight forward.", 
             "The Rook can move any number of spaces in a straight line vertically or horizontally.",
             "The Bishop can move any number of spaces in a straight line diagonally.",
-            ""};
-        static string[] KingRules = { };
-        static string[] Castling = { };
+            "The Knight can move in an L shape and is the only piece that can jump over others.",
+            "The Queen can move any number of spaces in a straight line vertically, horizontally or diagonally.",
+            "The King can move one space in any direction."};
+        static string[] ExtraRules = { 
+            "If the King is being threatened by an opposing piece, its player has to move a piece to secure the King. This is called Check.",
+            "If the King is in Check and its player can't secure it on their turn, the opponent wins. This is called Checkmate.",
+            "The a piece can't make a move that causes its King to be in Check.",
+            "A tie happens when the same board state occurs 3 times or when both players have made 50 moves.", 
+            "If the King and a Rook have not moved yet, the King can move 2 spaces towards the Rook causing the Rook to move to the space next to the King on the opposite side. This is called Castling.", 
+            "Castling is not allowed if the King moves out of, through or into a space where it would be in Check."};
 
         public static void Load() //get font
         {
@@ -51,16 +57,25 @@ namespace Cheatscape
             switch (CurrentRuleList)
             {
                 case 0:
+                    if (CurrentRule >= GeneralRules.Length)
+                        CurrentRule = 0;
+                    else if (CurrentRule < 0)
+                        CurrentRule = GeneralRules.Length - 1;
                     DrawTextBox(GeneralRules, aSpriteBatch);
                     break;
                 case 1:
+                    if (CurrentRule >= MovementRules.Length)
+                        CurrentRule = 0;
+                    else if (CurrentRule < 0)
+                        CurrentRule = MovementRules.Length - 1;
                     DrawTextBox(MovementRules, aSpriteBatch);
                     break;
                 case 2:
-                    DrawTextBox(KingRules, aSpriteBatch);
-                    break;
-                case 3:
-                    DrawTextBox(Castling, aSpriteBatch);
+                    if (CurrentRule >= ExtraRules.Length)
+                        CurrentRule = 0;
+                    else if (CurrentRule < 0)
+                        CurrentRule = ExtraRules.Length - 1;
+                    DrawTextBox(ExtraRules, aSpriteBatch);
                     break;
             }
         }
@@ -162,7 +177,7 @@ namespace Cheatscape
                 return 0;
             else if (tempScrollAmount > MaxScroll(aStringArray))
             {
-                if (MaxScroll(aStringArray) > (int)(Global_Info.AccessWindowSize.Y / Global_Info.AccessScreenScale))
+                if (MaxScroll(aStringArray) > 0)
                     return MaxScroll(aStringArray);
                 else
                     return 0;
@@ -200,7 +215,7 @@ namespace Cheatscape
                 tempMaxScroll += BetweenLineSize;
             }
 
-            return tempMaxScroll + 4;
+            return tempMaxScroll + (int)TextPosition.Y - 2;
         }
     }
 }
