@@ -12,7 +12,6 @@ namespace Cheatscape
         static Texture2D Panel;
         static Texture2D Numbers; 
 
-        static int ButtonCooldown = 0;
         static int SelectedLevel = 0;
         static int LevelAmount = 2;
 
@@ -24,20 +23,17 @@ namespace Cheatscape
 
         public static void Update()
         {
-            if (ButtonCooldown > 0)
-                ButtonCooldown--;
-
-            if (ButtonCooldown == 0)
+            if (Global_Info.AccessButtonCooldown == 0)
             {
                 if (Keyboard.GetState().IsKeyDown(Keys.Left) && SelectedLevel > 0)
                 {
                     SelectedLevel--;
-                    ButtonCooldown = 12;
+                    Global_Info.AccessButtonCooldown = 12;
                 }
                 else if (Keyboard.GetState().IsKeyDown(Keys.Right) && SelectedLevel < LevelAmount - 1)
                 {
                     SelectedLevel++;
-                    ButtonCooldown = 12;
+                    Global_Info.AccessButtonCooldown = 12;
                 }
                 else if (Keyboard.GetState().IsKeyDown(Keys.Space))
                 {

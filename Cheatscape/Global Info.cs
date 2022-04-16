@@ -12,12 +12,14 @@ namespace Cheatscape
         static ContentManager ContentManager;
         static float ScreenScale = 2f;
         static Vector2 WindowSize = new Vector2(480 * ScreenScale, 270 * ScreenScale);
+        static int ButtonCooldown = 0;
         public enum GameState { LevelSelect, PlayingLevel };
         static GameState CurrentGameState = GameState.LevelSelect;
 
         public static ContentManager AccessContentManager { get => ContentManager; set => ContentManager = value; }
         public static float AccessScreenScale { get => ScreenScale; set => ScreenScale = value; }
         public static Vector2 AccessWindowSize { get => WindowSize; set => WindowSize = value; }
+        public static int AccessButtonCooldown { get => ButtonCooldown; set => ButtonCooldown = value; }
         public static GameState AccessCurrentGameState { get => CurrentGameState; set => CurrentGameState = value; }
 
 
@@ -27,10 +29,14 @@ namespace Cheatscape
             //File_Manager.LoadLevel();
             Hand_Animation_Manager.Load();
             Level_Select_Menu.Load();
+            Rules_List.Load();
         }
 
         public static void Update()
         {
+            if (ButtonCooldown > 0)
+                ButtonCooldown--;
+
             switch (CurrentGameState)
             {
                 case GameState.LevelSelect:
@@ -53,6 +59,7 @@ namespace Cheatscape
                 case GameState.PlayingLevel:
                     Game_Board.Draw(aSpriteBatch);
                     Hand_Animation_Manager.Draw(aSpriteBatch);
+                    Level_Manager.Draw(aSpriteBatch);
                     break;
             }
         }

@@ -9,7 +9,7 @@ namespace Cheatscape
     static class Game_Board
     {
         static Chess_Piece[,] ChessPiecesOnBoard = new Chess_Piece[8, 8];
-        static Vector2 BoardPosition = new Vector2(112, 7);
+        static Vector2 BoardPosition = new Vector2(112, 5);
         static int TileSize = 32;
 
         public static Chess_Piece[,] AccessChessPiecesOnBoard { get => ChessPiecesOnBoard; set => ChessPiecesOnBoard = value; }
