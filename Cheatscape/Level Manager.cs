@@ -11,6 +11,7 @@ namespace Cheatscape
         static List<List<Chess_Move>> AllMoves = new List<List<Chess_Move>>();
         static int CurrentSlide = 0;
         static int ButtonCooldown = 0;
+        static bool FindingCheat = false;
 
         public static int AccessCurrentLevel { get => CurrentLevel; set => CurrentLevel = value; }
         public static List<List<Chess_Move>> AccessAllMoves { get => AllMoves; set => AllMoves = value; }
@@ -38,6 +39,13 @@ namespace Cheatscape
                 CurrentSlide++;
                 Game_Board.SetBoardState();
                 ButtonCooldown = 12;
+            }
+            else if (Keyboard.GetState().IsKeyDown(Keys.Space) && ButtonCooldown == 0)
+            {
+                if (!FindingCheat)
+                {
+                    FindingCheat = true;
+                }
             }
         }
     }
