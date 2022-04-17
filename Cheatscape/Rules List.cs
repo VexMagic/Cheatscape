@@ -36,9 +36,10 @@ namespace Cheatscape
             "The Pawn can only attack one space diagonally ahead and not straight forward.", 
             "The Rook can move any number of spaces in a straight line vertically or horizontally.",
             "The Bishop can move any number of spaces in a straight line diagonally.",
-            "The Knight can move in an L shape and is the only piece that can jump over others.",
+            "The Knight can move in an L shape.",
             "The Queen can move any number of spaces in a straight line vertically, horizontally or diagonally.",
-            "The King can move one space in any direction."};
+            "The King can move one space in any direction.",
+            "The Knight is the only piece that can jump over other pieces"};
         static string[] ExtraRules = { 
             "If the King is being threatened by an opposing piece, its player has to move a piece to secure the King. This is called Check.",
             "If the King is in Check and its player can't secure it on their turn, the opponent wins. This is called Checkmate.",
@@ -83,11 +84,8 @@ namespace Cheatscape
             aSpriteBatch.Draw(Banner, new Rectangle(0, 0, MaximumTextBoxWidth + (int)(TextPosition.X * 2), 20), new Rectangle(0, 0, MaximumTextBoxWidth + (int)(TextPosition.X * 2), 20), Color.White, 0, new Vector2(0, 0), SpriteEffects.None, 0);
             aSpriteBatch.Draw(Banner, new Rectangle(0, 20, MaximumTextBoxWidth + (int)(TextPosition.X * 2), 17), new Rectangle(0, (CurrentRuleList * 17) + 20, MaximumTextBoxWidth + (int)(TextPosition.X * 2), 17), Color.White, 0, new Vector2(0, 0), SpriteEffects.None, 0);
 
-            if (CurrentRuleList == 0 && CurrentRule < 4)
-            {
-                Texture2D tempRuleImage = Global_Info.AccessContentManager.Load<Texture2D>("Rule Images/" + CurrentRuleList + "-" + CurrentRule);
-                aSpriteBatch.Draw(tempRuleImage, new Rectangle(375, 7, 96, 96), Color.White);
-            }
+            Texture2D tempRuleImage = Global_Info.AccessContentManager.Load<Texture2D>("Rule Images/" + CurrentRuleList + "-" + CurrentRule);
+            aSpriteBatch.Draw(tempRuleImage, new Rectangle(375, 7, 96, 96), Color.White);
 
             aSpriteBatch.Draw(ImageBoarder, new Rectangle(372, 4, 102, 102), Color.White);
         }
