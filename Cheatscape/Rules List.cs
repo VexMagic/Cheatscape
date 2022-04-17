@@ -11,6 +11,7 @@ namespace Cheatscape
         static SpriteFont Font;
         static Texture2D Background;
         static Texture2D Selector;
+        static Texture2D Banner;
 
         static int CurrentRuleList = 0;
         static int CurrentRule = 0;
@@ -20,7 +21,7 @@ namespace Cheatscape
         static int MaximumTextBoxWidth = 100;
         static int LineSize = 9;
         static int BetweenLineSize = 12;
-        static Vector2 TextPosition = new Vector2(6, 26);
+        static Vector2 TextPosition = new Vector2(6, 43);
 
         static string[] GeneralRules = { 
             "The white player always starts.", 
@@ -50,34 +51,35 @@ namespace Cheatscape
             Font = Global_Info.AccessContentManager.Load<SpriteFont>("Font");
             Background = Global_Info.AccessContentManager.Load<Texture2D>("TextboxBackground");
             Selector = Global_Info.AccessContentManager.Load<Texture2D>("Selector");
+            Banner = Global_Info.AccessContentManager.Load<Texture2D>("Rules Banner");
         }
 
         public static void Draw(SpriteBatch aSpriteBatch)
         {
+            string[] tempArray = GeneralRules;
+
             switch (CurrentRuleList)
             {
                 case 0:
-                    if (CurrentRule >= GeneralRules.Length)
-                        CurrentRule = 0;
-                    else if (CurrentRule < 0)
-                        CurrentRule = GeneralRules.Length - 1;
-                    DrawTextBox(GeneralRules, aSpriteBatch);
+                    tempArray = GeneralRules;
                     break;
                 case 1:
-                    if (CurrentRule >= MovementRules.Length)
-                        CurrentRule = 0;
-                    else if (CurrentRule < 0)
-                        CurrentRule = MovementRules.Length - 1;
-                    DrawTextBox(MovementRules, aSpriteBatch);
+                    tempArray = MovementRules;
                     break;
                 case 2:
-                    if (CurrentRule >= ExtraRules.Length)
-                        CurrentRule = 0;
-                    else if (CurrentRule < 0)
-                        CurrentRule = ExtraRules.Length - 1;
-                    DrawTextBox(ExtraRules, aSpriteBatch);
+                    tempArray = ExtraRules;
                     break;
             }
+
+            if (CurrentRule >= tempArray.Length)
+                CurrentRule = tempArray.Length - 1;
+            else if (CurrentRule < 0)
+                CurrentRule = 0;
+
+            DrawTextBox(tempArray, aSpriteBatch);
+
+            aSpriteBatch.Draw(Banner, new Rectangle(0, 0, MaximumTextBoxWidth + (int)(TextPosition.X * 2), 20), new Rectangle(0, 0, MaximumTextBoxWidth + (int)(TextPosition.X * 2), 20), Color.White, 0, new Vector2(0, 0), SpriteEffects.None, 0);
+            aSpriteBatch.Draw(Banner, new Rectangle(0, 20, MaximumTextBoxWidth + (int)(TextPosition.X * 2), 17), new Rectangle(0, (CurrentRuleList * 17) + 20, MaximumTextBoxWidth + (int)(TextPosition.X * 2), 17), Color.White, 0, new Vector2(0, 0), SpriteEffects.None, 0);
         }
 
         public static void DrawText(string aString, int anXPos, int aYPos, SpriteBatch aSpriteBatch) //draw text
