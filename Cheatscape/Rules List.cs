@@ -83,7 +83,7 @@ namespace Cheatscape
             aSpriteBatch.Draw(Banner, new Rectangle(0, 0, MaximumTextBoxWidth + (int)(TextPosition.X * 2), 20), new Rectangle(0, 0, MaximumTextBoxWidth + (int)(TextPosition.X * 2), 20), Color.White, 0, new Vector2(0, 0), SpriteEffects.None, 0);
             aSpriteBatch.Draw(Banner, new Rectangle(0, 20, MaximumTextBoxWidth + (int)(TextPosition.X * 2), 17), new Rectangle(0, (CurrentRuleList * 17) + 20, MaximumTextBoxWidth + (int)(TextPosition.X * 2), 17), Color.White, 0, new Vector2(0, 0), SpriteEffects.None, 0);
 
-            if (CurrentRuleList == 0 && CurrentRule == 1)
+            if (CurrentRuleList == 0 && CurrentRule < 4)
             {
                 Texture2D tempRuleImage = Global_Info.AccessContentManager.Load<Texture2D>("Rule Images/" + CurrentRuleList + "-" + CurrentRule);
                 aSpriteBatch.Draw(tempRuleImage, new Rectangle(375, 7, 96, 96), Color.White);

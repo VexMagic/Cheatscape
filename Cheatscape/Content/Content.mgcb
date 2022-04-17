@@ -92,6 +92,18 @@
 /processorParam:TextureFormat=Color
 /build:Rule Image Boarder.png
 
+#begin Rule Images/0-0.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Rule Images/0-0.png
+
 #begin Rule Images/0-1.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -103,6 +115,30 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Rule Images/0-1.png
+
+#begin Rule Images/0-2.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Rule Images/0-2.png
+
+#begin Rule Images/0-3.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Rule Images/0-3.png
 
 #begin Rules Banner.png
 /importer:TextureImporter
