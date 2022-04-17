@@ -12,6 +12,7 @@ namespace Cheatscape
         static Texture2D Background;
         static Texture2D Selector;
         static Texture2D Banner;
+        static Texture2D ImageBoarder;
 
         static int CurrentRuleList = 0;
         static int CurrentRule = 0;
@@ -25,7 +26,7 @@ namespace Cheatscape
 
         static string[] GeneralRules = { 
             "The white player always starts.", 
-            "The starting board state is shown below.", 
+            "The starting board state is shown to the right.", 
             "Only one piece may be moved per turn (not including Castling).", 
             "A piece can only move to an unoccupied space or one occupied by an opposing piece.", 
             "If a piece is moved to a space occupied by an opposing piece, the opposing piece is captured and removed from the game.",
@@ -52,6 +53,7 @@ namespace Cheatscape
             Background = Global_Info.AccessContentManager.Load<Texture2D>("TextboxBackground");
             Selector = Global_Info.AccessContentManager.Load<Texture2D>("Selector");
             Banner = Global_Info.AccessContentManager.Load<Texture2D>("Rules Banner");
+            ImageBoarder = Global_Info.AccessContentManager.Load<Texture2D>("Rule Image Boarder");
         }
 
         public static void Draw(SpriteBatch aSpriteBatch)
@@ -80,6 +82,14 @@ namespace Cheatscape
 
             aSpriteBatch.Draw(Banner, new Rectangle(0, 0, MaximumTextBoxWidth + (int)(TextPosition.X * 2), 20), new Rectangle(0, 0, MaximumTextBoxWidth + (int)(TextPosition.X * 2), 20), Color.White, 0, new Vector2(0, 0), SpriteEffects.None, 0);
             aSpriteBatch.Draw(Banner, new Rectangle(0, 20, MaximumTextBoxWidth + (int)(TextPosition.X * 2), 17), new Rectangle(0, (CurrentRuleList * 17) + 20, MaximumTextBoxWidth + (int)(TextPosition.X * 2), 17), Color.White, 0, new Vector2(0, 0), SpriteEffects.None, 0);
+
+            if (CurrentRuleList == 0 && CurrentRule == 1)
+            {
+                Texture2D tempRuleImage = Global_Info.AccessContentManager.Load<Texture2D>("Rule Images/" + CurrentRuleList + "-" + CurrentRule);
+                aSpriteBatch.Draw(tempRuleImage, new Rectangle(375, 7, 96, 96), Color.White);
+            }
+
+            aSpriteBatch.Draw(ImageBoarder, new Rectangle(372, 4, 102, 102), Color.White);
         }
 
         public static void DrawText(string aString, int anXPos, int aYPos, SpriteBatch aSpriteBatch) //draw text
