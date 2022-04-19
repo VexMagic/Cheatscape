@@ -16,22 +16,24 @@ namespace Cheatscape
 
         public Chess_Move(string[] anArray)
         {
+            anArray[0] = anArray[0].ToLower();
+
             switch (anArray[0])
             {
-                case "Add":
+                case "add":
                     MyMoveType = MoveType.AddPiece;
                     myPiece = DecryptPiece(anArray[1]);
                     myStartingPos = DecryptPosition(anArray[2]);
                     break;
-                case "Remove":
+                case "remove":
                     MyMoveType = MoveType.RemovePiece;
                     myStartingPos = DecryptPosition(anArray[1]);
                     break;
-                case "Capture":
+                case "capture":
                     MyMoveType = MoveType.CapturePiece;
                     myPiece = DecryptPiece(anArray[1]);
                     break;
-                case "Move":
+                case "move":
                     MyMoveType = MoveType.MovePiece;
                     myStartingPos = DecryptPosition(anArray[1]);
                     myEndingPos = DecryptPosition(anArray[2]);

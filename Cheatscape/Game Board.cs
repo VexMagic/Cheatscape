@@ -95,10 +95,9 @@ namespace Cheatscape
                     break;
                 case Chess_Move.MoveType.AddPiece:
                     ChessPiecesOnBoard[(int)aMove.myStartingPos.X, (int)aMove.myStartingPos.Y] = new Chess_Piece(aMove.myPiece);
-                    //ChessPiecesOnBoard[(int)aMove.myStartingPos.X, (int)aMove.myStartingPos.Y].myPieceType = aMove.myPiece.myPieceType;
-                    //ChessPiecesOnBoard[(int)aMove.myStartingPos.X, (int)aMove.myStartingPos.Y].isWhitePiece = aMove.myPiece.isWhitePiece;
                     break;
                 case Chess_Move.MoveType.RemovePiece:
+                    ChessPiecesOnBoard[(int)aMove.myStartingPos.X, (int)aMove.myStartingPos.Y].myPieceType = 0;
                     break;
                 case Chess_Move.MoveType.CapturePiece:
                     break;
