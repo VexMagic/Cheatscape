@@ -32,6 +32,7 @@ namespace Cheatscape
                 tempCounter++;
             }
             file.Close();
+            Game_Board.ResetBoard();
         }
 
         public static void SaveTest() //save the winrate of each card

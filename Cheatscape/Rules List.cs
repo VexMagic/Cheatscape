@@ -27,8 +27,8 @@ namespace Cheatscape
         static string[] GeneralRules = { 
             "The white player always starts.", 
             "The starting board state is shown to the right.", 
-            "Only one piece may be moved per turn (not including Castling).", 
-            "A pieces can only be moved on its players turn.",
+            "Only one piece may be moved per turn (not including Castling).",
+            "A piece can only be moved on its player's turn.",
             "A piece can only move to an unoccupied space or one occupied by an opposing piece.", 
             "If a piece is moved to a space occupied by an opposing piece, the opposing piece is captured and removed from the game.",
             "If a Pawn reaches the other side of the board, it is replaced by a new queen, rook, bishop, or knight of the same color."};

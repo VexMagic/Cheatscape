@@ -29,8 +29,29 @@ namespace Cheatscape
             SetBasicBoardState();
         }
 
+        public static void ResetBoard()
+        {
+            ChessPiecesOnBoard = new Chess_Piece[8, 8];
+            CapturedWhitePieces.Clear();
+            CapturedBlackPieces.Clear();
+            Level_Manager.AccessCurrentSlide = 0;
+            Rules_List.AccessCurrentRule = 0;
+            Rules_List.AccessCurrentRuleList = 0;
+            SetBasicBoardState();
+        }
+
         public static void SetBasicBoardState()
         {
+            Level_Manager.AccessAllAnswers.Clear();
+            for (int i = 0; i < Level_Manager.AccessAllMoves.Count; i++)
+            {
+                for (int j = 0; j < Level_Manager.AccessAllMoves[i].Count; j++)
+                {
+                    if (Level_Manager.AccessAllMoves[i][j].MyMoveType == Chess_Move.MoveType.AnswerCheat)
+                        Level_Manager.AccessAllAnswers.Add(new Tuple<Chess_Move, int>(Level_Manager.AccessAllMoves[i][j], i + 1));
+                }
+            }
+
             for (int x = 0; x < ChessPiecesOnBoard.GetLength(0); x++)
             {
                 for (int y = 0; y < ChessPiecesOnBoard.GetLength(1); y++)
@@ -120,6 +141,8 @@ namespace Cheatscape
                         CapturedWhitePieces.Add(new Chess_Piece(aMove.myPiece));
                     else if (!aMove.myPiece.isWhitePiece)
                         CapturedBlackPieces.Add(new Chess_Piece(aMove.myPiece));
+                    break;
+                case Chess_Move.MoveType.AnswerCheat:
                     break;
             }
         }
