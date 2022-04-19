@@ -24,7 +24,7 @@ namespace Cheatscape
                 {
                     string[] tempSeperatedData = tempSeperatedMoves[i].Split(';');
 
-                    tempMoves.Add(new Chess_Move(tempSeperatedData[0], tempSeperatedData[1]));
+                    tempMoves.Add(new Chess_Move(tempSeperatedData));
                 }
 
                 Level_Manager.AccessAllMoves.Add(tempMoves);

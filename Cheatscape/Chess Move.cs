@@ -7,15 +7,36 @@ namespace Cheatscape
 {
     class Chess_Move
     {
+        public enum MoveType { MovePiece, AddPiece, RemovePiece, CapturePiece };
+        public MoveType MyMoveType;
+
         public Vector2 myStartingPos;
         public Vector2 myEndingPos;
+        public Chess_Piece myPiece;
 
-        public Chess_Move(string aStart, string anEnd)
+        public Chess_Move(string[] anArray)
         {
-            myStartingPos = DecryptPosition(aStart);
-            myEndingPos = DecryptPosition(anEnd);
-
-            //add so you can specify that a piece gets removed instead of moving
+            switch (anArray[0])
+            {
+                case "Add":
+                    MyMoveType = MoveType.AddPiece;
+                    myPiece = DecryptPiece(anArray[1]);
+                    myStartingPos = DecryptPosition(anArray[2]);
+                    break;
+                case "Remove":
+                    MyMoveType = MoveType.RemovePiece;
+                    myStartingPos = DecryptPosition(anArray[1]);
+                    break;
+                case "Capture":
+                    MyMoveType = MoveType.CapturePiece;
+                    myPiece = DecryptPiece(anArray[1]);
+                    break;
+                case "Move":
+                    MyMoveType = MoveType.MovePiece;
+                    myStartingPos = DecryptPosition(anArray[1]);
+                    myEndingPos = DecryptPosition(anArray[2]);
+                    break;
+            }
         }
 
         Vector2 DecryptPosition(string aPosition)
@@ -53,6 +74,48 @@ namespace Cheatscape
             }
 
             return new Vector2(tempXPos, tempYPos);
+        }
+
+        Chess_Piece DecryptPiece(string aPiece)
+        {
+            aPiece = aPiece.ToLower();
+
+            int tempPieceType = 0;
+            bool tempIsWhite = true;
+
+            switch (aPiece[0])
+            {
+                case 'w':
+                    tempIsWhite = true;
+                    break;
+                case 'b':
+                    tempIsWhite = false;
+                    break;
+            }
+
+            switch (aPiece[1])
+            {
+                case 'p':
+                    tempPieceType = 1;
+                    break;
+                case 'r':
+                    tempPieceType = 2;
+                    break;
+                case 'b':
+                    tempPieceType = 3;
+                    break;
+                case 'n':
+                    tempPieceType = 4;
+                    break;
+                case 'q':
+                    tempPieceType = 5;
+                    break;
+                case 'k':
+                    tempPieceType = 6;
+                    break;
+            }
+
+            return new Chess_Piece(tempPieceType, tempIsWhite);
         }
     }
 }

@@ -81,15 +81,24 @@ namespace Cheatscape
 
         public static void MoveChessPiece(Chess_Move aMove, bool isAnimated)
         {
-            if (isAnimated)
+            switch (aMove.MyMoveType)
             {
-                Hand_Animation_Manager.GiveHandDirection(aMove);
-            }
-            else
-            {
-                ChessPiecesOnBoard[(int)aMove.myEndingPos.X, (int)aMove.myEndingPos.Y].myPieceType = ChessPiecesOnBoard[(int)aMove.myStartingPos.X, (int)aMove.myStartingPos.Y].myPieceType;
-                ChessPiecesOnBoard[(int)aMove.myEndingPos.X, (int)aMove.myEndingPos.Y].isWhitePiece = ChessPiecesOnBoard[(int)aMove.myStartingPos.X, (int)aMove.myStartingPos.Y].isWhitePiece;
-                ChessPiecesOnBoard[(int)aMove.myStartingPos.X, (int)aMove.myStartingPos.Y].myPieceType = 0;
+                case Chess_Move.MoveType.MovePiece:
+                    if (isAnimated)
+                        Hand_Animation_Manager.GiveHandDirection(aMove);
+                    else
+                    {
+                        ChessPiecesOnBoard[(int)aMove.myEndingPos.X, (int)aMove.myEndingPos.Y].myPieceType = ChessPiecesOnBoard[(int)aMove.myStartingPos.X, (int)aMove.myStartingPos.Y].myPieceType;
+                        ChessPiecesOnBoard[(int)aMove.myEndingPos.X, (int)aMove.myEndingPos.Y].isWhitePiece = ChessPiecesOnBoard[(int)aMove.myStartingPos.X, (int)aMove.myStartingPos.Y].isWhitePiece;
+                        ChessPiecesOnBoard[(int)aMove.myStartingPos.X, (int)aMove.myStartingPos.Y].myPieceType = 0;
+                    }
+                    break;
+                case Chess_Move.MoveType.AddPiece:
+                    break;
+                case Chess_Move.MoveType.RemovePiece:
+                    break;
+                case Chess_Move.MoveType.CapturePiece:
+                    break;
             }
         }
 
