@@ -15,16 +15,16 @@ namespace Cheatscape
         static int TileSize = 32;
 
         public static Chess_Piece[,] AccessChessPiecesOnBoard { get => ChessPiecesOnBoard; set => ChessPiecesOnBoard = value; }
-        public static List<Chess_Piece> AccessCapturedWhitePieces { get => CapturedWhitePieces; set => CapturedWhitePieces = value; }
-        public static List<Chess_Piece> AccessCapturedBlackPieces { get => CapturedBlackPieces; set => CapturedBlackPieces = value; }
         public static Vector2 AccessBoardPosition { get => BoardPosition; set => BoardPosition = value; }
         public static int AccessTileSize { get => TileSize; set => TileSize = value; }
 
         static Texture2D ChessBoard;
+        static Texture2D Background;
 
         public static void Load()
         {
             ChessBoard = Global_Info.AccessContentManager.Load<Texture2D>("Chess Board");
+            Background = Global_Info.AccessContentManager.Load<Texture2D>("Background");
 
             SetBasicBoardState();
         }
@@ -141,6 +141,8 @@ namespace Cheatscape
 
         public static void Draw(SpriteBatch aSpriteBatch)
         {
+            aSpriteBatch.Draw(Background, new Rectangle(0, 0, (int)(Global_Info.AccessWindowSize.X / Global_Info.AccessScreenScale), 
+                (int)(Global_Info.AccessWindowSize.Y / Global_Info.AccessScreenScale)), Color.White);
             aSpriteBatch.Draw(ChessBoard, BoardPosition, Color.White);
 
             for (int x = 0; x < ChessPiecesOnBoard.GetLength(0); x++)
