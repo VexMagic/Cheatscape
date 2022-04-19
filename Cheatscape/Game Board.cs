@@ -9,10 +9,14 @@ namespace Cheatscape
     static class Game_Board
     {
         static Chess_Piece[,] ChessPiecesOnBoard = new Chess_Piece[8, 8];
+        static List<Chess_Piece> CapturedWhitePieces = new List<Chess_Piece>();
+        static List<Chess_Piece> CapturedBlackPieces = new List<Chess_Piece>();
         static Vector2 BoardPosition = new Vector2(112, 5);
         static int TileSize = 32;
 
         public static Chess_Piece[,] AccessChessPiecesOnBoard { get => ChessPiecesOnBoard; set => ChessPiecesOnBoard = value; }
+        public static List<Chess_Piece> AccessCapturedWhitePieces { get => CapturedWhitePieces; set => CapturedWhitePieces = value; }
+        public static List<Chess_Piece> AccessCapturedBlackPieces { get => CapturedBlackPieces; set => CapturedBlackPieces = value; }
         public static Vector2 AccessBoardPosition { get => BoardPosition; set => BoardPosition = value; }
         public static int AccessTileSize { get => TileSize; set => TileSize = value; }
 
@@ -79,6 +83,17 @@ namespace Cheatscape
             }
         }
 
+        public static void CapturePiece(Vector2 aPosition)
+        {
+            if (ChessPiecesOnBoard[(int)aPosition.X, (int)aPosition.Y].myPieceType != 0)
+            {
+                if (ChessPiecesOnBoard[(int)aPosition.X, (int)aPosition.Y].isWhitePiece)
+                    CapturedWhitePieces.Add(new Chess_Piece(ChessPiecesOnBoard[(int)aPosition.X, (int)aPosition.Y]));
+                else if (!ChessPiecesOnBoard[(int)aPosition.X, (int)aPosition.Y].isWhitePiece)
+                    CapturedBlackPieces.Add(new Chess_Piece(ChessPiecesOnBoard[(int)aPosition.X, (int)aPosition.Y]));
+            }
+        }
+
         public static void MoveChessPiece(Chess_Move aMove, bool isAnimated)
         {
             switch (aMove.MyMoveType)
@@ -88,6 +103,7 @@ namespace Cheatscape
                         Hand_Animation_Manager.GiveHandDirection(aMove);
                     else
                     {
+                        CapturePiece(aMove.myEndingPos);
                         ChessPiecesOnBoard[(int)aMove.myEndingPos.X, (int)aMove.myEndingPos.Y].myPieceType = ChessPiecesOnBoard[(int)aMove.myStartingPos.X, (int)aMove.myStartingPos.Y].myPieceType;
                         ChessPiecesOnBoard[(int)aMove.myEndingPos.X, (int)aMove.myEndingPos.Y].isWhitePiece = ChessPiecesOnBoard[(int)aMove.myStartingPos.X, (int)aMove.myStartingPos.Y].isWhitePiece;
                         ChessPiecesOnBoard[(int)aMove.myStartingPos.X, (int)aMove.myStartingPos.Y].myPieceType = 0;
@@ -100,6 +116,10 @@ namespace Cheatscape
                     ChessPiecesOnBoard[(int)aMove.myStartingPos.X, (int)aMove.myStartingPos.Y].myPieceType = 0;
                     break;
                 case Chess_Move.MoveType.CapturePiece:
+                    if (aMove.myPiece.isWhitePiece)
+                        CapturedWhitePieces.Add(new Chess_Piece(aMove.myPiece));
+                    else if (!aMove.myPiece.isWhitePiece)
+                        CapturedBlackPieces.Add(new Chess_Piece(aMove.myPiece));
                     break;
             }
         }
@@ -107,6 +127,8 @@ namespace Cheatscape
         public static void SetBoardState()
         {
             SetBasicBoardState();
+            CapturedWhitePieces.Clear();
+            CapturedBlackPieces.Clear();
 
             for (int i = 0; i < Level_Manager.AccessCurrentSlide - 1; i++)
             {
@@ -128,6 +150,19 @@ namespace Cheatscape
                     Vector2 tempPiecePos = new Vector2(BoardPosition.X + (x * TileSize), BoardPosition.Y + (y * TileSize));
                     ChessPiecesOnBoard[x, y].Draw(aSpriteBatch, tempPiecePos);
                 }
+            }
+
+            for (int i = 0; i < CapturedWhitePieces.Count; i++)
+            {
+                Vector2 tempPiecePos = new Vector2(BoardPosition.X - TileSize, BoardPosition.Y + (i * (TileSize / 2)));
+                CapturedWhitePieces[i].Draw(aSpriteBatch, tempPiecePos);
+            }
+
+            for (int i = CapturedBlackPieces.Count - 1; i >= 0; i--)
+            {
+                Vector2 tempPiecePos = new Vector2(BoardPosition.X + (ChessPiecesOnBoard.GetLength(0) * TileSize), 
+                    BoardPosition.Y + ((ChessPiecesOnBoard.GetLength(1) - 1) * TileSize) - (i * (TileSize / 2)));
+                CapturedBlackPieces[i].Draw(aSpriteBatch, tempPiecePos);
             }
         }
     }

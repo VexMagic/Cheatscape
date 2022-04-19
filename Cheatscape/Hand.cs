@@ -75,6 +75,7 @@ namespace Cheatscape
                         case 2: //after dropping the piece in its new spot
                             CalculateDirection(myEndPos, myHomePos);
                             isHolding = false;
+                            Game_Board.CapturePiece(myMove.myEndingPos);//add captured piece to the captured list
                             Game_Board.AccessChessPiecesOnBoard[(int)myMove.myEndingPos.X, (int)myMove.myEndingPos.Y] = new Chess_Piece(myHoldingPiece);
                             break;
                         case 3: //after arriving home
