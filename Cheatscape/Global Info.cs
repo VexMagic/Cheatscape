@@ -12,14 +12,12 @@ namespace Cheatscape
         static ContentManager ContentManager;
         static float ScreenScale = 2f;
         static Vector2 WindowSize = new Vector2(480 * ScreenScale, 270 * ScreenScale);
-        static int ButtonCooldown = 0;
-        public enum GameState { LevelSelect, PlayingLevel };
+        public enum GameState { LevelSelect, PlayingLevel, Options };
         static GameState CurrentGameState = GameState.LevelSelect;
 
         public static ContentManager AccessContentManager { get => ContentManager; set => ContentManager = value; }
         public static float AccessScreenScale { get => ScreenScale; set => ScreenScale = value; }
         public static Vector2 AccessWindowSize { get => WindowSize; set => WindowSize = value; }
-        public static int AccessButtonCooldown { get => ButtonCooldown; set => ButtonCooldown = value; }
         public static GameState AccessCurrentGameState { get => CurrentGameState; set => CurrentGameState = value; }
 
 
@@ -29,13 +27,13 @@ namespace Cheatscape
             //File_Manager.LoadLevel();
             Hand_Animation_Manager.Load();
             Level_Select_Menu.Load();
+            Options_Menu.Load();
             Rules_List.Load();
         }
 
         public static void Update()
         {
-            if (ButtonCooldown > 0)
-                ButtonCooldown--;
+            Input_Manager.Update();
 
             switch (CurrentGameState)
             {
@@ -45,6 +43,9 @@ namespace Cheatscape
                 case GameState.PlayingLevel:
                     Level_Manager.Update();
                     Hand_Animation_Manager.Update();
+                    break;
+                case GameState.Options:
+                    Options_Menu.Update();
                     break;
             }
         }
@@ -60,6 +61,9 @@ namespace Cheatscape
                     Game_Board.Draw(aSpriteBatch);
                     Hand_Animation_Manager.Draw(aSpriteBatch);
                     Level_Manager.Draw(aSpriteBatch);
+                    break;
+                case GameState.Options:
+                    Options_Menu.Draw(aSpriteBatch);
                     break;
             }
         }
