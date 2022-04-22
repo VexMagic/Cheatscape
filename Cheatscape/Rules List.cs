@@ -22,7 +22,7 @@ namespace Cheatscape
         static int MaximumTextBoxWidth = 100;
         static int LineSize = 9;
         static int BetweenLineSize = 12;
-        static int AmountOfRuleLists = 3;
+        public static int AmountOfRuleLists = 3;
         static int LastRule;
         static Vector2 TextPosition = new Vector2(6, 43);
 

@@ -43,6 +43,7 @@ namespace Cheatscape
         public static void SetBasicBoardState()
         {
             Level_Manager.AccessAllAnswers.Clear();
+            Rules_List.AllowedRules.Clear();
             for (int i = 0; i < Level_Manager.AccessAllMoves.Count; i++)
             {
                 for (int j = 0; j < Level_Manager.AccessAllMoves[i].Count; j++)
@@ -56,6 +57,14 @@ namespace Cheatscape
                     }
                     else if (Level_Manager.AccessAllMoves[i][j].MyMoveType == Chess_Move.MoveType.IncludeList)
                         Rules_List.IncludeList(Level_Manager.AccessAllMoves[i][j].myRuleList);
+                }
+            }
+
+            if (Rules_List.AllowedRules.Count == 0)
+            {
+                for (int i = 0; i < Rules_List.AmountOfRuleLists; i++)
+                {
+                    Rules_List.IncludeList(i);
                 }
             }
 
