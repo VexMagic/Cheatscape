@@ -24,7 +24,8 @@ namespace Cheatscape
         static int BetweenLineSize = 12;
         public static int AmountOfRuleLists = 3;
         static int LastRule;
-        static Vector2 TextPosition = new Vector2(6, 43);
+        static Vector2 TextPosition = new Vector2(6, 144);
+        static Vector2 ImagePosition = new Vector2(5, 36);
 
         public static List<Vector2> AllowedRules = new List<Vector2>();
 
@@ -178,24 +179,19 @@ namespace Cheatscape
 
         public static void Draw(SpriteBatch aSpriteBatch)
         {
-            string[] tempArray = GetAllowedRules(CurrentRuleList);
             CurrentRule--;
             MoveThroughRules(0);
 
-            //if (CurrentRule >= tempArray.Length)
-            //    CurrentRule = tempArray.Length - 1;
-            //else if (CurrentRule < 0)
-            //    CurrentRule = 0;
-
-            DrawTextBox(tempArray, aSpriteBatch);
+            string[] tempArray = GetAllowedRules(CurrentRuleList);
+            DrawRuleBox(tempArray, aSpriteBatch);
 
             aSpriteBatch.Draw(Banner, new Rectangle(0, 0, MaximumTextBoxWidth + (int)(TextPosition.X * 2), 20), new Rectangle(0, 0, MaximumTextBoxWidth + (int)(TextPosition.X * 2), 20), Color.White, 0, new Vector2(0, 0), SpriteEffects.None, 0);
             aSpriteBatch.Draw(Banner, new Rectangle(0, 20, MaximumTextBoxWidth + (int)(TextPosition.X * 2), 17), new Rectangle(0, (CurrentRuleList * 17) + 20, MaximumTextBoxWidth + (int)(TextPosition.X * 2), 17), Color.White, 0, new Vector2(0, 0), SpriteEffects.None, 0);
 
             Texture2D tempRuleImage = Global_Info.AccessContentManager.Load<Texture2D>("Rule Images/" + CurrentRuleList + "-" + CurrentRule);
-            aSpriteBatch.Draw(tempRuleImage, new Rectangle(375, 7, 96, 96), Color.White);
+            aSpriteBatch.Draw(tempRuleImage, new Rectangle((int)ImagePosition.X + 3, (int)ImagePosition.Y + 3, 96, 96), Color.White);
 
-            aSpriteBatch.Draw(ImageBoarder, new Rectangle(372, 4, 102, 102), Color.White);
+            aSpriteBatch.Draw(ImageBoarder, new Rectangle((int)ImagePosition.X, (int)ImagePosition.Y, 102, 102), Color.White);
         }
 
         public static void DrawText(string aString, int anXPos, int aYPos, SpriteBatch aSpriteBatch) //draw text
@@ -203,29 +199,13 @@ namespace Cheatscape
             aSpriteBatch.DrawString(Font, aString, new Vector2(anXPos, aYPos), Color.Black);
         }
 
-        public static void DrawTextBox(string[] aStringArray, SpriteBatch aSpriteBatch)
+        public static void DrawRuleBox(string[] aStringArray, SpriteBatch aSpriteBatch)
         {
             int tempYOffset = (int)TextPosition.Y - Scrolling(aStringArray);
 
             for (int i = 0; i < aStringArray.Length; i++)
             {
-                List<string> tempTextBox = new List<string>();
-                string[] tempWords = aStringArray[i].Split(' ');
-                string tempLine = tempWords[0];
-
-                for (int j = 1; j < tempWords.Length; j++)
-                {
-                    if (MaximumTextBoxWidth >= Font.MeasureString(tempLine + " " + tempWords[j]).X)
-                    {
-                        tempLine += " " + tempWords[j];
-                    }
-                    else
-                    {
-                        tempTextBox.Add(tempLine);
-                        tempLine = tempWords[j];
-                    }
-                }
-                tempTextBox.Add(tempLine);
+                List<string> tempTextBox = SeparateText(aStringArray[i]);
 
                 int tempSelected = 0;
                 if (GetList(CurrentRuleList)[CurrentRule] == aStringArray[i])
@@ -256,30 +236,36 @@ namespace Cheatscape
             }
         }
 
+        static List<string> SeparateText(string aString)
+        {
+            List<string> tempTextBox = new List<string>();
+            string[] tempWords = aString.Split(' ');
+            string tempLine = tempWords[0];
+
+            for (int j = 1; j < tempWords.Length; j++)
+            {
+                if (MaximumTextBoxWidth >= Font.MeasureString(tempLine + " " + tempWords[j]).X)
+                {
+                    tempLine += " " + tempWords[j];
+                }
+                else
+                {
+                    tempTextBox.Add(tempLine);
+                    tempLine = tempWords[j];
+                }
+            }
+            tempTextBox.Add(tempLine);
+
+            return tempTextBox;
+        }
+
         static int Scrolling(string[] aStringArray)
         {
-            int tempScrollAmount = 0 - (int)(Global_Info.AccessWindowSize.Y / (2 * Global_Info.AccessScreenScale));
-
+            int tempScrollAmount = ((int)TextPosition.Y / 2) - (int)(Global_Info.AccessWindowSize.Y / (2 * Global_Info.AccessScreenScale));
+             
             for (int i = 0; i < aStringArray.Length; i++)
             {
-
-                List<string> tempTextBox = new List<string>();
-                string[] tempWords = aStringArray[i].Split(' ');
-                string tempLine = tempWords[0];
-
-                for (int j = 1; j < tempWords.Length; j++)
-                {
-                    if (MaximumTextBoxWidth >= Font.MeasureString(tempLine + " " + tempWords[j]).X)
-                    {
-                        tempLine += " " + tempWords[j];
-                    }
-                    else
-                    {
-                        tempTextBox.Add(tempLine);
-                        tempLine = tempWords[j];
-                    }
-                }
-                tempTextBox.Add(tempLine);
+                List<string> tempTextBox = SeparateText(aStringArray[i]);
 
                 if (CurrentRule == i)
                 {
