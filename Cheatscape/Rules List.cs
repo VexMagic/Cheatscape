@@ -22,31 +22,35 @@ namespace Cheatscape
         static int MaximumTextBoxWidth = 100;
         static int LineSize = 9;
         static int BetweenLineSize = 12;
+        static int AmountOfRuleLists = 3;
+        static int LastRule;
         static Vector2 TextPosition = new Vector2(6, 43);
 
-        static string[] GeneralRules = { 
-            "The white player always starts.", 
-            "The starting board state is shown to the right.", 
+        public static List<Vector2> AllowedRules = new List<Vector2>();
+
+        static string[] GeneralRules = {
+            "The white player always starts.",
+            "The starting board state is shown to the right.",
             "Only one piece may be moved per turn (not including Castling).",
             "A piece can only be moved on its player's turn.",
-            "A piece can only move to an unoccupied space or one occupied by an opposing piece.", 
+            "A piece can only move to an unoccupied space or one occupied by an opposing piece.",
             "If a piece is moved to a space occupied by an opposing piece, the opposing piece is captured and removed from the game.",
             "If a Pawn reaches the other side of the board, it is replaced by a new queen, rook, bishop, or knight of the same color."};
-        static string[] MovementRules = { 
+        static string[] MovementRules = {
             "The Pawn moves one space forward but on its first move it can move one or two spaces forward.",
-            "The Pawn can only attack one space diagonally ahead and not straight forward.", 
+            "The Pawn can only attack one space diagonally ahead and not straight forward.",
             "The Rook can move any number of spaces in a straight line vertically or horizontally.",
             "The Bishop can move any number of spaces in a straight line diagonally.",
             "The Knight can move in an L shape.",
             "The Queen can move any number of spaces in a straight line vertically, horizontally or diagonally.",
             "The King can move one space in any direction.",
             "The Knight is the only piece that can jump over other pieces"};
-        static string[] ExtraRules = { 
+        static string[] ExtraRules = {
             "If the King is being threatened by an opposing piece, its player has to move a piece to secure the King. This is called Check.",
             "If the King is in Check and its player can't secure it on their turn, the opponent wins. This is called Checkmate.",
             "The a piece can't make a move that causes its King to be in Check.",
-            "A tie happens when the same board state occurs 3 times or when both players have made 50 moves.", 
-            "If the King and a Rook have not moved yet, the King can move 2 spaces towards the Rook causing the Rook to move to the space next to the King on the opposite side. This is called Castling.", 
+            "A tie happens when the same board state occurs 3 times or when both players have made 50 moves.",
+            "If the King and a Rook have not moved yet, the King can move 2 spaces towards the Rook causing the Rook to move to the space next to the King on the opposite side. This is called Castling.",
             "Castling is not allowed if the King moves out of, through or into a space where it would be in Check."};
 
         public static void Load() //get font
@@ -58,27 +62,130 @@ namespace Cheatscape
             ImageBoarder = Global_Info.AccessContentManager.Load<Texture2D>("Rule Image Boarder");
         }
 
-        public static void Draw(SpriteBatch aSpriteBatch)
+        public static void IncludeList(int aList)
         {
-            string[] tempArray = GeneralRules;
+            string[] tempArray = GetList(CurrentRuleList);
 
+            for (int i = 0; i < tempArray.Length; i++)
+            {
+                if (!AllowedRules.Contains(new Vector2(aList, i)))
+                {
+                    AllowedRules.Add(new Vector2(aList, i));
+                }
+            }
+        }
+
+        public static string[] GetList(int aList)
+        {
             switch (CurrentRuleList)
             {
-                case 0:
-                    tempArray = GeneralRules;
-                    break;
+                default:
+                    return GeneralRules;
                 case 1:
-                    tempArray = MovementRules;
-                    break;
+                    return MovementRules;
                 case 2:
-                    tempArray = ExtraRules;
-                    break;
+                    return ExtraRules;
+            }
+        }
+
+        public static string[] GetAllowedRules(int aRuleList)
+        {
+            List<string> tempList = new List<string>(GetList(CurrentRuleList));
+            int tempRule = 0;
+
+            for (int i = 0; i < tempList.Count; i++)
+            {
+                if (!AllowedRules.Contains(new Vector2(aRuleList, tempRule)))
+                {
+                    tempList.RemoveAt(i);
+                    i--;
+                }
+                tempRule++;
             }
 
-            if (CurrentRule >= tempArray.Length)
-                CurrentRule = tempArray.Length - 1;
-            else if (CurrentRule < 0)
-                CurrentRule = 0;
+            return tempList.ToArray();
+        }
+
+        public static void MoveThroughRules(int aMoveDirection = 0)
+        {
+            switch (aMoveDirection)
+            {
+                case 0: //Move Down
+                    LastRule = CurrentRule;
+                    if (CurrentRule < GetList(CurrentRuleList).Length - 1)
+                        CurrentRule++;
+                    break;
+                case 1: //Move Up
+                    LastRule = CurrentRule;
+                    if (CurrentRule >= 0)
+                        CurrentRule--;
+                    break;
+                case 2: //Move Left
+                    CurrentRuleList--;
+                    if (CurrentRuleList < 0)
+                        CurrentRuleList = AmountOfRuleLists - 1;
+                    CurrentRule = 0;
+                    break;
+                case 3: //Move Right
+                    CurrentRuleList++;
+                    if (CurrentRuleList >= AmountOfRuleLists)
+                        CurrentRuleList = 0;
+                    CurrentRule = 0;
+                    break;
+            }
+            SkipExcludedRules(aMoveDirection);
+        }
+
+        static void SkipExcludedRules(int aMoveDirection = 0)
+        {
+            if (aMoveDirection != 1)
+            {
+                if (GetAllowedRules(CurrentRuleList).Length <= 0)
+                {
+                    if (aMoveDirection >= 2)
+                        MoveThroughRules(aMoveDirection);
+                    else
+                        MoveThroughRules(3);
+                }
+                else
+                {
+                    for (int i = 0; i < GetList(CurrentRuleList).Length; i++)
+                    {
+                        if (!AllowedRules.Contains(new Vector2(CurrentRuleList, CurrentRule)))
+                        {
+                            if (CurrentRule < GetList(CurrentRuleList).Length - 1)
+                                CurrentRule++;
+                            else
+                                CurrentRule = LastRule;
+                        }
+                    }
+                }
+            }
+            else
+            {
+                for (int i = 0; i < GetList(CurrentRuleList).Length; i++)
+                {
+                    if (!AllowedRules.Contains(new Vector2(CurrentRuleList, CurrentRule)))
+                    {
+                        if (CurrentRule > 0)
+                            CurrentRule--;
+                        else
+                            CurrentRule = LastRule;
+                    }
+                }
+            }
+        }
+
+        public static void Draw(SpriteBatch aSpriteBatch)
+        {
+            string[] tempArray = GetAllowedRules(CurrentRuleList);
+            CurrentRule--;
+            MoveThroughRules(0);
+
+            //if (CurrentRule >= tempArray.Length)
+            //    CurrentRule = tempArray.Length - 1;
+            //else if (CurrentRule < 0)
+            //    CurrentRule = 0;
 
             DrawTextBox(tempArray, aSpriteBatch);
 
@@ -121,7 +228,7 @@ namespace Cheatscape
                 tempTextBox.Add(tempLine);
 
                 int tempSelected = 0;
-                if (CurrentRule == i)
+                if (GetList(CurrentRuleList)[CurrentRule] == aStringArray[i])
                 {
                     tempSelected = Selector.Width / 2;
                 }
@@ -176,7 +283,7 @@ namespace Cheatscape
 
                 if (CurrentRule == i)
                 {
-                    tempScrollAmount += ((LineSize * tempTextBox.Count) + BetweenLineSize ) / 2;
+                    tempScrollAmount += ((LineSize * tempTextBox.Count) + BetweenLineSize) / 2;
                     break;
                 }
 

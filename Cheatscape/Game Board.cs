@@ -49,6 +49,13 @@ namespace Cheatscape
                 {
                     if (Level_Manager.AccessAllMoves[i][j].MyMoveType == Chess_Move.MoveType.AnswerCheat)
                         Level_Manager.AccessAllAnswers.Add(new Tuple<Chess_Move, int>(Level_Manager.AccessAllMoves[i][j], i + 1));
+                    else if (Level_Manager.AccessAllMoves[i][j].MyMoveType == Chess_Move.MoveType.IncludeRule)
+                    {
+                        if (!Rules_List.AllowedRules.Contains(Level_Manager.AccessAllMoves[i][j].myRule))
+                            Rules_List.AllowedRules.Add(Level_Manager.AccessAllMoves[i][j].myRule);
+                    }
+                    else if (Level_Manager.AccessAllMoves[i][j].MyMoveType == Chess_Move.MoveType.IncludeList)
+                        Rules_List.IncludeList(Level_Manager.AccessAllMoves[i][j].myRuleList);
                 }
             }
 
