@@ -25,7 +25,8 @@ namespace Cheatscape
         public static int AmountOfRuleLists = 3;
         static int LastRule;
         static Vector2 TextPosition = new Vector2(6, 144);
-        static Vector2 ImagePosition = new Vector2(5, 36);
+        static Vector2 ImagePosition = new Vector2(5, 0);
+        static Vector2 BannerPosition = new Vector2(0, 101);
 
         public static List<Vector2> AllowedRules = new List<Vector2>();
 
@@ -185,8 +186,8 @@ namespace Cheatscape
             string[] tempArray = GetAllowedRules(CurrentRuleList);
             DrawRuleBox(tempArray, aSpriteBatch);
 
-            aSpriteBatch.Draw(Banner, new Rectangle(0, 0, MaximumTextBoxWidth + (int)(TextPosition.X * 2), 20), new Rectangle(0, 0, MaximumTextBoxWidth + (int)(TextPosition.X * 2), 20), Color.White, 0, new Vector2(0, 0), SpriteEffects.None, 0);
-            aSpriteBatch.Draw(Banner, new Rectangle(0, 20, MaximumTextBoxWidth + (int)(TextPosition.X * 2), 17), new Rectangle(0, (CurrentRuleList * 17) + 20, MaximumTextBoxWidth + (int)(TextPosition.X * 2), 17), Color.White, 0, new Vector2(0, 0), SpriteEffects.None, 0);
+            aSpriteBatch.Draw(Banner, new Rectangle((int)BannerPosition.X, (int)BannerPosition.Y, MaximumTextBoxWidth + (int)(TextPosition.X * 2), 20), new Rectangle(0, 0, MaximumTextBoxWidth + (int)(TextPosition.X * 2), 20), Color.White, 0, new Vector2(0, 0), SpriteEffects.None, 0);
+            aSpriteBatch.Draw(Banner, new Rectangle((int)BannerPosition.X, (int)BannerPosition.Y + 20, MaximumTextBoxWidth + (int)(TextPosition.X * 2), 17), new Rectangle(0, (CurrentRuleList * 17) + 20, MaximumTextBoxWidth + (int)(TextPosition.X * 2), 17), Color.White, 0, new Vector2(0, 0), SpriteEffects.None, 0);
 
             Texture2D tempRuleImage = Global_Info.AccessContentManager.Load<Texture2D>("Rule Images/" + CurrentRuleList + "-" + CurrentRule);
             aSpriteBatch.Draw(tempRuleImage, new Rectangle((int)ImagePosition.X + 3, (int)ImagePosition.Y + 3, 96, 96), Color.White);
