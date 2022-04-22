@@ -24,8 +24,6 @@ namespace Cheatscape
         static int BetweenLineSize = 12;
         static Vector2 TextPosition = new Vector2(6, 43);
 
-        public static List<Vector2> AllowedRules = new List<Vector2>();
-
         static string[] GeneralRules = { 
             "The white player always starts.", 
             "The starting board state is shown to the right.", 
@@ -60,51 +58,22 @@ namespace Cheatscape
             ImageBoarder = Global_Info.AccessContentManager.Load<Texture2D>("Rule Image Boarder");
         }
 
-        public static void IncludeList(int aList)
-        {
-            string[] tempArray = GetList(CurrentRuleList);
-
-            for (int i = 0; i < tempArray.Length; i++)
-            {
-                if (!AllowedRules.Contains(new Vector2(aList, i)))
-                {
-                    AllowedRules.Add(new Vector2(aList, i));
-                }
-            }
-        }
-
-        public static string[] GetList(int aList)
-        {
-            switch (CurrentRuleList)
-            {
-                default:
-                    return GeneralRules;
-                case 1:
-                    return MovementRules;
-                case 2:
-                    return ExtraRules;
-            }
-        }
-
-        public static string[] GetAllowedRules(int aRuleList)
-        {
-            List<string> tempList = new List<string>(GetList(CurrentRuleList));
-
-            for (int i = 0; i < tempList.Count; i++)
-            {
-                if (!AllowedRules.Contains(new Vector2(aRuleList, i)))
-                {
-                    tempList.RemoveAt(i);
-                    i--;
-                }
-            }
-
-            return tempList.ToArray();
-        }
-
         public static void Draw(SpriteBatch aSpriteBatch)
         {
-            string[] tempArray = GetAllowedRules(CurrentRuleList);
+            string[] tempArray = GeneralRules;
+
+            switch (CurrentRuleList)
+            {
+                case 0:
+                    tempArray = GeneralRules;
+                    break;
+                case 1:
+                    tempArray = MovementRules;
+                    break;
+                case 2:
+                    tempArray = ExtraRules;
+                    break;
+            }
 
             if (CurrentRule >= tempArray.Length)
                 CurrentRule = tempArray.Length - 1;
