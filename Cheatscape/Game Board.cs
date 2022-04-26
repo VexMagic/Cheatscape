@@ -183,12 +183,9 @@ namespace Cheatscape
 
             for (int i = 0; i < Level_Manager.AccessCurrentSlide - 1; i++)
             {
-                for (int j = 0; j < Level_Manager.AccessAllMoves[i].Count ; j++)
+                for (int j = 0; j < Level_Manager.AccessAllMoves[i].Count; j++)
                 {
-                    if (i == Level_Manager.AccessCurrentSlide - 1)
-                        MoveChessPiece(Level_Manager.AccessAllMoves[i][j], true);
-                    else
-                        MoveChessPiece(Level_Manager.AccessAllMoves[i][j], false);
+                    MoveChessPiece(Level_Manager.AccessAllMoves[i][j], false);
                 }
             }
         }

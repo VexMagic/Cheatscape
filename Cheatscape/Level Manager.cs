@@ -26,8 +26,12 @@ namespace Cheatscape
                 if (Keyboard.GetState().IsKeyDown(Keys.Left) && CurrentSlide > 1 && !FindingCheat)
                 {
                     Hand_Animation_Manager.ResetAllHands();
-                    Game_Board.SetBoardState();
                     CurrentSlide--;
+                    Game_Board.SetBoardState();
+                    for (int i = 0; i < AllMoves[CurrentSlide - 1].Count; i++)
+                    {
+                        Game_Board.MoveChessPiece(AllMoves[CurrentSlide - 1][i], true);
+                    }
                     Global_Info.AccessButtonCooldown = 12;
                 }
                 else if (Keyboard.GetState().IsKeyDown(Keys.Left) && FindingCheat)
