@@ -11,7 +11,7 @@ namespace Cheatscape
         static int CurrentLevel = 0;
         static List<List<Chess_Move>> AllMoves = new List<List<Chess_Move>>();
         static List<Tuple<Chess_Move, int>> AllAnswers = new List<Tuple<Chess_Move, int>>();
-        static int CurrentSlide = 0;
+        static int CurrentSlide = 1;
         static bool FindingCheat = false;
 
         public static int AccessCurrentLevel { get => CurrentLevel; set => CurrentLevel = value; }
@@ -23,7 +23,7 @@ namespace Cheatscape
         {
             if (Global_Info.AccessButtonCooldown == 0)
             {
-                if (Keyboard.GetState().IsKeyDown(Keys.Left) && CurrentSlide > 0 && !FindingCheat)
+                if (Keyboard.GetState().IsKeyDown(Keys.Left) && CurrentSlide > 1 && !FindingCheat)
                 {
                     Hand_Animation_Manager.ResetAllHands();
                     Game_Board.SetBoardState();

@@ -34,10 +34,16 @@ namespace Cheatscape
             ChessPiecesOnBoard = new Chess_Piece[8, 8];
             CapturedWhitePieces.Clear();
             CapturedBlackPieces.Clear();
-            Level_Manager.AccessCurrentSlide = 0;
+            Level_Manager.AccessCurrentSlide = 1;
             Rules_List.AccessCurrentRule = 0;
             Rules_List.AccessCurrentRuleList = 0;
+            Text_Manager.TutorialText = null;
             SetBasicBoardState();
+
+            for (int i = 0; i < Level_Manager.AccessAllMoves[0].Count; i++)
+            {
+                MoveChessPiece(Level_Manager.AccessAllMoves[0][i], true);
+            }
         }
 
         public static void SetBasicBoardState()
@@ -162,9 +168,9 @@ namespace Cheatscape
                     break;
                 case Chess_Move.MoveType.TutorialText:
                     if (isCurrentTurn)
-                    {
-
-                    }
+                        Text_Manager.TutorialText = aMove.myText;
+                    else
+                        Text_Manager.TutorialText = "";
                     break;
             }
         }
@@ -177,9 +183,12 @@ namespace Cheatscape
 
             for (int i = 0; i < Level_Manager.AccessCurrentSlide - 1; i++)
             {
-                for (int j = 0; j < Level_Manager.AccessAllMoves[i].Count; j++)
+                for (int j = 0; j < Level_Manager.AccessAllMoves[i].Count ; j++)
                 {
-                    MoveChessPiece(Level_Manager.AccessAllMoves[i][j], false);
+                    if (i == Level_Manager.AccessCurrentSlide - 1)
+                        MoveChessPiece(Level_Manager.AccessAllMoves[i][j], true);
+                    else
+                        MoveChessPiece(Level_Manager.AccessAllMoves[i][j], false);
                 }
             }
         }

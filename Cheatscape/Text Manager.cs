@@ -17,7 +17,10 @@ namespace Cheatscape
         public static int LineSize = 9;
         public static int BetweenLineSize = 12;
 
+        public static string TutorialText;
+
         public static Vector2 RulesPosition = new Vector2(6, 144);
+        public static Vector2 TutorialPosition = new Vector2(450, 100);
 
         public static void Load()
         {
@@ -72,6 +75,12 @@ namespace Cheatscape
                 tempYOffset += tempTextBox.Count * LineSize;
                 tempYOffset += BetweenLineSize;
             }
+        }
+
+        public static void DrawTutorialBox(SpriteBatch aSpriteBatch)
+        {
+            if (TutorialText != "" && TutorialText != null)
+                DrawTextBox(TutorialText, TutorialPosition, TextBoarder, aSpriteBatch);
         }
 
         public static List<string> SeparateText(string aString)
