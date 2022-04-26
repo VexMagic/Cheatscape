@@ -11,7 +11,7 @@ namespace Cheatscape
     {
         static ContentManager ContentManager;
         static float ScreenScale = 2f;
-        static Vector2 WindowSize = new Vector2(480 * ScreenScale, 270 * ScreenScale);
+        public static Vector2 WindowSize = new Vector2(600 * ScreenScale, 360 * ScreenScale);
         static int ButtonCooldown = 0;
         public enum GameState { LevelSelect, PlayingLevel };
         static GameState CurrentGameState = GameState.LevelSelect;

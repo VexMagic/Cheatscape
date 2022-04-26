@@ -11,7 +11,7 @@ namespace Cheatscape
         static Chess_Piece[,] ChessPiecesOnBoard = new Chess_Piece[8, 8];
         static List<Chess_Piece> CapturedWhitePieces = new List<Chess_Piece>();
         static List<Chess_Piece> CapturedBlackPieces = new List<Chess_Piece>();
-        static Vector2 BoardPosition = new Vector2(112, 5);
+        static Vector2 BoardPosition = new Vector2(Global_Info.AccessWindowSize.X/4 - 128, Global_Info.AccessWindowSize.Y / 4 - 128);
         static int TileSize = 32;
 
         public static Chess_Piece[,] AccessChessPiecesOnBoard { get => ChessPiecesOnBoard; set => ChessPiecesOnBoard = value; }
@@ -43,12 +43,28 @@ namespace Cheatscape
         public static void SetBasicBoardState()
         {
             Level_Manager.AccessAllAnswers.Clear();
+            Rules_List.AllowedRules.Clear();
             for (int i = 0; i < Level_Manager.AccessAllMoves.Count; i++)
             {
                 for (int j = 0; j < Level_Manager.AccessAllMoves[i].Count; j++)
                 {
                     if (Level_Manager.AccessAllMoves[i][j].MyMoveType == Chess_Move.MoveType.AnswerCheat)
                         Level_Manager.AccessAllAnswers.Add(new Tuple<Chess_Move, int>(Level_Manager.AccessAllMoves[i][j], i + 1));
+                    else if (Level_Manager.AccessAllMoves[i][j].MyMoveType == Chess_Move.MoveType.IncludeRule)
+                    {
+                        if (!Rules_List.AllowedRules.Contains(Level_Manager.AccessAllMoves[i][j].myRule))
+                            Rules_List.AllowedRules.Add(Level_Manager.AccessAllMoves[i][j].myRule);
+                    }
+                    else if (Level_Manager.AccessAllMoves[i][j].MyMoveType == Chess_Move.MoveType.IncludeList)
+                        Rules_List.IncludeList(Level_Manager.AccessAllMoves[i][j].myRuleList);
+                }
+            }
+
+            if (Rules_List.AllowedRules.Count == 0)
+            {
+                for (int i = 0; i < Rules_List.AmountOfRuleLists; i++)
+                {
+                    Rules_List.IncludeList(i);
                 }
             }
 
