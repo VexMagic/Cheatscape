@@ -68,6 +68,8 @@ namespace Cheatscape
                 else
                     DrawTextBox(aStringArray[i], new Vector2(RulesPosition.X, tempYOffset), TextBoarder, aSpriteBatch);
 
+                List<string> tempTextBox = SeparateText(aStringArray[i]);
+                tempYOffset += tempTextBox.Count * LineSize;
                 tempYOffset += BetweenLineSize;
             }
         }
