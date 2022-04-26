@@ -30,6 +30,7 @@ namespace Cheatscape
             Hand_Animation_Manager.Load();
             Level_Select_Menu.Load();
             Rules_List.Load();
+            Text_Manager.Load();
         }
 
         public static void Update()
