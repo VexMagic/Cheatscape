@@ -13,7 +13,7 @@ namespace Cheatscape
         static Texture2D ImageBoarder;
 
         static int CurrentRuleList = 0;
-        public static int CurrentRule = 0;
+        static int CurrentRule = 0;
         public static int AccessCurrentRuleList { get => CurrentRuleList; set => CurrentRuleList = value; }
         public static int AccessCurrentRule { get => CurrentRule; set => CurrentRule = value; }
 
@@ -106,7 +106,7 @@ namespace Cheatscape
             {
                 case 0: //Move Down
                     LastRule = CurrentRule;
-                    if (CurrentRule < GetList().Length - 1)
+                    if (CurrentRule <= GetList().Length)
                         CurrentRule++;
                     break;
                 case 1: //Move Up
@@ -147,10 +147,13 @@ namespace Cheatscape
                     {
                         if (!AllowedRules.Contains(new Vector2(CurrentRuleList, CurrentRule)))
                         {
-                            if (CurrentRule < GetList().Length - 1)
-                                CurrentRule++;
-                            else
-                                CurrentRule = LastRule;
+                            if (CurrentRule != GetList().Length)
+                            {
+                                if (CurrentRule <= GetList().Length)
+                                    CurrentRule++;
+                                else
+                                    CurrentRule = LastRule;
+                            }
                         }
                     }
                 }
@@ -188,10 +191,12 @@ namespace Cheatscape
                 new Rectangle(0, (CurrentRuleList * 17) + 20, Text_Manager.MaximumTextBoxWidth + (int)(Text_Manager.RulesPosition.X * 2), 17),
                 Color.White, 0, new Vector2(0, 0), SpriteEffects.None, 0);
 
-            Texture2D tempRuleImage = Global_Info.AccessContentManager.Load<Texture2D>("Rule Images/" + CurrentRuleList + "-" + CurrentRule);
-            aSpriteBatch.Draw(tempRuleImage, new Rectangle((int)ImagePosition.X + 3, (int)ImagePosition.Y + 3, 96, 96), Color.White);
-
-            aSpriteBatch.Draw(ImageBoarder, new Rectangle((int)ImagePosition.X, (int)ImagePosition.Y, 102, 102), Color.White);
+            if (CurrentRule < GetList().Length)
+            {
+                Texture2D tempRuleImage = Global_Info.AccessContentManager.Load<Texture2D>("Rule Images/" + CurrentRuleList + "-" + CurrentRule);
+                aSpriteBatch.Draw(tempRuleImage, new Rectangle((int)ImagePosition.X + 3, (int)ImagePosition.Y + 3, 96, 96), Color.White);
+                aSpriteBatch.Draw(ImageBoarder, new Rectangle((int)ImagePosition.X, (int)ImagePosition.Y, 102, 102), Color.White);
+            }
         }
 
         public static int Scrolling(string[] aStringArray)
@@ -231,7 +236,6 @@ namespace Cheatscape
 
             for (int i = 0; i < aStringArray.Length; i++)
             {
-
                 List<string> tempTextBox = new List<string>();
                 string[] tempWords = aStringArray[i].Split(' ');
                 string tempLine = tempWords[0];
@@ -253,6 +257,8 @@ namespace Cheatscape
                 tempMaxScroll += Text_Manager.LineSize * tempTextBox.Count;
                 tempMaxScroll += Text_Manager.BetweenLineSize;
             }
+
+            tempMaxScroll += Text_Manager.LineSize + Text_Manager.BetweenLineSize - 4;
 
             return tempMaxScroll + (int)Text_Manager.RulesPosition.Y - 2;
         }

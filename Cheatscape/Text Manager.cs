@@ -63,11 +63,15 @@ namespace Cheatscape
         public static void DrawRuleBox(string[] aStringArray, SpriteBatch aSpriteBatch)
         {
             int tempYOffset = (int)RulesPosition.Y - Rules_List.Scrolling(aStringArray);
-
             for (int i = 0; i < aStringArray.Length; i++)
             {
-                if (Rules_List.GetList()[Rules_List.CurrentRule] == aStringArray[i])
-                    DrawTextBox(aStringArray[i], new Vector2(RulesPosition.X, tempYOffset), RuleSelector, aSpriteBatch);
+                if (Rules_List.AccessCurrentRule != Rules_List.GetList().Length)
+                {
+                    if (Rules_List.GetList()[Rules_List.AccessCurrentRule] == aStringArray[i])
+                        DrawTextBox(aStringArray[i], new Vector2(RulesPosition.X, tempYOffset), RuleSelector, aSpriteBatch);
+                    else
+                        DrawTextBox(aStringArray[i], new Vector2(RulesPosition.X, tempYOffset), TextBoarder, aSpriteBatch);
+                }
                 else
                     DrawTextBox(aStringArray[i], new Vector2(RulesPosition.X, tempYOffset), TextBoarder, aSpriteBatch);
 
@@ -75,6 +79,16 @@ namespace Cheatscape
                 tempYOffset += tempTextBox.Count * LineSize;
                 tempYOffset += BetweenLineSize;
             }
+
+            if (tempYOffset > (int)(Global_Info.AccessWindowSize.Y / Global_Info.AccessScreenScale) - LineSize - (BetweenLineSize / 2))
+            {
+                tempYOffset = (int)(Global_Info.AccessWindowSize.Y / Global_Info.AccessScreenScale) - LineSize - (BetweenLineSize / 2);
+            }
+
+            if (Rules_List.AccessCurrentRule != Rules_List.GetList().Length)
+                DrawTextBox("Back", new Vector2(RulesPosition.X, tempYOffset), TextBoarder, aSpriteBatch);
+            else
+                DrawTextBox("Back", new Vector2(RulesPosition.X, tempYOffset), RuleSelector, aSpriteBatch);
         }
 
         public static void DrawTutorialBox(SpriteBatch aSpriteBatch)

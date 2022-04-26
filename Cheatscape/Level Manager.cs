@@ -69,6 +69,10 @@ namespace Cheatscape
                             {
                                 Global_Info.AccessCurrentGameState = Global_Info.GameState.LevelSelect;
                             }
+                            else if (Rules_List.AccessCurrentRule != Rules_List.GetList().Length)
+                            {
+                                //lose life
+                            }
                         }
                         FindingCheat = false;
                     }
