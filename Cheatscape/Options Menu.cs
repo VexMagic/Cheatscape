@@ -9,8 +9,8 @@ namespace Cheatscape
 {
     static class Options_Menu
     {
-        static Texture2D Panel;
-        static Texture2D Numbers;
+        static Texture2D Sliders = Global_Info.AccessContentManager.Load<Texture2D>("OptionSliders");
+        static Vector2 SliderSize = new Vector2(100, 75);
 
         static int OptionIndex = 1;
         static int OptionAmount = 3;
@@ -118,6 +118,33 @@ namespace Cheatscape
 
                     break;
             }
+        }
+
+        private static void DrawSlider(int options, int selectionIndex, SpriteBatch spriteBatch, Vector2 position)
+        {
+            spriteBatch.Begin();
+
+            for (int i = 0; i <= options; i++)
+            {
+                if (i == 0)
+                {
+                    spriteBatch.Draw(Sliders, new Rectangle((int)position.X, (int)position.Y, (int)SliderSize.X, (int)SliderSize.Y),
+                        new Rectangle(100, 0, 100, 75), Color.White, 0, Vector2.Zero, SpriteEffects.FlipVertically, 0);
+                }
+                else if (i == options)
+                {
+                    spriteBatch.Draw(Sliders, new Rectangle((int)position.X + 100 * i, (int)position.Y, (int)SliderSize.X, (int)SliderSize.Y),
+                        new Rectangle(100, 0, 100, 75), Color.White);
+                }
+                else
+                {
+                    spriteBatch.Draw(Sliders, new Rectangle((int)position.X + 100 * i, (int)position.Y, (int)SliderSize.X, (int)SliderSize.Y),
+                        new Rectangle(200, 0, 100, 75), Color.White);
+                }
+            }
+
+            spriteBatch.Draw(Sliders, new Rectangle((int)position.X + 100 * selectionIndex, (int)position.Y, 100, 75),
+                new Rectangle(0, 0, 100, 75), Color.White);
         }
     }
 }
