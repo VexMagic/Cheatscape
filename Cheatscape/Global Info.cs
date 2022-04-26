@@ -27,7 +27,6 @@ namespace Cheatscape
             //File_Manager.LoadLevel();
             Hand_Animation_Manager.Load();
             Level_Select_Menu.Load();
-            Options_Menu.Load();
             Rules_List.Load();
         }
 

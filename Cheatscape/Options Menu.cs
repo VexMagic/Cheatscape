@@ -15,13 +15,12 @@ namespace Cheatscape
         static int OptionIndex = 1;
         static int OptionAmount = 3;
 
-        enum SelectedOption { None, Resolution, Music };
+        enum SelectedOption { None, Resolution, MusicVolume };
         static SelectedOption selectedOption = SelectedOption.None;
 
-        public static void Load()
-        {
-
-        }
+        static Vector2 TempWindowSize;
+        static int ScreenSizeIndex = 1;
+        static int ScreenSizeAmount = 3;
 
         public static void Update()
         {
@@ -29,11 +28,11 @@ namespace Cheatscape
             {
                 case SelectedOption.None:
 
-                    if (Input_Manager.KeyPressed(Keys.Down) && OptionIndex > 1)
+                    if (Input_Manager.KeyPressed(Keys.Up) && OptionIndex > 1)
                     {
                         OptionIndex--;
                     }
-                    else if (Input_Manager.KeyPressed(Keys.Up) && OptionIndex < OptionAmount)
+                    else if (Input_Manager.KeyPressed(Keys.Down) && OptionIndex < OptionAmount)
                     {
                         OptionIndex++;
                     }
@@ -45,7 +44,7 @@ namespace Cheatscape
                         }
                         else if (OptionIndex == 2)
                         {
-                            selectedOption = SelectedOption.Music;
+                            selectedOption = SelectedOption.MusicVolume;
                         }
                     }
                     else if (Input_Manager.KeyPressed(Keys.Back))
@@ -56,21 +55,36 @@ namespace Cheatscape
 
                 case SelectedOption.Resolution:
 
-                    if (Input_Manager.KeyPressed(Keys.Right))
+                    if (Input_Manager.KeyPressed(Keys.Left) && ScreenSizeIndex > 1)
                     {
-
+                        ScreenSizeIndex--;
                     }
-                    else if (Input_Manager.KeyPressed(Keys.Left))
+                    else if (Input_Manager.KeyPressed(Keys.Right) && ScreenSizeIndex < ScreenSizeAmount)
                     {
-
+                        ScreenSizeIndex++;
                     }
                     else if (Input_Manager.KeyPressed(Keys.Back))
                     {
                         selectedOption = SelectedOption.None;
+
+                        if (ScreenSizeIndex == 1)
+                        {
+                            
+                        }
+                        else if (ScreenSizeIndex == 2)
+                        {
+                            TempWindowSize = new Vector2(480 * Global_Info.AccessScreenScale, 270 * Global_Info.AccessScreenScale);
+                        }
+                        else if (ScreenSizeIndex == 3)
+                        {
+
+                        }
+
+                        Global_Info.AccessWindowSize = TempWindowSize;
                     }
                     
                     break;
-                case SelectedOption.Music:
+                case SelectedOption.MusicVolume:
                     
                     if (Input_Manager.KeyPressed(Keys.Right))
                     {
@@ -93,13 +107,14 @@ namespace Cheatscape
         {
             switch (selectedOption)
             {
+                
                 case SelectedOption.None:
 
                     break;
                 case SelectedOption.Resolution:
 
                     break;
-                case SelectedOption.Music:
+                case SelectedOption.MusicVolume:
 
                     break;
             }
