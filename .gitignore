@@ -364,4 +364,4 @@ FodyWeavers.xsd
 Cheatscape/.config/dotnet-tools.json
 
 
-!Cheatscape/bin/Debug/netcoreapp3.1/Text_Files
+!Cheatscape/Text_Files

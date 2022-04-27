@@ -11,7 +11,7 @@ namespace Cheatscape
         {
             int tempCounter = 0;
             string tempLine;
-            string tempDirectory = Directory.GetCurrentDirectory() + @"\Text Files\Level" + Level_Manager.AccessCurrentLevel + ".txt";
+            string tempDirectory = @"..\..\..\Text_Files\Level" + Level_Manager.AccessCurrentLevel + ".txt";
             Level_Manager.AccessAllMoves.Clear();
 
             StreamReader file = new StreamReader(tempDirectory);
