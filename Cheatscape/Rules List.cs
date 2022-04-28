@@ -58,7 +58,7 @@ namespace Cheatscape
 
         public static void IncludeList(int aList)
         {
-            string[] tempArray = GetList();
+            string[] tempArray = GetList(aList);
 
             for (int i = 0; i < tempArray.Length; i++)
             {
@@ -72,6 +72,19 @@ namespace Cheatscape
         public static string[] GetList()
         {
             switch (CurrentRuleList)
+            {
+                default:
+                    return GeneralRules;
+                case 1:
+                    return MovementRules;
+                case 2:
+                    return ExtraRules;
+            }
+        }
+
+        public static string[] GetList(int aList)
+        {
+            switch (aList)
             {
                 default:
                     return GeneralRules;

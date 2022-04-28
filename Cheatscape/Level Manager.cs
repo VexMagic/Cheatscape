@@ -67,7 +67,9 @@ namespace Cheatscape
                                 AllAnswers[i].Item1.myRule.Y == Rules_List.AccessCurrentRule &&
                                 AllAnswers[i].Item2 == CurrentSlide)
                             {
-                                Global_Info.AccessCurrentGameState = Global_Info.GameState.LevelSelect;
+                                //Global_Info.AccessCurrentGameState = Global_Info.GameState.LevelSelect;
+                                CurrentLevel++;
+                                File_Manager.LoadLevel();
                             }
                             else if (Rules_List.AccessCurrentRule != Rules_List.GetList().Length)
                             {
