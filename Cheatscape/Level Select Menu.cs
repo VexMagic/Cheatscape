@@ -25,21 +25,28 @@ namespace Cheatscape
         {
             if (Input_Manager.KeyPressed(Keys.Left) && SelectedLevel > 0)
             {
-                SelectedLevel--;
-            }
-            else if (Input_Manager.KeyPressed(Keys.Right) && SelectedLevel < LevelAmount - 1)
-            {
-                SelectedLevel++;
-            }
-            else if (Input_Manager.KeyPressed(Keys.Space))
-            {
-                Global_Info.AccessCurrentGameState = Global_Info.GameState.PlayingLevel;
-                Level_Manager.AccessCurrentLevel = SelectedLevel;
-                File_Manager.LoadLevel();
-            }
-            else if (Input_Manager.KeyPressed(Keys.Left))
-            {
-                Global_Info.AccessCurrentGameState = Global_Info.GameState.Options;
+                if (Keyboard.GetState().IsKeyDown(Keys.Left) && SelectedLevel > 0)
+                {
+                    SelectedLevel--;
+                    Global_Info.AccessButtonCooldown = 12;
+                }
+                else if (Keyboard.GetState().IsKeyDown(Keys.Right) && SelectedLevel < LevelAmount - 1)
+                {
+                    SelectedLevel++;
+                    Global_Info.AccessButtonCooldown = 12;
+                }
+                else if (Keyboard.GetState().IsKeyDown(Keys.Space))
+                {
+                    Global_Info.AccessCurrentGameState = Global_Info.GameState.PlayingLevel;
+                    Level_Manager.AccessCurrentLevel = SelectedLevel;
+                    File_Manager.LoadLevel();
+                    Global_Info.AccessButtonCooldown = 12;
+                }
+                else if (Keyboard.GetState().IsKeyDown(Keys.Back))
+                {
+                    Main_Menu.Return();
+                    Global_Info.AccessCurrentGameState = Global_Info.GameState.MainMenu;
+                }
             }
         }
 

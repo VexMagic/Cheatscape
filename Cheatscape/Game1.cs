@@ -38,7 +38,7 @@ namespace Cheatscape
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
-            Global_Info.Update();
+            Global_Info.Update(gameTime);
 
             base.Update(gameTime);
         }
