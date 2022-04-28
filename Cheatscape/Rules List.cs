@@ -129,7 +129,6 @@ namespace Cheatscape
             }
             SkipExcludedRules(aMoveDirection);
         }
-
         static void SkipExcludedRules(int aMoveDirection = 0)
         {
             if (aMoveDirection != 1)
