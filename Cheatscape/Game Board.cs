@@ -11,7 +11,7 @@ namespace Cheatscape
         static Chess_Piece[,] ChessPiecesOnBoard = new Chess_Piece[8, 8];
         static List<Chess_Piece> CapturedWhitePieces = new List<Chess_Piece>();
         static List<Chess_Piece> CapturedBlackPieces = new List<Chess_Piece>();
-        static Vector2 BoardPosition = new Vector2(112, 5);
+        static Vector2 BoardPosition = new Vector2(Global_Info.AccessWindowSize.X / 4 - 128, Global_Info.AccessWindowSize.Y / 4 - 128);
         static int TileSize = 32;
 
         public static Chess_Piece[,] AccessChessPiecesOnBoard { get => ChessPiecesOnBoard; set => ChessPiecesOnBoard = value; }
@@ -34,21 +34,43 @@ namespace Cheatscape
             ChessPiecesOnBoard = new Chess_Piece[8, 8];
             CapturedWhitePieces.Clear();
             CapturedBlackPieces.Clear();
-            Level_Manager.AccessCurrentSlide = 0;
+            Level_Manager.AccessCurrentSlide = 1;
             Rules_List.AccessCurrentRule = 0;
             Rules_List.AccessCurrentRuleList = 0;
+            Text_Manager.TutorialText = null;
             SetBasicBoardState();
+
+            for (int i = 0; i < Level_Manager.AccessAllMoves[0].Count; i++)
+            {
+                MoveChessPiece(Level_Manager.AccessAllMoves[0][i], true);
+            }
         }
 
         public static void SetBasicBoardState()
         {
             Level_Manager.AccessAllAnswers.Clear();
+            Rules_List.AllowedRules.Clear();
             for (int i = 0; i < Level_Manager.AccessAllMoves.Count; i++)
             {
                 for (int j = 0; j < Level_Manager.AccessAllMoves[i].Count; j++)
                 {
                     if (Level_Manager.AccessAllMoves[i][j].MyMoveType == Chess_Move.MoveType.AnswerCheat)
                         Level_Manager.AccessAllAnswers.Add(new Tuple<Chess_Move, int>(Level_Manager.AccessAllMoves[i][j], i + 1));
+                    else if (Level_Manager.AccessAllMoves[i][j].MyMoveType == Chess_Move.MoveType.IncludeRule)
+                    {
+                        if (!Rules_List.AllowedRules.Contains(Level_Manager.AccessAllMoves[i][j].myRule))
+                            Rules_List.AllowedRules.Add(Level_Manager.AccessAllMoves[i][j].myRule);
+                    }
+                    else if (Level_Manager.AccessAllMoves[i][j].MyMoveType == Chess_Move.MoveType.IncludeList)
+                        Rules_List.IncludeList(Level_Manager.AccessAllMoves[i][j].myRuleList);
+                }
+            }
+
+            if (Rules_List.AllowedRules.Count == 0)
+            {
+                for (int i = 0; i < Rules_List.AmountOfRuleLists; i++)
+                {
+                    Rules_List.IncludeList(i);
                 }
             }
 
@@ -115,12 +137,12 @@ namespace Cheatscape
             }
         }
 
-        public static void MoveChessPiece(Chess_Move aMove, bool isAnimated)
+        public static void MoveChessPiece(Chess_Move aMove, bool isCurrentTurn)
         {
             switch (aMove.MyMoveType)
             {
                 case Chess_Move.MoveType.MovePiece:
-                    if (isAnimated)
+                    if (isCurrentTurn)
                         Hand_Animation_Manager.GiveHandDirection(aMove);
                     else
                     {
@@ -144,6 +166,12 @@ namespace Cheatscape
                     break;
                 case Chess_Move.MoveType.AnswerCheat:
                     break;
+                case Chess_Move.MoveType.TutorialText:
+                    if (isCurrentTurn)
+                        Text_Manager.TutorialText = aMove.myText;
+                    else
+                        Text_Manager.TutorialText = "";
+                    break;
             }
         }
 
@@ -164,7 +192,7 @@ namespace Cheatscape
 
         public static void Draw(SpriteBatch aSpriteBatch)
         {
-            aSpriteBatch.Draw(Background, new Rectangle(0, 0, (int)(Global_Info.AccessWindowSize.X / Global_Info.AccessScreenScale), 
+            aSpriteBatch.Draw(Background, new Rectangle(0, 0, (int)(Global_Info.AccessWindowSize.X / Global_Info.AccessScreenScale),
                 (int)(Global_Info.AccessWindowSize.Y / Global_Info.AccessScreenScale)), Color.White);
             aSpriteBatch.Draw(ChessBoard, BoardPosition, Color.White);
 
@@ -185,7 +213,7 @@ namespace Cheatscape
 
             for (int i = CapturedBlackPieces.Count - 1; i >= 0; i--)
             {
-                Vector2 tempPiecePos = new Vector2(BoardPosition.X + (ChessPiecesOnBoard.GetLength(0) * TileSize), 
+                Vector2 tempPiecePos = new Vector2(BoardPosition.X + (ChessPiecesOnBoard.GetLength(0) * TileSize),
                     BoardPosition.Y + ((ChessPiecesOnBoard.GetLength(1) - 1) * TileSize) - (i * (TileSize / 2)));
                 CapturedBlackPieces[i].Draw(aSpriteBatch, tempPiecePos);
             }
