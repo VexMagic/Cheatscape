@@ -64,8 +64,8 @@ namespace Cheatscape
                 {
                     for (int i = 0; i < AllAnswers.Count; i++)
                     {
-                        if (AllAnswers[i].Item1.myCheatAnswer.X == Rules_List.AccessCurrentRuleList &&
-                            AllAnswers[i].Item1.myCheatAnswer.Y == Rules_List.AccessCurrentRule &&
+                        if (AllAnswers[i].Item1.myRule.X == Rules_List.AccessCurrentRuleList &&
+                            AllAnswers[i].Item1.myRule.Y == Rules_List.AccessCurrentRule &&
                             AllAnswers[i].Item2 == CurrentSlide)
                         {
                             Global_Info.AccessCurrentGameState = Global_Info.GameState.LevelSelect;

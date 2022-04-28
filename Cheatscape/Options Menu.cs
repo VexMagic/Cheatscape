@@ -15,22 +15,27 @@ namespace Cheatscape
         static Vector2 HighLightEdgeSize = new Vector2(36, 34);
         static Vector2 HighLightMidSize = new Vector2(32, 34);
 
-        static int OptionIndex = 1;
-        static int OptionAmount = 3;
+        static int OptionIndexX = 1;
+        static int OptionAmountX = 3;
+        static int OptionIndexY = 1;
+        static int OptionAmountY = 2;
         static Color HighLightColor = Color.White;
 
         enum SelectedOption { None, Resolution, MusicVolume, ViewControls };
         static SelectedOption selectedOption = SelectedOption.None;
 
+        //Screen Size
         static Vector2 TempWindowSize;
         static int ScreenSizeIndex = 1;
         static int ScreenSizeAmount = 3;
         static bool ScreenSizeHighLight = false;
 
+        //Music Volume
         static int MusicVolumeIndex = 1;
         static int MusicVolumeAmount = 6;
         static bool MusicVolumeHighLight = false;
 
+        //View Controls
         static int ViewControlsIndex = 1;
         static int ViewControlsAmount = 1;
         static bool ViewControlsHighLight = false;
@@ -41,45 +46,53 @@ namespace Cheatscape
             {
                 case SelectedOption.None:
 
-                    if (OptionIndex == 1)
+                    if (OptionIndexX == 1 && OptionIndexY == 1)
                     {
                         ScreenSizeHighLight = true;
 
                         MusicVolumeHighLight = false;
                     }
-                    else if (OptionIndex == 2)
+                    else if (OptionIndexX == 2 && OptionIndexY == 1)
                     {
                         MusicVolumeHighLight = true;
 
                         ScreenSizeHighLight = false;
                         ViewControlsHighLight = false;
                     }
-                    else if (OptionIndex == 3)
+                    else if (OptionIndexX == 3 && OptionIndexY == 1)
                     {
                         ViewControlsHighLight = true;
 
                         MusicVolumeHighLight = false;
                     }
                     
-                    if (Input_Manager.KeyPressed(Keys.Up) && OptionIndex > 1)
+                    if (Input_Manager.KeyPressed(Keys.Up) && OptionIndexX > 1)
                     {
-                        OptionIndex--;
+                        OptionIndexX--;
                     }
-                    else if (Input_Manager.KeyPressed(Keys.Down) && OptionIndex < OptionAmount)
+                    else if (Input_Manager.KeyPressed(Keys.Down) && OptionIndexX < OptionAmountX)
                     {
-                        OptionIndex++;
+                        OptionIndexX++;
+                    }
+                    else if (Input_Manager.KeyPressed(Keys.Left) && OptionIndexY > 1)
+                    {
+                        OptionIndexY--;
+                    }
+                    else if (Input_Manager.KeyPressed(Keys.Right) && OptionIndexY < OptionAmountY)
+                    {
+                        OptionIndexY++;
                     }
                     else if (Input_Manager.KeyPressed(Keys.Space))
                     {
-                        if (OptionIndex == 1)
+                        if (OptionIndexX == 1 && OptionIndexY == 1)
                         {
                             selectedOption = SelectedOption.Resolution;
                         }
-                        else if (OptionIndex == 2)
+                        else if (OptionIndexX == 2 && OptionIndexY == 1)
                         {
                             selectedOption = SelectedOption.MusicVolume;
                         }
-                        else if (OptionIndex == 3)
+                        else if (OptionIndexX == 3 && OptionIndexY == 1)
                         {
                             selectedOption = SelectedOption.ViewControls;
                         }
@@ -171,26 +184,18 @@ namespace Cheatscape
         public static void Draw(SpriteBatch spriteBatch)
         {
             
-            
-            switch (selectedOption)
-            {
-                
-                case SelectedOption.None:
 
-                    break;
-                case SelectedOption.Resolution:
+            //Screen Size
+            DrawSlider(ScreenSizeAmount, ScreenSizeIndex, 3, spriteBatch, new Vector2(50, 35), ScreenSizeHighLight);
+            Text_Manager.DrawText("Screen Size", 50, 20, spriteBatch);
 
-                    break;
-                case SelectedOption.MusicVolume:
+            // Music Volume
+            DrawSlider(MusicVolumeAmount, MusicVolumeIndex, 3, spriteBatch, new Vector2(50, 85), MusicVolumeHighLight);
+            Text_Manager.DrawText("Music Volume", 50, 70, spriteBatch);
 
-                    break;
-            }
-
-            DrawSlider(ScreenSizeAmount, ScreenSizeIndex, 3, spriteBatch, new Vector2(100, 100), ScreenSizeHighLight); //Screen Size
-
-            DrawSlider(MusicVolumeAmount, MusicVolumeIndex, 3, spriteBatch, new Vector2(100, 150), MusicVolumeHighLight); // Music Volume
-
-            DrawSlider(ViewControlsAmount, ViewControlsIndex, 1, spriteBatch, new Vector2(100, 200), ViewControlsHighLight); //View Controls
+            //View Controls
+            DrawSlider(ViewControlsAmount, ViewControlsIndex, 1, spriteBatch, new Vector2(50, 135), ViewControlsHighLight);
+            Text_Manager.DrawText("View Controls", 50, 120, spriteBatch);
         }
 
         private static void DrawSlider(int options, int selectionIndex, int size, SpriteBatch spriteBatch, Vector2 position, bool highLight)
