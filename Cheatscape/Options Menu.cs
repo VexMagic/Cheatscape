@@ -10,7 +10,7 @@ namespace Cheatscape
     static class Options_Menu
     {
         static Texture2D Sliders = Global_Info.AccessContentManager.Load<Texture2D>("OptionSliders");
-        static Vector2 SliderSize = new Vector2(100, 75);
+        static Vector2 SliderSize = new Vector2(32, 24);
 
         static int OptionIndex = 1;
         static int OptionAmount = 3;
@@ -21,6 +21,9 @@ namespace Cheatscape
         static Vector2 TempWindowSize;
         static int ScreenSizeIndex = 1;
         static int ScreenSizeAmount = 3;
+
+        static int MusicVolumeIndex = 1;
+        static int MusicVolumeAmount = 6;
 
         public static void Update()
         {
@@ -51,11 +54,12 @@ namespace Cheatscape
                     {
                         Global_Info.AccessCurrentGameState = Global_Info.GameState.LevelSelect;
                     }
+
                     break;
 
                 case SelectedOption.Resolution:
 
-                    if (Input_Manager.KeyPressed(Keys.Left) && ScreenSizeIndex > 1)
+                    if (Input_Manager.KeyPressed(Keys.Left) && ScreenSizeIndex > 0)
                     {
                         ScreenSizeIndex--;
                     }
@@ -86,13 +90,13 @@ namespace Cheatscape
                     break;
                 case SelectedOption.MusicVolume:
                     
-                    if (Input_Manager.KeyPressed(Keys.Right))
+                    if (Input_Manager.KeyPressed(Keys.Right) && MusicVolumeIndex < MusicVolumeAmount)
                     {
-
+                        MusicVolumeIndex++;
                     }
-                    else if (Input_Manager.KeyPressed(Keys.Left))
+                    else if (Input_Manager.KeyPressed(Keys.Left) && MusicVolumeIndex > 0)
                     {
-
+                        MusicVolumeIndex--;
                     }
                     else if (Input_Manager.KeyPressed(Keys.Back))
                     {
@@ -105,6 +109,8 @@ namespace Cheatscape
 
         public static void Draw(SpriteBatch spriteBatch)
         {
+            
+            
             switch (selectedOption)
             {
                 
@@ -118,33 +124,39 @@ namespace Cheatscape
 
                     break;
             }
+
+            DrawSlider(ScreenSizeAmount, ScreenSizeIndex, spriteBatch, new Vector2(100, 100)); //Screen Size
+
+            DrawSlider(MusicVolumeAmount, MusicVolumeIndex, spriteBatch, new Vector2(100, 150)); // Music Volume
         }
 
         private static void DrawSlider(int options, int selectionIndex, SpriteBatch spriteBatch, Vector2 position)
         {
-            spriteBatch.Begin();
+            
 
             for (int i = 0; i <= options; i++)
             {
                 if (i == 0)
                 {
                     spriteBatch.Draw(Sliders, new Rectangle((int)position.X, (int)position.Y, (int)SliderSize.X, (int)SliderSize.Y),
-                        new Rectangle(100, 0, 100, 75), Color.White, 0, Vector2.Zero, SpriteEffects.FlipVertically, 0);
+                        new Rectangle(100, 0, 100, 75), Color.White, 0, Vector2.Zero, SpriteEffects.FlipHorizontally, 0);
                 }
                 else if (i == options)
                 {
-                    spriteBatch.Draw(Sliders, new Rectangle((int)position.X + 100 * i, (int)position.Y, (int)SliderSize.X, (int)SliderSize.Y),
+                    spriteBatch.Draw(Sliders, new Rectangle((int)position.X + 32 * i, (int)position.Y, (int)SliderSize.X, (int)SliderSize.Y),
                         new Rectangle(100, 0, 100, 75), Color.White);
                 }
                 else
                 {
-                    spriteBatch.Draw(Sliders, new Rectangle((int)position.X + 100 * i, (int)position.Y, (int)SliderSize.X, (int)SliderSize.Y),
+                    spriteBatch.Draw(Sliders, new Rectangle((int)position.X + 32 * i, (int)position.Y, (int)SliderSize.X, (int)SliderSize.Y),
                         new Rectangle(200, 0, 100, 75), Color.White);
                 }
             }
 
-            spriteBatch.Draw(Sliders, new Rectangle((int)position.X + 100 * selectionIndex, (int)position.Y, 100, 75),
+            spriteBatch.Draw(Sliders, new Rectangle((int)position.X + 32 * selectionIndex, (int)position.Y, 32, 24),
                 new Rectangle(0, 0, 100, 75), Color.White);
+
+            
         }
     }
 }
