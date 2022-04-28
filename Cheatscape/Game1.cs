@@ -51,6 +51,7 @@ namespace Cheatscape
 
             Global_Info.Draw(_spriteBatch);
 
+
             _spriteBatch.End();
 
             base.Draw(gameTime);

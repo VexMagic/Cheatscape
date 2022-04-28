@@ -21,8 +21,7 @@ namespace Cheatscape
         public static Vector2 AccessWindowSize { get => WindowSize; set => WindowSize = value; }
         public static int AccessButtonCooldown { get => ButtonCooldown; set => ButtonCooldown = value; }
         public static GameState AccessCurrentGameState { get => CurrentGameState; set => CurrentGameState = value; }
-
-
+        
         public static void Load()
         {
             Game_Board.Load();
