@@ -11,7 +11,7 @@ namespace Cheatscape
         static int CurrentLevel = 0;
         static List<List<Chess_Move>> AllMoves = new List<List<Chess_Move>>();
         static List<Tuple<Chess_Move, int>> AllAnswers = new List<Tuple<Chess_Move, int>>();
-        static int CurrentSlide = 0;
+        static int CurrentSlide = 1;
         static bool FindingCheat = false;
 
         public static int AccessCurrentLevel { get => CurrentLevel; set => CurrentLevel = value; }
@@ -23,11 +23,15 @@ namespace Cheatscape
         {
             if (Global_Info.AccessButtonCooldown == 0)
             {
-                if (Keyboard.GetState().IsKeyDown(Keys.Left) && CurrentSlide > 0 && !FindingCheat)
+                if (Keyboard.GetState().IsKeyDown(Keys.Left) && CurrentSlide > 1 && !FindingCheat)
                 {
                     Hand_Animation_Manager.ResetAllHands();
-                    Game_Board.SetBoardState();
                     CurrentSlide--;
+                    Game_Board.SetBoardState();
+                    for (int i = 0; i < AllMoves[CurrentSlide - 1].Count; i++)
+                    {
+                        Game_Board.MoveChessPiece(AllMoves[CurrentSlide - 1][i], true);
+                    }
                     Global_Info.AccessButtonCooldown = 12;
                 }
                 else if (Keyboard.GetState().IsKeyDown(Keys.Left) && FindingCheat)
@@ -63,7 +67,13 @@ namespace Cheatscape
                                 AllAnswers[i].Item1.myRule.Y == Rules_List.AccessCurrentRule &&
                                 AllAnswers[i].Item2 == CurrentSlide)
                             {
-                                Global_Info.AccessCurrentGameState = Global_Info.GameState.LevelSelect;
+                                //Global_Info.AccessCurrentGameState = Global_Info.GameState.LevelSelect;
+                                CurrentLevel++;
+                                File_Manager.LoadLevel();
+                            }
+                            else if (Rules_List.AccessCurrentRule != Rules_List.GetList().Length)
+                            {
+                                //lose life
                             }
                         }
                         FindingCheat = false;

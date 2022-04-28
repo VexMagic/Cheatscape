@@ -21,8 +21,7 @@ namespace Cheatscape
         public static Vector2 AccessWindowSize { get => WindowSize; set => WindowSize = value; }
         public static int AccessButtonCooldown { get => ButtonCooldown; set => ButtonCooldown = value; }
         public static GameState AccessCurrentGameState { get => CurrentGameState; set => CurrentGameState = value; }
-
-
+        
         public static void Load()
         {
             Game_Board.Load();
@@ -30,6 +29,7 @@ namespace Cheatscape
             Hand_Animation_Manager.Load();
             Level_Select_Menu.Load();
             Rules_List.Load();
+            Text_Manager.Load();
         }
 
         public static void Update()
@@ -60,6 +60,7 @@ namespace Cheatscape
                     Game_Board.Draw(aSpriteBatch);
                     Hand_Animation_Manager.Draw(aSpriteBatch);
                     Level_Manager.Draw(aSpriteBatch);
+                    Text_Manager.DrawTutorialBox(aSpriteBatch);
                     break;
             }
         }
