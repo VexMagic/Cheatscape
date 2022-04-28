@@ -42,6 +42,11 @@ namespace Cheatscape
                     File_Manager.LoadLevel();
                     Global_Info.AccessButtonCooldown = 12;
                 }
+                else if (Keyboard.GetState().IsKeyDown(Keys.Back))
+                {
+                    Main_Menu.Return();
+                    Global_Info.AccessCurrentGameState = Global_Info.GameState.MainMenu;
+                }
             }
         }
 

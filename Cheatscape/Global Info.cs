@@ -43,6 +43,7 @@ namespace Cheatscape
             {
                 case GameState.LevelSelect:
                     Level_Select_Menu.Update();
+                    Main_Menu.Update(gameTime);
                     break;
                 case GameState.PlayingLevel:
                     Level_Manager.Update();

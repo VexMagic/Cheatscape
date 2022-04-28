@@ -4,18 +4,19 @@ using System.Text;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using System.Threading;
 
 namespace Cheatscape
 {
     static class Main_Menu
     {
 
-        static int CurrentFrame = 0;
+        public static int CurrentFrame = 0;
         const int MAXFRAME = 8;
         static bool animating = false;
         static int frame = 1;
         static float timer;
-        static float framesPerSecond = 151f;
+        static float framesPerSecond = 90f;
         static Texture2D menuScreen;
         static Rectangle srcRect;
         static int width = 1920;
@@ -24,6 +25,18 @@ namespace Cheatscape
         public static void Load()
         {
             menuScreen = Global_Info.AccessContentManager.Load<Texture2D>("Main_Menu");
+        }
+
+        public static void Return()
+        {
+            animating = true;
+            frame = -1;
+        }
+        public static void Stop()
+        {
+            animating = false;
+            frame = 1;
+            CurrentFrame = 0;
         }
         public static void Update(GameTime gameTime)
         {
@@ -38,16 +51,21 @@ namespace Cheatscape
                 }
             }
 
-            if (Keyboard.GetState().IsKeyDown(Keys.Space))
+            if (Keyboard.GetState().IsKeyDown(Keys.Space) && Global_Info.AccessCurrentGameState == Global_Info.GameState.MainMenu)
             {
                 animating = true;
             }
 
-            if (CurrentFrame == MAXFRAME)
+            if (CurrentFrame == MAXFRAME && Global_Info.AccessCurrentGameState == Global_Info.GameState.MainMenu)
             {
                 animating = false;
                 Global_Info.AccessCurrentGameState = Global_Info.GameState.LevelSelect;
+            }
 
+
+            if (CurrentFrame < 0)
+            {
+                Stop();
             }
 
             srcRect = new Rectangle(0, height * CurrentFrame, width, height);
