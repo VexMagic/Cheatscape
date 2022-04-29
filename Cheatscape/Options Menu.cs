@@ -9,8 +9,8 @@ namespace Cheatscape
 {
     static class Options_Menu
     {
-        static Texture2D SliderTex = Global_Info.AccessContentManager.Load<Texture2D>("OptionSliders");
-        static Texture2D HighLightTex = Global_Info.AccessContentManager.Load<Texture2D>("OptionHighLight");
+        static Texture2D SliderTex;
+        static Texture2D HighLightTex;
         static Vector2 SliderSize = new Vector2(32, 24);
         static Vector2 HighLightEdgeSize = new Vector2(36, 34);
         static Vector2 HighLightMidSize = new Vector2(32, 34);
@@ -39,6 +39,12 @@ namespace Cheatscape
         static int ViewControlsIndex = 1;
         static int ViewControlsAmount = 1;
         static bool ViewControlsHighLight = false;
+
+        public static void Load()
+        {
+            SliderTex = Global_Info.AccessContentManager.Load<Texture2D>("OptionSliders");
+            HighLightTex = Global_Info.AccessContentManager.Load<Texture2D>("OptionHighLight");
+        }
 
         public static void Update()
         {

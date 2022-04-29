@@ -12,8 +12,7 @@ namespace Cheatscape
         static ContentManager ContentManager;
         static float ScreenScale = 2f;
         public static Vector2 WindowSize = new Vector2(600 * ScreenScale, 360 * ScreenScale);
-        static int ButtonCooldown = 0;
-        public enum GameState { LevelSelect, PlayingLevel, MainMenu };
+        public enum GameState { LevelSelect, PlayingLevel, MainMenu, Options };
         static GameState CurrentGameState = GameState.MainMenu;
 
         public static ContentManager AccessContentManager { get => ContentManager; set => ContentManager = value; }
@@ -30,6 +29,7 @@ namespace Cheatscape
             Level_Select_Menu.Load();
             Rules_List.Load();
             Text_Manager.Load();
+            Options_Menu.Load();
         }
 
         public static void Update(GameTime gameTime)
@@ -48,6 +48,9 @@ namespace Cheatscape
                     break;
                 case GameState.MainMenu:
                     Main_Menu.Update(gameTime);
+                    break;
+                case GameState.Options:
+                    Options_Menu.Update();
                     break;
             }
         }
