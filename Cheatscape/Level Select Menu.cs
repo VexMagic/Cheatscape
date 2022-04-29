@@ -10,7 +10,7 @@ namespace Cheatscape
     static class Level_Select_Menu
     {
         static Texture2D Panel;
-        static Texture2D Numbers; 
+        static Texture2D Numbers;
 
         static int SelectedLevel = 0;
         static int LevelAmount = 2;

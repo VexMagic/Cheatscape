@@ -51,12 +51,12 @@ namespace Cheatscape
                 }
             }
 
-            if (Keyboard.GetState().IsKeyDown(Keys.Space) && Global_Info.AccessCurrentGameState == Global_Info.GameState.MainMenu)
+            if (Input_Manager.KeyPressed(Keys.Space) && Global_Info.AccessCurrentGameState == Global_Info.GameState.MainMenu)
             {
                 animating = true;
             }
 
-            if (CurrentFrame == MAXFRAME && Global_Info.AccessCurrentGameState == Global_Info.GameState.MainMenu)
+            if (CurrentFrame == MAXFRAME && Global_Info.AccessCurrentGameState == Global_Info.GameState.MainMenu && frame > 0)
             {
                 animating = false;
                 Global_Info.AccessCurrentGameState = Global_Info.GameState.LevelSelect;

@@ -25,20 +25,22 @@ namespace Cheatscape
         static SelectedOption selectedOption = SelectedOption.None;
 
         //Screen Size
-        static Vector2 TempWindowSize;
         static int ScreenSizeIndex = 1;
         static int ScreenSizeAmount = 3;
         static bool ScreenSizeHighLight = false;
+        static string ScreenSizeText = " ";
 
         //Music Volume
         static int MusicVolumeIndex = 1;
         static int MusicVolumeAmount = 6;
         static bool MusicVolumeHighLight = false;
+        static string MusicVolumeText = " ";
 
         //View Controls
         static int ViewControlsIndex = 1;
         static int ViewControlsAmount = 1;
         static bool ViewControlsHighLight = false;
+        static string ViewControlsOnOff = "ON";
 
         public static void Load()
         {
@@ -137,14 +139,12 @@ namespace Cheatscape
                         }
                         else if (ScreenSizeIndex == 2)
                         {
-                            TempWindowSize = new Vector2(480 * Global_Info.AccessScreenScale, 270 * Global_Info.AccessScreenScale);
+                            Global_Info.AccessWindowSize = new Vector2(480 * Global_Info.AccessScreenScale, 270 * Global_Info.AccessScreenScale);
                         }
                         else if (ScreenSizeIndex == 3)
                         {
-
+                            
                         }
-
-                        Global_Info.AccessWindowSize = TempWindowSize;
                     }
                     
                     break;
@@ -171,10 +171,12 @@ namespace Cheatscape
                     if (Input_Manager.KeyPressed(Keys.Right) && ViewControlsIndex < ViewControlsAmount)
                     {
                         ViewControlsIndex++;
+                        ViewControlsOnOff = "ON";
                     }
                     else if (Input_Manager.KeyPressed(Keys.Left) && ViewControlsIndex > 0)
                     {
                         ViewControlsIndex--;
+                        ViewControlsOnOff = "OFF";
                     }
                     else if (Input_Manager.KeyPressed(Keys.Back))
                     {
@@ -193,15 +195,15 @@ namespace Cheatscape
 
             //Screen Size
             DrawSlider(ScreenSizeAmount, ScreenSizeIndex, 3, spriteBatch, new Vector2(50, 35), ScreenSizeHighLight);
-            Text_Manager.DrawText("Screen Size", 50, 20, spriteBatch);
+            Text_Manager.DrawText("Screen Size " + ScreenSizeText, 50, 20, spriteBatch);
 
             // Music Volume
             DrawSlider(MusicVolumeAmount, MusicVolumeIndex, 3, spriteBatch, new Vector2(50, 85), MusicVolumeHighLight);
-            Text_Manager.DrawText("Music Volume", 50, 70, spriteBatch);
+            Text_Manager.DrawText("Music Volume " + MusicVolumeText, 50, 70, spriteBatch);
 
             //View Controls
             DrawSlider(ViewControlsAmount, ViewControlsIndex, 1, spriteBatch, new Vector2(50, 135), ViewControlsHighLight);
-            Text_Manager.DrawText("View Controls", 50, 120, spriteBatch);
+            Text_Manager.DrawText("View Controls " + ViewControlsOnOff, 50, 120, spriteBatch);
         }
 
         private static void DrawSlider(int options, int selectionIndex, int size, SpriteBatch spriteBatch, Vector2 position, bool highLight)
