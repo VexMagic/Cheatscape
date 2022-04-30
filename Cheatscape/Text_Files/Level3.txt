@@ -1,4 +1,2 @@
-Move;C2;C4
-Move;C7;C5
-Move;D2;D3
-Move;D8;A5,Answer;2-1
+Include List;1,Text;You will now have access to all the movement rules! Good Luck!
+Move;D1;D3,Answer;1-7

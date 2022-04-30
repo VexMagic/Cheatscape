@@ -194,7 +194,7 @@ namespace Cheatscape
         {
             aSpriteBatch.Draw(Background, new Rectangle(0, 0, (int)(Global_Info.AccessWindowSize.X / Global_Info.AccessScreenScale),
                 (int)(Global_Info.AccessWindowSize.Y / Global_Info.AccessScreenScale)), Color.White);
-            aSpriteBatch.Draw(ChessBoard, BoardPosition, Color.White);
+            aSpriteBatch.Draw(ChessBoard, BoardPosition - new Vector2(26, 26), Color.White);
 
             for (int x = 0; x < ChessPiecesOnBoard.GetLength(0); x++)
             {

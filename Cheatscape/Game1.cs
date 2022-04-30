@@ -38,7 +38,7 @@ namespace Cheatscape
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
-            Global_Info.Update();
+            Global_Info.Update(gameTime);
 
             base.Update(gameTime);
         }
@@ -50,6 +50,7 @@ namespace Cheatscape
             _spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.NonPremultiplied, SamplerState.PointClamp, null, null, null, Matrix.CreateScale(Global_Info.AccessScreenScale));
 
             Global_Info.Draw(_spriteBatch);
+
 
             _spriteBatch.End();
 
