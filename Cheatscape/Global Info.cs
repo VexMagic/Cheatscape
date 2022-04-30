@@ -68,6 +68,7 @@ namespace Cheatscape
                     Game_Board.Draw(aSpriteBatch);
                     Hand_Animation_Manager.Draw(aSpriteBatch);
                     Level_Manager.Draw(aSpriteBatch);
+                    Text_Manager.DrawTutorialBox(aSpriteBatch);
                     break;
                 case GameState.Options:
                     Options_Menu.Draw(aSpriteBatch);

@@ -38,6 +38,7 @@ namespace Cheatscape
             Rules_List.AccessCurrentRule = 0;
             Rules_List.AccessCurrentRuleList = 0;
             Text_Manager.TutorialText = null;
+            Hand_Animation_Manager.ResetAllHands();
             SetBasicBoardState();
 
             for (int i = 0; i < Level_Manager.AccessAllMoves[0].Count; i++)
