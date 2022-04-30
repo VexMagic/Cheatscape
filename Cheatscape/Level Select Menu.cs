@@ -9,32 +9,47 @@ namespace Cheatscape
 {
     static class Level_Select_Menu
     {
-        static Texture2D Panel;
-        static Texture2D Numbers;
+        static Texture2D PanelTex;
+        static Texture2D NumbersTex;
+        static Texture2D PanelHighLightTex;
+        static Texture2D Bg1Tex;
 
-        static int SelectedLevel = 0;
-        static int LevelAmount = 2;
+        static int SelectedLevelX = 0;
+        static int SelectedLevelY = 0;
+
+        static int LevelAmountX = 5;
+        static int LevelAmountY = 2;
 
         public static void Load()
         {
-            Panel = Global_Info.AccessContentManager.Load<Texture2D>("Level Panel");
-            Numbers = Global_Info.AccessContentManager.Load<Texture2D>("Numbers");
+            PanelTex = Global_Info.AccessContentManager.Load<Texture2D>("Level Panel");
+            NumbersTex = Global_Info.AccessContentManager.Load<Texture2D>("Numbers");
+            PanelHighLightTex = Global_Info.AccessContentManager.Load<Texture2D>("LevelPanelHighlight");
+            Bg1Tex = Global_Info.AccessContentManager.Load<Texture2D>("Background");
         }
 
         public static void Update()
         {
-            if (Keyboard.GetState().IsKeyDown(Keys.Left) && SelectedLevel > 0)
+            if (Input_Manager.KeyPressed(Keys.Left) && SelectedLevelX > 0)
             {
-                SelectedLevel--;
+                SelectedLevelX--;
             }
-            else if (Input_Manager.KeyPressed(Keys.Right) && SelectedLevel < LevelAmount - 1)
+            else if (Input_Manager.KeyPressed(Keys.Right) && SelectedLevelX < LevelAmountX - 1)
             {
-                SelectedLevel++;
+                SelectedLevelX++;
+            }
+            else if (Input_Manager.KeyPressed(Keys.Up) && SelectedLevelY > 0)
+            {
+                SelectedLevelY--;
+            }
+            else if (Input_Manager.KeyPressed(Keys.Down) && SelectedLevelY < LevelAmountY - 1)
+            {
+                SelectedLevelY++;
             }
             else if (Input_Manager.KeyPressed(Keys.Space))
             {
                 Global_Info.AccessCurrentGameState = Global_Info.GameState.PlayingLevel;
-                Level_Manager.AccessCurrentLevel = SelectedLevel;
+                Level_Manager.AccessCurrentLevel = SelectedLevelX + SelectedLevelY * 5;
                 File_Manager.LoadLevel();
             }
             else if (Input_Manager.KeyPressed(Keys.Back))
@@ -50,11 +65,20 @@ namespace Cheatscape
 
         public static void Draw(SpriteBatch aSpriteBatch)
         {
-            for (int i = 0; i < LevelAmount; i++)
+            aSpriteBatch.Draw(Bg1Tex, new Rectangle(50, 50, PanelTex.Width, PanelTex.Height), Color.White);
+            
+            aSpriteBatch.Draw(PanelHighLightTex, new Vector2(50 + SelectedLevelX * 100, 50 + SelectedLevelY * 75), Color.White);
+            
+            for (int i = 0; i < LevelAmountY; i++)
             {
-                aSpriteBatch.Draw(Numbers, new Rectangle(201 + (i - SelectedLevel) * 100, 205, 9, 5), new Rectangle(9 * i, 0, 9, 5), Color.White, 0, new Vector2(0, 0), SpriteEffects.None, 0);
-                aSpriteBatch.Draw(Panel, new Vector2(196 + (i - SelectedLevel) * 100, 200), Color.White);
+                for (int j = 0; j < LevelAmountX; j++)
+                {
+                    aSpriteBatch.Draw(NumbersTex, new Rectangle(55 + j * 100, 55 + i * 75, 9, 5), new Rectangle(9 * j + i * 45, 0, 9, 5), Color.White, 0, new Vector2(0, 0), SpriteEffects.None, 0);
+                    aSpriteBatch.Draw(PanelTex, new Vector2(50 + j * 100, 50 + i * 75), Color.White);
+                }
             }
+
+            
         }
     }
 }
