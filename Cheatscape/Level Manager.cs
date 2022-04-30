@@ -11,8 +11,9 @@ namespace Cheatscape
         static int CurrentLevel = 0;
         static List<List<Chess_Move>> AllMoves = new List<List<Chess_Move>>();
         static List<Tuple<Chess_Move, int>> AllAnswers = new List<Tuple<Chess_Move, int>>();
-        static int CurrentSlide = 1;
+        static int CurrentSlide = 0;
         static bool FindingCheat = false;
+        static int AmountOfRuleLists = 3;
 
         public static int AccessCurrentLevel { get => CurrentLevel; set => CurrentLevel = value; }
         public static List<List<Chess_Move>> AccessAllMoves { get => AllMoves; set => AllMoves = value; }
@@ -21,76 +22,65 @@ namespace Cheatscape
 
         public static void Update()
         {
-            if (Global_Info.AccessButtonCooldown == 0)
+            if (Input_Manager.KeyPressed(Keys.Left) && CurrentSlide > 0 && !FindingCheat)
             {
-                if (Keyboard.GetState().IsKeyDown(Keys.Left) && CurrentSlide > 1 && !FindingCheat)
+                Hand_Animation_Manager.ResetAllHands();
+                Game_Board.SetBoardState();
+                CurrentSlide--;
+            }
+            else if (Input_Manager.KeyPressed(Keys.Left) && FindingCheat)
+            {
+                Rules_List.AccessCurrentRuleList--;
+                if (Rules_List.AccessCurrentRuleList < 0)
                 {
-                    Hand_Animation_Manager.ResetAllHands();
-                    CurrentSlide--;
-                    Game_Board.SetBoardState();
-                    for (int i = 0; i < AllMoves[CurrentSlide - 1].Count; i++)
+                    Rules_List.AccessCurrentRuleList = AmountOfRuleLists - 1;
+                }
+                Rules_List.AccessCurrentRule = 0;
+            }
+            else if (Input_Manager.KeyPressed(Keys.Right) && CurrentSlide < AllMoves.Count && !FindingCheat)
+            {
+                Hand_Animation_Manager.ResetAllHands();
+                CurrentSlide++;
+                Game_Board.SetBoardState();
+                for (int i = 0; i < AllMoves[CurrentSlide - 1].Count; i++)
+                {
+                    Game_Board.MoveChessPiece(AllMoves[CurrentSlide - 1][i], true);
+                }
+            }
+            else if (Input_Manager.KeyPressed(Keys.Right) && FindingCheat)
+            {
+                Rules_List.AccessCurrentRuleList++;
+                if (Rules_List.AccessCurrentRuleList >= AmountOfRuleLists)
+                {
+                    Rules_List.AccessCurrentRuleList = 0;
+                }
+                Rules_List.AccessCurrentRule = 0;
+            }
+            else if (Input_Manager.KeyPressed(Keys.Space))
+            {
+                if (!FindingCheat)
+                    FindingCheat = true;
+                else
+                {
+                    for (int i = 0; i < AllAnswers.Count; i++)
                     {
-                        Game_Board.MoveChessPiece(AllMoves[CurrentSlide - 1][i], true);
-                    }
-                    Global_Info.AccessButtonCooldown = 12;
-                }
-                else if (Keyboard.GetState().IsKeyDown(Keys.Left) && FindingCheat)
-                {
-                    Rules_List.MoveThroughRules(2);
-                    Global_Info.AccessButtonCooldown = 12;
-                }
-                else if (Keyboard.GetState().IsKeyDown(Keys.Right) && CurrentSlide < AllMoves.Count && !FindingCheat)
-                {
-                    Hand_Animation_Manager.ResetAllHands();
-                    CurrentSlide++;
-                    Game_Board.SetBoardState();
-                    for (int i = 0; i < AllMoves[CurrentSlide - 1].Count; i++)
-                    {
-                        Game_Board.MoveChessPiece(AllMoves[CurrentSlide - 1][i], true);
-                    }
-                    Global_Info.AccessButtonCooldown = 12;
-                }
-                else if (Keyboard.GetState().IsKeyDown(Keys.Right) && FindingCheat)
-                {
-                    Rules_List.MoveThroughRules(3);
-                    Global_Info.AccessButtonCooldown = 12;
-                }
-                else if (Keyboard.GetState().IsKeyDown(Keys.Space))
-                {
-                    if (!FindingCheat)
-                        FindingCheat = true;
-                    else
-                    {
-                        for (int i = 0; i < AllAnswers.Count; i++)
+                        if (AllAnswers[i].Item1.myRule.X == Rules_List.AccessCurrentRuleList &&
+                            AllAnswers[i].Item1.myRule.Y == Rules_List.AccessCurrentRule &&
+                            AllAnswers[i].Item2 == CurrentSlide)
                         {
-                            if (AllAnswers[i].Item1.myRule.X == Rules_List.AccessCurrentRuleList &&
-                                AllAnswers[i].Item1.myRule.Y == Rules_List.AccessCurrentRule &&
-                                AllAnswers[i].Item2 == CurrentSlide)
-                            {
-                                //Global_Info.AccessCurrentGameState = Global_Info.GameState.LevelSelect;
-                                CurrentLevel++;
-                                File_Manager.LoadLevel();
-                            }
-                            else if (Rules_List.AccessCurrentRule != Rules_List.GetList().Length)
-                            {
-                                //lose life
-                            }
+                            Global_Info.AccessCurrentGameState = Global_Info.GameState.LevelSelect;
                         }
-                        FindingCheat = false;
                     }
-
-                    Global_Info.AccessButtonCooldown = 12;
+                    FindingCheat = false;
                 }
-                else if (Keyboard.GetState().IsKeyDown(Keys.Up) && FindingCheat)
-                {
-                    Rules_List.MoveThroughRules(1);
-                    Global_Info.AccessButtonCooldown = 12;
-                }
-                else if (Keyboard.GetState().IsKeyDown(Keys.Down) && FindingCheat)
-                {
-                    Rules_List.MoveThroughRules(0);
-                    Global_Info.AccessButtonCooldown = 12;
-                }
+            }
+            else if (Input_Manager.KeyPressed(Keys.Up) && FindingCheat)
+            {
+                Rules_List.AccessCurrentRule--;
+            }
+            else if (Input_Manager.KeyPressed(Keys.Down) && FindingCheat)
+            {
+                Rules_List.AccessCurrentRule++;
             }
         }
 
