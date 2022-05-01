@@ -82,7 +82,7 @@ namespace Cheatscape
             }
             else if (Input_Manager.KeyPressed(Keys.Up) && FindingCheat)
             {
-                Rules_List.AccessCurrentRule--;
+                Rules_List.MoveThroughRules(1);
             }
             else if (Input_Manager.KeyPressed(Keys.Down) && FindingCheat)
             {
