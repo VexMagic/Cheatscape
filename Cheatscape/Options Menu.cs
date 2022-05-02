@@ -11,6 +11,8 @@ namespace Cheatscape
     {
         static Texture2D SliderTex;
         static Texture2D HighLightTex;
+        static Texture2D BackgroundTex;
+
         static Vector2 SliderSize = new Vector2(32, 24);
         static Vector2 HighLightEdgeSize = new Vector2(36, 34);
         static Vector2 HighLightMidSize = new Vector2(32, 34);
@@ -46,6 +48,7 @@ namespace Cheatscape
         {
             SliderTex = Global_Info.AccessContentManager.Load<Texture2D>("OptionSliders");
             HighLightTex = Global_Info.AccessContentManager.Load<Texture2D>("OptionHighLight");
+            BackgroundTex = Global_Info.AccessContentManager.Load<Texture2D>("OptionsBackground");
         }
 
         public static void Update()
@@ -107,7 +110,7 @@ namespace Cheatscape
                     }
                     else if (Input_Manager.KeyPressed(Keys.Back))
                     {
-                        Global_Info.AccessCurrentGameState = Global_Info.GameState.LevelSelect;
+                        Transition.StartTransition(Transition.TransitionState.ToLvSelect);
                     }
 
                     if (selectedOption != SelectedOption.None)
@@ -191,19 +194,32 @@ namespace Cheatscape
 
         public static void Draw(SpriteBatch spriteBatch)
         {
+            spriteBatch.Draw(BackgroundTex, new Rectangle(0, 0, 
+                (int)(Global_Info.WindowSize.X / Global_Info.AccessScreenScale), (int)(Global_Info.WindowSize.Y / Global_Info.AccessScreenScale)), 
+                Color.White);
             
+            if (selectedOption == SelectedOption.None)
+            {
+                Text_Manager.DrawText("Space: Select          Back: Return to Menu", 30, 
+                    (int)(Global_Info.AccessWindowSize.Y / Global_Info.AccessScreenScale - 40), spriteBatch);
+            }
+            else
+            {
+                Text_Manager.DrawText("Left/Right: Adjust", 30, (int)(Global_Info.AccessWindowSize.Y / Global_Info.AccessScreenScale - 40), 
+                    spriteBatch);
+            }
 
             //Screen Size
-            DrawSlider(ScreenSizeAmount, ScreenSizeIndex, 3, spriteBatch, new Vector2(50, 35), ScreenSizeHighLight);
-            Text_Manager.DrawText("Screen Size " + ScreenSizeText, 50, 20, spriteBatch);
+            DrawSlider(ScreenSizeAmount, ScreenSizeIndex, 3, spriteBatch, new Vector2(50, 45), ScreenSizeHighLight);
+            Text_Manager.DrawText("Screen Size " + ScreenSizeText, 50, 30, spriteBatch);
 
             // Music Volume
-            DrawSlider(MusicVolumeAmount, MusicVolumeIndex, 3, spriteBatch, new Vector2(50, 85), MusicVolumeHighLight);
-            Text_Manager.DrawText("Music Volume " + MusicVolumeText, 50, 70, spriteBatch);
+            DrawSlider(MusicVolumeAmount, MusicVolumeIndex, 3, spriteBatch, new Vector2(50, 95), MusicVolumeHighLight);
+            Text_Manager.DrawText("Music Volume " + MusicVolumeText, 50, 80, spriteBatch);
 
             //View Controls
-            DrawSlider(ViewControlsAmount, ViewControlsIndex, 1, spriteBatch, new Vector2(50, 135), ViewControlsHighLight);
-            Text_Manager.DrawText("View Controls " + ViewControlsOnOff, 50, 120, spriteBatch);
+            DrawSlider(ViewControlsAmount, ViewControlsIndex, 1, spriteBatch, new Vector2(50, 145), ViewControlsHighLight);
+            Text_Manager.DrawText("View Controls " + ViewControlsOnOff, 50, 130, spriteBatch);
         }
 
         private static void DrawSlider(int options, int selectionIndex, int size, SpriteBatch spriteBatch, Vector2 position, bool highLight)

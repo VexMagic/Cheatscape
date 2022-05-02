@@ -30,6 +30,7 @@ namespace Cheatscape
             Rules_List.Load();
             Text_Manager.Load();
             Options_Menu.Load();
+            Transition.Load();
         }
 
         public static void Update(GameTime gameTime)
@@ -41,6 +42,7 @@ namespace Cheatscape
                 case GameState.LevelSelect:
                     Level_Select_Menu.Update();
                     Main_Menu.Update(gameTime);
+                    Transition.Update(gameTime);
                     break;
                 case GameState.PlayingLevel:
                     Level_Manager.Update();
@@ -51,6 +53,7 @@ namespace Cheatscape
                     break;
                 case GameState.Options:
                     Options_Menu.Update();
+                    Transition.Update(gameTime);
                     break;
             }
         }
@@ -62,6 +65,7 @@ namespace Cheatscape
                 case GameState.LevelSelect:
                     Main_Menu.Draw(aSpriteBatch);
                     Level_Select_Menu.Draw(aSpriteBatch);
+                    Transition.Draw(aSpriteBatch);
                     break;
                 case GameState.PlayingLevel:
                     Game_Board.Draw(aSpriteBatch);
@@ -70,6 +74,7 @@ namespace Cheatscape
                     break;
                 case GameState.Options:
                     Options_Menu.Draw(aSpriteBatch);
+                    Transition.Draw(aSpriteBatch);
                     break;
                 case GameState.MainMenu:
                     Main_Menu.Draw(aSpriteBatch);
