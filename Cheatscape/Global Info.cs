@@ -18,6 +18,7 @@ namespace Cheatscape
         public static ContentManager AccessContentManager { get => ContentManager; set => ContentManager = value; }
         public static float AccessScreenScale { get => ScreenScale; set => ScreenScale = value; }
         public static Vector2 AccessWindowSize { get => WindowSize; set => WindowSize = value; }
+        
         public static GameState AccessCurrentGameState { get => CurrentGameState; set => CurrentGameState = value; }
         
         public static void Load()
@@ -40,19 +41,29 @@ namespace Cheatscape
             switch (CurrentGameState)
             {
                 case GameState.LevelSelect:
-                    Level_Select_Menu.Update();
+                    if (!Transition.transitioning)
+                    {
+                        Level_Select_Menu.Update();
+                    }
                     Main_Menu.Update(gameTime);
                     Transition.Update(gameTime);
                     break;
                 case GameState.PlayingLevel:
-                    Level_Manager.Update();
-                    Hand_Animation_Manager.Update();
+                    if (!Transition.transitioning)
+                    {
+                        Level_Manager.Update();
+                        Hand_Animation_Manager.Update();
+                    }
+                    Transition.Update(gameTime);
                     break;
                 case GameState.MainMenu:
                     Main_Menu.Update(gameTime);
                     break;
                 case GameState.Options:
-                    Options_Menu.Update();
+                    if (!Transition.transitioning)
+                    {
+                        Options_Menu.Update();
+                    }
                     Transition.Update(gameTime);
                     break;
             }
@@ -71,6 +82,7 @@ namespace Cheatscape
                     Game_Board.Draw(aSpriteBatch);
                     Hand_Animation_Manager.Draw(aSpriteBatch);
                     Level_Manager.Draw(aSpriteBatch);
+                    Transition.Draw(aSpriteBatch);
                     break;
                 case GameState.Options:
                     Options_Menu.Draw(aSpriteBatch);

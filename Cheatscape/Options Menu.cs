@@ -42,7 +42,9 @@ namespace Cheatscape
         static int ViewControlsIndex = 1;
         static int ViewControlsAmount = 1;
         static bool ViewControlsHighLight = false;
+        static bool showControls;
         static string ViewControlsOnOff = "ON";
+        public static bool AccessControlView { get => showControls; set => showControls = value; }
 
         public static void Load()
         {
@@ -175,11 +177,13 @@ namespace Cheatscape
                     {
                         ViewControlsIndex++;
                         ViewControlsOnOff = "ON";
+                        AccessControlView = true;
                     }
                     else if (Input_Manager.KeyPressed(Keys.Left) && ViewControlsIndex > 0)
                     {
                         ViewControlsIndex--;
                         ViewControlsOnOff = "OFF";
+                        AccessControlView = false;
                     }
                     else if (Input_Manager.KeyPressed(Keys.Back))
                     {

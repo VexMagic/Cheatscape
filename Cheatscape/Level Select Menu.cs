@@ -16,8 +16,8 @@ namespace Cheatscape
         static Texture2D optionButtonTex;
         static Texture2D optionHighlightTex;
 
-        static int SelectedLevelX = 0;
-        static int SelectedLevelY = 0;
+        public static int SelectedLevelX = 0;
+        public static int SelectedLevelY = 0;
 
         static int LevelAmountX = 5;
         static int LevelAmountY = 2;
@@ -62,9 +62,7 @@ namespace Cheatscape
             }
             else if (Input_Manager.KeyPressed(Keys.Space) && !optionHighlight)
             {
-                Global_Info.AccessCurrentGameState = Global_Info.GameState.PlayingLevel;
-                Level_Manager.AccessCurrentLevel = SelectedLevelX + SelectedLevelY * 5;
-                File_Manager.LoadLevel();
+                Transition.StartTransition(Transition.TransitionState.ToLevel);
             }
             else if (Input_Manager.KeyPressed(Keys.Back))
             {

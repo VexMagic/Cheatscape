@@ -21,7 +21,7 @@ namespace Cheatscape
         static float timeSinceLastMove;
         static float timeBetweenMoves = 30f;
 
-        public enum TransitionState { ToOptions, ToLvSelect };
+        public enum TransitionState { ToOptions, ToLvSelect, ToLevel, InLevel };
         public static TransitionState transitionState;
 
         public static void Load()
@@ -43,6 +43,9 @@ namespace Cheatscape
                         break;
                     case TransitionState.ToOptions:
                         dir = 1;
+                        break;
+                    case TransitionState.ToLevel:
+                        dir = -1;
                         break;
                 }
 
@@ -77,6 +80,16 @@ namespace Cheatscape
                             if (transitionPos.X <= transitionWidth / 2 - Global_Info.AccessWindowSize.X / Global_Info.AccessScreenScale)
                             {
                                 Global_Info.AccessCurrentGameState = Global_Info.GameState.LevelSelect;
+                            }
+
+                            break;
+                        case TransitionState.ToLevel:
+
+                            if (transitionPos.X <= transitionWidth / 2 - Global_Info.AccessWindowSize.X / Global_Info.AccessScreenScale)
+                            {
+                                Global_Info.AccessCurrentGameState = Global_Info.GameState.PlayingLevel;
+                                Level_Manager.AccessCurrentLevel = Level_Select_Menu.SelectedLevelX + Level_Select_Menu.SelectedLevelY * 5;
+                                File_Manager.LoadLevel();
                             }
 
                             break;
