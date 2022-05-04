@@ -73,13 +73,6 @@
 /processorParam:TextureFormat=Color
 /build:Chess Pieces.png
 
-#begin Font.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:Font.spritefont
-
 #begin Hands.png
 /importer:TextureImporter
 /processor:TextureProcessor
