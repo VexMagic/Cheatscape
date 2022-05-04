@@ -99,9 +99,9 @@ namespace Cheatscape
             if (myHandIsFlipped == true)
             {
                 if (isHolding)
-                    aSpriteBatch.Draw(myTexture, new Rectangle((int)myPosition.X, (int)myPosition.Y, 64, 64), new Rectangle(0, 0, 64, 64), Color.White, 0, new Vector2(0, 0), SpriteEffects.FlipVertically, 0);
+                    aSpriteBatch.Draw(myTexture, new Rectangle((int)myPosition.X, (int)myPosition.Y, 64, 64), new Rectangle(0, 0, 64, 64), Color.White, 0, new Vector2(0, 0), SpriteEffects.FlipVertically | SpriteEffects.FlipHorizontally, 0);
                 else
-                    aSpriteBatch.Draw(myTexture, new Rectangle((int)myPosition.X, (int)myPosition.Y, 64, 64), new Rectangle(64, 0, 64, 64), Color.White, 0, new Vector2(0, 0), SpriteEffects.FlipVertically, 0);
+                    aSpriteBatch.Draw(myTexture, new Rectangle((int)myPosition.X, (int)myPosition.Y, 64, 64), new Rectangle(64, 0, 64, 64), Color.White, 0, new Vector2(0, 0), SpriteEffects.FlipVertically | SpriteEffects.FlipHorizontally, 0);
             }
             else if (myHandIsFlipped == false)
             {
