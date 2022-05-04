@@ -1,3 +1,11 @@
-Include Rule;1-0,Text;Welcome to Cheatscape! Your job is to judge chess matches and make sure that no one breaks any of the rules. Press the Right Arrow to go to the next move.
-Move;D2;D3,Text;If you think you missed something you can press the Left Arrow to go back.
-Move;D7;D4,Answer;1-0,Text;Hang on! That piece shouldn't be able to move like that! Press the Spacebar to open the rules list and select the rule that is broken by pressing the Spacebar again.
+remove;b1,remove;g1,remove;d2,remove;d7,remove;e7,remove;f7,add;wn;c3,add;wp;d4,add;wn;f3,add;bp;e6,add;bp;d5,add;bp;f5
+move;f3;e5
+move;f8;f6
+move;f2;f4
+move;f6;e5
+move;f4;e5
+move;d8;h4
+move;g2;g3
+move;h4;h3
+move;f1;f3
+move;h3;g2
