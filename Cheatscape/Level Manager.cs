@@ -11,7 +11,7 @@ namespace Cheatscape
         static int CurrentLevel = 0;
         static List<List<Chess_Move>> AllMoves = new List<List<Chess_Move>>();
         static List<Tuple<Chess_Move, int>> AllAnswers = new List<Tuple<Chess_Move, int>>();
-        static int CurrentSlide = 0;
+        static int CurrentSlide = 1;
         static bool FindingCheat = false;
         static int AmountOfRuleLists = 3;
 
@@ -22,11 +22,11 @@ namespace Cheatscape
 
         public static void Update()
         {
-            if (Input_Manager.KeyPressed(Keys.Left) && CurrentSlide > 0 && !FindingCheat)
+            if (Input_Manager.KeyPressed(Keys.Left) && CurrentSlide > 1 && !FindingCheat)
             {
                 Hand_Animation_Manager.ResetAllHands();
-                Game_Board.SetBoardState();
                 CurrentSlide--;
+                Game_Board.SetBoardState();
             }
             else if (Input_Manager.KeyPressed(Keys.Left) && FindingCheat)
             {

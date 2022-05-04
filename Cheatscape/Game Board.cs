@@ -202,11 +202,14 @@ namespace Cheatscape
             CapturedWhitePieces.Clear();
             CapturedBlackPieces.Clear();
 
-            for (int i = 0; i < Level_Manager.AccessCurrentSlide - 1; i++)
+            for (int i = 0; i < Level_Manager.AccessCurrentSlide; i++)
             {
                 for (int j = 0; j < Level_Manager.AccessAllMoves[i].Count; j++)
                 {
-                    MoveChessPiece(Level_Manager.AccessAllMoves[i][j], false);
+                    if (i == Level_Manager.AccessCurrentSlide - 1)
+                        MoveChessPiece(Level_Manager.AccessAllMoves[i][j], true);
+                    else
+                        MoveChessPiece(Level_Manager.AccessAllMoves[i][j], false);
                 }
             }
         }
