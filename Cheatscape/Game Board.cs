@@ -215,7 +215,11 @@ namespace Cheatscape
         {
             aSpriteBatch.Draw(Background, new Rectangle(0, 0, (int)(Global_Info.AccessWindowSize.X / Global_Info.AccessScreenScale),
                 (int)(Global_Info.AccessWindowSize.Y / Global_Info.AccessScreenScale)), Color.White);
-            aSpriteBatch.Draw(ChessBoard, BoardPosition - new Vector2(26, 26), Color.White);
+
+            Vector2 BoardOffset = new Vector2(BoardPosition.X - ((ChessBoard.Width - (TileSize * 8)) / 2), 
+                BoardPosition.Y - ((ChessBoard.Height - (TileSize * 8)) / 2));
+
+            aSpriteBatch.Draw(ChessBoard, BoardOffset, Color.White);
 
             for (int x = 0; x < ChessPiecesOnBoard.GetLength(0); x++)
             {
@@ -228,14 +232,14 @@ namespace Cheatscape
 
             for (int i = 0; i < CapturedWhitePieces.Count; i++)
             {
-                Vector2 tempPiecePos = new Vector2(BoardPosition.X - TileSize, BoardPosition.Y + (i * (TileSize / 2)));
+                Vector2 tempPiecePos = new Vector2(BoardOffset.X - TileSize, BoardOffset.Y + (i * (TileSize / 2)));
                 CapturedWhitePieces[i].Draw(aSpriteBatch, tempPiecePos);
             }
 
             for (int i = CapturedBlackPieces.Count - 1; i >= 0; i--)
             {
-                Vector2 tempPiecePos = new Vector2(BoardPosition.X + (ChessPiecesOnBoard.GetLength(0) * TileSize),
-                    BoardPosition.Y + ((ChessPiecesOnBoard.GetLength(1) - 1) * TileSize) - (i * (TileSize / 2)));
+                Vector2 tempPiecePos = new Vector2(BoardOffset.X + ChessBoard.Width,
+                    BoardOffset.Y + (ChessBoard.Height - TileSize) - (i * (TileSize / 2)));
                 CapturedBlackPieces[i].Draw(aSpriteBatch, tempPiecePos);
             }
 
