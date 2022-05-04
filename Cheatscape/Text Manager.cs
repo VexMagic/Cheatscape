@@ -16,6 +16,7 @@ namespace Cheatscape
         public static int MaximumTextBoxWidth = 100;
         public static int LineSize = 9;
         public static int BetweenLineSize = 12;
+        public static bool IsTextCentered = false;
 
         public static string TutorialText;
 
@@ -38,25 +39,39 @@ namespace Cheatscape
         public static void DrawTextBox(string aString, Vector2 aPosition, Texture2D aBoarder, SpriteBatch aSpriteBatch)
         {
             List<string> tempTextBox = SeparateText(aString);
+            int tempBoxWidth = 0;
 
-            aSpriteBatch.Draw(Background, new Rectangle((int)aPosition.X - 2, (int)aPosition.Y - 2, MaximumTextBoxWidth + 4, (tempTextBox.Count * LineSize) + 4), Color.White);
+            for (int i = 0; i < tempTextBox.Count; i++)
+            {
+                if (Font.MeasureString(tempTextBox[i]).X > tempBoxWidth)
+                {
+                    tempBoxWidth = (int)Font.MeasureString(tempTextBox[i]).X;
+                }
+            }
+
+            aSpriteBatch.Draw(Background, new Rectangle((int)aPosition.X - 2, (int)aPosition.Y - 2, tempBoxWidth + 4, (tempTextBox.Count * LineSize) + 4), Color.White);
 
             aSpriteBatch.Draw(aBoarder, new Rectangle((int)aPosition.X - LineSize, (int)aPosition.Y - LineSize, LineSize, LineSize), new Rectangle(0, 0, LineSize, LineSize), Color.White, 0, new Vector2(0, 0), SpriteEffects.None, 0);
-            aSpriteBatch.Draw(aBoarder, new Rectangle((int)aPosition.X, (int)aPosition.Y - LineSize, MaximumTextBoxWidth, LineSize), new Rectangle(LineSize, 0, LineSize, LineSize), Color.White, 0, new Vector2(0, 0), SpriteEffects.None, 0);
-            aSpriteBatch.Draw(aBoarder, new Rectangle((int)aPosition.X + MaximumTextBoxWidth, (int)aPosition.Y - LineSize, LineSize, LineSize), new Rectangle((LineSize * 2), 0, LineSize, LineSize), Color.White, 0, new Vector2(0, 0), SpriteEffects.None, 0);
+            aSpriteBatch.Draw(aBoarder, new Rectangle((int)aPosition.X, (int)aPosition.Y - LineSize, tempBoxWidth, LineSize), new Rectangle(LineSize, 0, LineSize, LineSize), Color.White, 0, new Vector2(0, 0), SpriteEffects.None, 0);
+            aSpriteBatch.Draw(aBoarder, new Rectangle((int)aPosition.X + tempBoxWidth, (int)aPosition.Y - LineSize, LineSize, LineSize), new Rectangle((LineSize * 2), 0, LineSize, LineSize), Color.White, 0, new Vector2(0, 0), SpriteEffects.None, 0);
 
             for (int j = 0; j < tempTextBox.Count; j++)
             {
-                Text_Manager.DrawText(tempTextBox[j], (int)aPosition.X, (int)aPosition.Y - (LineSize / 4), aSpriteBatch);
+                int tempOffset = 0;
+
+                if (IsTextCentered)
+                    tempOffset = (int)((Font.MeasureString(tempTextBox[j]).X - tempBoxWidth) / 2);
+
+                DrawText(tempTextBox[j], (int)aPosition.X - tempOffset, (int)aPosition.Y - (LineSize / 4), aSpriteBatch);
                 aPosition.Y += LineSize;
 
                 aSpriteBatch.Draw(aBoarder, new Rectangle((int)aPosition.X - LineSize, (int)aPosition.Y - LineSize, LineSize, LineSize), new Rectangle(0, LineSize, LineSize, LineSize), Color.White, 0, new Vector2(0, 0), SpriteEffects.None, 0);
-                aSpriteBatch.Draw(aBoarder, new Rectangle((int)aPosition.X + MaximumTextBoxWidth, (int)aPosition.Y - LineSize, LineSize, LineSize), new Rectangle((LineSize * 2), LineSize, LineSize, LineSize), Color.White, 0, new Vector2(0, 0), SpriteEffects.None, 0);
+                aSpriteBatch.Draw(aBoarder, new Rectangle((int)aPosition.X + tempBoxWidth, (int)aPosition.Y - LineSize, LineSize, LineSize), new Rectangle((LineSize * 2), LineSize, LineSize, LineSize), Color.White, 0, new Vector2(0, 0), SpriteEffects.None, 0);
             }
 
             aSpriteBatch.Draw(aBoarder, new Rectangle((int)aPosition.X - LineSize, (int)aPosition.Y, LineSize, LineSize), new Rectangle(0, LineSize * 2, LineSize, LineSize), Color.White, 0, new Vector2(0, 0), SpriteEffects.None, 0);
-            aSpriteBatch.Draw(aBoarder, new Rectangle((int)aPosition.X, (int)aPosition.Y, MaximumTextBoxWidth, LineSize), new Rectangle(LineSize, LineSize * 2, LineSize, LineSize), Color.White, 0, new Vector2(0, 0), SpriteEffects.None, 0);
-            aSpriteBatch.Draw(aBoarder, new Rectangle((int)aPosition.X + MaximumTextBoxWidth, (int)aPosition.Y, LineSize, LineSize), new Rectangle((LineSize * 2), LineSize * 2, LineSize, LineSize), Color.White, 0, new Vector2(0, 0), SpriteEffects.None, 0);
+            aSpriteBatch.Draw(aBoarder, new Rectangle((int)aPosition.X, (int)aPosition.Y, tempBoxWidth, LineSize), new Rectangle(LineSize, LineSize * 2, LineSize, LineSize), Color.White, 0, new Vector2(0, 0), SpriteEffects.None, 0);
+            aSpriteBatch.Draw(aBoarder, new Rectangle((int)aPosition.X + tempBoxWidth, (int)aPosition.Y, LineSize, LineSize), new Rectangle((LineSize * 2), LineSize * 2, LineSize, LineSize), Color.White, 0, new Vector2(0, 0), SpriteEffects.None, 0);
 
         }
 
