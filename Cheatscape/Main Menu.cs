@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-using System.Threading;
 
 namespace Cheatscape
 {
@@ -73,7 +69,7 @@ namespace Cheatscape
         }
         public static void Draw(SpriteBatch aSpriteBatch)
         {
-            aSpriteBatch.Draw(menuScreen, new Rectangle(0,0,(int)(Global_Info.WindowSize.X/Global_Info.AccessScreenScale), (int)(Global_Info.WindowSize.Y / Global_Info.AccessScreenScale)), srcRect, Color.White);
+            aSpriteBatch.Draw(menuScreen, new Rectangle(0, 0, (int)(Global_Info.WindowSize.X / Global_Info.AccessScreenScale), (int)(Global_Info.WindowSize.Y / Global_Info.AccessScreenScale)), srcRect, Color.White);
         }
     }
 }

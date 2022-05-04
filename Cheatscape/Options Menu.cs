@@ -1,9 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Cheatscape
 {
@@ -73,7 +70,7 @@ namespace Cheatscape
 
                         MusicVolumeHighLight = false;
                     }
-                    
+
                     if (Input_Manager.KeyPressed(Keys.Up) && OptionIndexX > 1)
                     {
                         OptionIndexX--;
@@ -130,12 +127,12 @@ namespace Cheatscape
                     else if (Input_Manager.KeyPressed(Keys.Back))
                     {
                         HighLightColor = Color.White;
-                        
+
                         selectedOption = SelectedOption.None;
 
                         if (ScreenSizeIndex == 1)
                         {
-                            
+
                         }
                         else if (ScreenSizeIndex == 2)
                         {
@@ -143,13 +140,13 @@ namespace Cheatscape
                         }
                         else if (ScreenSizeIndex == 3)
                         {
-                            
+
                         }
                     }
-                    
+
                     break;
                 case SelectedOption.MusicVolume:
-                    
+
                     if (Input_Manager.KeyPressed(Keys.Right) && MusicVolumeIndex < MusicVolumeAmount)
                     {
                         MusicVolumeIndex++;
@@ -161,7 +158,7 @@ namespace Cheatscape
                     else if (Input_Manager.KeyPressed(Keys.Back))
                     {
                         HighLightColor = Color.White;
-                        
+
                         selectedOption = SelectedOption.None;
                     }
 
@@ -191,7 +188,7 @@ namespace Cheatscape
 
         public static void Draw(SpriteBatch spriteBatch)
         {
-            
+
 
             //Screen Size
             DrawSlider(ScreenSizeAmount, ScreenSizeIndex, 3, spriteBatch, new Vector2(50, 35), ScreenSizeHighLight);
