@@ -6,7 +6,7 @@ namespace Cheatscape
 {
     public class Game1 : Game
     {
-        private GraphicsDeviceManager graphics;
+        private static GraphicsDeviceManager graphics;
         private SpriteBatch spriteBatch;
 
         public Game1()
@@ -45,16 +45,22 @@ namespace Cheatscape
 
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.CornflowerBlue);
+            GraphicsDevice.Clear(Color.Black);
 
             spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.NonPremultiplied, SamplerState.PointClamp, null, null, null, Matrix.CreateScale(Global_Info.AccessScreenScale));
 
             Global_Info.Draw(spriteBatch);
 
-
             spriteBatch.End();
 
             base.Draw(gameTime);
+        }
+
+        public static void ControlFullScreen(bool becomeFullScreen)
+        {
+            graphics.IsFullScreen = becomeFullScreen;
+
+            graphics.ApplyChanges();
         }
     }
 }

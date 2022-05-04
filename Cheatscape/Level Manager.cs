@@ -68,7 +68,7 @@ namespace Cheatscape
                             AllAnswers[i].Item1.myRule.Y == Rules_List.AccessCurrentRule &&
                             AllAnswers[i].Item2 == CurrentSlide)
                         {
-                            Global_Info.AccessCurrentGameState = Global_Info.GameState.LevelSelect;
+                            Transition.StartTransition(Transition.TransitionState.ToLvSelect);
                         }
                     }
                     FindingCheat = false;
@@ -98,7 +98,7 @@ namespace Cheatscape
                 }
                 else
                 {
-                    Text_Manager.DrawText("Right: Forward               Left: Back               Space: Rules", 120, 
+                    Text_Manager.DrawText("Right: Next move               Left: Previous move               Space: Rules", 120, 
                         (int)(Global_Info.AccessWindowSize.Y / Global_Info.AccessScreenScale) - 20, aSpriteBatch);
                 }
             }
