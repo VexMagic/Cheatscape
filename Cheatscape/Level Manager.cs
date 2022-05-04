@@ -11,7 +11,7 @@ namespace Cheatscape
         static int CurrentLevel = 0;
         static List<List<Chess_Move>> AllMoves = new List<List<Chess_Move>>();
         static List<Tuple<Chess_Move, int>> AllAnswers = new List<Tuple<Chess_Move, int>>();
-        static int CurrentSlide = 0;
+        static int CurrentSlide = 1;
         static bool FindingCheat = false;
         static int AmountOfRuleLists = 3;
 
@@ -22,11 +22,11 @@ namespace Cheatscape
 
         public static void Update()
         {
-            if (Input_Manager.KeyPressed(Keys.Left) && CurrentSlide > 0 && !FindingCheat)
+            if (Input_Manager.KeyPressed(Keys.Left) && CurrentSlide > 1 && !FindingCheat)
             {
                 Hand_Animation_Manager.ResetAllHands();
-                Game_Board.SetBoardState();
                 CurrentSlide--;
+                Game_Board.SetBoardState();
             }
             else if (Input_Manager.KeyPressed(Keys.Left) && FindingCheat)
             {
@@ -68,7 +68,13 @@ namespace Cheatscape
                             AllAnswers[i].Item1.myRule.Y == Rules_List.AccessCurrentRule &&
                             AllAnswers[i].Item2 == CurrentSlide)
                         {
-                            Global_Info.AccessCurrentGameState = Global_Info.GameState.LevelSelect;
+                            //Global_Info.AccessCurrentGameState = Global_Info.GameState.LevelSelect;
+                            CurrentLevel++;
+                            File_Manager.LoadLevel();
+                        }
+                        else if (Rules_List.AccessCurrentRule != Rules_List.GetList().Length)
+                        {
+                            //lose life
                         }
                     }
                     FindingCheat = false;
@@ -76,7 +82,7 @@ namespace Cheatscape
             }
             else if (Input_Manager.KeyPressed(Keys.Up) && FindingCheat)
             {
-                Rules_List.AccessCurrentRule--;
+                Rules_List.MoveThroughRules(1);
             }
             else if (Input_Manager.KeyPressed(Keys.Down) && FindingCheat)
             {
