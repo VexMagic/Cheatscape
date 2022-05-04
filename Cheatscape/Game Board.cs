@@ -18,13 +18,22 @@ namespace Cheatscape
         public static Vector2 AccessBoardPosition { get => BoardPosition; set => BoardPosition = value; }
         public static int AccessTileSize { get => TileSize; set => TileSize = value; }
 
+        static Rectangle SplashArtSize = new Rectangle(400, 0, 200, 100);
+
         static Texture2D ChessBoard;
         static Texture2D Background;
+        static Texture2D CheckArt;
+        static Texture2D CheckmateArt;
+
+        enum SplashArt { None, Check, Checkmate }
+        static SplashArt CurrentSplashArt = SplashArt.None;
 
         public static void Load()
         {
             ChessBoard = Global_Info.AccessContentManager.Load<Texture2D>("Chess Board");
             Background = Global_Info.AccessContentManager.Load<Texture2D>("Background");
+            CheckArt = Global_Info.AccessContentManager.Load<Texture2D>("Check Art");
+            CheckmateArt = Global_Info.AccessContentManager.Load<Texture2D>("Checkmate Art");
 
             SetBasicBoardState();
         }
@@ -140,6 +149,9 @@ namespace Cheatscape
 
         public static void MoveChessPiece(Chess_Move aMove, bool isCurrentTurn)
         {
+            if (isCurrentTurn)
+                CurrentSplashArt = SplashArt.None;
+
             switch (aMove.MyMoveType)
             {
                 case Chess_Move.MoveType.MovePiece:
@@ -172,6 +184,14 @@ namespace Cheatscape
                         Text_Manager.TutorialText = aMove.myText;
                     else
                         Text_Manager.TutorialText = "";
+                    break;
+                case Chess_Move.MoveType.CallCheck:
+                    if (isCurrentTurn)
+                        CurrentSplashArt = SplashArt.Check;
+                    break;
+                case Chess_Move.MoveType.CallCheckmate:
+                    if (isCurrentTurn)
+                        CurrentSplashArt = SplashArt.Checkmate;
                     break;
             }
         }
@@ -218,6 +238,11 @@ namespace Cheatscape
                     BoardPosition.Y + ((ChessPiecesOnBoard.GetLength(1) - 1) * TileSize) - (i * (TileSize / 2)));
                 CapturedBlackPieces[i].Draw(aSpriteBatch, tempPiecePos);
             }
+
+            if (CurrentSplashArt == SplashArt.Check)
+                aSpriteBatch.Draw(CheckArt, SplashArtSize, Color.White);
+            else if (CurrentSplashArt == SplashArt.Checkmate)
+                aSpriteBatch.Draw(CheckmateArt, SplashArtSize, Color.White);
         }
     }
 }
