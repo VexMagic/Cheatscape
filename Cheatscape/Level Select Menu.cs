@@ -33,6 +33,7 @@ namespace Cheatscape
             }
             else if (Input_Manager.KeyPressed(Keys.Space))
             {
+                Music_Player.BackgroundMusic();
                 Global_Info.AccessCurrentGameState = Global_Info.GameState.PlayingLevel;
                 Level_Manager.AccessCurrentLevel = SelectedLevel;
                 File_Manager.LoadLevel();
