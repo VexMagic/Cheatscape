@@ -48,7 +48,6 @@ namespace Cheatscape
         public static void BackgroundMusic()
         {
             MediaPlayer.Play(song1);
-            MediaPlayer.Volume = 0;
         }
 
         public static void StopMusic()
