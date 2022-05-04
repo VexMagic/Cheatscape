@@ -74,10 +74,14 @@ namespace Cheatscape
                             isHolding = true;
                             myHoldingPiece = new Chess_Piece(Game_Board.AccessChessPiecesOnBoard[(int)myMove.myStartingPos.X, (int)myMove.myStartingPos.Y]);
                             Game_Board.AccessChessPiecesOnBoard[(int)myMove.myStartingPos.X, (int)myMove.myStartingPos.Y].myPieceType = 0;
+                            
+
                             break;
                         case 2: //after dropping the piece in its new spot
                             CalculateDirection(myEndPos, myHomePos);
                             isHolding = false;
+                            Music_Player.MoveEffect();
+
                             Game_Board.CapturePiece(myMove.myEndingPos);//add captured piece to the captured list
                             Game_Board.AccessChessPiecesOnBoard[(int)myMove.myEndingPos.X, (int)myMove.myEndingPos.Y] = new Chess_Piece(myHoldingPiece);
                             break;

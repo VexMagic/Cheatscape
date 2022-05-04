@@ -1,6 +1,7 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Audio;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -15,6 +16,7 @@ namespace Cheatscape
         public enum GameState { LevelSelect, PlayingLevel, MainMenu, Options };
         static GameState CurrentGameState = GameState.MainMenu;
 
+
         public static ContentManager AccessContentManager { get => ContentManager; set => ContentManager = value; }
         public static float AccessScreenScale { get => ScreenScale; set => ScreenScale = value; }
         public static Vector2 AccessWindowSize { get => WindowSize; set => WindowSize = value; }
@@ -25,6 +27,7 @@ namespace Cheatscape
         public static void Load()
         {
             Game_Board.Load();
+            Music_Player.Load();
             //File_Manager.LoadLevel();
             Main_Menu.Load();
             Hand_Animation_Manager.Load();

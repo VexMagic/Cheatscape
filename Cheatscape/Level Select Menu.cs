@@ -63,6 +63,7 @@ namespace Cheatscape
             else if (Input_Manager.KeyPressed(Keys.Space) && !optionHighlight)
             {
                 Transition.StartTransition(Transition.TransitionState.ToLevel);
+                Music_Player.BackgroundMusic();
             }
             else if (Input_Manager.KeyPressed(Keys.Back))
             {

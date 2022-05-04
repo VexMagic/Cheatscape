@@ -50,6 +50,7 @@ namespace Cheatscape
                 {
                     Game_Board.MoveChessPiece(AllMoves[CurrentSlide - 1][i], true);
                 }
+                   
             }
             else if (Input_Manager.KeyPressed(Keys.Right) && FindingCheat)
             {
@@ -75,6 +76,7 @@ namespace Cheatscape
                             //Global_Info.AccessCurrentGameState = Global_Info.GameState.LevelSelect;
                             CurrentLevel++;
                             File_Manager.LoadLevel();
+                            Music_Player.StopMusic();
                         }
                         else if (Rules_List.AccessCurrentRule != Rules_List.GetList().Length)
                         {
