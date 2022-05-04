@@ -104,6 +104,36 @@
 /processorParam:TextureFormat=Color
 /build:Main_Menu.png
 
+#begin move.mp3
+/importer:Mp3Importer
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:move.mp3
+
+#begin move2.mp3
+/importer:Mp3Importer
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:move2.mp3
+
+#begin move3.mp3
+/importer:Mp3Importer
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:move3.mp3
+
+#begin move4.mp3
+/importer:Mp3Importer
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:move4.mp3
+
+#begin move5.mp3
+/importer:Mp3Importer
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:move5.mp3
+
 #begin Numbers.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -463,6 +493,12 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Selector.png
+
+#begin Song1.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:Song1.mp3
 
 #begin Text Boarder.png
 /importer:TextureImporter

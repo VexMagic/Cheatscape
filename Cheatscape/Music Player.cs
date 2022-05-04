@@ -1,37 +1,64 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Linq;
 using System.Runtime.InteropServices;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Content;
+using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Audio;
+using Microsoft.Xna.Framework.Media;
 
 namespace Cheatscape
 {
     static class Music_Player
     {
-        public static string file { get; set; }
+        static List<SoundEffect> soundEffects = new List<SoundEffect>();
+        static string tempString;
+        static SoundEffect move1, move2, move3, move4, move5;
+        static Song song1;
 
-        [DllImport("winmm.dll")]
-        private static extern long mciSendString(string lpstrCommand, StringBuilder lpstrReturnString, int uReturnLength, int hwndCallback);
-        public static void Open(string musicFile)
+        public static void Load()
         {
-            file = musicFile;
-            string command = "open \"" + file + "\" type MPEGVideo alias MyMp3";
-            mciSendString(command, null, 0, 0);
+            move1 = Global_Info.AccessContentManager.Load<SoundEffect>("move");
+            move2 = Global_Info.AccessContentManager.Load<SoundEffect>("move2");
+            move3 = Global_Info.AccessContentManager.Load<SoundEffect>("move3");
+            move4 = Global_Info.AccessContentManager.Load<SoundEffect>("move4");
+            move5 = Global_Info.AccessContentManager.Load<SoundEffect>("move5");
+            song1 = Global_Info.AccessContentManager.Load<Song>("song1");
+            soundEffects.Add(move1);
+            soundEffects.Add(move2);
+            soundEffects.Add(move3);
+            soundEffects.Add(move4);
+            soundEffects.Add(move5);
+            //for (int i = 1; i < 3; i++)
+            //{
+            //    tempString = "move" + i;
+            //    soundEffects.Add(tempString);
+            //}
         }
 
-        public static void Play()
+        public static void MoveEffect()
         {
-            string command = "play MyMp3";
-            mciSendString(command, null, 0, 0);
+            Random rnd = new Random();
+            int x = rnd.Next(0, soundEffects.Count);
+            soundEffects[x].Play();
         }
 
-        public static void Stop()
+        public static void BackgroundMusic()
         {
-            string command = "stop MyMp3";
-            mciSendString(command, null, 0, 0);
+            MediaPlayer.Play(song1);
+            MediaPlayer.IsRepeating = true;
+            // mediaPlayer.Volume = 0; för att inte spela upp musik.
+        }
 
-            command = "close MyMp3";
-            mciSendString(command, null, 0, 0);
+        public static void StopMusic()
+        {
+            MediaPlayer.Pause();
+
         }
 
     }
+
 }
+

@@ -40,12 +40,14 @@ namespace Cheatscape
             else if (Input_Manager.KeyPressed(Keys.Right) && CurrentSlide < AllMoves.Count && !FindingCheat)
             {
                 Hand_Animation_Manager.ResetAllHands();
+
                 CurrentSlide++;
                 Game_Board.SetBoardState();
                 for (int i = 0; i < AllMoves[CurrentSlide - 1].Count; i++)
                 {
                     Game_Board.MoveChessPiece(AllMoves[CurrentSlide - 1][i], true);
                 }
+                   
             }
             else if (Input_Manager.KeyPressed(Keys.Right) && FindingCheat)
             {
@@ -68,7 +70,8 @@ namespace Cheatscape
                             AllAnswers[i].Item1.myRule.Y == Rules_List.AccessCurrentRule &&
                             AllAnswers[i].Item2 == CurrentSlide)
                         {
-                            Transition.StartTransition(Transition.TransitionState.ToLvSelect);
+                            Global_Info.AccessCurrentGameState = Global_Info.GameState.LevelSelect;
+                            Music_Player.StopMusic();
                         }
                     }
                     FindingCheat = false;
