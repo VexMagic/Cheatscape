@@ -88,6 +88,20 @@ namespace Cheatscape
         {
             if (FindingCheat)
                 Rules_List.Draw(aSpriteBatch);
+
+            if (Options_Menu.AccessControlView == true)
+            {
+                if (FindingCheat)
+                {
+                    Text_Manager.DrawText("Right/Left: Toggle categories     Up/Down: Toggle rules     Space: Select rule", 120, 
+                        (int)(Global_Info.AccessWindowSize.Y / Global_Info.AccessScreenScale) - 20, aSpriteBatch);
+                }
+                else
+                {
+                    Text_Manager.DrawText("Right: Forward               Left: Back               Space: Rules", 120, 
+                        (int)(Global_Info.AccessWindowSize.Y / Global_Info.AccessScreenScale) - 20, aSpriteBatch);
+                }
+            }
         }
     }
 }
