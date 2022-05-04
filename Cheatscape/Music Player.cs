@@ -48,11 +48,14 @@ namespace Cheatscape
         public static void BackgroundMusic()
         {
             MediaPlayer.Play(song1);
+            MediaPlayer.IsRepeating = true;
+            // mediaPlayer.Volume = 0; för att inte spela upp musik.
         }
 
         public static void StopMusic()
         {
             MediaPlayer.Pause();
+
         }
 
     }
