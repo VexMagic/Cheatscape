@@ -108,7 +108,7 @@ namespace Cheatscape
                 }
                 else
                 {
-                    Text_Manager.DrawText("Right: Forward               Left: Back               Space: Rules", 120, 
+                    Text_Manager.DrawText("Right: Next move               Left: Previous move               Space: Rules", 120, 
                         (int)(Global_Info.AccessWindowSize.Y / Global_Info.AccessScreenScale) - 20, aSpriteBatch);
                 }
             }
