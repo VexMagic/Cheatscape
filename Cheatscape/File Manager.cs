@@ -2,14 +2,16 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
+using System.Linq;
 
 namespace Cheatscape
 {
     static class File_Manager
     {
+        public static int turnCounter = 0;
+
         public static void LoadLevel()
         {
-            int tempCounter = 0;
             string tempLine;
             string tempDirectory = @"..\..\..\Text_Files\Level" + Level_Manager.AccessCurrentLevel + ".txt";
             Level_Manager.AccessAllMoves.Clear();
@@ -29,8 +31,8 @@ namespace Cheatscape
 
                 Level_Manager.AccessAllMoves.Add(tempMoves);
 
-                tempCounter++;
             }
+            turnCounter = File.ReadAllLines(tempDirectory).Length;
             file.Close();
             Game_Board.ResetBoard();
         }

@@ -83,6 +83,7 @@ namespace Cheatscape
                     Hand_Animation_Manager.Draw(aSpriteBatch);
                     Level_Manager.Draw(aSpriteBatch);
                     Transition.Draw(aSpriteBatch);
+                    Text_Manager.DrawTurnCounter(aSpriteBatch);
                     break;
                 case GameState.Options:
                     Options_Menu.Draw(aSpriteBatch);

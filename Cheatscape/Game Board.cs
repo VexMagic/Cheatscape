@@ -11,7 +11,7 @@ namespace Cheatscape
         static Chess_Piece[,] ChessPiecesOnBoard = new Chess_Piece[8, 8];
         static List<Chess_Piece> CapturedWhitePieces = new List<Chess_Piece>();
         static List<Chess_Piece> CapturedBlackPieces = new List<Chess_Piece>();
-        static Vector2 BoardPosition = new Vector2(Global_Info.AccessWindowSize.X / 4 - 128, Global_Info.AccessWindowSize.Y / 4 - 128);
+        public static Vector2 BoardPosition = new Vector2(Global_Info.AccessWindowSize.X / 4 - 128, Global_Info.AccessWindowSize.Y / 4 - 128);
         static int TileSize = 32;
 
         public static Chess_Piece[,] AccessChessPiecesOnBoard { get => ChessPiecesOnBoard; set => ChessPiecesOnBoard = value; }
