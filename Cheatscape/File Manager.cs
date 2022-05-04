@@ -32,7 +32,7 @@ namespace Cheatscape
                 Level_Manager.AccessAllMoves.Add(tempMoves);
 
             }
-            turnCounter = File.ReadAllLines(tempDirectory).Length;
+            turnCounter = File.ReadAllLines(tempDirectory).Length-1;
             file.Close();
             Game_Board.ResetBoard();
         }

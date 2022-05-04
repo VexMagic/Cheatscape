@@ -25,6 +25,7 @@ namespace Cheatscape
             if (Input_Manager.KeyPressed(Keys.Left) && CurrentSlide > 1 && !FindingCheat)
             {
                 Hand_Animation_Manager.ResetAllHands();
+                File_Manager.turnCounter++;
                 CurrentSlide--;
                 Game_Board.SetBoardState();
             }
@@ -40,6 +41,7 @@ namespace Cheatscape
             else if (Input_Manager.KeyPressed(Keys.Right) && CurrentSlide < AllMoves.Count && !FindingCheat)
             {
                 Hand_Animation_Manager.ResetAllHands();
+                File_Manager.turnCounter--;
                 CurrentSlide++;
                 Game_Board.SetBoardState();
                 for (int i = 0; i < AllMoves[CurrentSlide - 1].Count; i++)
