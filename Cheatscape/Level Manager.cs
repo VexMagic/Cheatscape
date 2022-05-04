@@ -8,7 +8,8 @@ namespace Cheatscape
 {
     static class Level_Manager
     {
-        static int CurrentLevel = 0;
+        public static int CurrentLevel = 0;
+        public static int CurrentBundle = 0;
         static List<List<Chess_Move>> AllMoves = new List<List<Chess_Move>>();
         static List<Tuple<Chess_Move, int>> AllAnswers = new List<Tuple<Chess_Move, int>>();
         static int CurrentSlide = 1;
@@ -16,6 +17,7 @@ namespace Cheatscape
         static int AmountOfRuleLists = 3;
 
         public static int AccessCurrentLevel { get => CurrentLevel; set => CurrentLevel = value; }
+        public static int AccessCurrentBundle { get => CurrentBundle; set => CurrentBundle = value; }
         public static List<List<Chess_Move>> AccessAllMoves { get => AllMoves; set => AllMoves = value; }
         public static List<Tuple<Chess_Move, int>> AccessAllAnswers { get => AllAnswers; set => AllAnswers = value; }
         public static int AccessCurrentSlide { get => CurrentSlide; set => CurrentSlide = value; }

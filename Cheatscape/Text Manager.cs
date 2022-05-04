@@ -36,17 +36,24 @@ namespace Cheatscape
             aSpriteBatch.DrawString(Font, aString, new Vector2(anXPos, aYPos), Color.Black);
         }
 
-        public static void DrawTextBox(string aString, Vector2 aPosition, Texture2D aBoarder, SpriteBatch aSpriteBatch)
+        public static void DrawTextBox(string aString, Vector2 aPosition, Texture2D aBoarder, SpriteBatch aSpriteBatch, bool isScalable = false)
         {
             List<string> tempTextBox = SeparateText(aString);
             int tempBoxWidth = 0;
 
-            for (int i = 0; i < tempTextBox.Count; i++)
+            if (isScalable)
             {
-                if (Font.MeasureString(tempTextBox[i]).X > tempBoxWidth)
+                for (int i = 0; i < tempTextBox.Count; i++)
                 {
-                    tempBoxWidth = (int)Font.MeasureString(tempTextBox[i]).X;
+                    if (Font.MeasureString(tempTextBox[i]).X > tempBoxWidth)
+                    {
+                        tempBoxWidth = (int)Font.MeasureString(tempTextBox[i]).X;
+                    }
                 }
+            }
+            else
+            {
+                tempBoxWidth = MaximumTextBoxWidth;
             }
 
             aSpriteBatch.Draw(Background, new Rectangle((int)aPosition.X - 2, (int)aPosition.Y - 2, tempBoxWidth + 4, (tempTextBox.Count * LineSize) + 4), Color.White);
@@ -109,7 +116,7 @@ namespace Cheatscape
         public static void DrawTutorialBox(SpriteBatch aSpriteBatch)
         {
             if (TutorialText != "" && TutorialText != null)
-                DrawTextBox(TutorialText, TutorialPosition, TextBoarder, aSpriteBatch);
+                DrawTextBox(TutorialText, TutorialPosition, TextBoarder, aSpriteBatch, true);
         }
 
         public static void DrawTurnCounter(SpriteBatch aSpriteBatch)

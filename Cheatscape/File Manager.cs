@@ -13,7 +13,7 @@ namespace Cheatscape
         public static void LoadLevel()
         {
             string tempLine;
-            string tempDirectory = @"..\..\..\Text_Files\Level" + Level_Manager.AccessCurrentLevel + ".txt";
+            string tempDirectory = @"..\..\..\Text_Files\Level" + Level_Manager.AccessCurrentBundle + "-" + Level_Manager.AccessCurrentLevel + ".txt";
             Level_Manager.AccessAllMoves.Clear();
 
             StreamReader file = new StreamReader(tempDirectory);
