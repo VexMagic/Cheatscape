@@ -46,10 +46,23 @@ namespace Cheatscape
             }
             else if (Input_Manager.KeyPressed(Keys.Up) && optionHighlight)
             {
-                Music_Player.BackgroundMusic();
-                Global_Info.AccessCurrentGameState = Global_Info.GameState.PlayingLevel;
-                Level_Manager.AccessCurrentLevel = SelectedLevel;
-                File_Manager.LoadLevel();
+                optionHighlight = false;
+            }
+            else if (Input_Manager.KeyPressed(Keys.Up) && SelectedLevelY > 0)
+            {
+                SelectedLevelY--;
+            }
+            else if (Input_Manager.KeyPressed(Keys.Down) && SelectedLevelY < LevelAmountY - 1)
+            {
+                SelectedLevelY++;
+            }
+            else if (Input_Manager.KeyPressed(Keys.Down))
+            {
+                optionHighlight = true;
+            }
+            else if (Input_Manager.KeyPressed(Keys.Space) && !optionHighlight)
+            {
+                Transition.StartTransition(Transition.TransitionState.ToLevel);
             }
             else if (Input_Manager.KeyPressed(Keys.Back))
             {
