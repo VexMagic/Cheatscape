@@ -51,7 +51,7 @@ namespace Cheatscape
 
         public static void Load() //get font
         {
-            Font = Global_Info.AccessContentManager.Load<SpriteFont>("File");
+            Font = Global_Info.AccessContentManager.Load<SpriteFont>("Font");
             Banner = Global_Info.AccessContentManager.Load<Texture2D>("Rules Banner");
             ImageBoarder = Global_Info.AccessContentManager.Load<Texture2D>("Rule Image Boarder");
         }
