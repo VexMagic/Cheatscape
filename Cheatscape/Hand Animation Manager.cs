@@ -12,8 +12,8 @@ namespace Cheatscape
 
         public static void Load()
         {
-            AllHands.Add(new Hand(new Vector2(Global_Info.AccessWindowSize.X / 2 - 64, Global_Info.AccessWindowSize.Y / 2 - 64))); //White Hand
-            AllHands.Add(new Hand(new Vector2(0, 0))); //Black Hand
+            AllHands.Add(new Hand(new Vector2(Global_Info.AccessWindowSize.X / 2 - 64, Global_Info.AccessWindowSize.Y / 2 - 64),false)); //White Hand
+            AllHands.Add(new Hand(new Vector2(0, 0), true)); //Black Hand
         }
 
         public static void GiveHandDirection(Chess_Move aMove)

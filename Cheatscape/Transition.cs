@@ -87,6 +87,7 @@ namespace Cheatscape
 
                             if (transitionPos.X <= transitionWidth / 2 - Global_Info.AccessWindowSize.X / Global_Info.AccessScreenScale)
                             {
+                                Music_Player.BackgroundMusic();
                                 Global_Info.AccessCurrentGameState = Global_Info.GameState.PlayingLevel;
                                 Level_Manager.AccessCurrentLevel = Level_Select_Menu.SelectedLevelX + Level_Select_Menu.SelectedLevelY * 5;
                                 File_Manager.LoadLevel();

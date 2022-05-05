@@ -23,11 +23,14 @@ namespace Cheatscape
         int myMoveSpeed = 35;
         int myMoveAmount = 0;
 
-        public Hand(Vector2 aHomePos)
+        bool myHandIsFlipped;
+
+        public Hand(Vector2 aHomePos, bool aHandIsFlipped)
         {
             myTexture = Global_Info.AccessContentManager.Load<Texture2D>("Hands");
-            myHomePos = aHomePos;
+            myHomePos = aHomePos;            
             myPosition = myHomePos;
+            myHandIsFlipped = aHandIsFlipped;
         }
 
         public void GainDirection(Chess_Move aMove)
@@ -97,10 +100,20 @@ namespace Cheatscape
 
         public void Draw(SpriteBatch aSpriteBatch)
         {
-            if (isHolding)
-                aSpriteBatch.Draw(myTexture, new Rectangle((int)myPosition.X, (int)myPosition.Y, 64, 64), new Rectangle(0, 0, 64, 64), Color.White, 0, new Vector2(0, 0), SpriteEffects.None, 0);
-            else
-                aSpriteBatch.Draw(myTexture, new Rectangle((int)myPosition.X, (int)myPosition.Y, 64, 64), new Rectangle(64, 0, 64, 64), Color.White, 0, new Vector2(0, 0), SpriteEffects.None, 0);
+            if (myHandIsFlipped == true)
+            {
+                if (isHolding)
+                    aSpriteBatch.Draw(myTexture, new Rectangle((int)myPosition.X, (int)myPosition.Y, 64, 64), new Rectangle(0, 0, 64, 64), Color.White, 0, new Vector2(0, 0), SpriteEffects.FlipVertically | SpriteEffects.FlipHorizontally, 0);
+                else
+                    aSpriteBatch.Draw(myTexture, new Rectangle((int)myPosition.X, (int)myPosition.Y, 64, 64), new Rectangle(64, 0, 64, 64), Color.White, 0, new Vector2(0, 0), SpriteEffects.FlipVertically | SpriteEffects.FlipHorizontally, 0);
+            }
+            else if (myHandIsFlipped == false)
+            {
+                if (isHolding)
+                    aSpriteBatch.Draw(myTexture, new Rectangle((int)myPosition.X, (int)myPosition.Y, 64, 64), new Rectangle(0, 0, 64, 64), Color.White, 0, new Vector2(0, 0), SpriteEffects.None, 0);
+                else
+                    aSpriteBatch.Draw(myTexture, new Rectangle((int)myPosition.X, (int)myPosition.Y, 64, 64), new Rectangle(64, 0, 64, 64), Color.White, 0, new Vector2(0, 0), SpriteEffects.None, 0);
+            }
         }
     }
 }
