@@ -1,6 +1,8 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework.Audio;
+using Microsoft.Xna.Framework.Media;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -200,11 +202,15 @@ namespace Cheatscape
                     {
                         MusicVolumeIndex++;
                         MusicVolumePercent = (MusicVolumeIndex * 10).ToString() + "%";
+
+                        MediaPlayer.Volume = MusicVolumeIndex / 10;
                     }
                     else if (Input_Manager.KeyPressed(Keys.Left) && MusicVolumeIndex > 0)
                     {
                         MusicVolumeIndex--;
                         MusicVolumePercent = (MusicVolumeIndex * 10).ToString() + "%";
+
+                        MediaPlayer.Volume = MusicVolumeIndex / 10;
                     }
                     else if (Input_Manager.KeyPressed(Keys.Space))
                     {
