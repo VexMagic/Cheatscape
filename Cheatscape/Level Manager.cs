@@ -44,10 +44,6 @@ namespace Cheatscape
                 Hand_Animation_Manager.ResetAllHands();
                 CurrentSlide++;
                 Game_Board.SetBoardState();
-                for (int i = 0; i < AllMoves[CurrentSlide - 1].Count; i++)
-                {
-                    Game_Board.MoveChessPiece(AllMoves[CurrentSlide - 1][i], true);
-                }
             }
             else if (Input_Manager.KeyPressed(Keys.Right) && FindingCheat)
             {

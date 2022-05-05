@@ -35,6 +35,7 @@ namespace Cheatscape
 
         public void GainDirection(Chess_Move aMove)
         {
+            myMoveStage = 0;
             isDone = false;
             myMove = aMove;
 
@@ -80,6 +81,7 @@ namespace Cheatscape
                             isHolding = false;
                             Game_Board.CapturePiece(myMove.myEndingPos);//add captured piece to the captured list
                             Game_Board.AccessChessPiecesOnBoard[(int)myMove.myEndingPos.X, (int)myMove.myEndingPos.Y] = new Chess_Piece(myHoldingPiece);
+                            Game_Board.CurrentTurnMoves();
                             break;
                         case 3: //after arriving home
                             ResetHand();
