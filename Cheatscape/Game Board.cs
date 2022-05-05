@@ -11,20 +11,29 @@ namespace Cheatscape
         static Chess_Piece[,] ChessPiecesOnBoard = new Chess_Piece[8, 8];
         static List<Chess_Piece> CapturedWhitePieces = new List<Chess_Piece>();
         static List<Chess_Piece> CapturedBlackPieces = new List<Chess_Piece>();
-        static Vector2 BoardPosition = new Vector2(Global_Info.AccessWindowSize.X / 4 - 128, Global_Info.AccessWindowSize.Y / 4 - 128);
+        public static Vector2 BoardPosition = new Vector2(Global_Info.AccessWindowSize.X / 4 - 128, Global_Info.AccessWindowSize.Y / 4 - 128);
         static int TileSize = 32;
 
         public static Chess_Piece[,] AccessChessPiecesOnBoard { get => ChessPiecesOnBoard; set => ChessPiecesOnBoard = value; }
         public static Vector2 AccessBoardPosition { get => BoardPosition; set => BoardPosition = value; }
         public static int AccessTileSize { get => TileSize; set => TileSize = value; }
 
+        static Rectangle SplashArtSize = new Rectangle(400, 0, 200, 100);
+
         static Texture2D ChessBoard;
         static Texture2D Background;
+        static Texture2D CheckArt;
+        static Texture2D CheckmateArt;
+
+        enum SplashArt { None, Check, Checkmate }
+        static SplashArt CurrentSplashArt = SplashArt.None;
 
         public static void Load()
         {
             ChessBoard = Global_Info.AccessContentManager.Load<Texture2D>("Chess Board");
             Background = Global_Info.AccessContentManager.Load<Texture2D>("Background");
+            CheckArt = Global_Info.AccessContentManager.Load<Texture2D>("Check Art");
+            CheckmateArt = Global_Info.AccessContentManager.Load<Texture2D>("Checkmate Art");
 
             SetBasicBoardState();
         }
@@ -38,6 +47,7 @@ namespace Cheatscape
             Rules_List.AccessCurrentRule = 0;
             Rules_List.AccessCurrentRuleList = 0;
             Text_Manager.TutorialText = null;
+            Hand_Animation_Manager.ResetAllHands();
             SetBasicBoardState();
 
             for (int i = 0; i < Level_Manager.AccessAllMoves[0].Count; i++)
@@ -139,6 +149,9 @@ namespace Cheatscape
 
         public static void MoveChessPiece(Chess_Move aMove, bool isCurrentTurn)
         {
+            if (isCurrentTurn)
+                CurrentSplashArt = SplashArt.None;
+
             switch (aMove.MyMoveType)
             {
                 case Chess_Move.MoveType.MovePiece:
@@ -172,6 +185,14 @@ namespace Cheatscape
                     else
                         Text_Manager.TutorialText = "";
                     break;
+                case Chess_Move.MoveType.CallCheck:
+                    if (isCurrentTurn)
+                        CurrentSplashArt = SplashArt.Check;
+                    break;
+                case Chess_Move.MoveType.CallCheckmate:
+                    if (isCurrentTurn)
+                        CurrentSplashArt = SplashArt.Checkmate;
+                    break;
             }
         }
 
@@ -181,11 +202,14 @@ namespace Cheatscape
             CapturedWhitePieces.Clear();
             CapturedBlackPieces.Clear();
 
-            for (int i = 0; i < Level_Manager.AccessCurrentSlide - 1; i++)
+            for (int i = 0; i < Level_Manager.AccessCurrentSlide; i++)
             {
                 for (int j = 0; j < Level_Manager.AccessAllMoves[i].Count; j++)
                 {
-                    MoveChessPiece(Level_Manager.AccessAllMoves[i][j], false);
+                    if (i == Level_Manager.AccessCurrentSlide - 1)
+                        MoveChessPiece(Level_Manager.AccessAllMoves[i][j], true);
+                    else
+                        MoveChessPiece(Level_Manager.AccessAllMoves[i][j], false);
                 }
             }
         }
@@ -194,7 +218,11 @@ namespace Cheatscape
         {
             aSpriteBatch.Draw(Background, new Rectangle(0, 0, (int)(Global_Info.AccessWindowSize.X / Global_Info.AccessScreenScale),
                 (int)(Global_Info.AccessWindowSize.Y / Global_Info.AccessScreenScale)), Color.White);
-            aSpriteBatch.Draw(ChessBoard, BoardPosition - new Vector2(26, 26), Color.White);
+
+            Vector2 BoardOffset = new Vector2(BoardPosition.X - ((ChessBoard.Width - (TileSize * 8)) / 2), 
+                BoardPosition.Y - ((ChessBoard.Height - (TileSize * 8)) / 2));
+
+            aSpriteBatch.Draw(ChessBoard, BoardOffset, Color.White);
 
             for (int x = 0; x < ChessPiecesOnBoard.GetLength(0); x++)
             {
@@ -207,16 +235,21 @@ namespace Cheatscape
 
             for (int i = 0; i < CapturedWhitePieces.Count; i++)
             {
-                Vector2 tempPiecePos = new Vector2(BoardPosition.X - TileSize, BoardPosition.Y + (i * (TileSize / 2)));
+                Vector2 tempPiecePos = new Vector2(BoardOffset.X - TileSize, BoardOffset.Y + (i * (TileSize / 2)));
                 CapturedWhitePieces[i].Draw(aSpriteBatch, tempPiecePos);
             }
 
             for (int i = CapturedBlackPieces.Count - 1; i >= 0; i--)
             {
-                Vector2 tempPiecePos = new Vector2(BoardPosition.X + (ChessPiecesOnBoard.GetLength(0) * TileSize),
-                    BoardPosition.Y + ((ChessPiecesOnBoard.GetLength(1) - 1) * TileSize) - (i * (TileSize / 2)));
+                Vector2 tempPiecePos = new Vector2(BoardOffset.X + ChessBoard.Width,
+                    BoardOffset.Y + (ChessBoard.Height - TileSize) - (i * (TileSize / 2)));
                 CapturedBlackPieces[i].Draw(aSpriteBatch, tempPiecePos);
             }
+
+            if (CurrentSplashArt == SplashArt.Check)
+                aSpriteBatch.Draw(CheckArt, SplashArtSize, Color.White);
+            else if (CurrentSplashArt == SplashArt.Checkmate)
+                aSpriteBatch.Draw(CheckmateArt, SplashArtSize, Color.White);
         }
     }
 }

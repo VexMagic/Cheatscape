@@ -1,4 +1,0 @@
-Move;C2;C4
-Move;C7;C5
-Move;D2;D3
-Move;D8;A5,Answer;2-1
