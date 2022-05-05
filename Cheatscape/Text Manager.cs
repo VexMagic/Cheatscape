@@ -18,6 +18,9 @@ namespace Cheatscape
         public static int BetweenLineSize = 12;
         public static bool IsTextCentered = false;
 
+        public enum TextStyle { Standard, DropShadow, Boarder, Blood}
+        public static TextStyle CurrentTextStyle = TextStyle.Standard;
+
         public static string TutorialText;
 
         public static Vector2 RulesPosition = new Vector2(6, 144);
@@ -33,7 +36,30 @@ namespace Cheatscape
 
         public static void DrawText(string aString, int anXPos, int aYPos, SpriteBatch aSpriteBatch) //draw text
         {
-            aSpriteBatch.DrawString(Font, aString, new Vector2(anXPos, aYPos), Color.Black);
+            switch (CurrentTextStyle)
+            {
+                default:
+                    aSpriteBatch.DrawString(Font, aString, new Vector2(anXPos, aYPos), Color.Black);
+                    break;
+                case TextStyle.DropShadow:
+                    aSpriteBatch.DrawString(Font, aString, new Vector2(anXPos + 1, aYPos + 1), Color.Black);
+                    aSpriteBatch.DrawString(Font, aString, new Vector2(anXPos, aYPos), Color.White);
+                    break;
+                case TextStyle.Boarder:
+                    aSpriteBatch.DrawString(Font, aString, new Vector2(anXPos + 1, aYPos), Color.Black);
+                    aSpriteBatch.DrawString(Font, aString, new Vector2(anXPos, aYPos + 1), Color.Black);
+                    aSpriteBatch.DrawString(Font, aString, new Vector2(anXPos, aYPos - 1), Color.Black);
+                    aSpriteBatch.DrawString(Font, aString, new Vector2(anXPos - 1, aYPos), Color.Black);
+                    aSpriteBatch.DrawString(Font, aString, new Vector2(anXPos, aYPos), Color.White);
+                    break;
+                case TextStyle.Blood:
+                    aSpriteBatch.DrawString(Font, aString, new Vector2(anXPos + 1, aYPos), Color.Black);
+                    aSpriteBatch.DrawString(Font, aString, new Vector2(anXPos, aYPos + 1), Color.Black);
+                    aSpriteBatch.DrawString(Font, aString, new Vector2(anXPos, aYPos - 1), Color.Black);
+                    aSpriteBatch.DrawString(Font, aString, new Vector2(anXPos - 1, aYPos), Color.Black);
+                    aSpriteBatch.DrawString(Font, aString, new Vector2(anXPos, aYPos), Color.Red);
+                    break;
+            }
         }
 
         public static void DrawTextBox(string aString, Vector2 aPosition, Texture2D aBoarder, SpriteBatch aSpriteBatch, bool isScalable = false)

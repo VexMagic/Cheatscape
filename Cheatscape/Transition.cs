@@ -88,7 +88,8 @@ namespace Cheatscape
                             if (transitionPos.X <= transitionWidth / 2 - Global_Info.AccessWindowSize.X / Global_Info.AccessScreenScale)
                             {
                                 Global_Info.AccessCurrentGameState = Global_Info.GameState.PlayingLevel;
-                                Level_Manager.AccessCurrentLevel = Level_Select_Menu.SelectedLevelX + Level_Select_Menu.SelectedLevelY * 5;
+                                Level_Manager.AccessCurrentLevel = Level_Select_Menu.SelectedLevelX;
+                                Level_Manager.AccessCurrentBundle = Level_Select_Menu.SelectedLevelY;
                                 File_Manager.LoadLevel();
                             }
 
