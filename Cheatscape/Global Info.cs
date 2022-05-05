@@ -9,16 +9,16 @@ namespace Cheatscape
 {
     static class Global_Info
     {
-        static ContentManager ContentManager;
-        static float ScreenScale = 2f;
-        public static Vector2 WindowSize = new Vector2(600 * ScreenScale, 360 * ScreenScale);
-        public enum GameState { LevelSelect, PlayingLevel, MainMenu, Options };
-        static GameState CurrentGameState = GameState.MainMenu;
+        static ContentManager contentManager;
+        static float screenScale = 2f;
+        public static Vector2 windowSize = new Vector2(600 * screenScale, 360 * screenScale);
+        public enum GameState { levelSelect, playingLevel, mainMenu, options };
+        static GameState currentGameState = GameState.mainMenu;
 
-        public static ContentManager AccessContentManager { get => ContentManager; set => ContentManager = value; }
-        public static float AccessScreenScale { get => ScreenScale; set => ScreenScale = value; }
-        public static Vector2 AccessWindowSize { get => WindowSize; set => WindowSize = value; }
-        public static GameState AccessCurrentGameState { get => CurrentGameState; set => CurrentGameState = value; }
+        public static ContentManager AccessContentManager { get => contentManager; set => contentManager = value; }
+        public static float AccessScreenScale { get => screenScale; set => screenScale = value; }
+        public static Vector2 AccessWindowSize { get => windowSize; set => windowSize = value; }
+        public static GameState AccessCurrentGameState { get => currentGameState; set => currentGameState = value; }
         
         public static void Load()
         {
@@ -36,20 +36,20 @@ namespace Cheatscape
         {
             Input_Manager.Update();
 
-            switch (CurrentGameState)
+            switch (currentGameState)
             {
-                case GameState.LevelSelect:
+                case GameState.levelSelect:
                     Level_Select_Menu.Update();
                     Main_Menu.Update(gameTime);
                     break;
-                case GameState.PlayingLevel:
+                case GameState.playingLevel:
                     Level_Manager.Update();
                     Hand_Animation_Manager.Update();
                     break;
-                case GameState.MainMenu:
+                case GameState.mainMenu:
                     Main_Menu.Update(gameTime);
                     break;
-                case GameState.Options:
+                case GameState.options:
                     Options_Menu.Update();
                     break;
             }
@@ -57,21 +57,21 @@ namespace Cheatscape
 
         public static void Draw(SpriteBatch aSpriteBatch)
         {
-            switch (CurrentGameState)
+            switch (currentGameState)
             {
-                case GameState.LevelSelect:
+                case GameState.levelSelect:
                     Main_Menu.Draw(aSpriteBatch);
                     Level_Select_Menu.Draw(aSpriteBatch);
                     break;
-                case GameState.PlayingLevel:
+                case GameState.playingLevel:
                     Game_Board.Draw(aSpriteBatch);
                     Hand_Animation_Manager.Draw(aSpriteBatch);
                     Level_Manager.Draw(aSpriteBatch);
                     break;
-                case GameState.Options:
+                case GameState.options:
                     Options_Menu.Draw(aSpriteBatch);
                     break;
-                case GameState.MainMenu:
+                case GameState.mainMenu:
                     Main_Menu.Draw(aSpriteBatch);
                     break;
             }

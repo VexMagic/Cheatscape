@@ -5,8 +5,8 @@ namespace Cheatscape
 {
     class Chess_Move
     {
-        public enum MoveType { MovePiece, AddPiece, RemovePiece, CapturePiece, AnswerCheat, IncludeRule, IncludeList, TutorialText };
-        public MoveType MyMoveType;
+        public enum MoveType { movePiece, addPiece, removePiece, capturePiece, aanswerCheat, includeRule, includeList, tutorialText };
+        public MoveType myMoveType;
 
         public Vector2 myStartingPos;
         public Vector2 myEndingPos;
@@ -22,37 +22,37 @@ namespace Cheatscape
             switch (anArray[0])
             {
                 case "add":
-                    MyMoveType = MoveType.AddPiece;
+                    myMoveType = MoveType.addPiece;
                     myPiece = DecryptPiece(anArray[1]);
                     myStartingPos = DecryptPosition(anArray[2]);
                     break;
                 case "remove":
-                    MyMoveType = MoveType.RemovePiece;
+                    myMoveType = MoveType.removePiece;
                     myStartingPos = DecryptPosition(anArray[1]);
                     break;
                 case "capture":
-                    MyMoveType = MoveType.CapturePiece;
+                    myMoveType = MoveType.capturePiece;
                     myPiece = DecryptPiece(anArray[1]);
                     break;
                 case "move":
-                    MyMoveType = MoveType.MovePiece;
+                    myMoveType = MoveType.movePiece;
                     myStartingPos = DecryptPosition(anArray[1]);
                     myEndingPos = DecryptPosition(anArray[2]);
                     break;
                 case "answer":
-                    MyMoveType = MoveType.AnswerCheat;
+                    myMoveType = MoveType.aanswerCheat;
                     myRule = DecryptRule(anArray[1]);
                     break;
                 case "include rule":
-                    MyMoveType = MoveType.IncludeRule;
+                    myMoveType = MoveType.includeRule;
                     myRule = DecryptRule(anArray[1]);
                     break;
                 case "include list":
-                    MyMoveType = MoveType.IncludeList;
+                    myMoveType = MoveType.includeList;
                     myRuleList = Int32.Parse(anArray[1]);
                     break;
                 case "text":
-                    MyMoveType = MoveType.TutorialText;
+                    myMoveType = MoveType.tutorialText;
                     myText = anArray[1];
                     break;
             }

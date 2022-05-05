@@ -5,14 +5,14 @@ namespace Cheatscape
 {
     static class Music_Player
     {
-        public static string file { get; set; }
+        public static string File { get; set; }
 
         [DllImport("winmm.dll")]
         private static extern long mciSendString(string lpstrCommand, StringBuilder lpstrReturnString, int uReturnLength, int hwndCallback);
         public static void Open(string musicFile)
         {
-            file = musicFile;
-            string command = "open \"" + file + "\" type MPEGVideo alias MyMp3";
+            File = musicFile;
+            string command = "open \"" + File + "\" type MPEGVideo alias MyMp3";
             mciSendString(command, null, 0, 0);
         }
 
