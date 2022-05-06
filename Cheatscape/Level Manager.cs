@@ -13,7 +13,7 @@ namespace Cheatscape
         static List<List<Chess_Move>> AllMoves = new List<List<Chess_Move>>();
         static List<Tuple<Chess_Move, int>> AllAnswers = new List<Tuple<Chess_Move, int>>();
         static int CurrentSlide = 1;
-        static bool FindingCheat = false;
+        public static bool FindingCheat = false;
         static int AmountOfRuleLists = 3;
 
         public static int AccessCurrentLevel { get => CurrentLevel; set => CurrentLevel = value; }

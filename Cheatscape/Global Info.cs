@@ -33,11 +33,13 @@ namespace Cheatscape
             Text_Manager.Load();
             Options_Menu.Load();
             Transition.Load();
+            Mouse_Controller.Load();
         }
 
         public static void Update(GameTime gameTime)
         {
             Input_Manager.Update();
+            Mouse_Controller.Update();
 
             switch (CurrentGameState)
             {
@@ -54,6 +56,7 @@ namespace Cheatscape
                     {
                         Level_Manager.Update();
                         Hand_Animation_Manager.Update();
+                        Mouse_Controller.LevelUpdate();
                     }
                     Transition.Update(gameTime);
                     break;
@@ -84,6 +87,7 @@ namespace Cheatscape
                     Hand_Animation_Manager.Draw(aSpriteBatch);
                     Level_Manager.Draw(aSpriteBatch);
                     Text_Manager.DrawTutorialBox(aSpriteBatch);
+                    Mouse_Controller.LevelDraw(aSpriteBatch);
                     break;
                 case GameState.Options:
                     Options_Menu.Draw(aSpriteBatch);
