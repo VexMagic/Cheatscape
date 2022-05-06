@@ -26,6 +26,7 @@ namespace Cheatscape
 
         public static void Load()
         {
+            Pause_Menu.Load();
             Game_Board.Load();
             Music_Player.Load();
             //File_Manager.LoadLevel();
@@ -89,6 +90,7 @@ namespace Cheatscape
                     Text_Manager.DrawTutorialBox(aSpriteBatch);
                     Text_Manager.DrawTurnCounter(aSpriteBatch);
                     Transition.Draw(aSpriteBatch);
+                    Pause_Menu.Draw(aSpriteBatch);
                     break;
                 case GameState.Options:
                     Options_Menu.Draw(aSpriteBatch);
