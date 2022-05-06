@@ -66,15 +66,38 @@ namespace Cheatscape
             {
                 for (int j = 0; j < Level_Manager.AccessAllMoves[i].Count; j++)
                 {
-                    if (Level_Manager.AccessAllMoves[i][j].MyMoveType == Chess_Move.MoveType.AnswerCheat)
-                        Level_Manager.AccessAllAnswers.Add(new Tuple<Chess_Move, int>(Level_Manager.AccessAllMoves[i][j], i + 1));
-                    else if (Level_Manager.AccessAllMoves[i][j].MyMoveType == Chess_Move.MoveType.IncludeRule)
+                    switch (Level_Manager.AccessAllMoves[i][j].MyMoveType)
                     {
-                        if (!Rules_List.AllowedRules.Contains(Level_Manager.AccessAllMoves[i][j].myRule))
-                            Rules_List.AllowedRules.Add(Level_Manager.AccessAllMoves[i][j].myRule);
+                        case Chess_Move.MoveType.AnswerCheat:
+                            Level_Manager.AccessAllAnswers.Add(new Tuple<Chess_Move, int>(Level_Manager.AccessAllMoves[i][j], i + 1));
+                            break;
+                        case Chess_Move.MoveType.IncludeRule:
+                            if (!Rules_List.AllowedRules.Contains(Level_Manager.AccessAllMoves[i][j].myRule))
+                                Rules_List.AllowedRules.Add(Level_Manager.AccessAllMoves[i][j].myRule);
+                            break;
+                        case Chess_Move.MoveType.IncludeList:
+                            Rules_List.IncludeList(Level_Manager.AccessAllMoves[i][j].myRuleList);
+                            break;
+                        case Chess_Move.MoveType.ChessBackground:
+                            switch (Level_Manager.AccessAllMoves[i][j].myText.ToLower())
+                            {
+                                default:
+                                    Background = Global_Info.AccessContentManager.Load<Texture2D>("Background");
+                                    break;
+                                case "kindergarden":
+                                    Background = Global_Info.AccessContentManager.Load<Texture2D>("Kindergarten");
+                                    break;
+                            }
+                            break;
+                        case Chess_Move.MoveType.ChessBoard:
+                            switch (Level_Manager.AccessAllMoves[i][j].myText.ToLower())
+                            {
+                                default:
+                                    ChessBoard = Global_Info.AccessContentManager.Load<Texture2D>("Chess Board");
+                                    break;
+                            }
+                            break;
                     }
-                    else if (Level_Manager.AccessAllMoves[i][j].MyMoveType == Chess_Move.MoveType.IncludeList)
-                        Rules_List.IncludeList(Level_Manager.AccessAllMoves[i][j].myRuleList);
                 }
             }
 
