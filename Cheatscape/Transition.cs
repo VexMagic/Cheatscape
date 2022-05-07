@@ -91,8 +91,13 @@ namespace Cheatscape
                             {
                                 Music_Player.BackgroundMusic();
                                 Global_Info.AccessCurrentGameState = Global_Info.GameState.PlayingLevel;
-                                Level_Manager.AccessCurrentLevel = Level_Select_Menu.SelectedLevelX + Level_Select_Menu.SelectedLevelY * 5;
-                                File_Manager.LoadLevel();
+
+                                if (!Pause_Menu.gameIsPaused)
+                                {
+                                    Level_Manager.AccessCurrentLevel = Level_Select_Menu.SelectedLevelX + Level_Select_Menu.SelectedLevelY * 5;
+                                    File_Manager.LoadLevel();
+                                }
+                                
                             }
 
                             break;

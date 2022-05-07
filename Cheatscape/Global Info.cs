@@ -60,6 +60,7 @@ namespace Cheatscape
                         Hand_Animation_Manager.Update();
                     }
                     Transition.Update(gameTime);
+                    Pause_Menu.Update(gameTime);
                     break;
                 case GameState.MainMenu:
                     Main_Menu.Update(gameTime);
@@ -89,8 +90,8 @@ namespace Cheatscape
                     Level_Manager.Draw(aSpriteBatch);
                     Text_Manager.DrawTutorialBox(aSpriteBatch);
                     Text_Manager.DrawTurnCounter(aSpriteBatch);
-                    Transition.Draw(aSpriteBatch);
                     Pause_Menu.Draw(aSpriteBatch);
+                    Transition.Draw(aSpriteBatch);
                     break;
                 case GameState.Options:
                     Options_Menu.Draw(aSpriteBatch);
