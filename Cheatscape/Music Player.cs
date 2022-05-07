@@ -36,6 +36,8 @@ namespace Cheatscape
             //    tempString = "move" + i;
             //    soundEffects.Add(tempString);
             //}
+            MediaPlayer.Volume = 0.5f;
+            SoundEffect.MasterVolume = 0.5f;
         }
 
         public static void MoveEffect()
@@ -55,7 +57,6 @@ namespace Cheatscape
         public static void StopMusic()
         {
             MediaPlayer.Pause();
-
         }
 
     }
