@@ -1,56 +1,104 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using System;
+using System.Collections.Generic;
+using System.Text;
 
 namespace Cheatscape
 {
     static class Level_Select_Menu
     {
-        static Texture2D panel;
-        static Texture2D numbers;
+        static Texture2D PanelTex;
+        static Texture2D NumbersTex;
+        static Texture2D PanelHighLightTex;
+        static Texture2D Bg1Tex;
+        static Texture2D optionButtonTex;
+        static Texture2D optionHighlightTex;
 
-        static int selectedLevel = 0;
-        static int levelAmount = 2;
+        public static int SelectedLevelX = 0;
+        public static int SelectedLevelY = 0;
+
+        static int LevelAmountX = 5;
+        static int LevelAmountY = 2;
+
+        static bool optionHighlight = false;
 
         public static void Load()
         {
-            panel = Global_Info.AccessContentManager.Load<Texture2D>("Level Panel");
-            numbers = Global_Info.AccessContentManager.Load<Texture2D>("Numbers");
+            PanelTex = Global_Info.AccessContentManager.Load<Texture2D>("Level Panel");
+            NumbersTex = Global_Info.AccessContentManager.Load<Texture2D>("Numbers");
+            PanelHighLightTex = Global_Info.AccessContentManager.Load<Texture2D>("LevelPanelHighlight");
+            Bg1Tex = Global_Info.AccessContentManager.Load<Texture2D>("Background");
+            optionButtonTex = Global_Info.AccessContentManager.Load<Texture2D>("OptionsButton");
+            optionHighlightTex = Global_Info.AccessContentManager.Load<Texture2D>("OptionsButtonHighlight");
         }
 
         public static void Update()
         {
-            if (Keyboard.GetState().IsKeyDown(Keys.Left) && selectedLevel > 0)
+            if (Input_Manager.KeyPressed(Keys.Left) && SelectedLevelX > 0)
             {
-                selectedLevel--;
+                SelectedLevelX--;
             }
-            else if (Input_Manager.KeyPressed(Keys.Right) && selectedLevel < levelAmount - 1)
+            else if (Input_Manager.KeyPressed(Keys.Right) && SelectedLevelX < LevelAmountX - 1)
             {
-                selectedLevel++;
+                SelectedLevelX++;
             }
-            else if (Input_Manager.KeyPressed(Keys.Space))
+            else if (Input_Manager.KeyPressed(Keys.Up) && SelectedLevelY > 0 && !optionHighlight)
             {
-                Global_Info.AccessCurrentGameState = Global_Info.GameState.playingLevel;
-                Level_Manager.AccessCurrentLevel = selectedLevel;
-                File_Manager.LoadLevel();
+                SelectedLevelY--;
+            }
+            else if (Input_Manager.KeyPressed(Keys.Down) && SelectedLevelY < LevelAmountY - 1)
+            {
+                SelectedLevelY++;
+            }
+            else if (Input_Manager.KeyPressed(Keys.Down) && SelectedLevelY == 1)
+            {
+                optionHighlight = true;
+            }
+            else if (Input_Manager.KeyPressed(Keys.Up) && optionHighlight)
+            {
+                optionHighlight = false;
             }
             else if (Input_Manager.KeyPressed(Keys.Back))
             {
                 Main_Menu.Return();
-                Global_Info.AccessCurrentGameState = Global_Info.GameState.mainMenu;
+                Global_Info.AccessCurrentGameState = Global_Info.GameState.MainMenu;
             }
-            else if (Input_Manager.KeyPressed(Keys.Left))
+            else if (optionHighlight && Input_Manager.KeyPressed(Keys.Space))
             {
-                Global_Info.AccessCurrentGameState = Global_Info.GameState.options;
+                Transition.AccessNextTransitionState = Transition.TransitionState.ToLvSelect;
+                
+                Transition.StartTransition(Transition.TransitionState.ToOptions);
+            }
+            else if (!optionHighlight && Input_Manager.KeyPressed(Keys.Space))
+            {
+                Transition.StartTransition(Transition.TransitionState.ToLevel);
             }
         }
 
         public static void Draw(SpriteBatch aSpriteBatch)
         {
-            for (int i = 0; i < levelAmount; i++)
+            aSpriteBatch.Draw(Bg1Tex, new Rectangle(50, 50, PanelTex.Width, PanelTex.Height), Color.White);
+            
+            if (optionHighlight)
             {
-                aSpriteBatch.Draw(numbers, new Rectangle(201 + (i - selectedLevel) * 100, 205, 9, 5), new Rectangle(9 * i, 0, 9, 5), Color.White, 0, new Vector2(0, 0), SpriteEffects.None, 0);
-                aSpriteBatch.Draw(panel, new Vector2(196 + (i - selectedLevel) * 100, 200), Color.White);
+                aSpriteBatch.Draw(optionHighlightTex, new Vector2(50, 200), Color.White);
+            }
+            else
+            {
+                aSpriteBatch.Draw(PanelHighLightTex, new Vector2(50 + SelectedLevelX * 100, 50 + SelectedLevelY * 75), Color.White);
+            }
+
+            aSpriteBatch.Draw(optionButtonTex, new Vector2(50, 200), Color.White);
+            
+            for (int i = 0; i < LevelAmountY; i++)
+            {
+                for (int j = 0; j < LevelAmountX; j++)
+                {
+                    aSpriteBatch.Draw(NumbersTex, new Rectangle(55 + j * 100, 55 + i * 75, 9, 5), new Rectangle(9 * j + i * 45, 0, 9, 5), Color.White, 0, new Vector2(0, 0), SpriteEffects.None, 0);
+                    aSpriteBatch.Draw(PanelTex, new Vector2(50 + j * 100, 50 + i * 75), Color.White);
+                }
             }
         }
     }

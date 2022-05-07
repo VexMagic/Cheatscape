@@ -1,12 +1,15 @@
 ﻿using Microsoft.Xna.Framework;
 using System;
+using System.Collections.Generic;
+using System.Text;
 
 namespace Cheatscape
 {
     class Chess_Move
     {
-        public enum MoveType { movePiece, addPiece, removePiece, capturePiece, answerCheat, includeRule, includeList, tutorialText };
-        public MoveType myMoveType;
+        public enum MoveType { MovePiece, AddPiece, RemovePiece, CapturePiece, AnswerCheat, IncludeRule, IncludeList, TutorialText,
+        CallCheck, CallCheckmate };
+        public MoveType MyMoveType;
 
         public Vector2 myStartingPos;
         public Vector2 myEndingPos;
@@ -22,38 +25,44 @@ namespace Cheatscape
             switch (anArray[0])
             {
                 case "add":
-                    myMoveType = MoveType.addPiece;
+                    MyMoveType = MoveType.AddPiece;
                     myPiece = DecryptPiece(anArray[1]);
                     myStartingPos = DecryptPosition(anArray[2]);
                     break;
                 case "remove":
-                    myMoveType = MoveType.removePiece;
+                    MyMoveType = MoveType.RemovePiece;
                     myStartingPos = DecryptPosition(anArray[1]);
                     break;
                 case "capture":
-                    myMoveType = MoveType.capturePiece;
+                    MyMoveType = MoveType.CapturePiece;
                     myPiece = DecryptPiece(anArray[1]);
                     break;
                 case "move":
-                    myMoveType = MoveType.movePiece;
+                    MyMoveType = MoveType.MovePiece;
                     myStartingPos = DecryptPosition(anArray[1]);
                     myEndingPos = DecryptPosition(anArray[2]);
                     break;
                 case "answer":
-                    myMoveType = MoveType.answerCheat;
+                    MyMoveType = MoveType.AnswerCheat;
                     myRule = DecryptRule(anArray[1]);
                     break;
                 case "include rule":
-                    myMoveType = MoveType.includeRule;
+                    MyMoveType = MoveType.IncludeRule;
                     myRule = DecryptRule(anArray[1]);
                     break;
                 case "include list":
-                    myMoveType = MoveType.includeList;
+                    MyMoveType = MoveType.IncludeList;
                     myRuleList = Int32.Parse(anArray[1]);
                     break;
                 case "text":
-                    myMoveType = MoveType.tutorialText;
+                    MyMoveType = MoveType.TutorialText;
                     myText = anArray[1];
+                    break;
+                case "check":
+                    MyMoveType = MoveType.CallCheck;
+                    break;
+                case "checkmate":
+                    MyMoveType = MoveType.CallCheckmate;
                     break;
             }
         }

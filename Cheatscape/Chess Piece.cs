@@ -25,13 +25,10 @@ namespace Cheatscape
 
         public void Draw(SpriteBatch aSpriteBatch, Vector2 aPos)
         {
-
             if (isWhitePiece)
                 aSpriteBatch.Draw(myTexture, new Rectangle((int)aPos.X, (int)aPos.Y, 32, 32), new Rectangle(32 * myPieceType, 0, 32, 32), Color.White, 0, new Vector2(0, 0), SpriteEffects.None, 0);
             else
-            {
                 aSpriteBatch.Draw(myTexture, new Rectangle((int)aPos.X, (int)aPos.Y, 32, 32), new Rectangle(32 * myPieceType, 32, 32, 32), Color.White, 0, new Vector2(0, 0), SpriteEffects.None, 0);
-            }
         }
     }
 }
