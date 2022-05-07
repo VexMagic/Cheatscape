@@ -25,7 +25,7 @@ namespace Cheatscape
 
         public static void Load()
         {
-            Font = Global_Info.AccessContentManager.Load<SpriteFont>("File");
+            Font = Global_Info.AccessContentManager.Load<SpriteFont>("Font");
             Background = Global_Info.AccessContentManager.Load<Texture2D>("TextboxBackground");
             TextBoarder = Global_Info.AccessContentManager.Load<Texture2D>("Text Boarder");
             RuleSelector = Global_Info.AccessContentManager.Load<Texture2D>("Selector");
