@@ -67,6 +67,8 @@ namespace Cheatscape
             }
             else if (optionHighlight && Input_Manager.KeyPressed(Keys.Space))
             {
+                Transition.AccessNextTransitionState = Transition.TransitionState.ToLvSelect;
+                
                 Transition.StartTransition(Transition.TransitionState.ToOptions);
             }
             else if (!optionHighlight && Input_Manager.KeyPressed(Keys.Space))

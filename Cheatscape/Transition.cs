@@ -22,8 +22,9 @@ namespace Cheatscape
         static float timeBetweenMoves = 30f;
 
         public enum TransitionState { ToOptions, ToLvSelect, ToLevel, InLevel };
-        public static TransitionState transitionState;
+        public static TransitionState transitionState, nextTransitionState;
 
+        public static TransitionState AccessNextTransitionState { get => nextTransitionState; set => nextTransitionState = value; }
         public static void Load()
         {
             transitionTex = Global_Info.AccessContentManager.Load<Texture2D>("TransitionShadow");
@@ -71,6 +72,7 @@ namespace Cheatscape
                             
                             if (transitionPos.X >= transitionWidth / 2 - Global_Info.AccessWindowSize.X / Global_Info.AccessScreenScale)
                             {
+                                Music_Player.BackgroundMusic();
                                 Global_Info.AccessCurrentGameState = Global_Info.GameState.Options;
                             }
 
@@ -89,8 +91,13 @@ namespace Cheatscape
                             {
                                 Music_Player.BackgroundMusic();
                                 Global_Info.AccessCurrentGameState = Global_Info.GameState.PlayingLevel;
-                                Level_Manager.AccessCurrentLevel = Level_Select_Menu.SelectedLevelX + Level_Select_Menu.SelectedLevelY * 5;
-                                File_Manager.LoadLevel();
+
+                                if (!Pause_Menu.gameIsPaused)
+                                {
+                                    Level_Manager.AccessCurrentLevel = Level_Select_Menu.SelectedLevelX + Level_Select_Menu.SelectedLevelY * 5;
+                                    File_Manager.LoadLevel();
+                                }
+                                
                             }
 
                             break;
