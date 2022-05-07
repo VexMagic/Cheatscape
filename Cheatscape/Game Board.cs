@@ -53,7 +53,7 @@ namespace Cheatscape
             {
                 for (int j = 0; j < Level_Manager.AccessAllMoves[i].Count; j++)
                 {
-                    if (Level_Manager.AccessAllMoves[i][j].myMoveType == Chess_Move.MoveType.aanswerCheat)
+                    if (Level_Manager.AccessAllMoves[i][j].myMoveType == Chess_Move.MoveType.answerCheat)
                         Level_Manager.AccessAllAnswers.Add(new Tuple<Chess_Move, int>(Level_Manager.AccessAllMoves[i][j], i + 1));
                     else if (Level_Manager.AccessAllMoves[i][j].myMoveType == Chess_Move.MoveType.includeRule)
                     {
@@ -163,7 +163,7 @@ namespace Cheatscape
                     else if (!aMove.myPiece.isWhitePiece)
                         capturedBlackPieces.Add(new Chess_Piece(aMove.myPiece));
                     break;
-                case Chess_Move.MoveType.aanswerCheat:
+                case Chess_Move.MoveType.answerCheat:
                     break;
                 case Chess_Move.MoveType.tutorialText:
                     if (isCurrentTurn)

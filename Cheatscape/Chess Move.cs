@@ -5,7 +5,7 @@ namespace Cheatscape
 {
     class Chess_Move
     {
-        public enum MoveType { movePiece, addPiece, removePiece, capturePiece, aanswerCheat, includeRule, includeList, tutorialText };
+        public enum MoveType { movePiece, addPiece, removePiece, capturePiece, answerCheat, includeRule, includeList, tutorialText };
         public MoveType myMoveType;
 
         public Vector2 myStartingPos;
@@ -40,7 +40,7 @@ namespace Cheatscape
                     myEndingPos = DecryptPosition(anArray[2]);
                     break;
                 case "answer":
-                    myMoveType = MoveType.aanswerCheat;
+                    myMoveType = MoveType.answerCheat;
                     myRule = DecryptRule(anArray[1]);
                     break;
                 case "include rule":
