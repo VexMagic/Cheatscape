@@ -70,6 +70,7 @@ namespace Cheatscape
 
                 aSpriteBatch.Draw(buttonHighLight, new Vector2(240, 130 + 50 * pauseIndex), Color.White);
 
+                Text_Manager.DrawLargeText("Cheatscape", 220, 85, aSpriteBatch);
                 Text_Manager.DrawText("Continue Game", 280, 140, aSpriteBatch);
                 aSpriteBatch.Draw(backButton, new Vector2(240, 130), Color.White);
 
