@@ -40,8 +40,8 @@ namespace Cheatscape
 
             catch
             {
-                Global_Info.AccessCurrentGameState = Global_Info.GameState.LevelSelect;
-                Music_Player.StopMusic();
+                Transition.StartTransition(Transition.TransitionState.ToLvSelect);
+                //Global_Info.AccessCurrentGameState = Global_Info.GameState.LevelSelect;
             }
         }
 

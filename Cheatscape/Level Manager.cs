@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -13,10 +14,13 @@ namespace Cheatscape
         static List<List<Chess_Move>> AllMoves = new List<List<Chess_Move>>();
         static List<Tuple<Chess_Move, int>> AllAnswers = new List<Tuple<Chess_Move, int>>();
         static int CurrentSlide = 1;
+        static int lives;
+        static float rating;
         static bool FindingCheat = false;
         static int AmountOfRuleLists = 3;
         static bool feedback = false;
 
+        public static float AccessRating { get  => rating; set => rating = value; }
         public static int AccessCurrentLevel { get => CurrentLevel; set => CurrentLevel = value; }
         public static int AccessCurrentBundle { get => CurrentBundle; set => CurrentBundle = value; }
         public static List<List<Chess_Move>> AccessAllMoves { get => AllMoves; set => AllMoves = value; }
@@ -32,14 +36,15 @@ namespace Cheatscape
 
             if (Pause_Menu.gameIsPaused == false)
             {
-                if (Input_Manager.KeyPressed(Keys.Left) && CurrentSlide > 1 && !FindingCheat)
+                if (Input_Manager.KeyPressed(Keys.Left) && CurrentSlide > 1 && !FindingCheat && !feedback)
                 {
                     Hand_Animation_Manager.ResetAllHands();
                     File_Manager.turnCounter++;
                     CurrentSlide--;
                     Game_Board.SetBoardState();
+                    Music_Player.MoveEffect();
                 }
-                else if (Input_Manager.KeyPressed(Keys.Left) && FindingCheat)
+                else if (Input_Manager.KeyPressed(Keys.Left) && FindingCheat && !feedback)
                 {
                     Rules_List.AccessCurrentRuleList--;
                     if (Rules_List.AccessCurrentRuleList < 0)
@@ -48,7 +53,7 @@ namespace Cheatscape
                     }
                     Rules_List.AccessCurrentRule = 0;
                 }
-                else if (Input_Manager.KeyPressed(Keys.Right) && CurrentSlide < AllMoves.Count && !FindingCheat)
+                else if (Input_Manager.KeyPressed(Keys.Right) && CurrentSlide < AllMoves.Count && !FindingCheat && !feedback)
                 {
                     Hand_Animation_Manager.ResetAllHands();
                     File_Manager.turnCounter--;
@@ -69,7 +74,7 @@ namespace Cheatscape
                     }
                     Rules_List.AccessCurrentRule = 0;
                 }
-                else if (Input_Manager.KeyPressed(Keys.Space))
+                else if (Input_Manager.KeyPressed(Keys.Space) && !feedback)
                 {
                     if (!FindingCheat)
                         FindingCheat = true;
@@ -82,11 +87,21 @@ namespace Cheatscape
                                 AllAnswers[i].Item2 == CurrentSlide)
                             {
                                 //Global_Info.AccessCurrentGameState = Global_Info.GameState.LevelSelect;
+                                rating += 100;
                                 feedback = true;
                             }
                             else if (Rules_List.AccessCurrentRule != Rules_List.GetList().Length)
                             {
-                                //lose life
+                                if (rating % 2 > 400)
+                                {
+                                    rating %= 2;
+                                }
+                                else if (rating - 400 > 0)
+                                {
+                                    rating -= 400;
+                                }
+                                else
+                                    rating = 0;
                             }
                         }
                         FindingCheat = false;
@@ -121,6 +136,9 @@ namespace Cheatscape
             if (FindingCheat)
                 Rules_List.Draw(aSpriteBatch);
 
+            Text_Manager.DrawText(Convert.ToString("Current rating: " + rating), (int)(Global_Info.AccessWindowSize.X / Global_Info.AccessScreenScale) - 300, 10
+                        , aSpriteBatch);
+
             if (Options_Menu.AccessControlView == true)
             {
                 if (FindingCheat)
@@ -133,6 +151,9 @@ namespace Cheatscape
                     Text_Manager.DrawText("Right: Next move               Left: Previous move               Space: Rules", 120, 
                         (int)(Global_Info.AccessWindowSize.Y / Global_Info.AccessScreenScale) - 20, aSpriteBatch);
                 }
+                
+
+                
 
             }
         }
