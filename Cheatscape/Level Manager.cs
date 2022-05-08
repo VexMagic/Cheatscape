@@ -14,7 +14,6 @@ namespace Cheatscape
         static List<List<Chess_Move>> AllMoves = new List<List<Chess_Move>>();
         static List<Tuple<Chess_Move, int>> AllAnswers = new List<Tuple<Chess_Move, int>>();
         static int CurrentSlide = 1;
-        static int lives;
         static float rating;
         static bool FindingCheat = false;
         static int AmountOfRuleLists = 3;
@@ -36,7 +35,7 @@ namespace Cheatscape
 
             if (Pause_Menu.gameIsPaused == false)
             {
-                if (Input_Manager.KeyPressed(Keys.Left) && CurrentSlide > 1 && !FindingCheat && !feedback)
+                if (Input_Manager.KeyPressed(Keys.Left) && CurrentSlide > 1 && !FindingCheat && !feedback && rating > 0)
                 {
                     Hand_Animation_Manager.ResetAllHands();
                     File_Manager.turnCounter++;
@@ -44,7 +43,7 @@ namespace Cheatscape
                     Game_Board.SetBoardState();
                     Music_Player.MoveEffect();
                 }
-                else if (Input_Manager.KeyPressed(Keys.Left) && FindingCheat && !feedback)
+                else if (Input_Manager.KeyPressed(Keys.Left) && FindingCheat/* && !feedback && rating > 0*/)
                 {
                     Rules_List.AccessCurrentRuleList--;
                     if (Rules_List.AccessCurrentRuleList < 0)
@@ -53,7 +52,7 @@ namespace Cheatscape
                     }
                     Rules_List.AccessCurrentRule = 0;
                 }
-                else if (Input_Manager.KeyPressed(Keys.Right) && CurrentSlide < AllMoves.Count && !FindingCheat && !feedback)
+                else if (Input_Manager.KeyPressed(Keys.Right) && CurrentSlide < AllMoves.Count && !FindingCheat && !feedback && rating > 0)
                 {
                     Hand_Animation_Manager.ResetAllHands();
                     File_Manager.turnCounter--;
@@ -74,7 +73,7 @@ namespace Cheatscape
                     }
                     Rules_List.AccessCurrentRule = 0;
                 }
-                else if (Input_Manager.KeyPressed(Keys.Space) && !feedback)
+                else if (Input_Manager.KeyPressed(Keys.Space) && !feedback && rating > 0)
                 {
                     if (!FindingCheat)
                         FindingCheat = true;
@@ -92,9 +91,9 @@ namespace Cheatscape
                             }
                             else if (Rules_List.AccessCurrentRule != Rules_List.GetList().Length)
                             {
-                                if (rating % 2 > 400)
+                                if (rating / 2 > 400)
                                 {
-                                    rating %= 2;
+                                    rating /= 2;
                                 }
                                 else if (rating - 400 > 0)
                                 {
@@ -126,6 +125,11 @@ namespace Cheatscape
                         feedback = false;
                     }
                 }
+                if (rating == 0 && Input_Manager.KeyPressed(Keys.Enter))
+                {
+                    Transition.StartTransition(Transition.TransitionState.ToLvSelect);
+
+                }
 
             }
             
@@ -151,9 +155,11 @@ namespace Cheatscape
                     Text_Manager.DrawText("Right: Next move               Left: Previous move               Space: Rules", 120, 
                         (int)(Global_Info.AccessWindowSize.Y / Global_Info.AccessScreenScale) - 20, aSpriteBatch);
                 }
-                
 
-                
+                if (rating == 0)
+                Text_Manager.DrawText(Convert.ToString("You've failed the tutorial..."), 20, (int)(Global_Info.AccessWindowSize.Y / Global_Info.AccessScreenScale) - 200
+                        , aSpriteBatch);
+
 
             }
         }
