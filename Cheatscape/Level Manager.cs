@@ -160,6 +160,10 @@ namespace Cheatscape
                 Text_Manager.DrawText(Convert.ToString("You've failed the tutorial..."), 20, (int)(Global_Info.AccessWindowSize.Y / Global_Info.AccessScreenScale) - 200
                         , aSpriteBatch);
 
+                if(feedback)
+                    Text_Manager.DrawText(Convert.ToString("Nice! \n Press Enter to continue" ), 20, (int)(Global_Info.AccessWindowSize.Y / Global_Info.AccessScreenScale) - 200
+                        , aSpriteBatch);
+
 
             }
         }
