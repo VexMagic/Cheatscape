@@ -15,6 +15,7 @@ namespace Cheatscape
         static int CurrentSlide = 1;
         static bool FindingCheat = false;
         static int AmountOfRuleLists = 3;
+        static bool feedback = false;
 
         public static int AccessCurrentLevel { get => CurrentLevel; set => CurrentLevel = value; }
         public static int AccessCurrentBundle { get => CurrentBundle; set => CurrentBundle = value; }
@@ -81,9 +82,7 @@ namespace Cheatscape
                                 AllAnswers[i].Item2 == CurrentSlide)
                             {
                                 //Global_Info.AccessCurrentGameState = Global_Info.GameState.LevelSelect;
-                                CurrentLevel++;
-                                File_Manager.LoadLevel();
-                                Music_Player.StopMusic();
+                                feedback = true;
                             }
                             else if (Rules_List.AccessCurrentRule != Rules_List.GetList().Length)
                             {
@@ -101,6 +100,16 @@ namespace Cheatscape
                 else if (Input_Manager.KeyPressed(Keys.Down) && FindingCheat)
                 {
                     Rules_List.AccessCurrentRule++;
+                }
+
+                if (feedback == true)
+                {
+                    if (Input_Manager.KeyPressed(Keys.Enter))
+                    {
+                        CurrentLevel++;
+                        File_Manager.LoadLevel();
+                        feedback = false;
+                    }
                 }
 
             }
@@ -124,6 +133,7 @@ namespace Cheatscape
                     Text_Manager.DrawText("Right: Next move               Left: Previous move               Space: Rules", 120, 
                         (int)(Global_Info.AccessWindowSize.Y / Global_Info.AccessScreenScale) - 20, aSpriteBatch);
                 }
+
             }
         }
     }

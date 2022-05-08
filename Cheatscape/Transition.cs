@@ -72,7 +72,6 @@ namespace Cheatscape
                             
                             if (transitionPos.X >= transitionWidth / 2 - Global_Info.AccessWindowSize.X / Global_Info.AccessScreenScale)
                             {
-                                Music_Player.BackgroundMusic();
                                 Global_Info.AccessCurrentGameState = Global_Info.GameState.Options;
                             }
 
