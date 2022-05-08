@@ -56,7 +56,6 @@ namespace Cheatscape
                     {
                         Level_Manager.Update();
                         Hand_Animation_Manager.Update();
-                        Mouse_Controller.LevelUpdate();
                     }
                     Transition.Update(gameTime);
                     break;

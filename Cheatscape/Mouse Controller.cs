@@ -12,6 +12,8 @@ namespace Cheatscape
         public static MouseState CurrentMS, PreviousMS;
         static Vector2 MousePosition = new Vector2();
         static Rectangle[,] BoardTiles = new Rectangle[8, 8];
+        static Rectangle[,] LevelButtons = new Rectangle[5, 2];
+        static Rectangle OptionsButton = new Rectangle(50, 200, 32, 32);
         static Texture2D TileSelect;
         static Vector2 SelectedTile;
 
@@ -30,6 +32,14 @@ namespace Cheatscape
                         (int)tempBoardPos.Y + (j * tempTileSize), tempTileSize, tempTileSize);
                 }
             }
+
+            for (int i = 0; i < LevelButtons.GetLength(0); i++)
+            {
+                for (int j = 0; j < LevelButtons.GetLength(1); j++)
+                {
+                    LevelButtons[i, j] = new Rectangle(50 + i * 100, 50 + j * 75, 96, 64);
+                }
+            }
         }
 
         public static void Update()
@@ -37,9 +47,54 @@ namespace Cheatscape
             PreviousMS = CurrentMS;
             CurrentMS = Mouse.GetState();
             MousePosition = new Vector2(CurrentMS.X, CurrentMS.Y) / Global_Info.AccessScreenScale;
+
+            switch (Global_Info.AccessCurrentGameState)
+            {
+                case Global_Info.GameState.LevelSelect:
+                    LevelSelectUpdate();
+                    break;
+                case Global_Info.GameState.PlayingLevel:
+                    LevelUpdate();
+                    break;
+                case Global_Info.GameState.MainMenu:
+                    if (CurrentMS.LeftButton == ButtonState.Pressed && PreviousMS.LeftButton == ButtonState.Released)
+                        Main_Menu.animating = true;
+                    break;
+                case Global_Info.GameState.Options:
+                    break;
+            }
         }
 
-        public static void LevelUpdate()
+        static void LevelSelectUpdate()
+        {
+            for (int i = 0; i < LevelButtons.GetLength(0); i++)
+            {
+                for (int j = 0; j < LevelButtons.GetLength(1); j++)
+                {
+                    if (LevelButtons[i, j].Contains(MousePosition))
+                    {
+                        Level_Select_Menu.SelectedLevelX = i;
+                        Level_Select_Menu.SelectedLevelY = j;
+                        Level_Select_Menu.optionHighlight = false;
+                    }
+                }
+            }
+
+            if (OptionsButton.Contains(MousePosition))
+            {
+                Level_Select_Menu.optionHighlight = true;
+            }
+
+            if (CurrentMS.LeftButton == ButtonState.Pressed && PreviousMS.LeftButton == ButtonState.Released)
+            {
+                if (Level_Select_Menu.optionHighlight)
+                    Transition.StartTransition(Transition.TransitionState.ToOptions);
+                else
+                    Transition.StartTransition(Transition.TransitionState.ToLevel);
+            }
+        }
+
+        static void LevelUpdate()
         {
             SelectedTile.X = 100;
 
