@@ -8,7 +8,7 @@ namespace Cheatscape
 {
     static class Level_Manager
     {
-        public static int timer = 0;
+        public static int timer = 60;
         public static int prevGameTime = 0;
         static bool playedThrough = false;
         public static int currentLevel = 0;
@@ -112,15 +112,16 @@ namespace Cheatscape
 
         public static void Play(GameTime gameTime)
         {
-            if (playedThrough == false && !findingCheat)
+            if (playedThrough == false && !findingCheat && Pause_Menu.gameIsPaused == false)
             {
-                if (gameTime.ElapsedGameTime.TotalSeconds > prevGameTime)
+                if (prevGameTime < gameTime.ElapsedGameTime.TotalSeconds)
                 {
                     timer++;
+                    prevGameTime = (int)gameTime.ElapsedGameTime.TotalSeconds;
                 }
                 if (currentSlide < allMoves.Count)
                 {
-                    if (timer == 300)
+                    if (timer == 120)
                     {
                         Hand_Animation_Manager.ResetAllHands();
                         File_Manager.turnCounter--;
