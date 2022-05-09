@@ -26,6 +26,7 @@ namespace Cheatscape
 
         public static void Load()
         {
+            Global_Tracker.LoadCompletedBundles();
             Pause_Menu.Load();
             Game_Board.Load();
             Music_Player.Load();
