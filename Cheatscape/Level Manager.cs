@@ -112,7 +112,7 @@ namespace Cheatscape
 
         public static void Play(GameTime gameTime)
         {
-            if (playedThrough == false)
+            if (playedThrough == false && !findingCheat)
             {
                 if (gameTime.ElapsedGameTime.TotalSeconds > prevGameTime)
                 {
