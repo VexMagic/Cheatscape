@@ -19,8 +19,9 @@ namespace Cheatscape
 
         public static int AmountOfRuleLists = 3;
         static int LastRule;
-        static Vector2 ImagePosition = new Vector2(5, 0);
-        static Vector2 BannerPosition = new Vector2(0, 101);
+        public static int ScrollBarWidth = 20;
+        static Vector2 ImagePosition = new Vector2(5 + ScrollBarWidth, 0);
+        static Vector2 BannerPosition = new Vector2(ScrollBarWidth, 101);
 
         public static List<Vector2> AllowedRules = new List<Vector2>();
 
@@ -242,7 +243,7 @@ namespace Cheatscape
                 return tempScrollAmount;
         }
 
-        static int MaxScroll(string[] aStringArray)
+        public static int MaxScroll(string[] aStringArray)
         {
             int tempMaxScroll = 0 - (int)(Global_Info.AccessWindowSize.Y / Global_Info.AccessScreenScale);
 
