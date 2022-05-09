@@ -66,7 +66,7 @@ namespace Cheatscape
         {
             if (gameIsPaused == true)
             {
-                aSpriteBatch.Draw(pauseMenu, new Rectangle(0, 0, (int)(Global_Info.WindowSize.X / Global_Info.AccessScreenScale), (int)(Global_Info.WindowSize.Y / Global_Info.AccessScreenScale)), Color.White);
+                aSpriteBatch.Draw(pauseMenu, new Rectangle(0, 0, (int)(Global_Info.windowSize.X / Global_Info.AccessScreenScale), (int)(Global_Info.windowSize.Y / Global_Info.AccessScreenScale)), Color.White);
 
                 aSpriteBatch.Draw(buttonHighLight, new Vector2(240, 130 + 50 * pauseIndex), Color.White);
 
