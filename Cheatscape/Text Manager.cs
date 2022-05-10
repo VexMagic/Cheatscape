@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -17,6 +18,9 @@ namespace Cheatscape
         public static int LineSize = 9;
         public static int BetweenLineSize = 12;
         public static bool IsTextCentered = false;
+        static int max = 4;
+        static int min = 0;
+        static int headstart = 0;
 
         public static string TutorialText;
 
@@ -30,7 +34,23 @@ namespace Cheatscape
             TextBoarder = Global_Info.AccessContentManager.Load<Texture2D>("Text Boarder");
             RuleSelector = Global_Info.AccessContentManager.Load<Texture2D>("Selector");
         }
+        public static void Scrolling(Keys key)
+        {
 
+            if (key == Keys.Up && Input_Manager.KeyPressed(Keys.Up))
+            {
+                min--;
+                
+            }
+            if (key == Keys.Down && Input_Manager.KeyPressed(Keys.Down)/* && max !> Rules_List.GetList(Rules_List.AccessCurrentRuleList).Length*/)
+            {
+                headstart++;
+                if (min < headstart && headstart  == 4)
+                    min = headstart;
+                
+            }
+
+        }
         public static void DrawText(string aString, int anXPos, int aYPos, SpriteBatch aSpriteBatch) //draw text
         {
             aSpriteBatch.DrawString(Font, aString, new Vector2(anXPos, aYPos), Color.Black);
@@ -65,11 +85,12 @@ namespace Cheatscape
             for (int j = 0; j < tempTextBox.Count; j++)
             {
                 int tempOffset = 0;
-
+                
                 if (IsTextCentered)
                     tempOffset = (int)((Font.MeasureString(tempTextBox[j]).X - tempBoxWidth) / 2);
 
-                DrawText(tempTextBox[j], (int)aPosition.X - tempOffset, (int)aPosition.Y - (LineSize / 4), aSpriteBatch);
+                    DrawText(tempTextBox[j], (int)aPosition.X - tempOffset, (int)aPosition.Y - (LineSize / 4), aSpriteBatch);
+                
                 aPosition.Y += LineSize;
 
                 aSpriteBatch.Draw(aBoarder, new Rectangle((int)aPosition.X - LineSize, (int)aPosition.Y - LineSize, LineSize, LineSize), new Rectangle(0, LineSize, LineSize, LineSize), Color.White, 0, new Vector2(0, 0), SpriteEffects.None, 0);
@@ -90,16 +111,20 @@ namespace Cheatscape
                 if (Rules_List.AccessCurrentRule != Rules_List.GetList().Length)
                 {
                     if (Rules_List.GetList()[Rules_List.AccessCurrentRule] == aStringArray[i])
-                        DrawTextBox(aStringArray[i], new Vector2(RulesPosition.X, tempYOffset), RuleSelector, aSpriteBatch);
+                        
+                            DrawTextBox(aStringArray[i], new Vector2(RulesPosition.X, tempYOffset), RuleSelector, aSpriteBatch);
                     else
+                        if (i >= min && i <= max)
                         DrawTextBox(aStringArray[i], new Vector2(RulesPosition.X, tempYOffset), TextBoarder, aSpriteBatch);
                 }
                 else
+                    if (i >= min && i <= max)
                     DrawTextBox(aStringArray[i], new Vector2(RulesPosition.X, tempYOffset), TextBoarder, aSpriteBatch);
 
                 List<string> tempTextBox = SeparateText(aStringArray[i]);
                 tempYOffset += tempTextBox.Count * LineSize;
                 tempYOffset += BetweenLineSize;
+
             }
 
             if (tempYOffset > (int)(Global_Info.AccessWindowSize.Y / Global_Info.AccessScreenScale) - LineSize - (BetweenLineSize / 2))
