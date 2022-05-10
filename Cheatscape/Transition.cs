@@ -81,6 +81,9 @@ namespace Cheatscape
                             if (transitionPos.X <= transitionWidth / 2 - Global_Info.AccessWindowSize.X / Global_Info.AccessScreenScale)
                             {
                                 Global_Info.AccessCurrentGameState = Global_Info.GameState.LevelSelect;
+                                Level_Manager.AccessCurrentLevel = 0;
+                                Level_Manager.AccessAllMoves.Clear();
+                                Level_Manager.AccessCompleted = false;
                                 Music_Player.StopMusic();
                             }
 
@@ -94,7 +97,7 @@ namespace Cheatscape
 
                                 if (!Pause_Menu.gameIsPaused)
                                 {
-                                    Level_Manager.AccessCurrentLevel = Level_Select_Menu.SelectedLevelX + Level_Select_Menu.SelectedLevelY * 5;
+                                    Level_Manager.AccessCurrentBundle = Level_Select_Menu.SelectedBundleX + Level_Select_Menu.SelectedBundleY * 5;
                                     File_Manager.LoadLevel();
                                 }
                                 

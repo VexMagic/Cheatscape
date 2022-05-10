@@ -16,8 +16,8 @@ namespace Cheatscape
         static Texture2D optionButtonTex;
         static Texture2D optionHighlightTex;
 
-        public static int SelectedLevelX = 0;
-        public static int SelectedLevelY = 0;
+        public static int SelectedBundleX = 0;
+        public static int SelectedBundleY = 0;
 
         static int LevelAmountX = 5;
         static int LevelAmountY = 2;
@@ -36,23 +36,23 @@ namespace Cheatscape
 
         public static void Update()
         {
-            if (Input_Manager.KeyPressed(Keys.Left) && SelectedLevelX > 0)
+            if (Input_Manager.KeyPressed(Keys.Left) && SelectedBundleX > 0)
             {
-                SelectedLevelX--;
+                SelectedBundleX--;
             }
-            else if (Input_Manager.KeyPressed(Keys.Right) && SelectedLevelX < LevelAmountX - 1)
+            else if (Input_Manager.KeyPressed(Keys.Right) && SelectedBundleX < LevelAmountX - 1)
             {
-                SelectedLevelX++;
+                SelectedBundleX++;
             }
-            else if (Input_Manager.KeyPressed(Keys.Up) && SelectedLevelY > 0 && !optionHighlight)
+            else if (Input_Manager.KeyPressed(Keys.Up) && SelectedBundleY > 0 && !optionHighlight)
             {
-                SelectedLevelY--;
+                SelectedBundleY--;
             }
-            else if (Input_Manager.KeyPressed(Keys.Down) && SelectedLevelY < LevelAmountY - 1)
+            else if (Input_Manager.KeyPressed(Keys.Down) && SelectedBundleY < LevelAmountY - 1)
             {
-                SelectedLevelY++;
+                SelectedBundleY++;
             }
-            else if (Input_Manager.KeyPressed(Keys.Down) && SelectedLevelY == 1)
+            else if (Input_Manager.KeyPressed(Keys.Down) && SelectedBundleY == 1)
             {
                 optionHighlight = true;
             }
@@ -89,7 +89,7 @@ namespace Cheatscape
             }
             else
             {
-                aSpriteBatch.Draw(PanelHighLightTex, new Vector2(50 + SelectedLevelX * 100, 50 + SelectedLevelY * 75), Color.White);
+                aSpriteBatch.Draw(PanelHighLightTex, new Vector2(50 + SelectedBundleX * 100, 50 + SelectedBundleY * 75), Color.White);
             }
 
             aSpriteBatch.Draw(optionButtonTex, new Vector2(50, 200), Color.White);
