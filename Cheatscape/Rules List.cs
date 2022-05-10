@@ -195,13 +195,13 @@ namespace Cheatscape
             Text_Manager.DrawRuleBox(tempArray, aSpriteBatch);
 
             aSpriteBatch.Draw(Banner, new Rectangle((int)BannerPosition.X, (int)BannerPosition.Y,
-                Text_Manager.MaximumTextBoxWidth + (int)(Text_Manager.RulesPosition.X * 2), 20),
-                new Rectangle(0, 0, Text_Manager.MaximumTextBoxWidth + (int)(Text_Manager.RulesPosition.X * 2), 20),
+                Text_Manager.MaximumTextBoxWidth + (int)((Text_Manager.RulesPosition.X - ScrollBarWidth) * 2), 20),
+                new Rectangle(0, 0, Text_Manager.MaximumTextBoxWidth + (int)((Text_Manager.RulesPosition.X - ScrollBarWidth) * 2), 20),
                 Color.White, 0, new Vector2(0, 0), SpriteEffects.None, 0);
 
             aSpriteBatch.Draw(Banner, new Rectangle((int)BannerPosition.X, (int)BannerPosition.Y + 20,
-                Text_Manager.MaximumTextBoxWidth + (int)(Text_Manager.RulesPosition.X * 2), 17),
-                new Rectangle(0, (CurrentRuleList * 17) + 20, Text_Manager.MaximumTextBoxWidth + (int)(Text_Manager.RulesPosition.X * 2), 17),
+                Text_Manager.MaximumTextBoxWidth + (int)((Text_Manager.RulesPosition.X - ScrollBarWidth) * 2), 17),
+                new Rectangle(0, (CurrentRuleList * 17) + 20, Text_Manager.MaximumTextBoxWidth + (int)((Text_Manager.RulesPosition.X - ScrollBarWidth) * 2), 17),
                 Color.White, 0, new Vector2(0, 0), SpriteEffects.None, 0);
 
             if (CurrentRule < GetList().Length)
