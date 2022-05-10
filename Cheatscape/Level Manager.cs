@@ -15,7 +15,7 @@ namespace Cheatscape
         static List<Tuple<Chess_Move, int>> AllAnswers = new List<Tuple<Chess_Move, int>>();
         static int CurrentSlide = 1;
         static float rating;
-        static bool FindingCheat = false;
+        public static bool FindingCheat = false;
         static int AmountOfRuleLists = 3;
         static bool isOnTransitionScreen = false;
         static bool completed = false;
@@ -56,7 +56,7 @@ namespace Cheatscape
                     }
                     Rules_List.AccessCurrentRule = 0;
                 }
-                else if (Input_Manager.KeyPressed(Keys.Right) && CurrentSlide < AllMoves.Count && !FindingCheat && !completed && rating > 0)
+                else if (Input_Manager.KeyPressed(Keys.Right) && CurrentSlide < AllMoves.Count && !FindingCheat && !completed /*&& rating > 0*/)
                 {
                     Hand_Animation_Manager.ResetAllHands();
                     File_Manager.turnCounter--;
@@ -64,7 +64,7 @@ namespace Cheatscape
                     Game_Board.SetBoardState();
                     for (int i = 0; i < AllMoves[CurrentSlide - 1].Count; i++)
                     {
-                        Game_Board.MoveChessPiece(AllMoves[CurrentSlide - 1][i], true);
+                        Game_Board.MakeAMove(AllMoves[CurrentSlide - 1][i], true);
                     }
 
                 }

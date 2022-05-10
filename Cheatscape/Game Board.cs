@@ -42,7 +42,6 @@ namespace Cheatscape
 
         public static void ResetBoard()
         {
-            ChessPiecesOnBoard = new Chess_Piece[8, 8];
             CapturedWhitePieces.Clear();
             CapturedBlackPieces.Clear();
             Level_Manager.AccessCurrentSlide = 1;

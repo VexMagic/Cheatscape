@@ -74,8 +74,8 @@ namespace Cheatscape
                 {
                     if (LevelButtons[i, j].Contains(MousePosition))
                     {
-                        Level_Select_Menu.SelectedLevelX = i;
-                        Level_Select_Menu.SelectedLevelY = j;
+                        Level_Select_Menu.SelectedBundleX = i;
+                        Level_Select_Menu.SelectedBundleY = j;
                         Level_Select_Menu.optionHighlight = false;
                     }
                 }
