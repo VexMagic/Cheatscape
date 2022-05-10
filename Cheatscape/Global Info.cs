@@ -54,7 +54,7 @@ namespace Cheatscape
                     Transition.Update(gameTime);
                     break;
                 case GameState.PlayingLevel:
-                    if (!Transition.transitioning)
+                    if (!Transition.transitioning)                
                     {
                         Level_Manager.Update();
                         Hand_Animation_Manager.Update();

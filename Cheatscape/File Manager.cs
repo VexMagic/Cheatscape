@@ -15,26 +15,34 @@ namespace Cheatscape
             string tempLine;
             string tempDirectory = @"..\..\..\Text_Files\Level" + Level_Manager.AccessCurrentBundle + "-" + Level_Manager.AccessCurrentLevel + ".txt";
             Level_Manager.AccessAllMoves.Clear();
-
-            StreamReader file = new StreamReader(tempDirectory);
-            while ((tempLine = file.ReadLine()) != null)
+            try
             {
-                string[] tempSeperatedMoves = tempLine.Split(',');
-                List<Chess_Move> tempMoves = new List<Chess_Move>();
-
-                for (int i = 0; i < tempSeperatedMoves.Length; i++)
+                StreamReader file = new StreamReader(tempDirectory);
+                while ((tempLine = file.ReadLine()) != null)
                 {
-                    string[] tempSeperatedData = tempSeperatedMoves[i].Split(';');
+                    string[] tempSeperatedMoves = tempLine.Split(',');
+                    List<Chess_Move> tempMoves = new List<Chess_Move>();
 
-                    tempMoves.Add(new Chess_Move(tempSeperatedData));
+                    for (int i = 0; i < tempSeperatedMoves.Length; i++)
+                    {
+                        string[] tempSeperatedData = tempSeperatedMoves[i].Split(';');
+
+                        tempMoves.Add(new Chess_Move(tempSeperatedData));
+                    }
+
+                    Level_Manager.AccessAllMoves.Add(tempMoves);
+
                 }
-
-                Level_Manager.AccessAllMoves.Add(tempMoves);
-
+                turnCounter = File.ReadAllLines(tempDirectory).Length - 1;
+                file.Close();
+                Game_Board.ResetBoard();
             }
-            turnCounter = File.ReadAllLines(tempDirectory).Length-1;
-            file.Close();
-            Game_Board.ResetBoard();
+
+            catch
+            {
+                Transition.StartTransition(Transition.TransitionState.ToLvSelect);
+                //Global_Info.AccessCurrentGameState = Global_Info.GameState.LevelSelect;
+            }
         }
 
         public static void SaveTest() //save the winrate of each card
