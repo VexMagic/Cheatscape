@@ -15,6 +15,7 @@ namespace Cheatscape
         static int CurrentSlide = 1;
         static bool FindingCheat = false;
         static int AmountOfRuleLists = 3;
+        static bool isOnTransitionScreen = false;
 
         public static int AccessCurrentLevel { get => CurrentLevel; set => CurrentLevel = value; }
         public static int AccessCurrentBundle { get => CurrentBundle; set => CurrentBundle = value; }
@@ -80,10 +81,8 @@ namespace Cheatscape
                                 AllAnswers[i].Item1.myRule.Y == Rules_List.AccessCurrentRule &&
                                 AllAnswers[i].Item2 == CurrentSlide)
                             {
-                                //Global_Info.AccessCurrentGameState = Global_Info.GameState.LevelSelect;
-                                CurrentLevel++;
-                                File_Manager.LoadLevel();
-                                Music_Player.StopMusic();
+                                isOnTransitionScreen = true;
+                                Pause_Menu.gameIsPaused = true;
                             }
                             else if (Rules_List.AccessCurrentRule != Rules_List.GetList().Length)
                             {
@@ -104,15 +103,30 @@ namespace Cheatscape
                 }
 
             }
-            
+            if (isOnTransitionScreen == true && Input_Manager.KeyPressed(Keys.Enter ))
+            {
+                Pause_Menu.gameIsPaused = !Pause_Menu.gameIsPaused;
+                isOnTransitionScreen = false;
+
+                //Global_Info.AccessCurrentGameState = Global_Info.GameState.LevelSelect;
+                CurrentLevel++;
+                File_Manager.LoadLevel();
+                Music_Player.StopMusic();
+            }
+
         }
 
         public static void Draw(SpriteBatch aSpriteBatch)
         {
             if (FindingCheat)
                 Rules_List.Draw(aSpriteBatch);
+            if (isOnTransitionScreen == false)
+                Text_Manager.DrawTurnCounter(aSpriteBatch);
 
-            if (Options_Menu.AccessControlView == true)
+            if (isOnTransitionScreen)
+                Level_Transition.Draw(aSpriteBatch);
+
+            if (Options_Menu.AccessControlView == true && isOnTransitionScreen == false)
             {
                 if (FindingCheat)
                 {

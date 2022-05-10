@@ -9,7 +9,7 @@ namespace Cheatscape
     static class Text_Manager
     {
         static SpriteFont Font;
-        static SpriteFont LargeFont;
+        public static SpriteFont LargeFont;
         static Texture2D Background;
         static Texture2D TextBoarder;
         static Texture2D RuleSelector;
@@ -40,7 +40,7 @@ namespace Cheatscape
 
         public static void DrawLargeText(string aString, int anXPos, int aYPos, SpriteBatch aSpriteBatch) //draw white text
         {
-            aSpriteBatch.DrawString(LargeFont, aString, new Vector2(anXPos, aYPos), Color.Black);
+            aSpriteBatch.DrawString(LargeFont, aString, new Vector2(anXPos, aYPos), Color.White);
         }
 
         public static void DrawTextBox(string aString, Vector2 aPosition, Texture2D aBoarder, SpriteBatch aSpriteBatch, bool isScalable = false)

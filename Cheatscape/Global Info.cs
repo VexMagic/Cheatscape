@@ -26,6 +26,7 @@ namespace Cheatscape
 
         public static void Load()
         {
+            Level_Transition.Load();
             Global_Tracker.LoadCompletedBundles();
             Pause_Menu.Load();
             Game_Board.Load();
@@ -89,8 +90,7 @@ namespace Cheatscape
                     Game_Board.Draw(aSpriteBatch);
                     Hand_Animation_Manager.Draw(aSpriteBatch);
                     Level_Manager.Draw(aSpriteBatch);
-                    Text_Manager.DrawTutorialBox(aSpriteBatch);
-                    Text_Manager.DrawTurnCounter(aSpriteBatch);
+                    Text_Manager.DrawTutorialBox(aSpriteBatch);                   
                     Pause_Menu.Draw(aSpriteBatch);
                     Transition.Draw(aSpriteBatch);
                     break;
