@@ -148,11 +148,11 @@ namespace Cheatscape
 
             if (IsScrollNeeded)
             {
-                DrawScrollBar(aSpriteBatch);
+                DrawScrollBar(aStringArray, aSpriteBatch);
             }
         }
 
-        static void DrawScrollBar(SpriteBatch aSpriteBatch)
+        static void DrawScrollBar(string[] aStringArray, SpriteBatch aSpriteBatch)
         {
             aSpriteBatch.Draw(ScrollBar, new Rectangle(0, (int)RulesPosition.Y - 6, 20, 21), new Rectangle(0, 0, 20, 21), Color.White);
             aSpriteBatch.Draw(ScrollBar, new Rectangle(0, (int)(Global_Info.AccessWindowSize.Y / Global_Info.AccessScreenScale) - 21, 
@@ -163,14 +163,59 @@ namespace Cheatscape
             aSpriteBatch.Draw(ScrollBar, new Rectangle(0, (int)(Global_Info.AccessWindowSize.Y / Global_Info.AccessScreenScale) - 
                 21 - tempBarFullLength, 20, tempBarFullLength), new Rectangle(0, 21, 20, 1), Color.White);
 
-            int tempScrollBarLenth = 20;
+            int tempProcent = (tempBarFullLength * 100) / ScrollPercent(aStringArray);
+
+            int tempScrollBarLenth = (int)Math.Round((double)(25 * tempBarFullLength) / tempProcent);
+
+            double tempBarScrollAmount = (double)(100 * Scrolling(aStringArray)) / ScrollPercent(aStringArray) / 100;
+
             //int tempScrollAmount = (int)RulesPosition.Y - 6 + 19 + (0);
-            int tempScrollAmount = (int)RulesPosition.Y - 6 + 19 + ((tempBarFullLength - 20) / 2);
-            //int tempScrollAmount = (int)RulesPosition.Y - 6 + 19 + (tempBarFullLength - 20);
+            //int tempScrollAmount = (int)RulesPosition.Y - 6 + 19 + ((tempBarFullLength - tempScrollBarLenth) / 2);
+            //int tempScrollAmount = (int)RulesPosition.Y - 6 + 19 + (tempBarFullLength - tempScrollBarLenth);
+            int tempScrollAmount = (int)(RulesPosition.Y + 13 + ((tempBarFullLength - tempScrollBarLenth) * tempBarScrollAmount));
 
             aSpriteBatch.Draw(ScrollBar, new Rectangle(0, tempScrollAmount + 2, 20, tempScrollBarLenth), new Rectangle(0, 45, 20, 1), Color.White);
             aSpriteBatch.Draw(ScrollBar, new Rectangle(0, tempScrollAmount, 20, 2), new Rectangle(0, 43, 20, 2), Color.White);
             aSpriteBatch.Draw(ScrollBar, new Rectangle(0, tempScrollAmount + tempScrollBarLenth + 2, 20, 2), new Rectangle(0, 46, 20, 2), Color.White);
+        }
+
+        public static int Scrolling(string[] aStringArray)
+        {
+            int tempScrollAmount = ((int)RulesPosition.Y / 2) - (int)(Global_Info.AccessWindowSize.Y / (2 * Global_Info.AccessScreenScale));
+
+            for (int i = 0; i < aStringArray.Length; i++)
+            {
+                List<string> tempTextBox = SeparateText(aStringArray[i]);
+
+                if (Rules_List.AccessCurrentRule == i)
+                {
+                    tempScrollAmount += ((LineSize * tempTextBox.Count) + BetweenLineSize) / 2;
+                    break;
+                }
+
+                tempScrollAmount += LineSize * tempTextBox.Count;
+                tempScrollAmount += BetweenLineSize;
+            }
+
+            if (tempScrollAmount < 0)
+                return 0;
+            else
+                return tempScrollAmount;
+        }
+
+        static int ScrollPercent(string[] aStringArray)
+        {
+            int tempRuleArea = ((int)RulesPosition.Y / 2) - (int)(Global_Info.AccessWindowSize.Y / (2 * Global_Info.AccessScreenScale));
+
+            for (int i = 0; i < aStringArray.Length; i++)
+            {
+                List<string> tempTextBox = SeparateText(aStringArray[i]);
+
+                tempRuleArea += LineSize * tempTextBox.Count;
+                tempRuleArea += BetweenLineSize;
+            }
+
+            return tempRuleArea;
         }
 
         public static void DrawTutorialBox(SpriteBatch aSpriteBatch)
