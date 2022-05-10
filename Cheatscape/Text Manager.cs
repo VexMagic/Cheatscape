@@ -18,7 +18,6 @@ namespace Cheatscape
         public static int LineSize = 9;
         public static int BetweenLineSize = 12;
         public static bool IsTextCentered = false;
-        static bool IsScrollNeeded;
 
         public enum TextStyle { Standard, DropShadow, Boarder, Blood}
         public static TextStyle CurrentTextStyle = TextStyle.Standard;
@@ -134,22 +133,13 @@ namespace Cheatscape
             if (tempYOffset >= (int)(Global_Info.AccessWindowSize.Y / Global_Info.AccessScreenScale) - LineSize - (BetweenLineSize / 2))
             {
                 tempYOffset = (int)(Global_Info.AccessWindowSize.Y / Global_Info.AccessScreenScale) - LineSize - (BetweenLineSize / 2);
-                IsScrollNeeded = true;
-            }
-            else
-            {
-                IsScrollNeeded = false;
+                DrawScrollBar(aStringArray, aSpriteBatch);
             }
 
             if (Rules_List.AccessCurrentRule != Rules_List.GetList().Length)
                 DrawTextBox("Back", new Vector2(RulesPosition.X, tempYOffset), TextBoarder, aSpriteBatch);
             else
                 DrawTextBox("Back", new Vector2(RulesPosition.X, tempYOffset), RuleSelector, aSpriteBatch);
-
-            if (IsScrollNeeded)
-            {
-                DrawScrollBar(aStringArray, aSpriteBatch);
-            }
         }
 
         static void DrawScrollBar(string[] aStringArray, SpriteBatch aSpriteBatch)
@@ -187,14 +177,11 @@ namespace Cheatscape
             {
                 List<string> tempTextBox = SeparateText(aStringArray[i]);
 
-                if (Rules_List.AccessCurrentRule == i)
-                {
-                    tempScrollAmount += ((LineSize * tempTextBox.Count) + BetweenLineSize) / 2;
-                    break;
-                }
-
                 tempScrollAmount += LineSize * tempTextBox.Count;
                 tempScrollAmount += BetweenLineSize;
+
+                if (Rules_List.AccessCurrentRule == i)
+                    break;
             }
 
             if (tempScrollAmount < 0)
