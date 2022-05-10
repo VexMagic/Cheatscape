@@ -13,15 +13,19 @@ namespace Cheatscape
         static Texture2D Background;
         static Texture2D TextBoarder;
         static Texture2D RuleSelector;
+        static Texture2D ScrollBar;
 
         public static int MaximumTextBoxWidth = 100;
         public static int LineSize = 9;
         public static int BetweenLineSize = 12;
         public static bool IsTextCentered = false;
 
+        public enum TextStyle { Standard, DropShadow, Boarder, Blood}
+        public static TextStyle CurrentTextStyle = TextStyle.Standard;
+
         public static string TutorialText;
 
-        public static Vector2 RulesPosition = new Vector2(6, 144);
+        public static Vector2 RulesPosition = new Vector2(6 + Rules_List.ScrollBarWidth, 144);
         public static Vector2 TutorialPosition = new Vector2(450, 100);
 
         public static void Load()
@@ -31,11 +35,35 @@ namespace Cheatscape
             Background = Global_Info.AccessContentManager.Load<Texture2D>("TextboxBackground");
             TextBoarder = Global_Info.AccessContentManager.Load<Texture2D>("Text Boarder");
             RuleSelector = Global_Info.AccessContentManager.Load<Texture2D>("Selector");
+            ScrollBar = Global_Info.AccessContentManager.Load<Texture2D>("Scroll Bar");
         }
 
         public static void DrawText(string aString, int anXPos, int aYPos, SpriteBatch aSpriteBatch) //draw text
         {
-            aSpriteBatch.DrawString(Font, aString, new Vector2(anXPos, aYPos), Color.Black);
+            switch (CurrentTextStyle)
+            {
+                default:
+                    aSpriteBatch.DrawString(Font, aString, new Vector2(anXPos, aYPos), Color.Black);
+                    break;
+                case TextStyle.DropShadow:
+                    aSpriteBatch.DrawString(Font, aString, new Vector2(anXPos + 1, aYPos + 1), Color.Black);
+                    aSpriteBatch.DrawString(Font, aString, new Vector2(anXPos, aYPos), Color.White);
+                    break;
+                case TextStyle.Boarder:
+                    aSpriteBatch.DrawString(Font, aString, new Vector2(anXPos + 1, aYPos), Color.Black);
+                    aSpriteBatch.DrawString(Font, aString, new Vector2(anXPos, aYPos + 1), Color.Black);
+                    aSpriteBatch.DrawString(Font, aString, new Vector2(anXPos, aYPos - 1), Color.Black);
+                    aSpriteBatch.DrawString(Font, aString, new Vector2(anXPos - 1, aYPos), Color.Black);
+                    aSpriteBatch.DrawString(Font, aString, new Vector2(anXPos, aYPos), Color.White);
+                    break;
+                case TextStyle.Blood:
+                    aSpriteBatch.DrawString(Font, aString, new Vector2(anXPos + 1, aYPos), Color.Black);
+                    aSpriteBatch.DrawString(Font, aString, new Vector2(anXPos, aYPos + 1), Color.Black);
+                    aSpriteBatch.DrawString(Font, aString, new Vector2(anXPos, aYPos - 1), Color.Black);
+                    aSpriteBatch.DrawString(Font, aString, new Vector2(anXPos - 1, aYPos), Color.Black);
+                    aSpriteBatch.DrawString(Font, aString, new Vector2(anXPos, aYPos), Color.Red);
+                    break;
+            }
         }
 
         public static void DrawLargeText(string aString, int anXPos, int aYPos, SpriteBatch aSpriteBatch) //draw white text
@@ -109,15 +137,79 @@ namespace Cheatscape
                 tempYOffset += BetweenLineSize;
             }
 
-            if (tempYOffset > (int)(Global_Info.AccessWindowSize.Y / Global_Info.AccessScreenScale) - LineSize - (BetweenLineSize / 2))
+            if (tempYOffset >= (int)(Global_Info.AccessWindowSize.Y / Global_Info.AccessScreenScale) - LineSize - (BetweenLineSize / 2))
             {
                 tempYOffset = (int)(Global_Info.AccessWindowSize.Y / Global_Info.AccessScreenScale) - LineSize - (BetweenLineSize / 2);
+                DrawScrollBar(aStringArray, aSpriteBatch);
             }
 
             if (Rules_List.AccessCurrentRule != Rules_List.GetList().Length)
                 DrawTextBox("Back", new Vector2(RulesPosition.X, tempYOffset), TextBoarder, aSpriteBatch);
             else
                 DrawTextBox("Back", new Vector2(RulesPosition.X, tempYOffset), RuleSelector, aSpriteBatch);
+        }
+
+        static void DrawScrollBar(string[] aStringArray, SpriteBatch aSpriteBatch)
+        {
+            aSpriteBatch.Draw(ScrollBar, new Rectangle(0, (int)RulesPosition.Y - 6, 20, 21), new Rectangle(0, 0, 20, 21), Color.White);
+            aSpriteBatch.Draw(ScrollBar, new Rectangle(0, (int)(Global_Info.AccessWindowSize.Y / Global_Info.AccessScreenScale) - 21, 
+                20, 21), new Rectangle(0, 22, 20, 21), Color.White);
+
+            int tempBarFullLength = (int)(Global_Info.AccessWindowSize.Y / Global_Info.AccessScreenScale) - 36 - (int)RulesPosition.Y;
+
+            aSpriteBatch.Draw(ScrollBar, new Rectangle(0, (int)(Global_Info.AccessWindowSize.Y / Global_Info.AccessScreenScale) - 
+                21 - tempBarFullLength, 20, tempBarFullLength), new Rectangle(0, 21, 20, 1), Color.White);
+
+            int tempProcent = (tempBarFullLength * 100) / ScrollPercent(aStringArray);
+
+            int tempScrollBarLenth = (int)Math.Round((double)(25 * tempBarFullLength) / tempProcent);
+
+            double tempBarScrollAmount = (double)(100 * Scrolling(aStringArray)) / ScrollPercent(aStringArray) / 100;
+
+            //int tempScrollAmount = (int)RulesPosition.Y - 6 + 19 + (0);
+            //int tempScrollAmount = (int)RulesPosition.Y - 6 + 19 + ((tempBarFullLength - tempScrollBarLenth) / 2);
+            //int tempScrollAmount = (int)RulesPosition.Y - 6 + 19 + (tempBarFullLength - tempScrollBarLenth);
+            int tempScrollAmount = (int)(RulesPosition.Y + 13 + ((tempBarFullLength - tempScrollBarLenth) * tempBarScrollAmount));
+
+            aSpriteBatch.Draw(ScrollBar, new Rectangle(0, tempScrollAmount + 2, 20, tempScrollBarLenth), new Rectangle(0, 45, 20, 1), Color.White);
+            aSpriteBatch.Draw(ScrollBar, new Rectangle(0, tempScrollAmount, 20, 2), new Rectangle(0, 43, 20, 2), Color.White);
+            aSpriteBatch.Draw(ScrollBar, new Rectangle(0, tempScrollAmount + tempScrollBarLenth + 2, 20, 2), new Rectangle(0, 46, 20, 2), Color.White);
+        }
+
+        public static int Scrolling(string[] aStringArray)
+        {
+            int tempScrollAmount = ((int)RulesPosition.Y / 2) - (int)(Global_Info.AccessWindowSize.Y / (2 * Global_Info.AccessScreenScale));
+
+            for (int i = 0; i < aStringArray.Length; i++)
+            {
+                List<string> tempTextBox = SeparateText(aStringArray[i]);
+
+                tempScrollAmount += LineSize * tempTextBox.Count;
+                tempScrollAmount += BetweenLineSize;
+
+                if (Rules_List.AccessCurrentRule == i)
+                    break;
+            }
+
+            if (tempScrollAmount < 0)
+                return 0;
+            else
+                return tempScrollAmount;
+        }
+
+        static int ScrollPercent(string[] aStringArray)
+        {
+            int tempRuleArea = ((int)RulesPosition.Y / 2) - (int)(Global_Info.AccessWindowSize.Y / (2 * Global_Info.AccessScreenScale));
+
+            for (int i = 0; i < aStringArray.Length; i++)
+            {
+                List<string> tempTextBox = SeparateText(aStringArray[i]);
+
+                tempRuleArea += LineSize * tempTextBox.Count;
+                tempRuleArea += BetweenLineSize;
+            }
+
+            return tempRuleArea;
         }
 
         public static void DrawTutorialBox(SpriteBatch aSpriteBatch)

@@ -13,7 +13,7 @@ namespace Cheatscape
 
         public static int CurrentFrame = 0;
         const int MAXFRAME = 8;
-        static bool animating = false;
+        public static bool animating = false;
         static int frame = 1;
         static float timer;
         static float framesPerSecond = 90f;
