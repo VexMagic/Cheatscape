@@ -100,6 +100,12 @@ namespace Cheatscape
                     aSpriteBatch.Draw(PanelTex, new Vector2(50 + j * 100, 50 + i * 75), Color.White);
                 }
             }
+
+            if (Options_Menu.AccessControlView)
+            {
+                Text_Manager.DrawText("Arrow keys: Navigate     Space: Select", 30, 
+                    (int)(Global_Info.AccessWindowSize.Y / Global_Info.AccessScreenScale - 40), aSpriteBatch);
+            }
         }
     }
 }
