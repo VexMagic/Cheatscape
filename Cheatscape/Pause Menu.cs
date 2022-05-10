@@ -89,7 +89,6 @@ namespace Cheatscape
 
                 Text_Manager.DrawLargeText("Cheatscape", 300 - ((int)Text_Manager.LargeFont.MeasureString("Cheatscape").Length() / 2), 85, aSpriteBatch);
                 
-                aSpriteBatch.Draw(backButton, new Vector2(240, 130), Color.White);
                 Text_Manager.DrawText("Continue", 190, 140, aSpriteBatch);
                 aSpriteBatch.Draw(continueButton, new Vector2(150, 130), Color.White);
 

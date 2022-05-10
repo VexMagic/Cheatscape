@@ -137,8 +137,8 @@ namespace Cheatscape
             }
             if (isOnTransitionScreen == true && Input_Manager.KeyPressed(Keys.Enter ))
             {
-                Pause_Menu.gameIsPaused = !Pause_Menu.gameIsPaused;
                 isOnTransitionScreen = false;
+                Pause_Menu.gameIsPaused = false;
 
                 rating += 100;
                 completed = true;
