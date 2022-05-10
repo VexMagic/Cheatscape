@@ -28,6 +28,8 @@ namespace Cheatscape
         enum SplashArt { None, Check, Checkmate }
         static SplashArt CurrentSplashArt = SplashArt.None;
 
+        static int PausedMove;
+
         public static void Load()
         {
             ChessBoard = Global_Info.AccessContentManager.Load<Texture2D>("Chess Board");
@@ -52,7 +54,7 @@ namespace Cheatscape
 
             for (int i = 0; i < Level_Manager.AccessAllMoves[0].Count; i++)
             {
-                MoveChessPiece(Level_Manager.AccessAllMoves[0][i], true);
+                MakeAMove(Level_Manager.AccessAllMoves[0][i], true);
             }
         }
 
@@ -64,15 +66,38 @@ namespace Cheatscape
             {
                 for (int j = 0; j < Level_Manager.AccessAllMoves[i].Count; j++)
                 {
-                    if (Level_Manager.AccessAllMoves[i][j].MyMoveType == Chess_Move.MoveType.AnswerCheat)
-                        Level_Manager.AccessAllAnswers.Add(new Tuple<Chess_Move, int>(Level_Manager.AccessAllMoves[i][j], i + 1));
-                    else if (Level_Manager.AccessAllMoves[i][j].MyMoveType == Chess_Move.MoveType.IncludeRule)
+                    switch (Level_Manager.AccessAllMoves[i][j].MyMoveType)
                     {
-                        if (!Rules_List.AllowedRules.Contains(Level_Manager.AccessAllMoves[i][j].myRule))
-                            Rules_List.AllowedRules.Add(Level_Manager.AccessAllMoves[i][j].myRule);
+                        case Chess_Move.MoveType.AnswerCheat:
+                            Level_Manager.AccessAllAnswers.Add(new Tuple<Chess_Move, int>(Level_Manager.AccessAllMoves[i][j], i + 1));
+                            break;
+                        case Chess_Move.MoveType.IncludeRule:
+                            if (!Rules_List.AllowedRules.Contains(Level_Manager.AccessAllMoves[i][j].myRule))
+                                Rules_List.AllowedRules.Add(Level_Manager.AccessAllMoves[i][j].myRule);
+                            break;
+                        case Chess_Move.MoveType.IncludeList:
+                            Rules_List.IncludeList(Level_Manager.AccessAllMoves[i][j].myRuleList);
+                            break;
+                        case Chess_Move.MoveType.ChessBackground:
+                            switch (Level_Manager.AccessAllMoves[i][j].myText.ToLower())
+                            {
+                                default:
+                                    Background = Global_Info.AccessContentManager.Load<Texture2D>("Background");
+                                    break;
+                                case "kindergarden":
+                                    Background = Global_Info.AccessContentManager.Load<Texture2D>("Kindergarten");
+                                    break;
+                            }
+                            break;
+                        case Chess_Move.MoveType.ChessBoard:
+                            switch (Level_Manager.AccessAllMoves[i][j].myText.ToLower())
+                            {
+                                default:
+                                    ChessBoard = Global_Info.AccessContentManager.Load<Texture2D>("Chess Board");
+                                    break;
+                            }
+                            break;
                     }
-                    else if (Level_Manager.AccessAllMoves[i][j].MyMoveType == Chess_Move.MoveType.IncludeList)
-                        Rules_List.IncludeList(Level_Manager.AccessAllMoves[i][j].myRuleList);
                 }
             }
 
@@ -147,7 +172,7 @@ namespace Cheatscape
             }
         }
 
-        public static void MoveChessPiece(Chess_Move aMove, bool isCurrentTurn)
+        public static void MakeAMove(Chess_Move aMove, bool isCurrentTurn)
         {
             if (isCurrentTurn)
                 CurrentSplashArt = SplashArt.None;
@@ -201,15 +226,28 @@ namespace Cheatscape
             SetBasicBoardState();
             CapturedWhitePieces.Clear();
             CapturedBlackPieces.Clear();
+            PausedMove = 0;
 
-            for (int i = 0; i < Level_Manager.AccessCurrentSlide; i++)
+            for (int i = 0; i < Level_Manager.AccessCurrentSlide - 1; i++)
             {
                 for (int j = 0; j < Level_Manager.AccessAllMoves[i].Count; j++)
                 {
-                    if (i == Level_Manager.AccessCurrentSlide - 1)
-                        MoveChessPiece(Level_Manager.AccessAllMoves[i][j], true);
-                    else
-                        MoveChessPiece(Level_Manager.AccessAllMoves[i][j], false);
+                    MakeAMove(Level_Manager.AccessAllMoves[i][j], false);
+                }
+            }
+
+            CurrentTurnMoves();
+        }
+
+        public static void CurrentTurnMoves()
+        {
+            for (int i = PausedMove; i < Level_Manager.AccessAllMoves[Level_Manager.AccessCurrentSlide - 1].Count; i++)
+            {
+                MakeAMove(Level_Manager.AccessAllMoves[Level_Manager.AccessCurrentSlide - 1][i], true);
+                if (Level_Manager.AccessAllMoves[Level_Manager.AccessCurrentSlide - 1][i].MyMoveType == Chess_Move.MoveType.MovePiece)
+                {
+                    PausedMove = i + 1;
+                    break;
                 }
             }
         }

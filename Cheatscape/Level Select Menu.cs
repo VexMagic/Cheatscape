@@ -22,7 +22,7 @@ namespace Cheatscape
         static int LevelAmountX = 5;
         static int LevelAmountY = 2;
 
-        static bool optionHighlight = false;
+        public static bool optionHighlight = false;
 
         public static void Load()
         {

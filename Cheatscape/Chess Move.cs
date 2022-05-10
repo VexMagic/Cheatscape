@@ -8,7 +8,7 @@ namespace Cheatscape
     class Chess_Move
     {
         public enum MoveType { MovePiece, AddPiece, RemovePiece, CapturePiece, AnswerCheat, IncludeRule, IncludeList, TutorialText,
-        CallCheck, CallCheckmate };
+        ChessBackground, ChessBoard, CallCheck, CallCheckmate };
         public MoveType MyMoveType;
 
         public Vector2 myStartingPos;
@@ -52,10 +52,18 @@ namespace Cheatscape
                     break;
                 case "include list":
                     MyMoveType = MoveType.IncludeList;
-                    myRuleList = Int32.Parse(anArray[1]);
+                    myRuleList = int.Parse(anArray[1]);
                     break;
                 case "text":
                     MyMoveType = MoveType.TutorialText;
+                    myText = anArray[1];
+                    break;
+                case "background":
+                    MyMoveType = MoveType.ChessBackground;
+                    myText = anArray[1];
+                    break;
+                case "board":
+                    MyMoveType = MoveType.ChessBoard;
                     myText = anArray[1];
                     break;
                 case "check":
