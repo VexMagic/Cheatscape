@@ -116,6 +116,18 @@
 /processorParam:TextureFormat=Compressed
 /build:Font.spritefont
 
+#begin GameOverPanel.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:GameOverPanel.png
+
 #begin Hands.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -139,6 +151,18 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Level Panel.png
+
+#begin LevelClearPanel.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:LevelClearPanel.png
 
 #begin LevelPanelHighlight.png
 /importer:TextureImporter
