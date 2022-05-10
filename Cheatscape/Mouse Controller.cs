@@ -14,6 +14,7 @@ namespace Cheatscape
         static Rectangle[,] BoardTiles = new Rectangle[8, 8];
         static Rectangle[,] LevelButtons = new Rectangle[5, 2];
         static Rectangle OptionsButton = new Rectangle(50, 200, 32, 32);
+        static Rectangle[] ScrollButtons = { new Rectangle(0, 138, 20, 20), new Rectangle(0, 340, 20, 20) };
         static Texture2D TileSelect;
         static Vector2 SelectedTile;
 
@@ -109,7 +110,14 @@ namespace Cheatscape
 
             if (CurrentMS.LeftButton == ButtonState.Pressed && PreviousMS.LeftButton == ButtonState.Released)
             {
-                if (SelectedTile.X != 100)
+                if (Level_Manager.FindingCheat && (ScrollButtons[0].Contains(MousePosition) || ScrollButtons[1].Contains(MousePosition)))
+                {
+                    if (ScrollButtons[0].Contains(MousePosition))
+                        Rules_List.MoveThroughRules(1);
+                    else
+                        Rules_List.AccessCurrentRule++;
+                }
+                else if (SelectedTile.X != 100)
                 {
                     if (!Level_Manager.FindingCheat)
                         Level_Manager.FindingCheat = true;
@@ -118,13 +126,16 @@ namespace Cheatscape
                     Level_Manager.FindingCheat = false;
             }
 
-            if (CurrentMS.ScrollWheelValue > PreviousMS.ScrollWheelValue)
+            if (Level_Manager.FindingCheat)
             {
-                Rules_List.MoveThroughRules(1);
-            }
-            if (CurrentMS.ScrollWheelValue < PreviousMS.ScrollWheelValue)
-            {
-                Rules_List.AccessCurrentRule++;
+                if (CurrentMS.ScrollWheelValue > PreviousMS.ScrollWheelValue)
+                {
+                    Rules_List.MoveThroughRules(1);
+                }
+                if (CurrentMS.ScrollWheelValue < PreviousMS.ScrollWheelValue)
+                {
+                    Rules_List.AccessCurrentRule++;
+                }
             }
         }
 
