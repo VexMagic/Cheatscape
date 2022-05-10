@@ -14,7 +14,6 @@ namespace Cheatscape
     static class Music_Player
     {
         static List<SoundEffect> soundEffects = new List<SoundEffect>();
-        static string tempString;
         static SoundEffect move1, move2, move3, move4, move5;
         static Song song1;
 
@@ -47,7 +46,7 @@ namespace Cheatscape
             soundEffects[x].Play();
         }
 
-        public static void BackgroundMusic()
+        public static void PlayMusic()
         {
             MediaPlayer.Play(song1);
             MediaPlayer.IsRepeating = true;
