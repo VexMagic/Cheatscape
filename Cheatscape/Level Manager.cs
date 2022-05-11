@@ -39,7 +39,7 @@ namespace Cheatscape
 
             if (Pause_Menu.gameIsPaused == false)
             {
-                if (Input_Manager.KeyPressed(Keys.Left) && CurrentSlide > 1 && !FindingCheat && /*!completed*//* &&*/ rating > 0)
+                if (Input_Manager.KeyPressed(Keys.Left) && CurrentSlide > 1 && !FindingCheat /*&& !completed*/ && rating > 0)
                 {
                     Hand_Animation_Manager.ResetAllHands();
                     File_Manager.turnCounter++;
@@ -47,7 +47,7 @@ namespace Cheatscape
                     Game_Board.SetBoardState();
                     Music_Player.MoveEffect();
                 }
-                else if (Input_Manager.KeyPressed(Keys.Left) && FindingCheat/* && !feedback && rating > 0*/)
+                else if (Input_Manager.KeyPressed(Keys.Left) && FindingCheat)
                 {
                     Rules_List.AccessCurrentRuleList--;
                     if (Rules_List.AccessCurrentRuleList < 0)
@@ -56,7 +56,7 @@ namespace Cheatscape
                     }
                     Rules_List.AccessCurrentRule = 0;
                 }
-                else if (Input_Manager.KeyPressed(Keys.Right) && CurrentSlide < AllMoves.Count && !FindingCheat/* && !completed *//*&& rating > 0*/)
+                else if (Input_Manager.KeyPressed(Keys.Right) && CurrentSlide < AllMoves.Count && !FindingCheat /*&& !completed*/ && rating > 0)
                 {
                     Hand_Animation_Manager.ResetAllHands();
                     File_Manager.turnCounter--;
@@ -77,7 +77,7 @@ namespace Cheatscape
                     }
                     Rules_List.AccessCurrentRule = 0;
                 }
-                else if (Input_Manager.KeyPressed(Keys.Space) && /*!completed &&*/ rating > 0)
+                else if (Input_Manager.KeyPressed(Keys.Space) /*&& !completed*/ && rating > 0)
                 {
                     if (!FindingCheat)
                         FindingCheat = true;
@@ -141,7 +141,7 @@ namespace Cheatscape
                 Pause_Menu.gameIsPaused = false;
 
                 rating += 100;
-                //completed = true;
+                completed = true;
                 //Global_Info.AccessCurrentGameState = Global_Info.GameState.LevelSelect;
                 CurrentLevel++;
                 File_Manager.LoadLevel();
@@ -181,9 +181,9 @@ namespace Cheatscape
                 Text_Manager.DrawText(Convert.ToString("You've failed the tutorial..."), 20, (int)(Global_Info.AccessWindowSize.Y / Global_Info.AccessScreenScale) - 200
                         , aSpriteBatch);
 
-                if (completed)
-                    Text_Manager.DrawText(Convert.ToString("Nice! \n Press Enter to continue" ), 20, (int)(Global_Info.AccessWindowSize.Y / Global_Info.AccessScreenScale) - 200
-                        , aSpriteBatch);
+                //if (completed)
+                //    Text_Manager.DrawText(Convert.ToString("Nice! \n Press Enter to continue" ), 20, (int)(Global_Info.AccessWindowSize.Y / Global_Info.AccessScreenScale) - 200
+                //        , aSpriteBatch);
 
 
             }
