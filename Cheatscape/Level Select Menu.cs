@@ -77,6 +77,7 @@ namespace Cheatscape
                 Music_Player.ChangeMusic(SelectedBundleX); 
                 Music_Player.PlayMusic();
                 Level_Manager.AccessRating = 1000;
+                
                 Transition.StartTransition(Transition.TransitionState.ToLevel);
             }
         }
