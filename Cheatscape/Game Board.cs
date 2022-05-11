@@ -81,7 +81,7 @@ namespace Cheatscape
                             switch (Level_Manager.AccessAllMoves[i][j].myText.ToLower())
                             {
                                 default:
-                                    Background = Global_Info.AccessContentManager.Load<Texture2D>("Background3");
+                                    Background = Global_Info.AccessContentManager.Load<Texture2D>("Background");
                                     break;
                                 case "kindergarden":
                                     Background = Global_Info.AccessContentManager.Load<Texture2D>("Background");
