@@ -26,7 +26,6 @@ namespace Cheatscape
         public static List<List<Chess_Move>> AccessAllMoves { get => AllMoves; set => AllMoves = value; }
         public static List<Tuple<Chess_Move, int>> AccessAllAnswers { get => AllAnswers; set => AllAnswers = value; }
         public static int AccessCurrentSlide { get => CurrentSlide; set => CurrentSlide = value; }
-
         public static bool AccessCompleted { get => completed; set => completed = value; }
 
 
@@ -161,20 +160,32 @@ namespace Cheatscape
                 Level_Transition.Draw(aSpriteBatch);
 
             if (Options_Menu.AccessControlView == true && isOnTransitionScreen == false)
-            Text_Manager.DrawText(Convert.ToString("Current rating: " + rating), (int)(Global_Info.AccessWindowSize.X / Global_Info.AccessScreenScale) - 300, 10
-                        , aSpriteBatch);
+            {
+                if (CurrentBundle != 0)
+                    Text_Manager.DrawText(Convert.ToString("Current rating: " + rating), 
+                        (int)(Global_Info.AccessWindowSize.X / Global_Info.AccessScreenScale) - 300, 10, aSpriteBatch);
+            }
 
             if (Options_Menu.AccessControlView == true && isOnTransitionScreen == false)
             {
                 if (FindingCheat)
                 {
-                    Text_Manager.DrawText("Right/Left: Toggle categories     Up/Down: Toggle rules     Space: Select rule", 120, 
-                        (int)(Global_Info.AccessWindowSize.Y / Global_Info.AccessScreenScale) - 20, aSpriteBatch);
+                    if (CurrentLevel != 0 || CurrentBundle != 0)
+                    {
+                        if (CurrentBundle != 0)
+                            Text_Manager.DrawText("Up/Down: Toggle rules     Space: Select rule", 120,
+                                (int)(Global_Info.AccessWindowSize.Y / Global_Info.AccessScreenScale) - 20, aSpriteBatch);
+                        else
+                            Text_Manager.DrawText("Right/Left: Toggle categories     Up/Down: Toggle rules     Space: Select rule", 120,
+                                (int)(Global_Info.AccessWindowSize.Y / Global_Info.AccessScreenScale) - 20, aSpriteBatch);
+
+                    }
                 }
                 else
                 {
-                    Text_Manager.DrawText("Right: Next move               Left: Previous move               Space: Rules", 120, 
-                        (int)(Global_Info.AccessWindowSize.Y / Global_Info.AccessScreenScale) - 20, aSpriteBatch);
+                    if (CurrentLevel != 0 || CurrentBundle != 0)
+                        Text_Manager.DrawText("Right: Next move               Left: Previous move               Space: Rules", 120, 
+                            (int)(Global_Info.AccessWindowSize.Y / Global_Info.AccessScreenScale) - 20, aSpriteBatch);
                 }
 
                 if (rating == 0)
