@@ -89,9 +89,17 @@ namespace Cheatscape
             if (CurrentMS.LeftButton == ButtonState.Pressed && PreviousMS.LeftButton == ButtonState.Released)
             {
                 if (Level_Select_Menu.optionHighlight)
+                {
+                    Transition.AccessNextTransitionState = Transition.TransitionState.ToLvSelect;
+
                     Transition.StartTransition(Transition.TransitionState.ToOptions);
+                }
                 else
+                {
+                    Music_Player.PlayMusic();
+                    Level_Manager.AccessRating = 1000;
                     Transition.StartTransition(Transition.TransitionState.ToLevel);
+                }
             }
         }
 
