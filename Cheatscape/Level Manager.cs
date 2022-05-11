@@ -16,7 +16,6 @@ namespace Cheatscape
         static int CurrentSlide = 1;
         static float rating;
         public static bool FindingCheat = false;
-        static int AmountOfRuleLists = 3;
         static bool isOnTransitionScreen = false;
         static bool completed = false;
 
@@ -51,7 +50,7 @@ namespace Cheatscape
                     Rules_List.AccessCurrentRuleList--;
                     if (Rules_List.AccessCurrentRuleList < 0)
                     {
-                        Rules_List.AccessCurrentRuleList = AmountOfRuleLists - 1;
+                        Rules_List.AccessCurrentRuleList = Rules_List.AmountOfRuleLists - 1;
                     }
                     Rules_List.AccessCurrentRule = 0;
                 }
@@ -70,7 +69,7 @@ namespace Cheatscape
                 else if (Input_Manager.KeyPressed(Keys.Right) && FindingCheat)
                 {
                     Rules_List.AccessCurrentRuleList++;
-                    if (Rules_List.AccessCurrentRuleList >= AmountOfRuleLists)
+                    if (Rules_List.AccessCurrentRuleList >= Rules_List.AmountOfRuleLists)
                     {
                         Rules_List.AccessCurrentRuleList = 0;
                     }

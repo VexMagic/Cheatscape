@@ -11,6 +11,7 @@ namespace Cheatscape
         static SpriteFont Font;
         static Texture2D Banner;
         static Texture2D ImageBoarder;
+        static Texture2D BannerArrows;
 
         static int CurrentRuleList = 0;
         static int CurrentRule = 0;
@@ -55,6 +56,7 @@ namespace Cheatscape
             Font = Global_Info.AccessContentManager.Load<SpriteFont>("Font");
             Banner = Global_Info.AccessContentManager.Load<Texture2D>("Rules Banner");
             ImageBoarder = Global_Info.AccessContentManager.Load<Texture2D>("Rule Image Boarder");
+            BannerArrows = Global_Info.AccessContentManager.Load<Texture2D>("Banner Arrows");
         }
 
         public static void IncludeList(int aList)
@@ -186,6 +188,33 @@ namespace Cheatscape
             }
         }
 
+        public static int AmountOfUsedLists()
+        {
+            int tempListAmount = 3;
+            bool[] tempUsedLists = new bool[tempListAmount];
+
+            for (int i = 0; i < tempListAmount; i++)
+            {
+                for (int j = 0; j < GetList(i).Length; j++)
+                {
+                    if (AllowedRules.Contains(new Vector2(i, j)))
+                    {
+                        tempUsedLists[i] = true;
+                    }
+                }
+            }
+
+            int tempUsedListAmount = 0;
+
+            for (int i = 0; i < tempListAmount; i++)
+            {
+                if (tempUsedLists[i])
+                    tempUsedListAmount++;
+            }
+
+            return tempUsedListAmount;
+        }
+
         public static void Draw(SpriteBatch aSpriteBatch)
         {
             CurrentRule--;
@@ -203,6 +232,10 @@ namespace Cheatscape
                 Text_Manager.MaximumTextBoxWidth + (int)((Text_Manager.RulesPosition.X - ScrollBarWidth) * 2), 17),
                 new Rectangle(0, (CurrentRuleList * 17) + 20, Text_Manager.MaximumTextBoxWidth + (int)((Text_Manager.RulesPosition.X - ScrollBarWidth) * 2), 17),
                 Color.White, 0, new Vector2(0, 0), SpriteEffects.None, 0);
+
+            if (AmountOfUsedLists() > 1)
+                aSpriteBatch.Draw(BannerArrows, new Rectangle((int)BannerPosition.X, (int)BannerPosition.Y + 20,
+                    Text_Manager.MaximumTextBoxWidth + (int)((Text_Manager.RulesPosition.X - ScrollBarWidth) * 2), 17), Color.White);
 
             if (CurrentRule < GetList().Length)
             {

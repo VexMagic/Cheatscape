@@ -15,6 +15,7 @@ namespace Cheatscape
         static Rectangle[,] LevelButtons = new Rectangle[5, 2];
         static Rectangle OptionsButton = new Rectangle(50, 200, 32, 32);
         static Rectangle[] ScrollButtons = { new Rectangle(0, 138, 20, 20), new Rectangle(0, 340, 20, 20) };
+        static Rectangle[] BannerButtons = { new Rectangle(20, 118, 16, 20), new Rectangle(116, 118, 16, 20) };
         static Texture2D TileSelect;
         static Vector2 SelectedTile;
 
@@ -124,6 +125,27 @@ namespace Cheatscape
                         Rules_List.MoveThroughRules(1);
                     else
                         Rules_List.AccessCurrentRule++;
+                }
+                else if (Level_Manager.FindingCheat && Rules_List.AmountOfUsedLists() > 1 && (BannerButtons[0].Contains(MousePosition) || BannerButtons[1].Contains(MousePosition)))
+                {
+                    if (BannerButtons[0].Contains(MousePosition))
+                    {
+                        Rules_List.AccessCurrentRuleList--;
+                        if (Rules_List.AccessCurrentRuleList < 0)
+                        {
+                            Rules_List.AccessCurrentRuleList = Rules_List.AmountOfRuleLists - 1;
+                        }
+                        Rules_List.AccessCurrentRule = 0;
+                    }
+                    else
+                    {
+                        Rules_List.AccessCurrentRuleList++;
+                        if (Rules_List.AccessCurrentRuleList >= Rules_List.AmountOfRuleLists)
+                        {
+                            Rules_List.AccessCurrentRuleList = 0;
+                        }
+                        Rules_List.AccessCurrentRule = 0;
+                    }
                 }
                 else if (SelectedTile.X != 100)
                 {
