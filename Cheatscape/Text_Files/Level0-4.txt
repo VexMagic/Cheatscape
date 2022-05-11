@@ -26,7 +26,7 @@ move;b6;h6
 move;g2;g4
 move;g7;g6
 move;f3;c6
-move;e8;d8,Awnser;2-3
+move;e8;d8,Answer;2-3
 move;c6;a8
 move;d8;c7
 move;a8;f3
