@@ -34,7 +34,7 @@ namespace Cheatscape
 
             if (Pause_Menu.gameIsPaused == false)
             {
-                if (Input_Manager.KeyPressed(Keys.Left) && currentSlide > 1 && !findingCheat)
+                if (Input_Manager.KeyPressed(Keys.Left) && currentSlide > 1 && !findingCheat && playedThrough)
                 {
                     Hand_Animation_Manager.ResetAllHands();
                     File_Manager.turnCounter++;
@@ -50,7 +50,7 @@ namespace Cheatscape
                     }
                     Rules_List.AccessCurrentRule = 0;
                 }
-                else if (Input_Manager.KeyPressed(Keys.Right) && currentSlide < allMoves.Count && !findingCheat)
+                else if (Input_Manager.KeyPressed(Keys.Right) && currentSlide < allMoves.Count && !findingCheat && playedThrough)
                 {
                     Hand_Animation_Manager.ResetAllHands();
                     File_Manager.turnCounter--;
@@ -112,7 +112,7 @@ namespace Cheatscape
 
         public static void Play(GameTime gameTime)
         {
-            if (playedThrough == false && !findingCheat && Pause_Menu.gameIsPaused == false)
+            if (!playedThrough && !findingCheat && Pause_Menu.gameIsPaused == false)
             {
                 if (prevGameTime < gameTime.ElapsedGameTime.TotalSeconds)
                 {
