@@ -9,6 +9,9 @@ namespace Cheatscape
 {
     static class Level_Manager
     {
+        public static int timer = 60;
+        public static int prevGameTime = 0;
+        static bool playedThrough = false;
         public static int CurrentLevel = 0;
         public static int CurrentBundle = 0;
         static List<List<Chess_Move>> AllMoves = new List<List<Chess_Move>>();
@@ -39,7 +42,7 @@ namespace Cheatscape
 
             if (Pause_Menu.gameIsPaused == false)
             {
-                if (Input_Manager.KeyPressed(Keys.Left) && CurrentSlide > 1 && !FindingCheat && !isOnTransitionScreen && rating > 0)
+                if (Input_Manager.KeyPressed(Keys.Left) && CurrentSlide > 1 && !FindingCheat && !isOnTransitionScreen && rating > 0 && playedThrough)
                 {
                     Hand_Animation_Manager.ResetAllHands();
                     File_Manager.turnCounter++;
@@ -56,7 +59,7 @@ namespace Cheatscape
                     }
                     Rules_List.AccessCurrentRule = 0;
                 }
-                else if (Input_Manager.KeyPressed(Keys.Right) && CurrentSlide < AllMoves.Count && !FindingCheat && !isOnTransitionScreen && rating > 0)
+                else if (Input_Manager.KeyPressed(Keys.Right) && CurrentSlide < AllMoves.Count && !FindingCheat && !isOnTransitionScreen && rating > 0 && playedThrough)
                 {
                     Hand_Animation_Manager.ResetAllHands();
                     File_Manager.turnCounter--;
@@ -121,21 +124,53 @@ namespace Cheatscape
 
                 if (rating == 0 && Input_Manager.KeyPressed(Keys.Enter))
                 {
-                    Transition.StartTransition(Transition.TransitionState.ToLvSelect);
-
+                    End_Screen.AccessCleared = false;
+                    End_Screen.AccessIsEnded = true;
                 }
 
             }
-            if (isOnTransitionScreen == true && Input_Manager.KeyPressed(Keys.Enter ))
+
+        }
+
+        public static void Play(GameTime gameTime)
+        {
+            if (!playedThrough && !FindingCheat && Pause_Menu.gameIsPaused == false)
+            {
+                if (prevGameTime < gameTime.ElapsedGameTime.TotalSeconds)
+                {
+                    timer++;
+                    prevGameTime = (int)gameTime.ElapsedGameTime.TotalSeconds;
+                }
+                if (CurrentSlide < AllMoves.Count)
+                {
+                    if (timer == 120)
+                    {
+                        Hand_Animation_Manager.ResetAllHands();
+                        File_Manager.turnCounter--;
+                        CurrentSlide++;
+                        Game_Board.SetBoardState();
+                        for (int i = 0; i < AllMoves[CurrentSlide - 1].Count; i++)
+                        {
+                            Game_Board.MakeAMove(AllMoves[CurrentSlide - 1][i], true);
+                        }
+                        timer = 0;
+                    }
+                }
+                else
+                {
+                    playedThrough = true;
+                }
+
+            }
+            if (isOnTransitionScreen == true && Input_Manager.KeyPressed(Keys.Enter))
             {
                 isOnTransitionScreen = false;
                 Pause_Menu.gameIsPaused = false;
-
+                playedThrough = false;
                 rating += 100;
                 completed = true;
                 CurrentLevel++;
                 File_Manager.LoadLevel();
-               
             }
 
         }

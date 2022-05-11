@@ -40,6 +40,7 @@ namespace Cheatscape
             Options_Menu.Load();
             Transition.Load();
             Mouse_Controller.Load();
+            End_Screen.Load();
         }
 
         public static void Update(GameTime gameTime)
@@ -58,13 +59,15 @@ namespace Cheatscape
                     Transition.Update(gameTime);
                     break;
                 case GameState.PlayingLevel:
-                    if (!Transition.transitioning)                
+                    if (!Transition.transitioning && !End_Screen.AccessIsEnded)
                     {
+                        Level_Manager.Play(gameTime);
                         Level_Manager.Update();
                         Hand_Animation_Manager.Update();
                     }
-                    Transition.Update(gameTime);
                     Pause_Menu.Update(gameTime);
+                    End_Screen.Update();
+                    Transition.Update(gameTime);
                     break;
                 case GameState.MainMenu:
                     Main_Menu.Update(gameTime);
@@ -94,6 +97,7 @@ namespace Cheatscape
                     Level_Manager.Draw(aSpriteBatch);
                     Text_Manager.DrawTutorialBox(aSpriteBatch);                   
                     Pause_Menu.Draw(aSpriteBatch);
+                    End_Screen.Draw(aSpriteBatch);
                     Transition.Draw(aSpriteBatch);
                     Mouse_Controller.LevelDraw(aSpriteBatch);
                     break;
