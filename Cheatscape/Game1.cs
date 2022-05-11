@@ -6,28 +6,28 @@ namespace Cheatscape
 {
     public class Game1 : Game
     {
-        private GraphicsDeviceManager _graphics;
-        private SpriteBatch _spriteBatch;
+        private static GraphicsDeviceManager graphics;
+        private SpriteBatch spriteBatch;
 
         public Game1()
         {
-            _graphics = new GraphicsDeviceManager(this);
+            graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
             IsMouseVisible = true;
         }
 
         protected override void Initialize()
         {
-            _graphics.PreferredBackBufferWidth = (int)Global_Info.AccessWindowSize.X;
-            _graphics.PreferredBackBufferHeight = (int)Global_Info.AccessWindowSize.Y;
-            _graphics.ApplyChanges();
+            graphics.PreferredBackBufferWidth = (int)Global_Info.AccessWindowSize.X;
+            graphics.PreferredBackBufferHeight = (int)Global_Info.AccessWindowSize.Y;
+            graphics.ApplyChanges();
 
             base.Initialize();
         }
 
         protected override void LoadContent()
         {
-            _spriteBatch = new SpriteBatch(GraphicsDevice);
+            spriteBatch = new SpriteBatch(GraphicsDevice);
             Global_Info.AccessContentManager = Content;
 
             Global_Info.Load();
@@ -45,15 +45,22 @@ namespace Cheatscape
 
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.CornflowerBlue);
+            GraphicsDevice.Clear(Color.Black);
 
-            _spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.NonPremultiplied, SamplerState.PointClamp, null, null, null, Matrix.CreateScale(Global_Info.AccessScreenScale));
+            spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.NonPremultiplied, SamplerState.PointClamp, null, null, null, Matrix.CreateScale(Global_Info.AccessScreenScale));
 
-            Global_Info.Draw(_spriteBatch);
+            Global_Info.Draw(spriteBatch);
 
-            _spriteBatch.End();
+            spriteBatch.End();
 
             base.Draw(gameTime);
+        }
+
+        public static void ControlFullScreen(bool becomeFullScreen)
+        {
+            graphics.IsFullScreen = becomeFullScreen;
+
+            graphics.ApplyChanges();
         }
     }
 }

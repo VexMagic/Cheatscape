@@ -16,8 +16,8 @@ namespace Cheatscape
         static Texture2D optionButtonTex;
         static Texture2D optionHighlightTex;
 
-        public static int SelectedLevelX = 0;
-        public static int SelectedLevelY = 0;
+        public static int SelectedBundleX = 0;
+        public static int SelectedBundleY = 0;
 
         static int LevelAmountX = 5;
         static int LevelAmountY = 2;
@@ -36,33 +36,29 @@ namespace Cheatscape
 
         public static void Update()
         {
-            if (Input_Manager.KeyPressed(Keys.Left) && SelectedLevelX > 0)
+            if (Input_Manager.KeyPressed(Keys.Left) && SelectedBundleX > 0)
             {
-                SelectedLevelX--;
+                SelectedBundleX--;
             }
-            else if (Input_Manager.KeyPressed(Keys.Right) && SelectedLevelX < LevelAmountX - 1)
+            else if (Input_Manager.KeyPressed(Keys.Right) && SelectedBundleX < LevelAmountX - 1)
             {
-                SelectedLevelX++;
+                SelectedBundleX++;
+            }
+            else if (Input_Manager.KeyPressed(Keys.Up) && SelectedBundleY > 0 && !optionHighlight)
+            {
+                SelectedBundleY--;
+            }
+            else if (Input_Manager.KeyPressed(Keys.Down) && SelectedBundleY < LevelAmountY - 1)
+            {
+                SelectedBundleY++;
+            }
+            else if (Input_Manager.KeyPressed(Keys.Down) && SelectedBundleY == 1)
+            {
+                optionHighlight = true;
             }
             else if (Input_Manager.KeyPressed(Keys.Up) && optionHighlight)
             {
                 optionHighlight = false;
-            }
-            else if (Input_Manager.KeyPressed(Keys.Up) && SelectedLevelY > 0)
-            {
-                SelectedLevelY--;
-            }
-            else if (Input_Manager.KeyPressed(Keys.Down) && SelectedLevelY < LevelAmountY - 1)
-            {
-                SelectedLevelY++;
-            }
-            else if (Input_Manager.KeyPressed(Keys.Down))
-            {
-                optionHighlight = true;
-            }
-            else if (Input_Manager.KeyPressed(Keys.Space) && !optionHighlight)
-            {
-                Transition.StartTransition(Transition.TransitionState.ToLevel);
             }
             else if (Input_Manager.KeyPressed(Keys.Back))
             {
@@ -71,7 +67,15 @@ namespace Cheatscape
             }
             else if (optionHighlight && Input_Manager.KeyPressed(Keys.Space))
             {
+                Transition.AccessNextTransitionState = Transition.TransitionState.ToLvSelect;
+                
                 Transition.StartTransition(Transition.TransitionState.ToOptions);
+            }
+            else if (!optionHighlight && Input_Manager.KeyPressed(Keys.Space))
+            {
+                Music_Player.PlayMusic();
+                Level_Manager.AccessRating = 1000;
+                Transition.StartTransition(Transition.TransitionState.ToLevel);
             }
         }
 
@@ -85,7 +89,7 @@ namespace Cheatscape
             }
             else
             {
-                aSpriteBatch.Draw(PanelHighLightTex, new Vector2(50 + SelectedLevelX * 100, 50 + SelectedLevelY * 75), Color.White);
+                aSpriteBatch.Draw(PanelHighLightTex, new Vector2(50 + SelectedBundleX * 100, 50 + SelectedBundleY * 75), Color.White);
             }
 
             aSpriteBatch.Draw(optionButtonTex, new Vector2(50, 200), Color.White);
@@ -97,6 +101,12 @@ namespace Cheatscape
                     aSpriteBatch.Draw(NumbersTex, new Rectangle(55 + j * 100, 55 + i * 75, 9, 5), new Rectangle(9 * j + i * 45, 0, 9, 5), Color.White, 0, new Vector2(0, 0), SpriteEffects.None, 0);
                     aSpriteBatch.Draw(PanelTex, new Vector2(50 + j * 100, 50 + i * 75), Color.White);
                 }
+            }
+
+            if (Options_Menu.AccessControlView)
+            {
+                Text_Manager.DrawText("Arrow keys: Navigate     Space: Select", 30, 
+                    (int)(Global_Info.AccessWindowSize.Y / Global_Info.AccessScreenScale - 40), aSpriteBatch);
             }
         }
     }

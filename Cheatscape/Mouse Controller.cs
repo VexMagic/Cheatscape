@@ -74,8 +74,8 @@ namespace Cheatscape
                 {
                     if (LevelButtons[i, j].Contains(MousePosition))
                     {
-                        Level_Select_Menu.SelectedLevelX = i;
-                        Level_Select_Menu.SelectedLevelY = j;
+                        Level_Select_Menu.SelectedBundleX = i;
+                        Level_Select_Menu.SelectedBundleY = j;
                         Level_Select_Menu.optionHighlight = false;
                     }
                 }
@@ -89,9 +89,17 @@ namespace Cheatscape
             if (CurrentMS.LeftButton == ButtonState.Pressed && PreviousMS.LeftButton == ButtonState.Released)
             {
                 if (Level_Select_Menu.optionHighlight)
+                {
+                    Transition.AccessNextTransitionState = Transition.TransitionState.ToLvSelect;
+
                     Transition.StartTransition(Transition.TransitionState.ToOptions);
+                }
                 else
+                {
+                    Music_Player.PlayMusic();
+                    Level_Manager.AccessRating = 1000;
                     Transition.StartTransition(Transition.TransitionState.ToLevel);
+                }
             }
         }
 

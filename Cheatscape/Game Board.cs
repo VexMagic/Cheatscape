@@ -42,7 +42,6 @@ namespace Cheatscape
 
         public static void ResetBoard()
         {
-            ChessPiecesOnBoard = new Chess_Piece[8, 8];
             CapturedWhitePieces.Clear();
             CapturedBlackPieces.Clear();
             Level_Manager.AccessCurrentSlide = 1;
@@ -85,7 +84,7 @@ namespace Cheatscape
                                     Background = Global_Info.AccessContentManager.Load<Texture2D>("Background");
                                     break;
                                 case "kindergarden":
-                                    Background = Global_Info.AccessContentManager.Load<Texture2D>("Kindergarten");
+                                    Background = Global_Info.AccessContentManager.Load<Texture2D>("Background");
                                     break;
                             }
                             break;

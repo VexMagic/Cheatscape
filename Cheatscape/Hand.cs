@@ -75,10 +75,14 @@ namespace Cheatscape
                             isHolding = true;
                             myHoldingPiece = new Chess_Piece(Game_Board.AccessChessPiecesOnBoard[(int)myMove.myStartingPos.X, (int)myMove.myStartingPos.Y]);
                             Game_Board.AccessChessPiecesOnBoard[(int)myMove.myStartingPos.X, (int)myMove.myStartingPos.Y].myPieceType = 0;
+                            
+
                             break;
                         case 2: //after dropping the piece in its new spot
                             CalculateDirection(myEndPos, myHomePos);
                             isHolding = false;
+                            Music_Player.MoveEffect();
+
                             Game_Board.CapturePiece(myMove.myEndingPos);//add captured piece to the captured list
                             Game_Board.AccessChessPiecesOnBoard[(int)myMove.myEndingPos.X, (int)myMove.myEndingPos.Y] = new Chess_Piece(myHoldingPiece);
                             Game_Board.CurrentTurnMoves();
@@ -101,9 +105,9 @@ namespace Cheatscape
             if (myHandIsFlipped == true)
             {
                 if (isHolding)
-                    aSpriteBatch.Draw(myTexture, new Rectangle((int)myPosition.X, (int)myPosition.Y, 64, 64), new Rectangle(0, 0, 64, 64), Color.White, 0, new Vector2(0, 0), SpriteEffects.FlipVertically, 0);
+                    aSpriteBatch.Draw(myTexture, new Rectangle((int)myPosition.X, (int)myPosition.Y, 64, 64), new Rectangle(0, 0, 64, 64), Color.White, 0, new Vector2(0, 0), SpriteEffects.FlipVertically | SpriteEffects.FlipHorizontally, 0);
                 else
-                    aSpriteBatch.Draw(myTexture, new Rectangle((int)myPosition.X, (int)myPosition.Y, 64, 64), new Rectangle(64, 0, 64, 64), Color.White, 0, new Vector2(0, 0), SpriteEffects.FlipVertically, 0);
+                    aSpriteBatch.Draw(myTexture, new Rectangle((int)myPosition.X, (int)myPosition.Y, 64, 64), new Rectangle(64, 0, 64, 64), Color.White, 0, new Vector2(0, 0), SpriteEffects.FlipVertically | SpriteEffects.FlipHorizontally, 0);
             }
             else if (myHandIsFlipped == false)
             {

@@ -1,6 +1,7 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Audio;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -15,6 +16,7 @@ namespace Cheatscape
         public enum GameState { LevelSelect, PlayingLevel, MainMenu, Options };
         static GameState CurrentGameState = GameState.MainMenu;
 
+
         public static ContentManager AccessContentManager { get => ContentManager; set => ContentManager = value; }
         public static float AccessScreenScale { get => ScreenScale; set => ScreenScale = value; }
         public static Vector2 AccessWindowSize { get => WindowSize; set => WindowSize = value; }
@@ -24,7 +26,11 @@ namespace Cheatscape
 
         public static void Load()
         {
+            Level_Transition.Load();
+            Global_Tracker.LoadCompletedBundles();
+            Pause_Menu.Load();
             Game_Board.Load();
+            Music_Player.Load();
             //File_Manager.LoadLevel();
             Main_Menu.Load();
             Hand_Animation_Manager.Load();
@@ -52,12 +58,13 @@ namespace Cheatscape
                     Transition.Update(gameTime);
                     break;
                 case GameState.PlayingLevel:
-                    if (!Transition.transitioning)
+                    if (!Transition.transitioning)                
                     {
                         Level_Manager.Update();
                         Hand_Animation_Manager.Update();
                     }
                     Transition.Update(gameTime);
+                    Pause_Menu.Update(gameTime);
                     break;
                 case GameState.MainMenu:
                     Main_Menu.Update(gameTime);
@@ -85,7 +92,9 @@ namespace Cheatscape
                     Game_Board.Draw(aSpriteBatch);
                     Hand_Animation_Manager.Draw(aSpriteBatch);
                     Level_Manager.Draw(aSpriteBatch);
-                    Text_Manager.DrawTutorialBox(aSpriteBatch);
+                    Text_Manager.DrawTutorialBox(aSpriteBatch);                   
+                    Pause_Menu.Draw(aSpriteBatch);
+                    Transition.Draw(aSpriteBatch);
                     Mouse_Controller.LevelDraw(aSpriteBatch);
                     break;
                 case GameState.Options:
