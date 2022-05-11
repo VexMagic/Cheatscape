@@ -168,7 +168,6 @@ namespace Cheatscape
                 Pause_Menu.gameIsPaused = false;
                 playedThrough = false;
                 rating += 100;
-                completed = true;
                 CurrentLevel++;
                 File_Manager.LoadLevel();
             }
