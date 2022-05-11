@@ -66,7 +66,12 @@ namespace Cheatscape
                 else if (Input_Manager.KeyPressed(Keys.Space) && /*!completed &&*/ rating > 0)
                 {
                     if (!FindingCheat)
-                        FindingCheat = true;
+                    {
+                        if (CurrentLevel != 0 || CurrentBundle != 0 || CurrentSlide > 2)
+                        {
+                            FindingCheat = true;
+                        }
+                    }
                     else
                     {
                         SelectCheat();

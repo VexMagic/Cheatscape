@@ -199,7 +199,12 @@ namespace Cheatscape
                 else if (SelectedTile.X != 100)
                 {
                     if (!Level_Manager.FindingCheat)
-                        Level_Manager.FindingCheat = true;
+                    {
+                        if (Level_Manager.CurrentLevel != 0 || Level_Manager.CurrentBundle != 0 || Level_Manager.AccessCurrentSlide > 2)
+                        {
+                            Level_Manager.FindingCheat = true;
+                        }
+                    }
                 }
                 else
                     Level_Manager.FindingCheat = false;
