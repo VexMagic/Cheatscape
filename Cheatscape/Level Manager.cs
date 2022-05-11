@@ -171,6 +171,17 @@ namespace Cheatscape
                 }
 
             }
+            if (isOnTransitionScreen == true && Input_Manager.KeyPressed(Keys.Enter))
+            {
+                isOnTransitionScreen = false;
+                Pause_Menu.gameIsPaused = false;
+
+                rating += 100;
+                completed = true;
+                //Global_Info.AccessCurrentGameState = Global_Info.GameState.LevelSelect;
+                CurrentLevel++;
+                File_Manager.LoadLevel();
+            }
 
         }
 
