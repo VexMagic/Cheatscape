@@ -81,7 +81,7 @@ namespace Cheatscape
         }
         public static void Draw(SpriteBatch aSpriteBatch)
         {
-            if (gameIsPaused == true)
+            if (gameIsPaused)
             {
                 aSpriteBatch.Draw(pauseMenu, new Rectangle(0, 0, (int)(Global_Info.WindowSize.X / Global_Info.AccessScreenScale), (int)(Global_Info.WindowSize.Y / Global_Info.AccessScreenScale)), Color.White);
 
@@ -90,13 +90,13 @@ namespace Cheatscape
                 Text_Manager.DrawText("Continue", 190, 140, aSpriteBatch);
                 aSpriteBatch.Draw(continueButton, new Vector2(150, 130), Color.White);
 
-                Text_Manager.DrawText("Restart Level", 348, 140, aSpriteBatch); //W
+                Text_Manager.DrawText("Restart Level", 348, 140, aSpriteBatch);
                 aSpriteBatch.Draw(restartButton, new Vector2(418, 130), Color.White);
 
                 Text_Manager.DrawText("Options", 190, 240, aSpriteBatch);
                 aSpriteBatch.Draw(optionsButton, new Vector2(150, 230), Color.White);
 
-                Text_Manager.DrawText("Back to Menu", 350, 240, aSpriteBatch); //W
+                Text_Manager.DrawText("Back to Menu", 350, 240, aSpriteBatch);
                 aSpriteBatch.Draw(exitButton, new Vector2(418, 230), Color.White);
             }       
         }
