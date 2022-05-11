@@ -175,7 +175,7 @@ namespace Cheatscape
             {
                 isOnTransitionScreen = false;
                 Pause_Menu.gameIsPaused = false;
-
+                playedThrough = false;
                 rating += 100;
                 completed = true;
                 //Global_Info.AccessCurrentGameState = Global_Info.GameState.LevelSelect;

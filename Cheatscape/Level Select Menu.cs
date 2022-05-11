@@ -73,6 +73,7 @@ namespace Cheatscape
             }
             else if (!optionHighlight && Input_Manager.KeyPressed(Keys.Space))
             {
+                Level_Manager.AccessCurrentLevel = 0;
                 Music_Player.PlayMusic();
                 Level_Manager.AccessRating = 1000;
                 Transition.StartTransition(Transition.TransitionState.ToLevel);
