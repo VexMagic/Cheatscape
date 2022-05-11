@@ -97,8 +97,8 @@ namespace Cheatscape
                     Level_Manager.Draw(aSpriteBatch);
                     Text_Manager.DrawTutorialBox(aSpriteBatch);                   
                     Pause_Menu.Draw(aSpriteBatch);
-                    End_Screen.Draw(aSpriteBatch);
                     Transition.Draw(aSpriteBatch);
+                    End_Screen.Draw(aSpriteBatch);
                     Mouse_Controller.LevelDraw(aSpriteBatch);
                     break;
                 case GameState.Options:

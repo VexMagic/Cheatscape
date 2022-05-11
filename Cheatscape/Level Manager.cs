@@ -20,7 +20,7 @@ namespace Cheatscape
         static float rating;
         public static bool FindingCheat = false;
         static int AmountOfRuleLists = 3;
-        static bool isOnTransitionScreen = false;
+        public static bool isOnTransitionScreen = false;
         static bool completed = false;
 
         public static float AccessRating { get  => rating; set => rating = value; }
