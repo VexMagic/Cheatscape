@@ -1,0 +1,17 @@
+remove;f1,remove;b8,remove;d7,remove;h7,remove;e7,remove;b1,remove;d2,remove;e2,remove;h7,remove;h2,add;bn;c6,add;bp;d5,add;bp;f6,add;bp;h5,add;wn;c3,add;wp;d4,add;bp;e6,add;wp;e3,add;wb;f3,add;wp;h4
+move;e3;e4
+move;d5;e4
+move;c3;e4
+move;c6;d4
+move;e4;c5
+move;d4;f3
+move;g1;f3
+move;f8;c5
+move;c1;e3
+move;d8;d1
+move;a1;d1
+move;e3;c5,Awnser;0-2
+move;b7;b6
+move;c5;b4
+move;c7;c5
+move;b4;c3
