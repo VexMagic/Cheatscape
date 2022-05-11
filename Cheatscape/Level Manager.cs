@@ -143,17 +143,33 @@ namespace Cheatscape
 
         public static void Play(GameTime gameTime)
         {
-            if (!playedThrough && isOnTransitionScreen == true && Input_Manager.KeyPressed(Keys.Enter))
+            if (!playedThrough && !FindingCheat && Pause_Menu.gameIsPaused == false)
             {
-                isOnTransitionScreen = false;
-                Pause_Menu.gameIsPaused = false;
+                if (prevGameTime < gameTime.ElapsedGameTime.TotalSeconds)
+                {
+                    timer++;
+                    prevGameTime = (int)gameTime.ElapsedGameTime.TotalSeconds;
+                }
+                if (CurrentSlide < AllMoves.Count)
+                {
+                    if (timer == 120)
+                    {
+                        Hand_Animation_Manager.ResetAllHands();
+                        File_Manager.turnCounter--;
+                        CurrentSlide++;
+                        Game_Board.SetBoardState();
+                        for (int i = 0; i < AllMoves[CurrentSlide - 1].Count; i++)
+                        {
+                            Game_Board.MakeAMove(AllMoves[CurrentSlide - 1][i], true);
+                        }
+                        timer = 0;
+                    }
+                }
+                else
+                {
+                    playedThrough = true;
+                }
 
-                rating += 100;
-                completed = true;
-                //Global_Info.AccessCurrentGameState = Global_Info.GameState.LevelSelect;
-                CurrentLevel++;
-                File_Manager.LoadLevel();
-               
             }
 
         }
