@@ -262,10 +262,13 @@ namespace Cheatscape
 
             aSpriteBatch.Draw(ChessBoard, BoardOffset, Color.White);
 
-            if (Level_Manager.AccessCurrentSlide > 1)
-                aSpriteBatch.Draw(SlideButtons, new Rectangle(113, 148, 31, 64), new Rectangle(0, 0, 31, 64), Color.White);
-            if (Level_Manager.AccessCurrentSlide < Level_Manager.AccessAllMoves.Count)
-                aSpriteBatch.Draw(SlideButtons, new Rectangle(456, 148, 31, 64), new Rectangle(33, 0, 31, 64), Color.White);
+            if (!Level_Manager.FindingCheat)
+            {
+                if (Level_Manager.AccessCurrentSlide > 1)
+                    aSpriteBatch.Draw(SlideButtons, new Rectangle(113, 148, 31, 64), new Rectangle(0, 0, 31, 64), Color.White);
+                if (Level_Manager.AccessCurrentSlide < Level_Manager.AccessAllMoves.Count)
+                    aSpriteBatch.Draw(SlideButtons, new Rectangle(456, 148, 31, 64), new Rectangle(33, 0, 31, 64), Color.White);
+            }
 
             for (int x = 0; x < ChessPiecesOnBoard.GetLength(0); x++)
             {
