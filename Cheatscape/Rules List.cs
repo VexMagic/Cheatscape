@@ -25,6 +25,7 @@ namespace Cheatscape
         static Vector2 BannerPosition = new Vector2(ScrollBarWidth, 101);
 
         public static List<Vector2> AllowedRules = new List<Vector2>();
+        public static List<int> AllowedRuleIndexes = new List<int>();
 
         static string[] GeneralRules = {
             "The white player always starts.",

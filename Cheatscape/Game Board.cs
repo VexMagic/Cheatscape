@@ -61,6 +61,7 @@ namespace Cheatscape
         {
             Level_Manager.AccessAllAnswers.Clear();
             Rules_List.AllowedRules.Clear();
+            Rules_List.AllowedRuleIndexes.Clear();
             for (int i = 0; i < Level_Manager.AccessAllMoves.Count; i++)
             {
                 for (int j = 0; j < Level_Manager.AccessAllMoves[i].Count; j++)
@@ -72,7 +73,10 @@ namespace Cheatscape
                             break;
                         case Chess_Move.MoveType.IncludeRule:
                             if (!Rules_List.AllowedRules.Contains(Level_Manager.AccessAllMoves[i][j].myRule))
+                            {
                                 Rules_List.AllowedRules.Add(Level_Manager.AccessAllMoves[i][j].myRule);
+                                Rules_List.AllowedRuleIndexes.Add((int)Level_Manager.AccessAllMoves[i][j].myRule.Y);
+                            }
                             break;
                         case Chess_Move.MoveType.IncludeList:
                             Rules_List.IncludeList(Level_Manager.AccessAllMoves[i][j].myRuleList);

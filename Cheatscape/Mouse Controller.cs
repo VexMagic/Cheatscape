@@ -19,6 +19,7 @@ namespace Cheatscape
         public static List<Rectangle> RuleBoxes = new List<Rectangle>();
         static Texture2D TileSelect;
         static Vector2 SelectedTile;
+        static int SelectedRule = 100;
 
         public static void Load()
         {
@@ -108,7 +109,19 @@ namespace Cheatscape
         static void LevelUpdate()
         {
             SelectedTile.X = 100;
-            int tempSelectedRule = 100;
+            SelectedRule = 100;
+
+            Rules_List.AllowedRuleIndexes.Clear();
+
+            for (int i = 0; i < Rules_List.GetList().Length; i++)
+            {
+                if (Rules_List.AllowedRules.Contains(new Vector2(Rules_List.AccessCurrentRuleList, i)))
+                {
+                    Rules_List.AllowedRuleIndexes.Add(i);
+                }
+            }
+
+            Rules_List.AllowedRuleIndexes.Sort();
 
             for (int i = 0; i < BoardTiles.GetLength(0); i++)
             {
@@ -123,7 +136,7 @@ namespace Cheatscape
             {
                 if (RuleBoxes[i].Contains(MousePosition))
                 {
-                    tempSelectedRule = i;
+                    SelectedRule = i;
                 }
             }
 
@@ -157,12 +170,22 @@ namespace Cheatscape
                         Rules_List.AccessCurrentRule = 0;
                     }
                 }
-                else if (Level_Manager.FindingCheat && tempSelectedRule != 100)
+                else if (Level_Manager.FindingCheat && SelectedRule != 100)
                 {
-                    if (Rules_List.AccessCurrentRule == tempSelectedRule)
-                        Level_Manager.SelectCheat();
+                    if (SelectedRule == Rules_List.AllowedRuleIndexes.Count)
+                    {
+                        if (Rules_List.AccessCurrentRule == Rules_List.GetList().Length)
+                            Level_Manager.SelectCheat();
+                        else
+                            Rules_List.AccessCurrentRule = Rules_List.GetList().Length;
+                    }
                     else
-                        Rules_List.AccessCurrentRule = tempSelectedRule;
+                    {
+                        if (Rules_List.AccessCurrentRule == Rules_List.AllowedRuleIndexes[SelectedRule])
+                            Level_Manager.SelectCheat();
+                        else
+                            Rules_List.AccessCurrentRule = Rules_List.AllowedRuleIndexes[SelectedRule];
+                    }
                 }
                 else if (SelectedTile.X != 100)
                 {
@@ -193,6 +216,10 @@ namespace Cheatscape
                 Vector2 tempPosition = new Vector2((int)(Game_Board.AccessBoardPosition.X + (SelectedTile.X * Game_Board.AccessTileSize)),
                         (int)(Game_Board.AccessBoardPosition.Y + (SelectedTile.Y * Game_Board.AccessTileSize)));
                 aSpriteBatch.Draw(TileSelect, tempPosition, Color.White);
+            }
+            if (SelectedRule != 100)
+            {
+                aSpriteBatch.Draw(TileSelect, RuleBoxes[SelectedRule], new Rectangle(0, 0, 1, 1), Color.White * 0.75f);
             }
         }
     }

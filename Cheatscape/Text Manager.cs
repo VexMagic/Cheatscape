@@ -119,8 +119,8 @@ namespace Cheatscape
 
             if (isRuleText)
             {
-                Mouse_Controller.RuleBoxes.Add(new Rectangle((int)aPosition.X - LineSize, (int)aPosition.Y - LineSize,
-                        tempBoxWidth + LineSize, tempYPositionOffset));
+                Mouse_Controller.RuleBoxes.Add(new Rectangle((int)aPosition.X - (LineSize / 2), (int)aPosition.Y - (LineSize / 2),
+                        tempBoxWidth + LineSize, tempYPositionOffset - (int)aPosition.Y + LineSize));
             }
         }
 
