@@ -221,6 +221,9 @@ namespace Cheatscape
             CurrentRule--;
             MoveThroughRules(0);
 
+            if (AccessCurrentRule != 0 && Level_Manager.CurrentBundle == 0 && Level_Manager.CurrentLevel == 0)
+                AccessCurrentRule = 0;
+
             string[] tempArray = GetAllowedRules(CurrentRuleList);
             Text_Manager.DrawRuleBox(tempArray, aSpriteBatch);
 

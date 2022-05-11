@@ -151,10 +151,13 @@ namespace Cheatscape
                 DrawScrollBar(aStringArray, aSpriteBatch);
             }
 
-            if (Rules_List.AccessCurrentRule != Rules_List.GetList().Length)
-                DrawTextBox("Back", new Vector2(RulesPosition.X, tempYOffset), TextBoarder, aSpriteBatch, false, true);
-            else
-                DrawTextBox("Back", new Vector2(RulesPosition.X, tempYOffset), RuleSelector, aSpriteBatch, false, true);
+            if (Level_Manager.CurrentBundle != 0 || Level_Manager.CurrentLevel != 0)
+            {
+                if (Rules_List.AccessCurrentRule != Rules_List.GetList().Length)
+                    DrawTextBox("Back", new Vector2(RulesPosition.X, tempYOffset), TextBoarder, aSpriteBatch, false, true);
+                else
+                    DrawTextBox("Back", new Vector2(RulesPosition.X, tempYOffset), RuleSelector, aSpriteBatch, false, true);
+            }
         }
 
         static void DrawScrollBar(string[] aStringArray, SpriteBatch aSpriteBatch)
