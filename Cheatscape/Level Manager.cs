@@ -135,7 +135,12 @@ namespace Cheatscape
                 }
 
             }
-            if (isOnTransitionScreen == true && Input_Manager.KeyPressed(Keys.Enter ))
+
+        }
+
+        public static void Play(GameTime gameTime)
+        {
+            if (!playedThrough && isOnTransitionScreen == true && Input_Manager.KeyPressed(Keys.Enter))
             {
                 isOnTransitionScreen = false;
                 Pause_Menu.gameIsPaused = false;
