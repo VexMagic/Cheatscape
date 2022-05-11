@@ -39,11 +39,7 @@ namespace Cheatscape
             {
                 if (Input_Manager.KeyPressed(Keys.Left) && CurrentSlide > 1 && !FindingCheat && /*!completed*//* &&*/ rating > 0)
                 {
-                    Hand_Animation_Manager.ResetAllHands();
-                    File_Manager.turnCounter++;
-                    CurrentSlide--;
-                    Game_Board.SetBoardState();
-                    Music_Player.MoveEffect();
+                    ChangeSlide(false);
                 }
                 else if (Input_Manager.KeyPressed(Keys.Left) && FindingCheat/* && !feedback && rating > 0*/)
                 {
@@ -56,15 +52,7 @@ namespace Cheatscape
                 }
                 else if (Input_Manager.KeyPressed(Keys.Right) && CurrentSlide < AllMoves.Count && !FindingCheat/* && !completed *//*&& rating > 0*/)
                 {
-                    Hand_Animation_Manager.ResetAllHands();
-                    File_Manager.turnCounter--;
-                    CurrentSlide++;
-                    Game_Board.SetBoardState();
-                    for (int i = 0; i < AllMoves[CurrentSlide - 1].Count; i++)
-                    {
-                        Game_Board.MakeAMove(AllMoves[CurrentSlide - 1][i], true);
-                    }
-
+                    ChangeSlide(true);
                 }
                 else if (Input_Manager.KeyPressed(Keys.Right) && FindingCheat)
                 {
@@ -123,6 +111,29 @@ namespace Cheatscape
                
             }
 
+        }
+
+        public static void ChangeSlide(bool isMoveForward)
+        {
+            if (isMoveForward)
+            {
+                Hand_Animation_Manager.ResetAllHands();
+                File_Manager.turnCounter--;
+                CurrentSlide++;
+                Game_Board.SetBoardState();
+                for (int i = 0; i < AllMoves[CurrentSlide - 1].Count; i++)
+                {
+                    Game_Board.MakeAMove(AllMoves[CurrentSlide - 1][i], true);
+                }
+            }
+            else
+            {
+                Hand_Animation_Manager.ResetAllHands();
+                File_Manager.turnCounter++;
+                CurrentSlide--;
+                Game_Board.SetBoardState();
+                Music_Player.MoveEffect();
+            }
         }
 
         public static void SelectCheat()

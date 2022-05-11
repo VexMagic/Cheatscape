@@ -16,6 +16,7 @@ namespace Cheatscape
         static Rectangle OptionsButton = new Rectangle(50, 200, 32, 32);
         static Rectangle[] ScrollButtons = { new Rectangle(0, 138, 20, 20), new Rectangle(0, 340, 20, 20) };
         static Rectangle[] BannerButtons = { new Rectangle(20, 118, 16, 20), new Rectangle(116, 118, 16, 20) };
+        static Rectangle[] SlideButtons = { new Rectangle(113, 148, 31, 64), new Rectangle(456, 148, 31, 64) };
         public static List<Rectangle> RuleBoxes = new List<Rectangle>();
         static Texture2D TileSelect;
         static Vector2 SelectedTile;
@@ -169,6 +170,14 @@ namespace Cheatscape
                         }
                         Rules_List.AccessCurrentRule = 0;
                     }
+                }
+                else if (!Level_Manager.FindingCheat && ((SlideButtons[0].Contains(MousePosition) && Level_Manager.AccessCurrentSlide > 1) 
+                    || (SlideButtons[1].Contains(MousePosition) && Level_Manager.AccessCurrentSlide < Level_Manager.AccessAllMoves.Count)))
+                {
+                    if (SlideButtons[0].Contains(MousePosition))
+                        Level_Manager.ChangeSlide(false);
+                    else
+                        Level_Manager.ChangeSlide(true);
                 }
                 else if (Level_Manager.FindingCheat && SelectedRule != 100)
                 {

@@ -26,7 +26,7 @@ namespace Cheatscape
         public static string TutorialText;
 
         public static Vector2 RulesPosition = new Vector2(6 + Rules_List.ScrollBarWidth, 144);
-        public static Vector2 TutorialPosition = new Vector2(450, 100);
+        public static Vector2 TutorialPosition = new Vector2(470, 50);
 
         public static void Load()
         {
