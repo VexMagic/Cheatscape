@@ -9,6 +9,9 @@ namespace Cheatscape
 {
     static class Level_Manager
     {
+        public static int timer = 60;
+        public static int prevGameTime = 0;
+        static bool playedThrough = false;
         public static int CurrentLevel = 0;
         public static int CurrentBundle = 0;
         static List<List<Chess_Move>> AllMoves = new List<List<Chess_Move>>();
