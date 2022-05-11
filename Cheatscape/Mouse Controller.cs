@@ -72,7 +72,7 @@ namespace Cheatscape
             {
                 for (int j = 0; j < LevelButtons.GetLength(1); j++)
                 {
-                    if (LevelButtons[i, j].Contains(MousePosition))
+                    if (LevelButtons[i, j].Contains(MousePosition) && CurrentMS.Position != PreviousMS.Position)
                     {
                         Level_Select_Menu.SelectedBundleX = i;
                         Level_Select_Menu.SelectedBundleY = j;
