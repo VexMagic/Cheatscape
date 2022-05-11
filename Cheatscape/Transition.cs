@@ -17,7 +17,7 @@ namespace Cheatscape
 
         static int dir;
 
-        static float transitionWidth = 300 + Global_Info.windowSize.X / Global_Info.AccessScreenScale;
+        static float transitionWidth = 300 + Global_Info.WindowSize.X / Global_Info.AccessScreenScale;
         static float timeSinceLastMove;
         static float timeBetweenMoves = 30f;
 
@@ -72,8 +72,7 @@ namespace Cheatscape
                             
                             if (transitionPos.X >= transitionWidth / 2 - Global_Info.AccessWindowSize.X / Global_Info.AccessScreenScale)
                             {
-                                Music_Player.BackgroundMusic();
-                                Global_Info.AccessCurrentGameState = Global_Info.GameState.options;
+                                Global_Info.AccessCurrentGameState = Global_Info.GameState.Options;
                             }
 
                             break;
@@ -81,7 +80,11 @@ namespace Cheatscape
                             
                             if (transitionPos.X <= transitionWidth / 2 - Global_Info.AccessWindowSize.X / Global_Info.AccessScreenScale)
                             {
-                                Global_Info.AccessCurrentGameState = Global_Info.GameState.levelSelect;
+                                Global_Info.AccessCurrentGameState = Global_Info.GameState.LevelSelect;
+                                Level_Manager.AccessCurrentLevel = 0;
+                                Level_Manager.AccessAllMoves.Clear();
+                                Level_Manager.AccessCompleted = false;
+                                Music_Player.StopMusic();
                             }
 
                             break;
@@ -89,12 +92,12 @@ namespace Cheatscape
 
                             if (transitionPos.X <= transitionWidth / 2 - Global_Info.AccessWindowSize.X / Global_Info.AccessScreenScale)
                             {
-                                Music_Player.BackgroundMusic();
-                                Global_Info.AccessCurrentGameState = Global_Info.GameState.playingLevel;
+                                
+                                Global_Info.AccessCurrentGameState = Global_Info.GameState.PlayingLevel;
 
                                 if (!Pause_Menu.gameIsPaused)
                                 {
-                                    Level_Manager.AccessCurrentLevel = Level_Select_Menu.selectedLevelX + Level_Select_Menu.selectedLevelY * 5;
+                                    Level_Manager.AccessCurrentBundle = Level_Select_Menu.SelectedBundleX + Level_Select_Menu.SelectedBundleY * 5;
                                     File_Manager.LoadLevel();
                                 }
                                 
@@ -116,7 +119,7 @@ namespace Cheatscape
             if (transitioning)
             {
                 spriteBatch.Draw(transitionTex, new Rectangle((int)transitionPos.X, (int)transitionPos.Y, 
-                    (int)transitionWidth, (int)(Global_Info.windowSize.Y / Global_Info.AccessScreenScale)), 
+                    (int)transitionWidth, (int)(Global_Info.WindowSize.Y / Global_Info.AccessScreenScale)), 
                     Color.White);
             }
         }
