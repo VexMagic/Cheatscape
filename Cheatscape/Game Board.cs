@@ -84,7 +84,7 @@ namespace Cheatscape
                                     Background = Global_Info.AccessContentManager.Load<Texture2D>("Background");
                                     break;
                                 case "kindergarden":
-                                    Background = Global_Info.AccessContentManager.Load<Texture2D>("Kindergarten");
+                                    Background = Global_Info.AccessContentManager.Load<Texture2D>("Background");
                                     break;
                             }
                             break;

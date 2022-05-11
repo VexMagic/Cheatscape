@@ -39,7 +39,7 @@ namespace Cheatscape
 
             if (Pause_Menu.gameIsPaused == false)
             {
-                if (Input_Manager.KeyPressed(Keys.Left) && CurrentSlide > 1 && !FindingCheat && !completed && rating > 0)
+                if (Input_Manager.KeyPressed(Keys.Left) && CurrentSlide > 1 && !FindingCheat && /*!completed*//* &&*/ rating > 0)
                 {
                     Hand_Animation_Manager.ResetAllHands();
                     File_Manager.turnCounter++;
@@ -56,7 +56,7 @@ namespace Cheatscape
                     }
                     Rules_List.AccessCurrentRule = 0;
                 }
-                else if (Input_Manager.KeyPressed(Keys.Right) && CurrentSlide < AllMoves.Count && !FindingCheat && !completed /*&& rating > 0*/)
+                else if (Input_Manager.KeyPressed(Keys.Right) && CurrentSlide < AllMoves.Count && !FindingCheat/* && !completed *//*&& rating > 0*/)
                 {
                     Hand_Animation_Manager.ResetAllHands();
                     File_Manager.turnCounter--;
@@ -77,7 +77,7 @@ namespace Cheatscape
                     }
                     Rules_List.AccessCurrentRule = 0;
                 }
-                else if (Input_Manager.KeyPressed(Keys.Space) && !completed && rating > 0)
+                else if (Input_Manager.KeyPressed(Keys.Space) && /*!completed &&*/ rating > 0)
                 {
                     if (!FindingCheat)
                         FindingCheat = true;
@@ -119,15 +119,15 @@ namespace Cheatscape
                     Rules_List.AccessCurrentRule++;
                 }
 
-                if (completed == true)
-                {
-                    if (Input_Manager.KeyPressed(Keys.Enter))
-                    {
-                        CurrentLevel++;
-                        File_Manager.LoadLevel();
-                        completed = false;
-                    }
-                }
+                //if (completed == true)
+                //{
+                //    if (Input_Manager.KeyPressed(Keys.Enter))
+                //    {
+                //        CurrentLevel++;
+                //        File_Manager.LoadLevel();
+                //        //completed = false;
+                //    }
+                //}
                 if (rating == 0 && Input_Manager.KeyPressed(Keys.Enter))
                 {
                     Transition.StartTransition(Transition.TransitionState.ToLvSelect);
@@ -141,11 +141,11 @@ namespace Cheatscape
                 Pause_Menu.gameIsPaused = false;
 
                 rating += 100;
-                completed = true;
+                //completed = true;
                 //Global_Info.AccessCurrentGameState = Global_Info.GameState.LevelSelect;
                 CurrentLevel++;
                 File_Manager.LoadLevel();
-                Music_Player.StopMusic();
+               
             }
 
         }
