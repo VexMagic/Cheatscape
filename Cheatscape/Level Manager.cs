@@ -42,7 +42,7 @@ namespace Cheatscape
 
             if (Pause_Menu.gameIsPaused == false)
             {
-                if (Input_Manager.KeyPressed(Keys.Left) && CurrentSlide > 1 && !FindingCheat && !isOnTransitionScreen && rating > 0)
+                if (Input_Manager.KeyPressed(Keys.Left) && CurrentSlide > 1 && !FindingCheat && !isOnTransitionScreen && rating > 0 && playedThrough)
                 {
                     Hand_Animation_Manager.ResetAllHands();
                     File_Manager.turnCounter++;
@@ -59,7 +59,7 @@ namespace Cheatscape
                     }
                     Rules_List.AccessCurrentRule = 0;
                 }
-                else if (Input_Manager.KeyPressed(Keys.Right) && CurrentSlide < AllMoves.Count && !FindingCheat && !isOnTransitionScreen && rating > 0)
+                else if (Input_Manager.KeyPressed(Keys.Right) && CurrentSlide < AllMoves.Count && !FindingCheat && !isOnTransitionScreen && rating > 0 && playedThrough)
                 {
                     Hand_Animation_Manager.ResetAllHands();
                     File_Manager.turnCounter--;
