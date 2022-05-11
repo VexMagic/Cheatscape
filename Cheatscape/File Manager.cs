@@ -40,6 +40,7 @@ namespace Cheatscape
 
             catch
             {
+                Global_Tracker.AddCompletedLevel(Level_Manager.AccessCurrentBundle, Level_Manager.AccessRating);
                 Transition.StartTransition(Transition.TransitionState.ToLvSelect);
                 //Global_Info.AccessCurrentGameState = Global_Info.GameState.LevelSelect;
             }

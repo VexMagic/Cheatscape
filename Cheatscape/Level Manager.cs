@@ -119,15 +119,6 @@ namespace Cheatscape
                     Rules_List.AccessCurrentRule++;
                 }
 
-                //if (completed == true)
-                //{
-                //    if (Input_Manager.KeyPressed(Keys.Enter))
-                //    {
-                //        CurrentLevel++;
-                //        File_Manager.LoadLevel();
-                //        //completed = false;
-                //    }
-                //}
                 if (rating == 0 && Input_Manager.KeyPressed(Keys.Enter))
                 {
                     Transition.StartTransition(Transition.TransitionState.ToLvSelect);
@@ -142,7 +133,6 @@ namespace Cheatscape
 
                 rating += 100;
                 completed = true;
-                //Global_Info.AccessCurrentGameState = Global_Info.GameState.LevelSelect;
                 CurrentLevel++;
                 File_Manager.LoadLevel();
                
@@ -180,11 +170,6 @@ namespace Cheatscape
                 if (rating == 0)
                 Text_Manager.DrawText(Convert.ToString("You've failed the tutorial..."), 20, (int)(Global_Info.AccessWindowSize.Y / Global_Info.AccessScreenScale) - 200
                         , aSpriteBatch);
-
-                //if (completed)
-                //    Text_Manager.DrawText(Convert.ToString("Nice! \n Press Enter to continue" ), 20, (int)(Global_Info.AccessWindowSize.Y / Global_Info.AccessScreenScale) - 200
-                //        , aSpriteBatch);
-
 
             }
         }

@@ -73,8 +73,10 @@ namespace Cheatscape
             }
             else if (!optionHighlight && Input_Manager.KeyPressed(Keys.Space))
             {
+                Music_Player.ChangeMusic(SelectedBundleX); 
                 Music_Player.PlayMusic();
                 Level_Manager.AccessRating = 1000;
+                Level_Manager.AccessCurrentLevel = 0;
                 Transition.StartTransition(Transition.TransitionState.ToLevel);
             }
         }
