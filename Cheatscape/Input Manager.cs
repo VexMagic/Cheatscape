@@ -1,25 +1,20 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Input;
+﻿using Microsoft.Xna.Framework.Input;
 
 namespace Cheatscape
 {
     class Input_Manager
     {
-        public static KeyboardState CurrentKS, PreviousKS;
+        public static KeyboardState currentKS, previousKS;
 
         public static void Update()
         {
-            PreviousKS = CurrentKS;
-            CurrentKS = Keyboard.GetState();
+            previousKS = currentKS;
+            currentKS = Keyboard.GetState();
         }
 
         public static bool KeyPressed(Keys key)
         {
-            if (CurrentKS.IsKeyDown(key) && PreviousKS.IsKeyUp(key))
+            if (currentKS.IsKeyDown(key) && previousKS.IsKeyUp(key))
             {
                 return true;
             }
@@ -29,7 +24,7 @@ namespace Cheatscape
 
         public static bool KeyReleased(Keys key)
         {
-            if (CurrentKS.IsKeyUp(key) && PreviousKS.IsKeyDown(key))
+            if (currentKS.IsKeyUp(key) && previousKS.IsKeyDown(key))
             {
                 return true;
             }
