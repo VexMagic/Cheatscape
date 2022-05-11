@@ -81,30 +81,7 @@ namespace Cheatscape
                         FindingCheat = true;
                     else
                     {
-                        for (int i = 0; i < AllAnswers.Count; i++)
-                        {
-                            if (AllAnswers[i].Item1.myRule.X == Rules_List.AccessCurrentRuleList &&
-                                AllAnswers[i].Item1.myRule.Y == Rules_List.AccessCurrentRule &&
-                                AllAnswers[i].Item2 == CurrentSlide)
-                            {
-                                isOnTransitionScreen = true;
-                                Pause_Menu.gameIsPaused = true;
-                            }
-                            else if (Rules_List.AccessCurrentRule != Rules_List.GetList().Length)
-                            {
-                                if (rating / 2 > 400)
-                                {
-                                    rating /= 2;
-                                }
-                                else if (rating - 400 > 0)
-                                {
-                                    rating -= 400;
-                                }
-                                else
-                                    rating = 0;
-                            }
-                        }
-                        FindingCheat = false;
+                        SelectCheat();
                     }
                 }
 
@@ -146,6 +123,34 @@ namespace Cheatscape
                
             }
 
+        }
+
+        public static void SelectCheat()
+        {
+            for (int i = 0; i < AllAnswers.Count; i++)
+            {
+                if (AllAnswers[i].Item1.myRule.X == Rules_List.AccessCurrentRuleList &&
+                    AllAnswers[i].Item1.myRule.Y == Rules_List.AccessCurrentRule &&
+                    AllAnswers[i].Item2 == CurrentSlide)
+                {
+                    isOnTransitionScreen = true;
+                    Pause_Menu.gameIsPaused = true;
+                }
+                else if (Rules_List.AccessCurrentRule != Rules_List.GetList().Length)
+                {
+                    if (rating / 2 > 400)
+                    {
+                        rating /= 2;
+                    }
+                    else if (rating - 400 > 0)
+                    {
+                        rating -= 400;
+                    }
+                    else
+                        rating = 0;
+                }
+            }
+            FindingCheat = false;
         }
 
         public static void Draw(SpriteBatch aSpriteBatch)

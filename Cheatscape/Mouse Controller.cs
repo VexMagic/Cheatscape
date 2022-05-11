@@ -16,6 +16,7 @@ namespace Cheatscape
         static Rectangle OptionsButton = new Rectangle(50, 200, 32, 32);
         static Rectangle[] ScrollButtons = { new Rectangle(0, 138, 20, 20), new Rectangle(0, 340, 20, 20) };
         static Rectangle[] BannerButtons = { new Rectangle(20, 118, 16, 20), new Rectangle(116, 118, 16, 20) };
+        public static List<Rectangle> RuleBoxes = new List<Rectangle>();
         static Texture2D TileSelect;
         static Vector2 SelectedTile;
 
@@ -107,6 +108,7 @@ namespace Cheatscape
         static void LevelUpdate()
         {
             SelectedTile.X = 100;
+            int tempSelectedRule = 100;
 
             for (int i = 0; i < BoardTiles.GetLength(0); i++)
             {
@@ -114,6 +116,14 @@ namespace Cheatscape
                 {
                     if (BoardTiles[i, j].Contains(MousePosition))
                         SelectedTile = new Vector2(i, j);
+                }
+            }
+
+            for (int i = 0; i < RuleBoxes.Count; i++)
+            {
+                if (RuleBoxes[i].Contains(MousePosition))
+                {
+                    tempSelectedRule = i;
                 }
             }
 
@@ -146,6 +156,13 @@ namespace Cheatscape
                         }
                         Rules_List.AccessCurrentRule = 0;
                     }
+                }
+                else if (Level_Manager.FindingCheat && tempSelectedRule != 100)
+                {
+                    if (Rules_List.AccessCurrentRule == tempSelectedRule)
+                        Level_Manager.SelectCheat();
+                    else
+                        Rules_List.AccessCurrentRule = tempSelectedRule;
                 }
                 else if (SelectedTile.X != 100)
                 {
