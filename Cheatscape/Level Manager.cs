@@ -133,8 +133,8 @@ namespace Cheatscape
                 //}
                 if (rating == 0 && Input_Manager.KeyPressed(Keys.Enter))
                 {
-                    Transition.StartTransition(Transition.TransitionState.ToLvSelect);
-
+                    End_Screen.AccessCleared = false;
+                    End_Screen.AccessIsEnded = true;
                 }
 
             }
