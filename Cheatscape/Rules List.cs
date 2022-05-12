@@ -11,6 +11,7 @@ namespace Cheatscape
         static SpriteFont Font;
         static Texture2D Banner;
         static Texture2D ImageBoarder;
+        static Texture2D lightBulb;
 
         static int CurrentRuleList = 0;
         static int CurrentRule = 0;
@@ -55,6 +56,7 @@ namespace Cheatscape
             Font = Global_Info.AccessContentManager.Load<SpriteFont>("Font");
             Banner = Global_Info.AccessContentManager.Load<Texture2D>("Rules Banner");
             ImageBoarder = Global_Info.AccessContentManager.Load<Texture2D>("Rule Image Boarder");
+            lightBulb = Global_Info.AccessContentManager.Load<Texture2D>("Light Bulb");
         }
 
         public static void IncludeList(int aList)
@@ -193,6 +195,8 @@ namespace Cheatscape
 
             string[] tempArray = GetAllowedRules(CurrentRuleList);
             Text_Manager.DrawRuleBox(tempArray, aSpriteBatch);
+
+            aSpriteBatch.Draw(lightBulb, new Vector2((int)Global_Info.AccessWindowSize.X / 2 - lightBulb.Width - 30, 10), Color.White);
 
             aSpriteBatch.Draw(Banner, new Rectangle((int)BannerPosition.X, (int)BannerPosition.Y,
                 Text_Manager.MaximumTextBoxWidth + (int)((Text_Manager.RulesPosition.X - ScrollBarWidth) * 2), 20),

@@ -21,7 +21,7 @@ namespace Cheatscape
         public static bool IsTextCentered = false;
 
         public enum TextStyle { Standard, DropShadow, Boarder, Blood}
-        public static TextStyle CurrentTextStyle = TextStyle.Standard;
+        public static TextStyle CurrentTextStyle = TextStyle.Boarder;
 
         public static string TutorialText;
 

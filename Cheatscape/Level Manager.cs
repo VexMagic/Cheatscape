@@ -192,12 +192,12 @@ namespace Cheatscape
             {
                 if (FindingCheat)
                 {
-                    Text_Manager.DrawText("Right/Left: Toggle categories     Up/Down: Toggle rules     Space: Select rule", 120, 
+                    Text_Manager.DrawText("Right/Left: Toggle categories     Up/Down: Toggle rules     Space: Select rule", 150, 
                         (int)(Global_Info.AccessWindowSize.Y / Global_Info.AccessScreenScale) - 20, aSpriteBatch);
                 }
                 else
                 {
-                    Text_Manager.DrawText("Right: Next move               Left: Previous move               Space: Rules", 120, 
+                    Text_Manager.DrawText("Right: Next move               Left: Previous move               Space: Rules", 150, 
                         (int)(Global_Info.AccessWindowSize.Y / Global_Info.AccessScreenScale) - 20, aSpriteBatch);
                 }
 
