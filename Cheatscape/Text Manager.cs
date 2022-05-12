@@ -25,7 +25,7 @@ namespace Cheatscape
 
         public static string TutorialText;
 
-        public static Vector2 RulesPosition = new Vector2(6 + Rules_List.ScrollBarWidth, 144);
+        public static Vector2 RulesPosition = new Vector2(6 + Rules_List.scrollBarWidth, 144);
         public static Vector2 TutorialPosition = new Vector2(450, 100);
 
         public static void Load()
@@ -220,7 +220,7 @@ namespace Cheatscape
 
         public static void DrawTurnCounter(SpriteBatch aSpriteBatch)
         {
-            DrawTextBox("Turns left: " + File_Manager.turnCounter,Game_Board.BoardPosition-new Vector2(TextBoarder.Width/2,TextBoarder.Height+12), TextBoarder, aSpriteBatch);
+            DrawTextBox("Turns left: " + File_Manager.turnCounter,Game_Board.boardPosition-new Vector2(TextBoarder.Width/2,TextBoarder.Height+12), TextBoarder, aSpriteBatch);
         }
 
         public static List<string> SeparateText(string aString)

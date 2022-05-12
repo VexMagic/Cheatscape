@@ -1,13 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Linq;
-using System.Runtime.InteropServices;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Content;
-using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Audio;
+﻿using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Media;
+using System;
+using System.Collections.Generic;
 
 namespace Cheatscape
 {
@@ -16,7 +10,7 @@ namespace Cheatscape
         static List<SoundEffect> soundEffects = new List<SoundEffect>();
         public static List<Song> songs = new List<Song>();
         static SoundEffect move1, move2, move3, move4, move5;
-        static Song song1, song2 , currentSong;
+        static Song song1, song2, currentSong;
 
         public static Song AccessCurrentSong { get => currentSong; set => currentSong = value; }
 

@@ -1,9 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using System;
 
 namespace Cheatscape
 {
@@ -88,8 +86,8 @@ namespace Cheatscape
             {
                 if (cleared)
                 {
-                    spriteBatch.Draw(levelClear, new Rectangle(0, 0, (int)(Global_Info.WindowSize.X / Global_Info.AccessScreenScale), 
-                        (int)(Global_Info.WindowSize.Y / Global_Info.AccessScreenScale)), Color.White);
+                    spriteBatch.Draw(levelClear, new Rectangle(0, 0, (int)(Global_Info.windowSize.X / Global_Info.AccessScreenScale),
+                        (int)(Global_Info.windowSize.Y / Global_Info.AccessScreenScale)), Color.White);
 
                     spriteBatch.Draw(buttonHighLight, new Vector2(150 + 268 * endIndex, 230), Color.White);
 
@@ -104,8 +102,8 @@ namespace Cheatscape
                 }
                 else
                 {
-                    spriteBatch.Draw(gameOver, new Rectangle(0, 0, (int)(Global_Info.WindowSize.X / Global_Info.AccessScreenScale),
-                        (int)(Global_Info.WindowSize.Y / Global_Info.AccessScreenScale)), Color.White);
+                    spriteBatch.Draw(gameOver, new Rectangle(0, 0, (int)(Global_Info.windowSize.X / Global_Info.AccessScreenScale),
+                        (int)(Global_Info.windowSize.Y / Global_Info.AccessScreenScale)), Color.White);
 
                     spriteBatch.Draw(buttonHighLight, new Vector2(150 + 268 * endIndex, 230), Color.White);
 
