@@ -56,7 +56,7 @@ namespace Cheatscape
 
         public void Update()
         {
-            if (!isDone && !Level_Manager.isOnTransitionScreen && !Pause_Menu.gameIsPaused && !Level_Manager.FindingCheat)
+            if (!isDone && !Level_Manager.isOnTransitionScreen && !Pause_Menu.gameIsPaused && !Level_Manager.findingCheat)
             {
                 myPosition += myMoveDirection;
                 myMoveAmount++;
