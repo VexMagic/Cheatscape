@@ -218,11 +218,6 @@ namespace Cheatscape
                 DrawTextBox(TutorialText, TutorialPosition, TextBoarder, aSpriteBatch, true);
         }
 
-        public static void DrawTurnCounter(SpriteBatch aSpriteBatch)
-        {
-            DrawTextBox("Turns left: " + File_Manager.turnCounter,Game_Board.BoardPosition-new Vector2(TextBoarder.Width/2,TextBoarder.Height+12), TextBoarder, aSpriteBatch);
-        }
-
         public static List<string> SeparateText(string aString)
         {
             List<string> tempTextBox = new List<string>();

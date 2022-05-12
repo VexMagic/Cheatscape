@@ -179,7 +179,8 @@ namespace Cheatscape
             if (FindingCheat)
                 Rules_List.Draw(aSpriteBatch);
             if (isOnTransitionScreen == false)
-                Text_Manager.DrawTurnCounter(aSpriteBatch);
+                Text_Manager.DrawText(Convert.ToString("Turn counter: " + File_Manager.turnCounter), (int)(Global_Info.AccessWindowSize.X / Global_Info.AccessScreenScale) - 450, 10
+                        , aSpriteBatch);
 
             if (isOnTransitionScreen)
                 Level_Transition.Draw(aSpriteBatch);
