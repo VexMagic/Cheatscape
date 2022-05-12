@@ -68,6 +68,10 @@ namespace Cheatscape
 
         public static void DrawLargeText(string aString, int anXPos, int aYPos, SpriteBatch aSpriteBatch) //draw white text
         {
+            aSpriteBatch.DrawString(LargeFont, aString, new Vector2(anXPos + 1, aYPos), Color.Black);
+            aSpriteBatch.DrawString(LargeFont, aString, new Vector2(anXPos, aYPos + 1), Color.Black);
+            aSpriteBatch.DrawString(LargeFont, aString, new Vector2(anXPos, aYPos - 1), Color.Black);
+            aSpriteBatch.DrawString(LargeFont, aString, new Vector2(anXPos - 1, aYPos), Color.Black);
             aSpriteBatch.DrawString(LargeFont, aString, new Vector2(anXPos, aYPos), Color.White);
         }
 
