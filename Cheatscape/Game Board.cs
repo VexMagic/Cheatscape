@@ -13,6 +13,9 @@ namespace Cheatscape
         static List<Chess_Piece> CapturedBlackPieces = new List<Chess_Piece>();
         public static Vector2 BoardPosition = new Vector2(Global_Info.AccessWindowSize.X / 4 - 128, Global_Info.AccessWindowSize.Y / 4 - 128);
         static int TileSize = 32;
+        static bool[,] fogOfWar;
+        static float fogOfWarMode;
+        static float fogOfWarDistance;
 
         public static Chess_Piece[,] AccessChessPiecesOnBoard { get => ChessPiecesOnBoard; set => ChessPiecesOnBoard = value; }
         public static Vector2 AccessBoardPosition { get => BoardPosition; set => BoardPosition = value; }
@@ -24,6 +27,7 @@ namespace Cheatscape
         static Texture2D Background;
         static Texture2D CheckArt;
         static Texture2D CheckmateArt;
+        static Texture2D fogOfWarTex;
 
         enum SplashArt { None, Check, Checkmate }
         static SplashArt CurrentSplashArt = SplashArt.None;
@@ -36,6 +40,7 @@ namespace Cheatscape
             Background = Global_Info.AccessContentManager.Load<Texture2D>("Background");
             CheckArt = Global_Info.AccessContentManager.Load<Texture2D>("Check Art");
             CheckmateArt = Global_Info.AccessContentManager.Load<Texture2D>("Checkmate Art");
+            fogOfWarTex = Global_Info.AccessContentManager.Load<Texture2D>("FogOfWar");
 
             SetBasicBoardState();
         }
@@ -247,6 +252,55 @@ namespace Cheatscape
                 {
                     PausedMove = i + 1;
                     break;
+                }
+            }
+        }
+
+        public static void GenerateFogOfWar(int distance, int mode)
+        {
+            fogOfWar = new bool[8, 8];
+
+            fogOfWarMode = mode;
+            fogOfWarDistance = distance;
+
+            if (mode == 1) //From the Left
+            {
+                for (int y = 0; y < 8; y++)
+                {
+                    for (int x = 0; x < distance; x++)
+                    {
+                        fogOfWar[x, y] = true;
+                    }
+                }
+            }
+            else if (mode == 2) //From the Right
+            {
+                for (int y = 0; y < 8; y++)
+                {
+                    for (int x = 8 - distance; x < 8; x++)
+                    {
+                        fogOfWar[x, y] = true;
+                    }
+                }
+            }
+            else if (mode == 3) //From the Top
+            {
+                for (int y = 0; y < distance; y++)
+                {
+                    for (int x = 0; x < 8; x++)
+                    {
+                        fogOfWar[x, y] = true;
+                    }
+                }
+            }
+            else if (mode == 4) //from the Bottom
+            {
+                for (int y = 8 - distance; y < 8; y++)
+                {
+                    for (int x = 0; x < 8; x++)
+                    {
+                        fogOfWar[x, y] = true;
+                    }
                 }
             }
         }

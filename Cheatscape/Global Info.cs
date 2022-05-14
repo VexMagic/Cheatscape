@@ -39,6 +39,8 @@ namespace Cheatscape
             Text_Manager.Load();
             Options_Menu.Load();
             Transition.Load();
+            Mouse_Controller.Load();
+            End_Screen.Load();
         }
 
         public static void Update(GameTime gameTime)
@@ -55,6 +57,7 @@ namespace Cheatscape
                     }
                     Main_Menu.Update(gameTime);
                     Transition.Update(gameTime);
+
                     break;
                 case GameState.PlayingLevel:
                     if (!Transition.transitioning && !End_Screen.AccessIsEnded)

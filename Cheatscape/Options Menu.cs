@@ -204,11 +204,25 @@ namespace Cheatscape
                     {
                         MusicVolumeIndex++;
                         MusicVolumePercent = (MusicVolumeIndex * 10).ToString() + "%";
+
+                        float newVol = MusicVolumeIndex / 10f;
+                        MediaPlayer.Volume = newVol;
                     }
                     else if (Input_Manager.KeyPressed(Keys.Left) && MusicVolumeIndex > 0)
                     {
                         MusicVolumeIndex--;
                         MusicVolumePercent = (MusicVolumeIndex * 10).ToString() + "%";
+
+                        float newVol = MusicVolumeIndex / 10f;
+                        MediaPlayer.Volume = newVol;
+                    }
+                    else if (Input_Manager.KeyPressed(Keys.V))
+                    {
+                        Music_Player.PlayMusic();
+                    }
+                    else if (Input_Manager.KeyReleased(Keys.V))
+                    {
+                        Music_Player.StopMusic();
                     }
                     else if (Input_Manager.KeyPressed(Keys.Space))
                     {
@@ -216,8 +230,10 @@ namespace Cheatscape
                         
                         selectedOption = SelectedOption.None;
 
-                        float newVol = MusicVolumeIndex / 10f;
-                        MediaPlayer.Volume = newVol;
+                        if (MediaPlayer.State == MediaState.Playing)
+                        {
+                            Music_Player.StopMusic();
+                        }
                     }
 
                     break;
@@ -227,20 +243,27 @@ namespace Cheatscape
                     {
                         SFXVolumeIndex++;
                         SFXVolumePercent = (SFXVolumeIndex * 10).ToString() + "%";
+
+                        float newVol = SFXVolumeIndex / 10f;
+                        SoundEffect.MasterVolume = newVol;
                     }
                     else if (Input_Manager.KeyPressed(Keys.Left) && SFXVolumeIndex > 0)
                     {
                         SFXVolumeIndex--;
                         SFXVolumePercent = (SFXVolumeIndex * 10).ToString() + "%";
+
+                        float newVol = SFXVolumeIndex / 10f;
+                        SoundEffect.MasterVolume = newVol;
+                    }
+                    else if (Input_Manager.KeyPressed(Keys.V))
+                    {
+                        Music_Player.MoveEffect();
                     }
                     else if (Input_Manager.KeyPressed(Keys.Space))
                     {
                         HighLightColor = Color.White;
 
                         selectedOption = SelectedOption.None;
-
-                        float newVol = SFXVolumeIndex / 10f;
-                        SoundEffect.MasterVolume = newVol;
                     }
 
                     break;
@@ -261,7 +284,18 @@ namespace Cheatscape
                 }
                 else
                 {
-                    Text_Manager.DrawText("Left/Right: Adjust          Space: Confirm", 30, (int)(Global_Info.AccessWindowSize.Y / Global_Info.AccessScreenScale - 40),
+                    string text = "Left/Right: Adjust          Space: Confirm";
+
+                    if (selectedOption == SelectedOption.MusicVolume)
+                    {
+                        text += "          V (Hold): Test Audio";
+                    }
+                    else if (selectedOption == SelectedOption.SFXVolume)
+                    {
+                        text += "          V: Test Audio";
+                    }
+
+                    Text_Manager.DrawText(text, 30, (int)(Global_Info.AccessWindowSize.Y / Global_Info.AccessScreenScale - 40),
                         spriteBatch);
                 }
             }
@@ -280,7 +314,7 @@ namespace Cheatscape
 
             //SFX Volume
             DrawSlider(SFXVolumeAmount, SFXVolumeIndex, 5, spriteBatch, new Vector2(200, 195), SFXVolumeHighLight);
-            Text_Manager.DrawText("SFX Volume " + SFXVolumePercent, 259, 180, spriteBatch);
+            Text_Manager.DrawText("Sound Effect Volume " + SFXVolumePercent, 259, 180, spriteBatch);
 
             //Back button
             if (backHighLight)
