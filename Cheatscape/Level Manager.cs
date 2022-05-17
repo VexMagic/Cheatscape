@@ -22,6 +22,7 @@ namespace Cheatscape
         static int AmountOfRuleLists = 3;
         public static bool isOnTransitionScreen = false;
         static bool completed = false;
+        static bool displayingHint = false;
 
         public static float AccessRating { get  => rating; set => rating = value; }
         public static int AccessCurrentLevel { get => CurrentLevel; set => CurrentLevel = value; }
@@ -80,6 +81,12 @@ namespace Cheatscape
                     }
                     Rules_List.AccessCurrentRule = 0;
                 }
+
+                else if (FindingCheat == true && Input_Manager.KeyPressed(Keys.H))
+                {
+                    displayingHint = true;
+                }
+
                 else if (Input_Manager.KeyPressed(Keys.Space) && !isOnTransitionScreen && rating > 0)
                 {
                     if (!FindingCheat)
@@ -170,6 +177,7 @@ namespace Cheatscape
                 rating += 100;
                 CurrentLevel++;
                 File_Manager.LoadLevel();
+                Hint_File_Manager.LoadHints();
             }
 
         }
