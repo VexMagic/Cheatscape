@@ -11,7 +11,7 @@ namespace Cheatscape
         static SpriteFont Font;
         public static SpriteFont LargeFont;
         static Texture2D Background;
-        static Texture2D TextBoarder;
+        public static Texture2D TextBoarder;
         static Texture2D RuleSelector;
         static Texture2D ScrollBar;
 

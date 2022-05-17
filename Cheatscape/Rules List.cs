@@ -196,9 +196,12 @@ namespace Cheatscape
             string[] tempArray = GetAllowedRules(CurrentRuleList);
             Text_Manager.DrawRuleBox(tempArray, aSpriteBatch);
 
-            aSpriteBatch.Draw(lightBulb, new Vector2((int)Global_Info.AccessWindowSize.X / 2 - lightBulb.Width - 55, 10), Color.White);
-            Text_Manager.DrawText("Press H for a hint", 485, 60, aSpriteBatch);
-            Text_Manager.DrawText("-100 rating", 495, 75, aSpriteBatch);
+            if (Level_Manager.CurrentBundle != 0)
+            {
+                aSpriteBatch.Draw(lightBulb, new Vector2((int)Global_Info.AccessWindowSize.X / 2 - lightBulb.Width - 55, 10), Color.White);
+                Text_Manager.DrawText("Press H for a hint", 485, 60, aSpriteBatch);
+                Text_Manager.DrawText("-100 rating", 495, 75, aSpriteBatch);
+            }
 
             aSpriteBatch.Draw(Banner, new Rectangle((int)BannerPosition.X, (int)BannerPosition.Y,
                 Text_Manager.MaximumTextBoxWidth + (int)((Text_Manager.RulesPosition.X - ScrollBarWidth) * 2), 20),

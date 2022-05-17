@@ -23,6 +23,8 @@ namespace Cheatscape
         public static bool isOnTransitionScreen = false;
         static bool completed = false;
         static bool displayingHint = false;
+        static int currentHint = -1;
+        static int unlockedHints = -1;
 
         public static float AccessRating { get  => rating; set => rating = value; }
         public static int AccessCurrentLevel { get => CurrentLevel; set => CurrentLevel = value; }
@@ -82,9 +84,24 @@ namespace Cheatscape
                     Rules_List.AccessCurrentRule = 0;
                 }
 
-                else if (FindingCheat == true && Input_Manager.KeyPressed(Keys.H))
+                else if (CurrentBundle != 0 && FindingCheat == true && Input_Manager.KeyPressed(Keys.H) && unlockedHints <= Hint_File_Manager.hintList.Count - 2 )
                 {
                     displayingHint = true;
+                    rating -= 100;
+                    currentHint++;
+                    unlockedHints++;
+                    if(currentHint < unlockedHints)
+                        currentHint = unlockedHints;
+                }
+
+                else if (CurrentBundle != 0 && FindingCheat == true && displayingHint == true && Input_Manager.KeyPressed(Keys.G) && currentHint > 0)
+                {
+                    currentHint--;
+                }
+
+                else if (CurrentBundle != 0 && FindingCheat == true && displayingHint == true && Input_Manager.KeyPressed(Keys.J) && currentHint < unlockedHints)
+                {
+                    currentHint++;
                 }
 
                 else if (Input_Manager.KeyPressed(Keys.Space) && !isOnTransitionScreen && rating > 0)
@@ -174,6 +191,9 @@ namespace Cheatscape
                 isOnTransitionScreen = false;
                 Pause_Menu.gameIsPaused = false;
                 playedThrough = false;
+                currentHint = -1;
+                unlockedHints = -1;
+                displayingHint = false;
                 rating += 100;
                 CurrentLevel++;
                 File_Manager.LoadLevel();
@@ -186,9 +206,32 @@ namespace Cheatscape
         {
             if (FindingCheat)
                 Rules_List.Draw(aSpriteBatch);
+
+            if (CurrentBundle != 0 && FindingCheat && displayingHint)
+            {
+                Text_Manager.DrawTextBox(Hint_File_Manager.hintList[currentHint], new Vector2(475, 120), Text_Manager.TextBoarder, aSpriteBatch);
+
+                if(unlockedHints > 0)
+                {
+
+                    if (currentHint == 0)
+                    Text_Manager.DrawText("    J >", 508, 100, aSpriteBatch);
+
+                    if (currentHint == 1 && unlockedHints > 1)
+                        Text_Manager.DrawText("< G J >", 508, 100, aSpriteBatch);
+
+                    if (currentHint == 1 && unlockedHints < 2)
+                        Text_Manager.DrawText("< G", 508, 100, aSpriteBatch);
+
+                    if (currentHint == 2)
+                        Text_Manager.DrawText("< G", 508, 100, aSpriteBatch);
+
+                }
+
+            }
+
             if (isOnTransitionScreen == false)
-                Text_Manager.DrawText(Convert.ToString("Turn counter: " + File_Manager.turnCounter), (int)(Global_Info.AccessWindowSize.X / Global_Info.AccessScreenScale) - 450, 10
-                        , aSpriteBatch);
+                Text_Manager.DrawText(Convert.ToString("Turn counter: " + File_Manager.turnCounter), (int)(Global_Info.AccessWindowSize.X / Global_Info.AccessScreenScale) - 450, 10, aSpriteBatch);
 
             if (isOnTransitionScreen)
                 Level_Transition.Draw(aSpriteBatch);
