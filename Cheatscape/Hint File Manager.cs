@@ -12,9 +12,18 @@ namespace Cheatscape
         public static List<string> hintList;
         public static void LoadHints()
         {
-            hintsDirectory = @"..\..\..\Text_Files\Hint_Files\Hints" + Level_Manager.AccessCurrentBundle + "-" + Level_Manager.AccessCurrentLevel + ".txt";
-            hintList = File.ReadLines(hintsDirectory).ToList();
+            try
+            {
+                hintsDirectory = @"..\..\..\Text_Files\Hint_Files\Hints" + Level_Manager.AccessCurrentBundle + "-" + Level_Manager.AccessCurrentLevel + ".txt";
+                hintList = File.ReadLines(hintsDirectory).ToList();
+            }
+            catch (Exception)
+            {
+                Transition.StartTransition(Transition.TransitionState.ToLvSelect);
+            }
+
         }
+
 
     }
 }

@@ -21,10 +21,12 @@ namespace Cheatscape
         public static bool FindingCheat = false;
         static int AmountOfRuleLists = 3;
         public static bool isOnTransitionScreen = false;
+        public static bool isOnFirstTransitionScreen = false;
+        public static int exitedFirstTransitionScreen = 0;
         static bool completed = false;
         static bool displayingHint = false;
         static int currentHint = -1;
-        static int unlockedHints = -1;
+        public static int unlockedHints = -1;
 
         public static float AccessRating { get  => rating; set => rating = value; }
         public static int AccessCurrentLevel { get => CurrentLevel; set => CurrentLevel = value; }
@@ -35,7 +37,6 @@ namespace Cheatscape
 
         public static bool AccessCompleted { get => completed; set => completed = value; }
 
-
         public static void Update()
         {
             if (Input_Manager.KeyPressed(Keys.Tab))
@@ -45,7 +46,7 @@ namespace Cheatscape
 
             if (Pause_Menu.gameIsPaused == false)
             {
-                if (Input_Manager.KeyPressed(Keys.Left) && CurrentSlide > 1 && !FindingCheat && !isOnTransitionScreen && rating > 0 && playedThrough)
+                if (Input_Manager.KeyPressed(Keys.Left) && CurrentSlide > 1 && !FindingCheat && !isOnTransitionScreen && !isOnFirstTransitionScreen && rating > 0 && playedThrough)
                 {
                     Hand_Animation_Manager.ResetAllHands();
                     File_Manager.turnCounter++;
@@ -62,7 +63,7 @@ namespace Cheatscape
                     }
                     Rules_List.AccessCurrentRule = 0;
                 }
-                else if (Input_Manager.KeyPressed(Keys.Right) && CurrentSlide < AllMoves.Count && !FindingCheat && !isOnTransitionScreen && rating > 0 && playedThrough)
+                else if (Input_Manager.KeyPressed(Keys.Right) && CurrentSlide < AllMoves.Count && !FindingCheat && !isOnTransitionScreen && !isOnFirstTransitionScreen && rating > 0 && playedThrough)
                 {
                     Hand_Animation_Manager.ResetAllHands();
                     File_Manager.turnCounter--;
@@ -104,7 +105,7 @@ namespace Cheatscape
                     currentHint++;
                 }
 
-                else if (Input_Manager.KeyPressed(Keys.Space) && !isOnTransitionScreen && rating > 0)
+                else if (Input_Manager.KeyPressed(Keys.Space) && !isOnTransitionScreen && !isOnFirstTransitionScreen && rating > 0)
                 {
                     if (!FindingCheat)
                         FindingCheat = true;
@@ -116,6 +117,7 @@ namespace Cheatscape
                                 AllAnswers[i].Item1.myRule.Y == Rules_List.AccessCurrentRule &&
                                 AllAnswers[i].Item2 == CurrentSlide)
                             {
+                                CurrentLevel++;
                                 isOnTransitionScreen = true;
                                 Pause_Menu.gameIsPaused = true;
                             }
@@ -158,7 +160,7 @@ namespace Cheatscape
 
         public static void Play(GameTime gameTime)
         {
-            if (!playedThrough && !FindingCheat && Pause_Menu.gameIsPaused == false)
+            if (!playedThrough && !FindingCheat && Pause_Menu.gameIsPaused == false && isOnFirstTransitionScreen == false)
             {
                 if (prevGameTime < gameTime.ElapsedGameTime.TotalSeconds)
                 {
@@ -184,8 +186,18 @@ namespace Cheatscape
                 {
                     playedThrough = true;
                 }
-
             }
+
+            if (CurrentLevel == 0 && exitedFirstTransitionScreen < 1 && CurrentBundle != 0)
+            {
+                isOnFirstTransitionScreen = true;
+            }
+            if (isOnFirstTransitionScreen == true && Input_Manager.KeyPressed(Keys.Enter))
+            {
+                isOnFirstTransitionScreen = false;
+                exitedFirstTransitionScreen = 1;
+            }
+
             if (isOnTransitionScreen == true && Input_Manager.KeyPressed(Keys.Enter))
             {
                 isOnTransitionScreen = false;
@@ -195,7 +207,7 @@ namespace Cheatscape
                 unlockedHints = -1;
                 displayingHint = false;
                 rating += 100;
-                CurrentLevel++;
+                exitedFirstTransitionScreen = 0;
                 File_Manager.LoadLevel();
                 Hint_File_Manager.LoadHints();
             }
@@ -231,9 +243,9 @@ namespace Cheatscape
             }
 
             if (isOnTransitionScreen == false)
-                Text_Manager.DrawText(Convert.ToString("Turn counter: " + File_Manager.turnCounter), (int)(Global_Info.AccessWindowSize.X / Global_Info.AccessScreenScale) - 450, 10, aSpriteBatch);
+                Text_Manager.DrawText(Convert.ToString("Turn counter: " + CurrentLevel), (int)(Global_Info.AccessWindowSize.X / Global_Info.AccessScreenScale) - 450, 10, aSpriteBatch);
 
-            if (isOnTransitionScreen)
+            if (isOnTransitionScreen || isOnFirstTransitionScreen)
                 Level_Transition.Draw(aSpriteBatch);
 
             if (Options_Menu.AccessControlView == true && isOnTransitionScreen == false)
