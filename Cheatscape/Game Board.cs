@@ -13,7 +13,6 @@ namespace Cheatscape
         static List<Chess_Piece> CapturedBlackPieces = new List<Chess_Piece>();
         public static Vector2 BoardPosition = new Vector2(Global_Info.AccessWindowSize.X / 4 - 128, Global_Info.AccessWindowSize.Y / 4 - 128);
         static int TileSize = 32;
-        public static string specialRules;
 
         public static Chess_Piece[,] AccessChessPiecesOnBoard { get => ChessPiecesOnBoard; set => ChessPiecesOnBoard = value; }
         public static Vector2 AccessBoardPosition { get => BoardPosition; set => BoardPosition = value; }
@@ -71,7 +70,7 @@ namespace Cheatscape
                     switch (Level_Manager.AccessAllMoves[i][j].MyMoveType)
                     {
                         case Chess_Move.MoveType.SpecialRule:
-                            specialRules = Level_Manager.AccessAllMoves[i][j].ToString();
+                            Level_Transition.specialRule = Level_Manager.AccessAllMoves[i][j].myText.ToLower();
                             break;
                         case Chess_Move.MoveType.AnswerCheat:
                             Level_Manager.AccessAllAnswers.Add(new Tuple<Chess_Move, int>(Level_Manager.AccessAllMoves[i][j], i + 1));

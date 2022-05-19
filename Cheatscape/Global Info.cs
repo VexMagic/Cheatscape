@@ -27,10 +27,10 @@ namespace Cheatscape
         public static void Load()
         {
             Hint_File_Manager.LoadHints();
-            Level_Transition.Load();
             Global_Tracker.LoadCompletedBundles();
             Pause_Menu.Load();
             Game_Board.Load();
+            Level_Transition.Load();
             Music_Player.Load();
             //File_Manager.LoadLevel();
             Main_Menu.Load();

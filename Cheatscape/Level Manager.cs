@@ -243,16 +243,16 @@ namespace Cheatscape
             }
 
             if (isOnTransitionScreen == false)
-                Text_Manager.DrawText(Convert.ToString("Turn counter: " + CurrentLevel), (int)(Global_Info.AccessWindowSize.X / Global_Info.AccessScreenScale) - 450, 10, aSpriteBatch);
+                Text_Manager.DrawText(Convert.ToString("Turn counter: " + File_Manager.turnCounter), (int)(Global_Info.AccessWindowSize.X / Global_Info.AccessScreenScale) - 450, 10, aSpriteBatch);
 
             if (isOnTransitionScreen || isOnFirstTransitionScreen)
                 Level_Transition.Draw(aSpriteBatch);
 
-            if (Options_Menu.AccessControlView == true && isOnTransitionScreen == false)
+            if (Options_Menu.AccessControlView == true && isOnTransitionScreen == false && isOnFirstTransitionScreen == false)
             Text_Manager.DrawText(Convert.ToString("Current rating: " + rating), (int)(Global_Info.AccessWindowSize.X / Global_Info.AccessScreenScale) - 300, 10
                         , aSpriteBatch);
 
-            if (Options_Menu.AccessControlView == true && isOnTransitionScreen == false)
+            if (Options_Menu.AccessControlView == true && isOnTransitionScreen == false && isOnFirstTransitionScreen == false)
             {
                 if (FindingCheat)
                 {

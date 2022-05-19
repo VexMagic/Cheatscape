@@ -11,6 +11,7 @@ namespace Cheatscape
     static class Level_Transition
     {
         static Texture2D transitionScreen;
+        public static string specialRule;
 
         public static void Load()
         {
@@ -22,7 +23,7 @@ namespace Cheatscape
             aSpriteBatch.Draw(transitionScreen, new Rectangle(0, 0, (int)(Global_Info.WindowSize.X / Global_Info.AccessScreenScale), (int)(Global_Info.WindowSize.Y / Global_Info.AccessScreenScale)), Color.White);
             
             Text_Manager.DrawLargeText("Level: " + Level_Manager.CurrentBundle + "-" + Level_Manager.CurrentLevel, 300 - ((int)Text_Manager.LargeFont.MeasureString("Level: 0-0").Length() / 2), 90, aSpriteBatch);
-            Text_Manager.DrawText("Special rules: " + Game_Board.specialRules, 130, 140, aSpriteBatch);
+            Text_Manager.DrawText("Special rules: " + specialRule, 130, 140, aSpriteBatch);
             Text_Manager.DrawLargeText("Press Enter to begin", 300 - ((int)Text_Manager.LargeFont.MeasureString("Press Enter to begin").Length() / 2), 235, aSpriteBatch);
         }
     }
