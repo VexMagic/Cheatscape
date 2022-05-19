@@ -62,6 +62,13 @@ namespace Cheatscape
                         {
                             Transition.StartTransition(Transition.TransitionState.ToLvSelect);
                         }
+
+                        if (Level_Manager.AccessRating > 
+                            Level_Select_Menu.AccessHighScores[Level_Select_Menu.SelectedBundleX + Level_Select_Menu.SelectedBundleY * 5])
+                        {
+                            Level_Select_Menu.AccessHighScores[Level_Select_Menu.SelectedBundleX + Level_Select_Menu.SelectedBundleY * 5] =
+                                Level_Manager.AccessRating;
+                        }
                     }
                     else
                     {

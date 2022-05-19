@@ -58,6 +58,7 @@ namespace Cheatscape
                     }
                     Main_Menu.Update(gameTime);
                     Transition.Update(gameTime);
+
                     break;
                 case GameState.PlayingLevel:
                     if (!Transition.transitioning && !End_Screen.AccessIsEnded)

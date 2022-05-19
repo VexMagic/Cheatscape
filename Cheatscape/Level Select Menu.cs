@@ -24,6 +24,9 @@ namespace Cheatscape
 
         public static bool optionHighlight = false;
 
+        static List<float> highScores;
+        public static List<float> AccessHighScores { get => highScores; set => highScores = value; }
+
         public static void Load()
         {
             PanelTex = Global_Info.AccessContentManager.Load<Texture2D>("Level Panel");
@@ -32,6 +35,13 @@ namespace Cheatscape
             Bg1Tex = Global_Info.AccessContentManager.Load<Texture2D>("Background");
             optionButtonTex = Global_Info.AccessContentManager.Load<Texture2D>("OptionsButton");
             optionHighlightTex = Global_Info.AccessContentManager.Load<Texture2D>("OptionsButtonHighlight");
+
+            highScores = new List<float>();
+
+            for (int i = 0; i < 10; i++)
+            {
+                highScores.Add(0);
+            }
         }
 
         public static void Update()
@@ -103,6 +113,7 @@ namespace Cheatscape
                 {
                     aSpriteBatch.Draw(NumbersTex, new Rectangle(55 + j * 100, 55 + i * 75, 9, 5), new Rectangle(9 * j + i * 45, 0, 9, 5), Color.White, 0, new Vector2(0, 0), SpriteEffects.None, 0);
                     aSpriteBatch.Draw(PanelTex, new Vector2(50 + j * 100, 50 + i * 75), Color.White);
+                    Text_Manager.DrawText(highScores[j + i * 5].ToString(), 55 + j * 100, 99 + i * 75, aSpriteBatch);
                 }
             }
 
