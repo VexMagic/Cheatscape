@@ -257,54 +257,54 @@ namespace Cheatscape
             }
         }
 
-        public static void GenerateFogOfWar(int distance, int mode)
-        {
-            fogOfWar = new bool[8, 8];
+        //public static void GenerateFogOfWar(int distance, int mode)
+        //{
+        //    fogOfWar = new bool[8, 8];
 
-            fogOfWarMode = mode;
-            fogOfWarDistance = distance;
+        //    fogOfWarMode = mode;
+        //    fogOfWarDistance = distance;
 
-            if (mode == 1) //From the Left
-            {
-                for (int y = 0; y < 8; y++)
-                {
-                    for (int x = 0; x < distance; x++)
-                    {
-                        fogOfWar[x, y] = true;
-                    }
-                }
-            }
-            else if (mode == 2) //From the Right
-            {
-                for (int y = 0; y < 8; y++)
-                {
-                    for (int x = 8 - distance; x < 8; x++)
-                    {
-                        fogOfWar[x, y] = true;
-                    }
-                }
-            }
-            else if (mode == 3) //From the Top
-            {
-                for (int y = 0; y < distance; y++)
-                {
-                    for (int x = 0; x < 8; x++)
-                    {
-                        fogOfWar[x, y] = true;
-                    }
-                }
-            }
-            else if (mode == 4) //from the Bottom
-            {
-                for (int y = 8 - distance; y < 8; y++)
-                {
-                    for (int x = 0; x < 8; x++)
-                    {
-                        fogOfWar[x, y] = true;
-                    }
-                }
-            }
-        }
+        //    if (mode == 1) //From the Left
+        //    {
+        //        for (int y = 0; y < 8; y++)
+        //        {
+        //            for (int x = 0; x < distance; x++)
+        //            {
+        //                fogOfWar[x, y] = true;
+        //            }
+        //        }
+        //    }
+        //    else if (mode == 2) //From the Right
+        //    {
+        //        for (int y = 0; y < 8; y++)
+        //        {
+        //            for (int x = 8 - distance; x < 8; x++)
+        //            {
+        //                fogOfWar[x, y] = true;
+        //            }
+        //        }
+        //    }
+        //    else if (mode == 3) //From the Top
+        //    {
+        //        for (int y = 0; y < distance; y++)
+        //        {
+        //            for (int x = 0; x < 8; x++)
+        //            {
+        //                fogOfWar[x, y] = true;
+        //            }
+        //        }
+        //    }
+        //    else if (mode == 4) //from the Bottom
+        //    {
+        //        for (int y = 8 - distance; y < 8; y++)
+        //        {
+        //            for (int x = 0; x < 8; x++)
+        //            {
+        //                fogOfWar[x, y] = true;
+        //            }
+        //        }
+        //    }
+        //}
 
         public static void Draw(SpriteBatch aSpriteBatch)
         {
