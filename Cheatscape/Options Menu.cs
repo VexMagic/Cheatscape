@@ -21,36 +21,37 @@ namespace Cheatscape
         static Vector2 HighLightEdgeSize = new Vector2(36, 34);
         static Vector2 HighLightMidSize = new Vector2(32, 34);
 
-        static int OptionIndex = 1;
+        public static int OptionIndex = 1;
         static int OptionAmount = 5;
-        static Color HighLightColor = Color.White;
+        public static Color HighLightColor = Color.White;
 
-        enum SelectedOption { None, Resolution, ViewControls, MusicVolume, SFXVolume };
+        public enum SelectedOption { None, FullScreen, ViewControls, MusicVolume, SFXVolume };
         static SelectedOption selectedOption = SelectedOption.None;
+        public static SelectedOption AccessSelectedOption { get => selectedOption; set => selectedOption = value; }
 
         //Screen Size
-        static int FullScreenIndex = 0;
-        static int FullScreenAmount = 1;
+        public static int FullScreenIndex = 0;
+        public static int FullScreenAmount = 1;
         static bool FullScreenHighLight = false;
         static string FullScreenOnOff = "OFF";
 
         //View Controls
-        static int ViewControlsIndex = 1;
-        static int ViewControlsAmount = 1;
+        public static int ViewControlsIndex = 1;
+        public static int ViewControlsAmount = 1;
         static bool ViewControlsHighLight = false;
         static bool showControls = true;
         static string ViewControlsOnOff = "ON";
         public static bool AccessControlView { get => showControls; set => showControls = value; }
 
         //Music Volume
-        static int MusicVolumeIndex = 5;
-        static int MusicVolumeAmount = 10;
+        public static int MusicVolumeIndex = 5;
+        public static int MusicVolumeAmount = 10;
         static bool MusicVolumeHighLight = false;
         static string MusicVolumePercent = "50%";
 
         //SFX Volume
-        static int SFXVolumeIndex = 5;
-        static int SFXVolumeAmount = 10;
+        public static int SFXVolumeIndex = 5;
+        public static int SFXVolumeAmount = 10;
         static bool SFXVolumeHighLight = false;
         static string SFXVolumePercent = "50%";
 
@@ -77,6 +78,9 @@ namespace Cheatscape
                         FullScreenHighLight = true;
 
                         ViewControlsHighLight = false;
+                        MusicVolumeHighLight = false;
+                        SFXVolumeHighLight = false;
+                        backHighLight = false;
                     }
                     else if (OptionIndex == 2)
                     {
@@ -84,18 +88,24 @@ namespace Cheatscape
 
                         FullScreenHighLight = false;
                         MusicVolumeHighLight = false;
+                        SFXVolumeHighLight = false;
+                        backHighLight = false;
                     }
                     else if (OptionIndex == 3)
                     {
                         MusicVolumeHighLight = true;
 
+                        FullScreenHighLight = false;
                         ViewControlsHighLight = false;
                         SFXVolumeHighLight = false;
+                        backHighLight = false;
                     }
                     else if (OptionIndex == 4)
                     {
                         SFXVolumeHighLight = true;
 
+                        FullScreenHighLight = false;
+                        ViewControlsHighLight = false;
                         MusicVolumeHighLight = false;
                         backHighLight = false;
                     }
@@ -103,6 +113,9 @@ namespace Cheatscape
                     {
                         backHighLight = true;
 
+                        FullScreenHighLight = false;
+                        ViewControlsHighLight = false;
+                        MusicVolumeHighLight = false;
                         SFXVolumeHighLight = false;
                     }
                     
@@ -118,7 +131,7 @@ namespace Cheatscape
                     {
                         if (OptionIndex == 1)
                         {
-                            selectedOption = SelectedOption.Resolution;
+                            selectedOption = SelectedOption.FullScreen;
                         }
                         else if (OptionIndex == 2)
                         {
@@ -145,19 +158,18 @@ namespace Cheatscape
 
                     break;
 
-                case SelectedOption.Resolution:
+                case SelectedOption.FullScreen:
+
+                    if (FullScreenIndex == 0) { FullScreenOnOff = "OFF"; }
+                    else if (FullScreenIndex == 1) { FullScreenOnOff = "ON"; }
 
                     if (Input_Manager.KeyPressed(Keys.Left) && FullScreenIndex > 0)
                     {
                         FullScreenIndex--;
-
-                        FullScreenOnOff = "OFF";
                     }
                     else if (Input_Manager.KeyPressed(Keys.Right) && FullScreenIndex < FullScreenAmount)
                     {
                         FullScreenIndex++;
-
-                        FullScreenOnOff = "ON";
                     }
                     else if (Input_Manager.KeyPressed(Keys.Space))
                     {
@@ -178,17 +190,16 @@ namespace Cheatscape
                     break;
                 case SelectedOption.ViewControls:
 
+                    if (ViewControlsIndex == 0) { ViewControlsOnOff = "OFF"; AccessControlView = false; }
+                    else if (ViewControlsIndex == 1) { ViewControlsOnOff = "ON"; AccessControlView = true; }
+
                     if (Input_Manager.KeyPressed(Keys.Right) && ViewControlsIndex < ViewControlsAmount)
                     {
                         ViewControlsIndex++;
-                        ViewControlsOnOff = "ON";
-                        AccessControlView = true;
                     }
                     else if (Input_Manager.KeyPressed(Keys.Left) && ViewControlsIndex > 0)
                     {
                         ViewControlsIndex--;
-                        ViewControlsOnOff = "OFF";
-                        AccessControlView = false;
                     }
                     else if (Input_Manager.KeyPressed(Keys.Space))
                     {
@@ -199,22 +210,19 @@ namespace Cheatscape
 
                     break;
                 case SelectedOption.MusicVolume:
-                    
+
+                    MusicVolumePercent = (MusicVolumeIndex * 10).ToString() + "%";
+
+                    float newMVol = MusicVolumeIndex / 10f;
+                    MediaPlayer.Volume = newMVol;
+
                     if (Input_Manager.KeyPressed(Keys.Right) && MusicVolumeIndex < MusicVolumeAmount)
                     {
                         MusicVolumeIndex++;
-                        MusicVolumePercent = (MusicVolumeIndex * 10).ToString() + "%";
-
-                        float newVol = MusicVolumeIndex / 10f;
-                        MediaPlayer.Volume = newVol;
                     }
                     else if (Input_Manager.KeyPressed(Keys.Left) && MusicVolumeIndex > 0)
                     {
                         MusicVolumeIndex--;
-                        MusicVolumePercent = (MusicVolumeIndex * 10).ToString() + "%";
-
-                        float newVol = MusicVolumeIndex / 10f;
-                        MediaPlayer.Volume = newVol;
                     }
                     else if (Input_Manager.KeyPressed(Keys.V))
                     {
@@ -230,30 +238,25 @@ namespace Cheatscape
                         
                         selectedOption = SelectedOption.None;
 
-                        if (MediaPlayer.State == MediaState.Playing)
-                        {
-                            Music_Player.StopMusic();
-                        }
+                        Music_Player.StopMusic();
                     }
 
                     break;
                 case SelectedOption.SFXVolume:
 
+
+                    SFXVolumePercent = (SFXVolumeIndex * 10).ToString() + "%";
+
+                    float newSVol = SFXVolumeIndex / 10f;
+                    SoundEffect.MasterVolume = newSVol;
+
                     if (Input_Manager.KeyPressed(Keys.Right) && SFXVolumeIndex < SFXVolumeAmount)
                     {
                         SFXVolumeIndex++;
-                        SFXVolumePercent = (SFXVolumeIndex * 10).ToString() + "%";
-
-                        float newVol = SFXVolumeIndex / 10f;
-                        SoundEffect.MasterVolume = newVol;
                     }
                     else if (Input_Manager.KeyPressed(Keys.Left) && SFXVolumeIndex > 0)
                     {
                         SFXVolumeIndex--;
-                        SFXVolumePercent = (SFXVolumeIndex * 10).ToString() + "%";
-
-                        float newVol = SFXVolumeIndex / 10f;
-                        SoundEffect.MasterVolume = newVol;
                     }
                     else if (Input_Manager.KeyPressed(Keys.V))
                     {
