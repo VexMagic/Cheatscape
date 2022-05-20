@@ -37,6 +37,18 @@
 /processorParam:TextureFormat=Color
 /build:Background.png
 
+#begin Banner Arrows.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Banner Arrows.png
+
 #begin Check Art.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -108,6 +120,18 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:ExitButton.png
+
+#begin FogOfWar.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:FogOfWar.png
 
 #begin Font.spritefont
 /importer:FontDescriptionImporter
@@ -188,6 +212,18 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:LevelPanelHighlight.png
+
+#begin Light Bulb.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Light Bulb.png
 
 #begin Main_Menu.png
 /importer:TextureImporter
@@ -614,6 +650,18 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Selector.png
+
+#begin Slide Buttons.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Slide Buttons.png
 
 #begin Song1.mp3
 /importer:Mp3Importer
