@@ -286,7 +286,7 @@ namespace Cheatscape
             }
 
             if (isOnTransitionScreen == false)
-                Text_Manager.DrawText(Convert.ToString("Turn counter: " + CurrentLevel), (int)(Global_Info.AccessWindowSize.X / Global_Info.AccessScreenScale) - 450, 10, aSpriteBatch);
+                Text_Manager.DrawText(Convert.ToString("Turn counter: " + File_Manager.turnCounter), (int)(Global_Info.AccessWindowSize.X / Global_Info.AccessScreenScale) - 450, 10, aSpriteBatch);
 
             if (isOnTransitionScreen || isOnFirstTransitionScreen)
                 Level_Transition.Draw(aSpriteBatch);
