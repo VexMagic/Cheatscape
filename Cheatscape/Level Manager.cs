@@ -107,10 +107,17 @@ namespace Cheatscape
                                 AllAnswers[i].Item1.myRule.Y == Rules_List.AccessCurrentRule &&
                                 AllAnswers[i].Item2 == CurrentSlide)
                             {
-                                Game_Board.SetBoardState();
+                                playedThrough = false;
+                                currentHint = -1;
+                                unlockedHints = -1;
+                                displayingHint = false;
+                                rating += 100;
                                 CurrentLevel++;
-                                Level_Transition.LoadSpecialRule();
+                                File_Manager.LoadLevel();
+                                Hint_File_Manager.LoadHints();
                                 Pause_Menu.gameIsPaused = true;
+                                Level_Transition.LoadSpecialRule();
+                                isOnFirstTransitionScreen = true;
                             }
                             else if (Rules_List.AccessCurrentRule != Rules_List.GetList().Length)
                             {
@@ -219,16 +226,7 @@ namespace Cheatscape
                     AllAnswers[i].Item1.myRule.Y == Rules_List.AccessCurrentRule &&
                     AllAnswers[i].Item2 == CurrentSlide)
                 {
-                    playedThrough = false;
-                    currentHint = -1;
-                    unlockedHints = -1;
-                    displayingHint = false;
-                    rating += 100;
-                    CurrentLevel++;
-                    File_Manager.LoadLevel();
-                    Hint_File_Manager.LoadHints();
-                    Pause_Menu.gameIsPaused = true;
-                    isOnFirstTransitionScreen = true;
+
                 }
                 else if (Rules_List.AccessCurrentRule != Rules_List.GetList().Length)
                 {
