@@ -26,6 +26,7 @@ namespace Cheatscape
 
         public static void Load()
         {
+            Hint_File_Manager.LoadHints();
             Level_Transition.Load();
             Global_Tracker.LoadCompletedBundles();
             Pause_Menu.Load();
@@ -62,6 +63,7 @@ namespace Cheatscape
                 case GameState.PlayingLevel:
                     if (!Transition.transitioning && !End_Screen.AccessIsEnded)
                     {
+                        Level_Manager.Play(gameTime);
                         Level_Manager.Update();
                         Hand_Animation_Manager.Update();
                     }
@@ -97,8 +99,8 @@ namespace Cheatscape
                     Level_Manager.Draw(aSpriteBatch);
                     Text_Manager.DrawTutorialBox(aSpriteBatch);                   
                     Pause_Menu.Draw(aSpriteBatch);
-                    End_Screen.Draw(aSpriteBatch);
                     Transition.Draw(aSpriteBatch);
+                    End_Screen.Draw(aSpriteBatch);
                     Mouse_Controller.LevelDraw(aSpriteBatch);
                     break;
                 case GameState.Options:

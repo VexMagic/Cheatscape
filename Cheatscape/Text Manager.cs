@@ -11,7 +11,7 @@ namespace Cheatscape
         static SpriteFont Font;
         public static SpriteFont LargeFont;
         static Texture2D Background;
-        static Texture2D TextBoarder;
+        public static Texture2D TextBoarder;
         static Texture2D RuleSelector;
         static Texture2D ScrollBar;
 
@@ -21,7 +21,7 @@ namespace Cheatscape
         public static bool IsTextCentered = false;
 
         public enum TextStyle { Standard, DropShadow, Boarder, Blood}
-        public static TextStyle CurrentTextStyle = TextStyle.Standard;
+        public static TextStyle CurrentTextStyle = TextStyle.Boarder;
 
         public static string TutorialText;
 
@@ -68,6 +68,10 @@ namespace Cheatscape
 
         public static void DrawLargeText(string aString, int anXPos, int aYPos, SpriteBatch aSpriteBatch) //draw white text
         {
+            aSpriteBatch.DrawString(LargeFont, aString, new Vector2(anXPos + 1, aYPos), Color.Black);
+            aSpriteBatch.DrawString(LargeFont, aString, new Vector2(anXPos, aYPos + 1), Color.Black);
+            aSpriteBatch.DrawString(LargeFont, aString, new Vector2(anXPos, aYPos - 1), Color.Black);
+            aSpriteBatch.DrawString(LargeFont, aString, new Vector2(anXPos - 1, aYPos), Color.Black);
             aSpriteBatch.DrawString(LargeFont, aString, new Vector2(anXPos, aYPos), Color.White);
         }
 
@@ -214,13 +218,8 @@ namespace Cheatscape
 
         public static void DrawTutorialBox(SpriteBatch aSpriteBatch)
         {
-            if (TutorialText != "" && TutorialText != null)
+            if (TutorialText != "" && TutorialText != null && Level_Manager.isOnTransitionScreen == false)
                 DrawTextBox(TutorialText, TutorialPosition, TextBoarder, aSpriteBatch, true);
-        }
-
-        public static void DrawTurnCounter(SpriteBatch aSpriteBatch)
-        {
-            DrawTextBox("Turns left: " + File_Manager.turnCounter,Game_Board.BoardPosition-new Vector2(TextBoarder.Width/2,TextBoarder.Height+12), TextBoarder, aSpriteBatch);
         }
 
         public static List<string> SeparateText(string aString)

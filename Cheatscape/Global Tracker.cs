@@ -4,12 +4,13 @@ using System.IO;
 using System.Text;
 using System.Linq;
 using System.Text.RegularExpressions;
+using System.Runtime.CompilerServices;
 
 namespace Cheatscape
 {
     static class Global_Tracker
     {
-        public static List<(int, float)> completedBundels = new List<(int, float)>();
+        public static List<Tuple<int, float>> completedBundels = new List<Tuple<int, float>>();
         public static char[] MyChar = { '(', ')', ' ' };
 
         public static void Deconstruct<T>(this IList<T> completedBundels, out T first, out T second, out IList<T> rest)
@@ -20,7 +21,7 @@ namespace Cheatscape
         }
         public static void AddCompletedLevel(int completedBundle, float grade) //Add Text to file
         {
-            completedBundels.Add((completedBundle, grade));
+            completedBundels.Add(new Tuple<int, float>(completedBundle, grade));
 
             File.WriteAllText(@"..\..\..\Text_Files\Global_Tracker.txt", String.Empty);
 
@@ -43,7 +44,7 @@ namespace Cheatscape
                 int bundleID = Int32.Parse(firstConverted);
                 float grade = float.Parse(secondConverted);
 
-                completedBundels.Add((bundleID, grade));
+                completedBundels.Add(new Tuple<int, float>(bundleID, grade));
             }
         }
     }

@@ -152,6 +152,12 @@
 /processorParam:TextureFormat=Color
 /build:Hands.png
 
+#begin Holding Out for a Hero Eurobeat Remix.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:Holding Out for a Hero Eurobeat Remix.mp3
+
 #begin LargeFont.spritefont
 /importer:FontDescriptionImporter
 /processor:FontDescriptionProcessor
@@ -194,6 +200,18 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:LevelPanelHighlight.png
+
+#begin Light Bulb.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Light Bulb.png
 
 #begin Main_Menu.png
 /importer:TextureImporter

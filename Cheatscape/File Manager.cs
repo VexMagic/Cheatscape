@@ -40,8 +40,8 @@ namespace Cheatscape
 
             catch
             {
-                End_Screen.AccessIsEnded = true;
-                End_Screen.AccessCleared = true;
+                Transition.StartTransition(Transition.TransitionState.ToLvSelect);
+                //Global_Info.AccessCurrentGameState = Global_Info.GameState.LevelSelect;
             }
         }
 
