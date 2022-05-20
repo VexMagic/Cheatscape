@@ -98,7 +98,9 @@ namespace Cheatscape
                                 if (!Pause_Menu.gameIsPaused)
                                 {
                                     Level_Manager.AccessCurrentBundle = Level_Select_Menu.SelectedBundleX + Level_Select_Menu.SelectedBundleY * 5;
+                                    Level_Manager.AccessRating = 1000;
                                     File_Manager.LoadLevel();
+                                    Hint_File_Manager.LoadHints();
                                 }
                                 
                             }

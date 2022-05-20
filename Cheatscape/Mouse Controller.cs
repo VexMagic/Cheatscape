@@ -20,6 +20,8 @@ namespace Cheatscape
         public static List<Rectangle> RuleBoxes = new List<Rectangle>();
         static Texture2D TileSelect;
         static Vector2 SelectedTile;
+        public static Rectangle[] optionRects = { new Rectangle(263, 45, 64, 24), new Rectangle(263, 95, 64, 24), new Rectangle(200, 145, 192, 24), 
+            new Rectangle(200, 195, 192, 24), new Rectangle(284, 245, 32, 32) };
         static int SelectedRule = 100;
 
         public static void Load()
@@ -66,6 +68,7 @@ namespace Cheatscape
                         Main_Menu.animating = true;
                     break;
                 case Global_Info.GameState.Options:
+                    OptionUpdate();
                     break;
             }
         }
@@ -220,6 +223,149 @@ namespace Cheatscape
                 {
                     Rules_List.AccessCurrentRule++;
                 }
+            }
+        }
+
+        public static void OptionUpdate()
+        {
+            switch (Options_Menu.AccessSelectedOption)
+            {
+                case Options_Menu.SelectedOption.None:
+
+                    if (optionRects[0].Contains(MousePosition))
+                    {
+                        Options_Menu.OptionIndex = 1;
+                    }
+                    else if (optionRects[1].Contains(MousePosition))
+                    {
+                        Options_Menu.OptionIndex = 2;
+                    }
+                    else if (optionRects[2].Contains(MousePosition))
+                    {
+                        Options_Menu.OptionIndex = 3;
+                    }
+                    else if (optionRects[3].Contains(MousePosition))
+                    {
+                        Options_Menu.OptionIndex = 4;
+                    }
+                    else if (optionRects[4].Contains(MousePosition))
+                    {
+                        Options_Menu.OptionIndex = 5;
+                    }
+
+                    if (CurrentMS.LeftButton == ButtonState.Pressed && PreviousMS.LeftButton == ButtonState.Released)
+                    {
+                        if (Options_Menu.OptionIndex == 1 && optionRects[0].Contains(MousePosition))
+                        {
+                            Options_Menu.AccessSelectedOption = Options_Menu.SelectedOption.FullScreen;
+                        }
+                        else if (Options_Menu.OptionIndex == 2 && optionRects[1].Contains(MousePosition))
+                        {
+                            Options_Menu.AccessSelectedOption = Options_Menu.SelectedOption.ViewControls;
+                        }
+                        else if (Options_Menu.OptionIndex == 3 && optionRects[2].Contains(MousePosition))
+                        {
+                            Options_Menu.AccessSelectedOption = Options_Menu.SelectedOption.MusicVolume;
+                        }
+                        else if (Options_Menu.OptionIndex == 4 && optionRects[3].Contains(MousePosition))
+                        {
+                            Options_Menu.AccessSelectedOption = Options_Menu.SelectedOption.SFXVolume;
+                        }
+                        else if (Options_Menu.OptionIndex == 5 && optionRects[4].Contains(MousePosition))
+                        {
+                            Transition.StartTransition(Transition.AccessNextTransitionState);
+                        }
+                    }
+
+                    if (Options_Menu.AccessSelectedOption != Options_Menu.SelectedOption.None)
+                    {
+                        Options_Menu.HighLightColor = Color.Blue;
+                    }
+
+                    break;
+                case Options_Menu.SelectedOption.FullScreen:
+
+                    if (CurrentMS.LeftButton == ButtonState.Released && PreviousMS.LeftButton == ButtonState.Pressed)
+                    {
+                        Options_Menu.AccessSelectedOption = Options_Menu.SelectedOption.None;
+
+                        Options_Menu.HighLightColor = Color.White;
+
+                        if (Options_Menu.FullScreenIndex > 0)
+                        {
+                            Game1.ControlFullScreen(true);
+                        }
+                        else
+                        {
+                            Game1.ControlFullScreen(false);
+                        }
+                    }
+                    else if (MousePosition.X - 32 > 263 + Options_Menu.FullScreenIndex * 32 && Options_Menu.FullScreenIndex < Options_Menu.FullScreenAmount)
+                    {
+                        Options_Menu.FullScreenIndex++;
+                    }
+                    else if (MousePosition.X < 263 + Options_Menu.FullScreenIndex * 32 && Options_Menu.FullScreenIndex > 0)
+                    {
+                        Options_Menu.FullScreenIndex--;
+                    }
+
+                    break;
+                case Options_Menu.SelectedOption.ViewControls:
+
+                    if (CurrentMS.LeftButton == ButtonState.Released && PreviousMS.LeftButton == ButtonState.Pressed)
+                    {
+                        Options_Menu.AccessSelectedOption = Options_Menu.SelectedOption.None;
+
+                        Options_Menu.HighLightColor = Color.White;
+                    }
+                    else if (MousePosition.X - 32 > 263 + Options_Menu.ViewControlsIndex * 32 && Options_Menu.ViewControlsIndex < Options_Menu.ViewControlsAmount)
+                    {
+                        Options_Menu.ViewControlsIndex++;
+                    }
+                    else if (MousePosition.X < 263 + Options_Menu.ViewControlsIndex * 32 && Options_Menu.ViewControlsIndex > 0)
+                    {
+                        Options_Menu.ViewControlsIndex--;
+                    }
+
+                    break;
+                case Options_Menu.SelectedOption.MusicVolume:
+
+                    if (CurrentMS.LeftButton == ButtonState.Released && PreviousMS.LeftButton == ButtonState.Pressed)
+                    {
+                        Options_Menu.AccessSelectedOption = Options_Menu.SelectedOption.None;
+
+                        Options_Menu.HighLightColor = Color.White;
+
+                        Music_Player.StopMusic();
+                    }
+                    else if (MousePosition.X - 32 > 200 + Options_Menu.MusicVolumeIndex * 16 && Options_Menu.MusicVolumeIndex < Options_Menu.MusicVolumeAmount)
+                    {
+                        Options_Menu.MusicVolumeIndex++;
+                    }
+                    else if (MousePosition.X < 200 + Options_Menu.MusicVolumeIndex * 16 && Options_Menu.MusicVolumeIndex > 0)
+                    {
+                        Options_Menu.MusicVolumeIndex--;
+                    }
+
+                    break;
+                case Options_Menu.SelectedOption.SFXVolume:
+
+                    if (CurrentMS.LeftButton == ButtonState.Released && PreviousMS.LeftButton == ButtonState.Pressed)
+                    {
+                        Options_Menu.AccessSelectedOption = Options_Menu.SelectedOption.None;
+
+                        Options_Menu.HighLightColor = Color.White;
+                    }
+                    else if (MousePosition.X - 32 > 200 + Options_Menu.SFXVolumeIndex * 16 && Options_Menu.SFXVolumeIndex < Options_Menu.SFXVolumeAmount)
+                    {
+                        Options_Menu.SFXVolumeIndex++;
+                    }
+                    else if (MousePosition.X < 200 + Options_Menu.SFXVolumeIndex * 16 && Options_Menu.SFXVolumeIndex > 0)
+                    {
+                        Options_Menu.SFXVolumeIndex--;
+                    }
+
+                    break;
             }
         }
 
