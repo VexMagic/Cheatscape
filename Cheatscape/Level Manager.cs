@@ -9,9 +9,6 @@ namespace Cheatscape
 {
     static class Level_Manager
     {
-        public static int timer = 60;
-        public static int prevGameTime = 0;
-        static bool playedThrough = false;
         public static int CurrentLevel = 0;
         public static int CurrentBundle = 0;
         static List<List<Chess_Move>> AllMoves = new List<List<Chess_Move>>();
@@ -43,7 +40,7 @@ namespace Cheatscape
 
             if (Pause_Menu.gameIsPaused == false)
             {
-                if (Input_Manager.KeyPressed(Keys.Left) && CurrentSlide > 1 && !FindingCheat && !isOnFirstTransitionScreen && rating > 0 && playedThrough)
+                if (Input_Manager.KeyPressed(Keys.Left) && CurrentSlide > 1 && !FindingCheat && !isOnFirstTransitionScreen && rating > 0)
                 {
                     ChangeSlide(false);
                 }
@@ -56,7 +53,7 @@ namespace Cheatscape
                     }
                     Rules_List.AccessCurrentRule = 0;
                 }
-                else if (Input_Manager.KeyPressed(Keys.Right) && CurrentSlide < AllMoves.Count && !FindingCheat && !isOnFirstTransitionScreen && rating > 0 && playedThrough)
+                else if (Input_Manager.KeyPressed(Keys.Right) && CurrentSlide < AllMoves.Count && !FindingCheat && !isOnFirstTransitionScreen && rating > 0)
                 {
                     ChangeSlide(true);
                 }
@@ -107,7 +104,6 @@ namespace Cheatscape
                                 AllAnswers[i].Item1.myRule.Y == Rules_List.AccessCurrentRule &&
                                 AllAnswers[i].Item2 == CurrentSlide)
                             {
-                                playedThrough = false;
                                 currentHint = -1;
                                 unlockedHints = -1;
                                 displayingHint = false;
@@ -158,41 +154,12 @@ namespace Cheatscape
 
         public static void Play(GameTime gameTime)
         {
-            if (!playedThrough && !FindingCheat && Pause_Menu.gameIsPaused == false && isOnFirstTransitionScreen == false)
-            {
-                if (prevGameTime < gameTime.ElapsedGameTime.TotalSeconds)
-                {
-                    timer++;
-                    prevGameTime = (int)gameTime.ElapsedGameTime.TotalSeconds;
-                }
-                if (CurrentSlide < AllMoves.Count)
-                {
-                    if (timer == 120)
-                    {
-                        Hand_Animation_Manager.ResetAllHands();
-                        File_Manager.turnCounter--;
-                        CurrentSlide++;
-                        Game_Board.SetBoardState();
-                        for (int i = 0; i < AllMoves[CurrentSlide - 1].Count; i++)
-                        {
-                            Game_Board.MakeAMove(AllMoves[CurrentSlide - 1][i], true);
-                        }
-                        timer = 0;
-                    }
-                }
-                else
-                {
-                    playedThrough = true;
-                }
-            }
-
 
             if (isOnFirstTransitionScreen == true && Input_Manager.KeyPressed(Keys.Enter))
             {
                 isOnFirstTransitionScreen = false;
                 Pause_Menu.gameIsPaused = false;
             }
-
         }
 
         public static void ChangeSlide(bool isMoveForward)
