@@ -27,7 +27,11 @@ namespace Cheatscape
 
         public enum SelectedOption { None, FullScreen, ViewControls, MusicVolume, SFXVolume };
         static SelectedOption selectedOption = SelectedOption.None;
-        public static SelectedOption AccessSelectedOption { get => selectedOption; set => selectedOption = value; }
+        public static SelectedOption AccessSelectedOption
+        {
+            get => selectedOption;
+            set => selectedOption = value;
+        }
 
         //Screen Size
         public static int FullScreenIndex = 0;
@@ -41,7 +45,11 @@ namespace Cheatscape
         static bool ViewControlsHighLight = false;
         static bool showControls = true;
         static string ViewControlsOnOff = "ON";
-        public static bool AccessControlView { get => showControls; set => showControls = value; }
+        public static bool AccessControlView 
+        {
+            get => showControls;
+            set => showControls = value;
+        }
 
         //Music Volume
         public static int MusicVolumeIndex = 5;
@@ -190,8 +198,16 @@ namespace Cheatscape
                     break;
                 case SelectedOption.ViewControls:
 
-                    if (ViewControlsIndex == 0) { ViewControlsOnOff = "OFF"; AccessControlView = false; }
-                    else if (ViewControlsIndex == 1) { ViewControlsOnOff = "ON"; AccessControlView = true; }
+                    if (ViewControlsIndex == 0) 
+                    { 
+                        ViewControlsOnOff = "OFF"; 
+                        AccessControlView = false; 
+                    }
+                    else if (ViewControlsIndex == 1) 
+                    { 
+                        ViewControlsOnOff = "ON"; 
+                        AccessControlView = true; 
+                    }
 
                     if (Input_Manager.KeyPressed(Keys.Right) && ViewControlsIndex < ViewControlsAmount)
                     {

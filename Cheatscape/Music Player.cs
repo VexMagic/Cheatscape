@@ -16,7 +16,7 @@ namespace Cheatscape
         static List<SoundEffect> soundEffects = new List<SoundEffect>();
         public static List<Song> songs = new List<Song>();
         static SoundEffect move1, move2, move3, move4, move5;
-        static Song song1, song2 , currentSong;
+        static Song song1, song2, currentSong;
 
         public static Song AccessCurrentSong { get => currentSong; set => currentSong = value; }
 

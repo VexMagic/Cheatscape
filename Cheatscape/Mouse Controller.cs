@@ -309,7 +309,7 @@ namespace Cheatscape
 
         public static bool LevelBool()
         {
-            if (Pause_Menu.gameIsPaused || End_Screen.AccessIsEnded)
+            if (Pause_Menu.gameIsPaused || End_Screen.AccessIsEnded || Level_Manager.isOnTransitionScreen || Level_Manager.isOnFirstTransitionScreen)
             {
                 return false;
             }

@@ -73,7 +73,6 @@ namespace Cheatscape
                     {
                         Game_Board.MakeAMove(AllMoves[CurrentSlide - 1][i], true);
                     }
-
                 }
                 else if (Input_Manager.KeyPressed(Keys.Right) && FindingCheat)
                 {
@@ -237,9 +236,7 @@ namespace Cheatscape
 
                     if (currentHint == 2)
                         Text_Manager.DrawText("< G", 508, 100, aSpriteBatch);
-
                 }
-
             }
 
             if (isOnTransitionScreen == false)

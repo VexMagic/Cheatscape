@@ -21,7 +21,7 @@ namespace Cheatscape
         static float timeSinceLastMove;
         static float timeBetweenMoves = 30f;
 
-        public enum TransitionState { ToOptions, ToLvSelect, ToLevel, InLevel };
+        public enum TransitionState { ToOptions, ToLvSelect, ToLevel };
         public static TransitionState transitionState, nextTransitionState;
 
         public static TransitionState AccessNextTransitionState { get => nextTransitionState; set => nextTransitionState = value; }
