@@ -44,20 +44,5 @@ namespace Cheatscape
                 //Global_Info.AccessCurrentGameState = Global_Info.GameState.LevelSelect;
             }
         }
-
-        public static void SaveTest() //save the winrate of each card
-        {
-            string tempDirectory = Directory.GetCurrentDirectory() + @"\Text Files\Level" + Level_Manager.AccessCurrentLevel + ".txt";
-
-            using (StreamWriter tempFileStream = File.CreateText(tempDirectory)) //skriver in i filen
-            {
-                AddText(tempFileStream, "A2;B2");
-            }
-        }
-        static void AddText(StreamWriter aStreamWriter, string aStringToAdd) //Add Text to file
-        {
-            char[] tempTextToWrite = aStringToAdd.ToCharArray();
-            aStreamWriter.WriteLine(tempTextToWrite, 0, tempTextToWrite.Length);
-        }
     }
 }

@@ -11,7 +11,6 @@ namespace Cheatscape
     static class Global_Tracker
     {
         public static List<Tuple<int, float>> completedBundels = new List<Tuple<int, float>>();
-        public static char[] MyChar = { '(', ')', ' ' };
 
         public static void Deconstruct<T>(this IList<T> completedBundels, out T first, out T second, out IList<T> rest)
         {

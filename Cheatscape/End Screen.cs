@@ -78,6 +78,7 @@ namespace Cheatscape
                         }
                         else if (endIndex == 1) //Retry
                         {
+                            Level_Manager.isOnFirstTransitionScreen = false;
                             Level_Manager.AccessCurrentLevel = 0;
                             Transition.StartTransition(Transition.TransitionState.ToLevel);
                         }
