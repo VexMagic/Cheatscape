@@ -70,7 +70,10 @@ namespace Cheatscape
                     switch (Level_Manager.AccessAllMoves[i][j].MyMoveType)
                     {
                         case Chess_Move.MoveType.SpecialRule:
-                            Level_Transition.specialRule = Level_Manager.AccessAllMoves[i][j].myText.ToLower();
+                            if (Level_Manager.CurrentLevel == 0)
+                            {
+                                Level_Transition.specialRule = Level_Manager.AccessAllMoves[i][j].myText.ToLower();
+                            }                        
                             break;
                         case Chess_Move.MoveType.AnswerCheat:
                             Level_Manager.AccessAllAnswers.Add(new Tuple<Chess_Move, int>(Level_Manager.AccessAllMoves[i][j], i + 1));

@@ -118,6 +118,7 @@ namespace Cheatscape
                                 AllAnswers[i].Item2 == CurrentSlide)
                             {
                                 CurrentLevel++;
+                                Level_Transition.LoadSpecialRule();
                                 isOnTransitionScreen = true;
                                 Pause_Menu.gameIsPaused = true;
                             }

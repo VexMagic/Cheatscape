@@ -1,4 +1,4 @@
-remove;f1,remove;b8,remove;d7,remove;h7,remove;e7,remove;b1,remove;d2,remove;e2,remove;h7,remove;h2,add;bn;c6,add;bp;d5,add;bp;h5,add;wn;c3,add;wp;d4,add;bp;e6,add;wp;e3,add;wb;f3,add;wp;h4,special rule;Detta r en speciel regel den r otroligt rare
+remove;f1,remove;b8,remove;d7,remove;h7,remove;e7,remove;b1,remove;d2,remove;e2,remove;h7,remove;h2,add;bn;c6,add;bp;d5,add;bp;h5,add;wn;c3,add;wp;d4,add;bp;e6,add;wp;e3,add;wb;f3,add;wp;h4,special rule;Special rule 1
 move;e3;e4,Answer;0-2
 move;d5;e4,Answer;0-2
 move;c3;e4,Answer;0-2

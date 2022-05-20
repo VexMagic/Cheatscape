@@ -18,7 +18,23 @@ namespace Cheatscape
             transitionScreen = Global_Info.AccessContentManager.Load<Texture2D>("Pause_Menu");
         }
 
-        public static void Draw(SpriteBatch aSpriteBatch)
+        public static void LoadSpecialRule()
+        {
+            for (int i = 0; i < Level_Manager.AccessAllMoves.Count; i++)
+            {
+                for (int j = 0; j < Level_Manager.AccessAllMoves[i].Count; j++)
+                {
+                    switch (Level_Manager.AccessAllMoves[i][j].MyMoveType)
+                    {
+                        case Chess_Move.MoveType.SpecialRule:
+                                specialRule = Level_Manager.AccessAllMoves[i][j].myText.ToLower();
+                            break;
+                    }
+                }
+            }
+        }
+
+            public static void Draw(SpriteBatch aSpriteBatch)
         {
             aSpriteBatch.Draw(transitionScreen, new Rectangle(0, 0, (int)(Global_Info.WindowSize.X / Global_Info.AccessScreenScale), (int)(Global_Info.WindowSize.Y / Global_Info.AccessScreenScale)), Color.White);
             
