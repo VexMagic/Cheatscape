@@ -117,6 +117,7 @@ namespace Cheatscape
                                 AllAnswers[i].Item1.myRule.Y == Rules_List.AccessCurrentRule &&
                                 AllAnswers[i].Item2 == CurrentSlide)
                             {
+                                Game_Board.SetBoardState();
                                 CurrentLevel++;
                                 Level_Transition.LoadSpecialRule();
                                 isOnTransitionScreen = true;
