@@ -11,6 +11,7 @@ namespace Cheatscape
         static SpriteFont Font;
         static Texture2D Banner;
         static Texture2D ImageBoarder;
+        static Texture2D lightBulb;
 
         static int CurrentRuleList = 0;
         static int CurrentRule = 0;
@@ -19,8 +20,9 @@ namespace Cheatscape
 
         public static int AmountOfRuleLists = 3;
         static int LastRule;
-        static Vector2 ImagePosition = new Vector2(5, 0);
-        static Vector2 BannerPosition = new Vector2(0, 101);
+        public static int ScrollBarWidth = 20;
+        static Vector2 ImagePosition = new Vector2(5 + ScrollBarWidth, 0);
+        static Vector2 BannerPosition = new Vector2(ScrollBarWidth, 101);
 
         public static List<Vector2> AllowedRules = new List<Vector2>();
 
@@ -54,6 +56,7 @@ namespace Cheatscape
             Font = Global_Info.AccessContentManager.Load<SpriteFont>("Font");
             Banner = Global_Info.AccessContentManager.Load<Texture2D>("Rules Banner");
             ImageBoarder = Global_Info.AccessContentManager.Load<Texture2D>("Rule Image Boarder");
+            lightBulb = Global_Info.AccessContentManager.Load<Texture2D>("Light Bulb");
         }
 
         public static void IncludeList(int aList)
@@ -203,14 +206,22 @@ namespace Cheatscape
             string[] tempArray = GetAllowedRules(CurrentRuleList);
             Text_Manager.DrawRuleBox(tempArray, aSpriteBatch);
 
+            if (Level_Manager.CurrentBundle != 0)
+            {
+                aSpriteBatch.Draw(lightBulb, new Vector2((int)Global_Info.AccessWindowSize.X / 2 - lightBulb.Width - 55, 10), Color.White);
+                Text_Manager.DrawText("Press H for a hint", 485, 60, aSpriteBatch);
+                Text_Manager.DrawText(2 - Level_Manager.unlockedHints +  " hints remaining", 485, 86, aSpriteBatch);
+                Text_Manager.DrawText("-100 rating", 495, 73, aSpriteBatch);
+            }
+
             aSpriteBatch.Draw(Banner, new Rectangle((int)BannerPosition.X, (int)BannerPosition.Y,
-                Text_Manager.MaximumTextBoxWidth + (int)(Text_Manager.RulesPosition.X * 2), 20),
-                new Rectangle(0, 0, Text_Manager.MaximumTextBoxWidth + (int)(Text_Manager.RulesPosition.X * 2), 20),
+                Text_Manager.MaximumTextBoxWidth + (int)((Text_Manager.RulesPosition.X - ScrollBarWidth) * 2), 20),
+                new Rectangle(0, 0, Text_Manager.MaximumTextBoxWidth + (int)((Text_Manager.RulesPosition.X - ScrollBarWidth) * 2), 20),
                 Color.White, 0, new Vector2(0, 0), SpriteEffects.None, 0);
 
             aSpriteBatch.Draw(Banner, new Rectangle((int)BannerPosition.X, (int)BannerPosition.Y + 20,
-                Text_Manager.MaximumTextBoxWidth + (int)(Text_Manager.RulesPosition.X * 2), 17),
-                new Rectangle(0, (CurrentRuleList * 17) + 20, Text_Manager.MaximumTextBoxWidth + (int)(Text_Manager.RulesPosition.X * 2), 17),
+                Text_Manager.MaximumTextBoxWidth + (int)((Text_Manager.RulesPosition.X - ScrollBarWidth) * 2), 17),
+                new Rectangle(0, (CurrentRuleList * 17) + 20, Text_Manager.MaximumTextBoxWidth + (int)((Text_Manager.RulesPosition.X - ScrollBarWidth) * 2), 17),
                 Color.White, 0, new Vector2(0, 0), SpriteEffects.None, 0);
 
             if (CurrentRule < GetList().Length)
@@ -257,7 +268,7 @@ namespace Cheatscape
             
         }
 
-        static int MaxScroll(string[] aStringArray)
+        public static int MaxScroll(string[] aStringArray)
         {
             int tempMaxScroll = 0 - (int)(Global_Info.AccessWindowSize.Y / Global_Info.AccessScreenScale);
 

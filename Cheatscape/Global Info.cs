@@ -26,6 +26,9 @@ namespace Cheatscape
 
         public static void Load()
         {
+            Hint_File_Manager.LoadHints();
+            Level_Transition.Load();
+            Global_Tracker.LoadCompletedBundles();
             Pause_Menu.Load();
             Game_Board.Load();
             Music_Player.Load();
@@ -37,11 +40,14 @@ namespace Cheatscape
             Text_Manager.Load();
             Options_Menu.Load();
             Transition.Load();
+            Mouse_Controller.Load();
+            End_Screen.Load();
         }
 
         public static void Update(GameTime gameTime)
         {
             Input_Manager.Update();
+            Mouse_Controller.Update();
 
             switch (CurrentGameState)
             {
@@ -52,15 +58,18 @@ namespace Cheatscape
                     }
                     Main_Menu.Update(gameTime);
                     Transition.Update(gameTime);
+
                     break;
                 case GameState.PlayingLevel:
-                    if (!Transition.transitioning)                
+                    if (!Transition.transitioning && !End_Screen.AccessIsEnded)
                     {
+                        Level_Manager.Play(gameTime);
                         Level_Manager.Update();
                         Hand_Animation_Manager.Update();
                     }
-                    Transition.Update(gameTime);
                     Pause_Menu.Update(gameTime);
+                    End_Screen.Update();
+                    Transition.Update(gameTime);
                     break;
                 case GameState.MainMenu:
                     Main_Menu.Update(gameTime);
@@ -88,10 +97,11 @@ namespace Cheatscape
                     Game_Board.Draw(aSpriteBatch);
                     Hand_Animation_Manager.Draw(aSpriteBatch);
                     Level_Manager.Draw(aSpriteBatch);
-                    Text_Manager.DrawTutorialBox(aSpriteBatch);
-                    Text_Manager.DrawTurnCounter(aSpriteBatch);
+                    Text_Manager.DrawTutorialBox(aSpriteBatch);                   
                     Pause_Menu.Draw(aSpriteBatch);
                     Transition.Draw(aSpriteBatch);
+                    End_Screen.Draw(aSpriteBatch);
+                    Mouse_Controller.LevelDraw(aSpriteBatch);
                     break;
                 case GameState.Options:
                     Options_Menu.Draw(aSpriteBatch);
