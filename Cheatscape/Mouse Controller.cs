@@ -91,13 +91,14 @@ namespace Cheatscape
 
             if (CurrentMS.LeftButton == ButtonState.Pressed && PreviousMS.LeftButton == ButtonState.Released)
             {
-                if (Level_Select_Menu.optionHighlight)
+                if (Level_Select_Menu.optionHighlight && OptionsButton.Contains(MousePosition))
                 {
                     Transition.AccessNextTransitionState = Transition.TransitionState.ToLvSelect;
 
                     Transition.StartTransition(Transition.TransitionState.ToOptions);
                 }
-                else
+                else if (!Level_Select_Menu.optionHighlight && 
+                    LevelButtons[Level_Select_Menu.SelectedBundleX, Level_Select_Menu.SelectedBundleY].Contains(MousePosition))
                 {
                     Music_Player.PlayMusic();
                     Level_Manager.AccessRating = 1000;
@@ -119,7 +120,7 @@ namespace Cheatscape
                 }
             }
 
-            if (CurrentMS.LeftButton == ButtonState.Pressed && PreviousMS.LeftButton == ButtonState.Released)
+            if (CurrentMS.LeftButton == ButtonState.Pressed && PreviousMS.LeftButton == ButtonState.Released && LevelBool())
             {
                 if (Level_Manager.FindingCheat && (ScrollButtons[0].Contains(MousePosition) || ScrollButtons[1].Contains(MousePosition)))
                 {
@@ -295,12 +296,25 @@ namespace Cheatscape
 
         public static void LevelDraw(SpriteBatch aSpriteBatch)
         {
-            if (SelectedTile.X != 100)
+            if (LevelBool())
             {
-                Vector2 tempPosition = new Vector2((int)(Game_Board.AccessBoardPosition.X + (SelectedTile.X * Game_Board.AccessTileSize)),
-                        (int)(Game_Board.AccessBoardPosition.Y + (SelectedTile.Y * Game_Board.AccessTileSize)));
-                aSpriteBatch.Draw(TileSelect, tempPosition, Color.White);
+                if (SelectedTile.X != 100)
+                {
+                    Vector2 tempPosition = new Vector2((int)(Game_Board.AccessBoardPosition.X + (SelectedTile.X * Game_Board.AccessTileSize)),
+                            (int)(Game_Board.AccessBoardPosition.Y + (SelectedTile.Y * Game_Board.AccessTileSize)));
+                    aSpriteBatch.Draw(TileSelect, tempPosition, Color.White);
+                }
             }
+        }
+
+        public static bool LevelBool()
+        {
+            if (Pause_Menu.gameIsPaused || End_Screen.AccessIsEnded)
+            {
+                return false;
+            }
+
+            return true;
         }
     }
 }

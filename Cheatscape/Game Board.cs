@@ -13,9 +13,9 @@ namespace Cheatscape
         static List<Chess_Piece> CapturedBlackPieces = new List<Chess_Piece>();
         public static Vector2 BoardPosition = new Vector2(Global_Info.AccessWindowSize.X / 4 - 128, Global_Info.AccessWindowSize.Y / 4 - 128);
         static int TileSize = 32;
-        static bool[,] fogOfWar;
-        static float fogOfWarMode;
-        static float fogOfWarDistance;
+        //static bool[,] fogOfWar;
+        //static float fogOfWarMode;
+        //static float fogOfWarDistance;
 
         public static Chess_Piece[,] AccessChessPiecesOnBoard { get => ChessPiecesOnBoard; set => ChessPiecesOnBoard = value; }
         public static Vector2 AccessBoardPosition { get => BoardPosition; set => BoardPosition = value; }
@@ -27,7 +27,7 @@ namespace Cheatscape
         static Texture2D Background;
         static Texture2D CheckArt;
         static Texture2D CheckmateArt;
-        static Texture2D fogOfWarTex;
+        //static Texture2D fogOfWarTex;
 
         enum SplashArt { None, Check, Checkmate }
         static SplashArt CurrentSplashArt = SplashArt.None;
@@ -40,7 +40,7 @@ namespace Cheatscape
             Background = Global_Info.AccessContentManager.Load<Texture2D>("Background");
             CheckArt = Global_Info.AccessContentManager.Load<Texture2D>("Check Art");
             CheckmateArt = Global_Info.AccessContentManager.Load<Texture2D>("Checkmate Art");
-            fogOfWarTex = Global_Info.AccessContentManager.Load<Texture2D>("FogOfWar");
+            //fogOfWarTex = Global_Info.AccessContentManager.Load<Texture2D>("FogOfWar");
 
             SetBasicBoardState();
         }
@@ -256,7 +256,7 @@ namespace Cheatscape
             }
         }
 
-        public static void GenerateFogOfWar(int distance, int mode)
+        /*public static void GenerateFogOfWar(int distance, int mode)
         {
             fogOfWar = new bool[8, 8];
 
@@ -303,7 +303,7 @@ namespace Cheatscape
                     }
                 }
             }
-        }
+        }*/
 
         public static void Draw(SpriteBatch aSpriteBatch)
         {
