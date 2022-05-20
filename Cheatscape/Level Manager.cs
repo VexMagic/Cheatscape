@@ -221,14 +221,9 @@ namespace Cheatscape
         public static void SelectCheat()
         {
             for (int i = 0; i < AllAnswers.Count; i++)
-            {
-                if (AllAnswers[i].Item1.myRule.X == Rules_List.AccessCurrentRuleList &&
-                    AllAnswers[i].Item1.myRule.Y == Rules_List.AccessCurrentRule &&
-                    AllAnswers[i].Item2 == CurrentSlide)
-                {
-
-                }
-                else if (Rules_List.AccessCurrentRule != Rules_List.GetList().Length)
+            {     
+                
+                if (Rules_List.AccessCurrentRule != Rules_List.GetList().Length)
                 {
                     if (rating / 2 > 400)
                     {
