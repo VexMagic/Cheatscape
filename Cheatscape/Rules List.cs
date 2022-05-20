@@ -217,8 +217,8 @@ namespace Cheatscape
             if (CurrentRule < GetList().Length)
             {
                 Texture2D tempRuleImage = Global_Info.AccessContentManager.Load<Texture2D>("Rule Images/" + CurrentRuleList + "-" + CurrentRule);
-                aSpriteBatch.Draw(tempRuleImage, new Rectangle((int)ImagePosition.X + 3, (int)ImagePosition.Y + 3, 96, 96), Color.White);
-                aSpriteBatch.Draw(ImageBoarder, new Rectangle((int)ImagePosition.X, (int)ImagePosition.Y, 102, 102), Color.White);
+                aSpriteBatch.Draw(tempRuleImage, new Rectangle((int)ImagePosition.X-1, (int)ImagePosition.Y + 3, 104, 96), Color.White);
+                aSpriteBatch.Draw(ImageBoarder, new Rectangle((int)ImagePosition.X-4, (int)ImagePosition.Y, 110, 102), Color.White);
             }
         }
 
