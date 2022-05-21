@@ -17,7 +17,9 @@ namespace Cheatscape
         static List<SoundEffect> soundEffects = new List<SoundEffect>();
         static List<Song> songs = new List<Song>();
         static SoundEffect move1, move2, move3, move4, move5;
-        static Song song0, song1, song2, currentSong;
+        static Song mainTheme, song1, song2, currentSong;
+
+        //song 1, 2 & soundeffects kan flyttas till load och behöver inte deklareras där.
 
         public static void Load()
         {
@@ -26,7 +28,7 @@ namespace Cheatscape
             move3 = Global_Info.AccessContentManager.Load<SoundEffect>("move3");
             move4 = Global_Info.AccessContentManager.Load<SoundEffect>("move4");
             move5 = Global_Info.AccessContentManager.Load<SoundEffect>("move5");
-            song0 = Global_Info.AccessContentManager.Load<Song>("song0");
+            mainTheme = Global_Info.AccessContentManager.Load<Song>("song0");
             song1 = Global_Info.AccessContentManager.Load<Song>("song1");
             song2 = Global_Info.AccessContentManager.Load<Song>("song2");
             songs.Add(song1);
@@ -37,14 +39,10 @@ namespace Cheatscape
             soundEffects.Add(move3);
             soundEffects.Add(move4);
             soundEffects.Add(move5);
-            //for (int i = 1; i < 3; i++)
-            //{
-            //    tempString = "move" + i;
-            //    soundEffects.Add(tempString);
-            //}
+            
             MediaPlayer.Volume = 0.5f;
             SoundEffect.MasterVolume = 0.5f;
-            currentSong = song0;
+            PlayMainTheme();
         }
 
         public static void MoveEffect()
@@ -68,13 +66,27 @@ namespace Cheatscape
 
         public static void ChangeMusic(int selectedSong)
         {
-            currentSong = songs[selectedSong];
+            try
+            {
+                currentSong = songs[selectedSong];
+            }
+            catch
+            {
+                MediaPlayer.Play(mainTheme);
+            }
         }
 
         public static void PlayMainTheme()
         {
-            currentSong = song0;
-            PlayMusic();
+            if (currentSong == mainTheme)
+            {
+                MediaPlayer.Resume();
+            }
+            else
+            {
+                currentSong = mainTheme;
+                PlayMusic();
+            }
         }
     }
 
