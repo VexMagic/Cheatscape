@@ -19,7 +19,7 @@ namespace Cheatscape
             }
             catch (Exception)
             {
-                Transition.StartTransition(Transition.TransitionState.ToLvSelect);
+
             }
 
         }
