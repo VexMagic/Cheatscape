@@ -20,6 +20,9 @@ namespace Cheatscape
         public static int LineSize = 9;
         public static int BetweenLineSize = 12;
         public static bool IsTextCentered = false;
+        static int max = 4;
+        static int min = 0;
+        static int headstart = 0;
 
         public enum TextStyle { Standard, DropShadow, Boarder, Blood}
         public static TextStyle CurrentTextStyle = TextStyle.Boarder;
@@ -38,7 +41,23 @@ namespace Cheatscape
             RuleSelector = Global_Info.AccessContentManager.Load<Texture2D>("Selector");
             ScrollBar = Global_Info.AccessContentManager.Load<Texture2D>("Scroll Bar");
         }
-        
+        public static void Scrolling(Keys key)
+        {
+
+            if (key == Keys.Up && Input_Manager.KeyPressed(Keys.Up))
+            {
+                min--;
+                
+            }
+            if (key == Keys.Down && Input_Manager.KeyPressed(Keys.Down)/* && max !> Rules_List.GetList(Rules_List.AccessCurrentRuleList).Length*/)
+            {
+                headstart++;
+                if (min < headstart && headstart  == 4)
+                    min = headstart;
+                
+            }
+
+        }
         public static void DrawText(string aString, int anXPos, int aYPos, SpriteBatch aSpriteBatch) //draw text
         {
             switch (CurrentTextStyle)
@@ -144,9 +163,6 @@ namespace Cheatscape
                 }
                 else
                     DrawTextBox(aStringArray[i], new Vector2(RulesPosition.X, tempYOffset), TextBoarder, aSpriteBatch, false, true);
-
-                }
-
 
                 List<string> tempTextBox = SeparateText(aStringArray[i]);
                 tempYOffset += tempTextBox.Count * LineSize;

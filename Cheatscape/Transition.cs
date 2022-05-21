@@ -84,7 +84,7 @@ namespace Cheatscape
                                 Level_Manager.AccessCurrentLevel = 0;
                                 Level_Manager.AccessAllMoves.Clear();
                                 Level_Manager.AccessCompleted = false;
-                                Music_Player.PlayMainTheme();
+                                Music_Player.StopMusic();
                             }
 
                             break;

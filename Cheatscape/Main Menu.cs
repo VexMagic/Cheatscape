@@ -42,7 +42,7 @@ namespace Cheatscape
         {
             if (animating == true)
             {
-                timer += gameTime.ElapsedGameTime.Milliseconds;
+                timer += (float)gameTime.ElapsedGameTime.Milliseconds;
 
                 if (timer >= framesPerSecond)
                 {
@@ -61,6 +61,7 @@ namespace Cheatscape
                 animating = false;
                 Global_Info.AccessCurrentGameState = Global_Info.GameState.LevelSelect;
             }
+
 
             if (CurrentFrame < 0)
             {
