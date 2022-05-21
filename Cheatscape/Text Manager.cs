@@ -229,7 +229,7 @@ namespace Cheatscape
 
         public static void DrawTutorialBox(SpriteBatch aSpriteBatch)
         {
-            if (TutorialText != "" && TutorialText != null && Level_Manager.isOnFirstTransitionScreen == false)
+            if (TutorialText != "" && TutorialText != null && Level_Manager.isOnTransitionScreen == false)
                 DrawTextBox(TutorialText, TutorialPosition, TextBoarder, aSpriteBatch, true);
         }
 

@@ -99,7 +99,7 @@ namespace Cheatscape
                                 {
                                     Level_Manager.AccessCurrentBundle = Level_Select_Menu.SelectedBundleX + Level_Select_Menu.SelectedBundleY * 5;
                                     Level_Manager.AccessRating = 1000;
-                                    Level_Manager.isOnFirstTransitionScreen = true;
+                                    Level_Manager.isOnTransitionScreen = true;
                                     File_Manager.LoadLevel();
                                     Hint_File_Manager.LoadHints();
                                 }
