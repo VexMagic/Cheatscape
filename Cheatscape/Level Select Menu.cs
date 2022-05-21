@@ -43,6 +43,10 @@ namespace Cheatscape
 
             highScores = new List<float>();
 
+            foreach (var item in Global_Tracker.completedBundels)
+            {
+                highScores.Add(item.Item2);
+            }
             for (int i = 0; i < 10; i++)
             {
                 highScores.Add(0);
@@ -139,6 +143,10 @@ namespace Cheatscape
                 {
                     aSpriteBatch.Draw(NumbersTex, new Rectangle(55 + j * 100, 55 + i * 75, 9, 5), new Rectangle(9 * j + i * 45, 0, 9, 5), Color.White, 0, new Vector2(0, 0), SpriteEffects.None, 0);
                     aSpriteBatch.Draw(PanelTex, new Vector2(50 + j * 100, 50 + i * 75), Color.White);
+                    if (i <= highScores.Count)
+                    {
+                        Text_Manager.DrawText(highScores[j + i * 5].ToString(), 55 + j * 100, 99 + i * 75, aSpriteBatch);
+                    }
                 }
             }
         }
