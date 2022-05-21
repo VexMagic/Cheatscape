@@ -34,7 +34,7 @@ namespace Cheatscape
             PanelTex = Global_Info.AccessContentManager.Load<Texture2D>("Level Panel");
             NumbersTex = Global_Info.AccessContentManager.Load<Texture2D>("Numbers");
             PanelHighLightTex = Global_Info.AccessContentManager.Load<Texture2D>("LevelPanelHighlight");
-            Bg1Tex = Global_Info.AccessContentManager.Load<Texture2D>("Background");
+            Bg1Tex = Global_Info.AccessContentManager.Load<Texture2D>("Kindergarten");
             optionButtonTex = Global_Info.AccessContentManager.Load<Texture2D>("OptionsButton");
             optionHighlightTex = Global_Info.AccessContentManager.Load<Texture2D>("OptionsButtonHighlight");
         }
