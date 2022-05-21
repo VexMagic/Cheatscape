@@ -95,13 +95,14 @@ namespace Cheatscape
 
             if (CurrentMS.LeftButton == ButtonState.Pressed && PreviousMS.LeftButton == ButtonState.Released)
             {
-                if (Level_Select_Menu.optionHighlight)
+                if (Level_Select_Menu.optionHighlight && OptionsButton.Contains(MousePosition))
                 {
                     Transition.AccessNextTransitionState = Transition.TransitionState.ToLvSelect;
 
                     Transition.StartTransition(Transition.TransitionState.ToOptions);
                 }
-                else
+                else if (!Level_Select_Menu.optionHighlight && 
+                    LevelButtons[Level_Select_Menu.SelectedBundleX, Level_Select_Menu.SelectedBundleY].Contains(MousePosition))
                 {
                     Music_Player.PlayMusic();
                     Level_Manager.AccessRating = 1000;
@@ -136,15 +137,7 @@ namespace Cheatscape
                 }
             }
 
-            for (int i = 0; i < RuleBoxes.Count; i++)
-            {
-                if (RuleBoxes[i].Contains(MousePosition))
-                {
-                    SelectedRule = i;
-                }
-            }
-
-            if (CurrentMS.LeftButton == ButtonState.Pressed && PreviousMS.LeftButton == ButtonState.Released)
+            if (CurrentMS.LeftButton == ButtonState.Pressed && PreviousMS.LeftButton == ButtonState.Released && LevelBool())
             {
                 if (Level_Manager.FindingCheat && (ScrollButtons[0].Contains(MousePosition) || ScrollButtons[1].Contains(MousePosition)))
                 {
@@ -371,16 +364,29 @@ namespace Cheatscape
 
         public static void LevelDraw(SpriteBatch aSpriteBatch)
         {
-            if (SelectedTile.X != 100)
+            if (LevelBool())
             {
-                Vector2 tempPosition = new Vector2((int)(Game_Board.AccessBoardPosition.X + (SelectedTile.X * Game_Board.AccessTileSize)),
-                        (int)(Game_Board.AccessBoardPosition.Y + (SelectedTile.Y * Game_Board.AccessTileSize)));
-                aSpriteBatch.Draw(TileSelect, tempPosition, Color.White);
+                if (SelectedTile.X != 100)
+                {
+                    Vector2 tempPosition = new Vector2((int)(Game_Board.AccessBoardPosition.X + (SelectedTile.X * Game_Board.AccessTileSize)),
+                            (int)(Game_Board.AccessBoardPosition.Y + (SelectedTile.Y * Game_Board.AccessTileSize)));
+                    aSpriteBatch.Draw(TileSelect, tempPosition, Color.White);
+                }
             }
             if (SelectedRule != 100)
             {
                 aSpriteBatch.Draw(TileSelect, RuleBoxes[SelectedRule], new Rectangle(0, 0, 1, 1), Color.White * 0.75f);
             }
+        }
+
+        public static bool LevelBool()
+        {
+            if (Pause_Menu.gameIsPaused || End_Screen.AccessIsEnded || Level_Manager.isOnTransitionScreen || Level_Manager.isOnFirstTransitionScreen)
+            {
+                return false;
+            }
+
+            return true;
         }
     }
 }

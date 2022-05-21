@@ -230,9 +230,7 @@ namespace Cheatscape
 
                     if (currentHint == 2)
                         Text_Manager.DrawText("< G", 508, 100, aSpriteBatch);
-
                 }
-
             }
 
             if (isOnFirstTransitionScreen == false)

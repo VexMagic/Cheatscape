@@ -12,8 +12,16 @@ namespace Cheatscape
         static bool gameIsEnded;
         static bool cleared;
 
-        public static bool AccessIsEnded { get => gameIsEnded; set => gameIsEnded = value; }
-        public static bool AccessCleared { get => cleared; set => cleared = value; }
+        public static bool AccessIsEnded
+        {
+            get => gameIsEnded;
+            set => gameIsEnded = value;
+        }
+        public static bool AccessCleared 
+        { 
+            get => cleared; 
+            set => cleared = value; 
+        }
 
         static Texture2D levelClear;
         static Texture2D gameOver;
@@ -51,6 +59,8 @@ namespace Cheatscape
                 }
                 else if (Input_Manager.KeyPressed(Keys.Space))
                 {
+                    Music_Player.StopMusic();
+                    
                     if (cleared)
                     {
                         if (endIndex == 0) //Retry
