@@ -9,16 +9,15 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Media;
 
+
 namespace Cheatscape
 {
     static class Music_Player
     {
         static List<SoundEffect> soundEffects = new List<SoundEffect>();
-        public static List<Song> songs = new List<Song>();
+        static List<Song> songs = new List<Song>();
         static SoundEffect move1, move2, move3, move4, move5;
-        static Song song1, song2, currentSong;
-
-        public static Song AccessCurrentSong { get => currentSong; set => currentSong = value; }
+        static Song song0, song1, song2, currentSong;
 
         public static void Load()
         {
@@ -27,15 +26,17 @@ namespace Cheatscape
             move3 = Global_Info.AccessContentManager.Load<SoundEffect>("move3");
             move4 = Global_Info.AccessContentManager.Load<SoundEffect>("move4");
             move5 = Global_Info.AccessContentManager.Load<SoundEffect>("move5");
+            song0 = Global_Info.AccessContentManager.Load<Song>("song0");
             song1 = Global_Info.AccessContentManager.Load<Song>("song1");
-            song2 = Global_Info.AccessContentManager.Load<Song>("Holding Out for a Hero Eurobeat Remix");
+            song2 = Global_Info.AccessContentManager.Load<Song>("song2");
+            songs.Add(song1);
+            songs.Add(song2);
+
             soundEffects.Add(move1);
             soundEffects.Add(move2);
             soundEffects.Add(move3);
             soundEffects.Add(move4);
             soundEffects.Add(move5);
-            songs.Add(song1);
-            songs.Add(song2);
             //for (int i = 1; i < 3; i++)
             //{
             //    tempString = "move" + i;
@@ -43,6 +44,7 @@ namespace Cheatscape
             //}
             MediaPlayer.Volume = 0.5f;
             SoundEffect.MasterVolume = 0.5f;
+            currentSong = song0;
         }
 
         public static void MoveEffect()
@@ -69,6 +71,11 @@ namespace Cheatscape
             currentSong = songs[selectedSong];
         }
 
+        public static void PlayMainTheme()
+        {
+            currentSong = song0;
+            PlayMusic();
+        }
     }
 
 }

@@ -686,12 +686,23 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Slide Buttons.png
+#begin song0.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:song0.mp3
 
 #begin Song1.mp3
 /importer:Mp3Importer
 /processor:SongProcessor
 /processorParam:Quality=Best
 /build:Song1.mp3
+
+#begin song2.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:song2.mp3
 
 #begin Text Boarder.png
 /importer:TextureImporter

@@ -124,14 +124,24 @@ namespace Cheatscape
             switch (aMoveDirection)
             {
                 case 0: //Move Down
+                    
                     LastRule = CurrentRule;
                     if (CurrentRule <= GetList().Length)
+                    {
+                        Text_Manager.Scrolling(Microsoft.Xna.Framework.Input.Keys.Down);
                         CurrentRule++;
+                    }
+                    
                     break;
                 case 1: //Move Up
+                    
                     LastRule = CurrentRule;
                     if (CurrentRule >= 0)
+                    {
+                        Text_Manager.Scrolling(Microsoft.Xna.Framework.Input.Keys.Up);
                         CurrentRule--;
+                    }
+                    
                     break;
                 case 2: //Move Left
                     CurrentRuleList--;
@@ -282,12 +292,17 @@ namespace Cheatscape
             else if (tempScrollAmount > MaxScroll(aStringArray))
             {
                 if (MaxScroll(aStringArray) > 0)
+                {
+                    
                     return MaxScroll(aStringArray);
+                }
+                    
                 else
                     return 0;
             }
             else
-                return tempScrollAmount;
+                return 0;
+            
         }
 
         public static int MaxScroll(string[] aStringArray)

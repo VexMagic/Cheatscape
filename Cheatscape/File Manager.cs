@@ -38,12 +38,17 @@ namespace Cheatscape
                 Game_Board.ResetBoard();
             }
 
+
             catch
             {
-                End_Screen.AccessCleared = true;
-                End_Screen.AccessIsEnded = true;
-                
-                //Transition.StartTransition(Transition.TransitionState.ToLvSelect);
+                if (Level_Manager.AccessCurrentLevel != 0)
+                {
+                    Global_Tracker.AddCompletedLevel(Level_Select_Menu.SelectedBundleX, Level_Manager.AccessRating);
+                    Transition.StartTransition(Transition.TransitionState.ToLvSelect);
+                }
+                else
+                    Transition.StartTransition(Transition.TransitionState.ToLvSelect);
+
             }
         }
     }
