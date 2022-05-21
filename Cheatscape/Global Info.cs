@@ -22,6 +22,7 @@ namespace Cheatscape
 
         public static void Load()
         {
+            Hint_File_Manager.LoadHints();
             Level_Transition.Load();
             Global_Tracker.LoadCompletedBundles();
             Pause_Menu.Load();
@@ -53,6 +54,7 @@ namespace Cheatscape
                     }
                     Main_Menu.Update(gameTime);
                     Transition.Update(gameTime);
+
                     break;
                 case GameState.playingLevel:
                     if (!Transition.transitioning && !End_Screen.AccessIsEnded)

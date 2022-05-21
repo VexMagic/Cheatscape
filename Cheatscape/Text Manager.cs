@@ -11,7 +11,7 @@ namespace Cheatscape
         static SpriteFont Font;
         public static SpriteFont LargeFont;
         static Texture2D Background;
-        static Texture2D TextBoarder;
+        public static Texture2D TextBoarder;
         static Texture2D RuleSelector;
         static Texture2D ScrollBar;
 
@@ -21,12 +21,12 @@ namespace Cheatscape
         public static bool IsTextCentered = false;
 
         public enum TextStyle { Standard, DropShadow, Boarder, Blood}
-        public static TextStyle CurrentTextStyle = TextStyle.Standard;
+        public static TextStyle CurrentTextStyle = TextStyle.Boarder;
 
         public static string TutorialText;
 
-        public static Vector2 RulesPosition = new Vector2(6 + Rules_List.scrollBarWidth, 144);
-        public static Vector2 TutorialPosition = new Vector2(450, 100);
+        public static Vector2 RulesPosition = new Vector2(6 + Rules_List.ScrollBarWidth, 144);
+        public static Vector2 TutorialPosition = new Vector2(470, 50);
 
         public static void Load()
         {
@@ -68,10 +68,14 @@ namespace Cheatscape
 
         public static void DrawLargeText(string aString, int anXPos, int aYPos, SpriteBatch aSpriteBatch) //draw white text
         {
+            aSpriteBatch.DrawString(LargeFont, aString, new Vector2(anXPos + 1, aYPos), Color.Black);
+            aSpriteBatch.DrawString(LargeFont, aString, new Vector2(anXPos, aYPos + 1), Color.Black);
+            aSpriteBatch.DrawString(LargeFont, aString, new Vector2(anXPos, aYPos - 1), Color.Black);
+            aSpriteBatch.DrawString(LargeFont, aString, new Vector2(anXPos - 1, aYPos), Color.Black);
             aSpriteBatch.DrawString(LargeFont, aString, new Vector2(anXPos, aYPos), Color.White);
         }
 
-        public static void DrawTextBox(string aString, Vector2 aPosition, Texture2D aBoarder, SpriteBatch aSpriteBatch, bool isScalable = false)
+        public static void DrawTextBox(string aString, Vector2 aPosition, Texture2D aBoarder, SpriteBatch aSpriteBatch, bool isScalable = false, bool isRuleText = false)
         {
             List<string> tempTextBox = SeparateText(aString);
             int tempBoxWidth = 0;
@@ -97,6 +101,8 @@ namespace Cheatscape
             aSpriteBatch.Draw(aBoarder, new Rectangle((int)aPosition.X, (int)aPosition.Y - LineSize, tempBoxWidth, LineSize), new Rectangle(LineSize, 0, LineSize, LineSize), Color.White, 0, new Vector2(0, 0), SpriteEffects.None, 0);
             aSpriteBatch.Draw(aBoarder, new Rectangle((int)aPosition.X + tempBoxWidth, (int)aPosition.Y - LineSize, LineSize, LineSize), new Rectangle((LineSize * 2), 0, LineSize, LineSize), Color.White, 0, new Vector2(0, 0), SpriteEffects.None, 0);
 
+            int tempYPositionOffset = (int)aPosition.Y;
+
             for (int j = 0; j < tempTextBox.Count; j++)
             {
                 int tempOffset = 0;
@@ -104,33 +110,39 @@ namespace Cheatscape
                 if (IsTextCentered)
                     tempOffset = (int)((Font.MeasureString(tempTextBox[j]).X - tempBoxWidth) / 2);
 
-                DrawText(tempTextBox[j], (int)aPosition.X - tempOffset, (int)aPosition.Y - (LineSize / 4), aSpriteBatch);
-                aPosition.Y += LineSize;
+                DrawText(tempTextBox[j], (int)aPosition.X - tempOffset, tempYPositionOffset - (LineSize / 4), aSpriteBatch);
+                tempYPositionOffset += LineSize;
 
-                aSpriteBatch.Draw(aBoarder, new Rectangle((int)aPosition.X - LineSize, (int)aPosition.Y - LineSize, LineSize, LineSize), new Rectangle(0, LineSize, LineSize, LineSize), Color.White, 0, new Vector2(0, 0), SpriteEffects.None, 0);
-                aSpriteBatch.Draw(aBoarder, new Rectangle((int)aPosition.X + tempBoxWidth, (int)aPosition.Y - LineSize, LineSize, LineSize), new Rectangle((LineSize * 2), LineSize, LineSize, LineSize), Color.White, 0, new Vector2(0, 0), SpriteEffects.None, 0);
+                aSpriteBatch.Draw(aBoarder, new Rectangle((int)aPosition.X - LineSize, tempYPositionOffset - LineSize, LineSize, LineSize), new Rectangle(0, LineSize, LineSize, LineSize), Color.White, 0, new Vector2(0, 0), SpriteEffects.None, 0);
+                aSpriteBatch.Draw(aBoarder, new Rectangle((int)aPosition.X + tempBoxWidth, tempYPositionOffset - LineSize, LineSize, LineSize), new Rectangle((LineSize * 2), LineSize, LineSize, LineSize), Color.White, 0, new Vector2(0, 0), SpriteEffects.None, 0);
             }
 
-            aSpriteBatch.Draw(aBoarder, new Rectangle((int)aPosition.X - LineSize, (int)aPosition.Y, LineSize, LineSize), new Rectangle(0, LineSize * 2, LineSize, LineSize), Color.White, 0, new Vector2(0, 0), SpriteEffects.None, 0);
-            aSpriteBatch.Draw(aBoarder, new Rectangle((int)aPosition.X, (int)aPosition.Y, tempBoxWidth, LineSize), new Rectangle(LineSize, LineSize * 2, LineSize, LineSize), Color.White, 0, new Vector2(0, 0), SpriteEffects.None, 0);
-            aSpriteBatch.Draw(aBoarder, new Rectangle((int)aPosition.X + tempBoxWidth, (int)aPosition.Y, LineSize, LineSize), new Rectangle((LineSize * 2), LineSize * 2, LineSize, LineSize), Color.White, 0, new Vector2(0, 0), SpriteEffects.None, 0);
+            aSpriteBatch.Draw(aBoarder, new Rectangle((int)aPosition.X - LineSize, tempYPositionOffset, LineSize, LineSize), new Rectangle(0, LineSize * 2, LineSize, LineSize), Color.White, 0, new Vector2(0, 0), SpriteEffects.None, 0);
+            aSpriteBatch.Draw(aBoarder, new Rectangle((int)aPosition.X, tempYPositionOffset, tempBoxWidth, LineSize), new Rectangle(LineSize, LineSize * 2, LineSize, LineSize), Color.White, 0, new Vector2(0, 0), SpriteEffects.None, 0);
+            aSpriteBatch.Draw(aBoarder, new Rectangle((int)aPosition.X + tempBoxWidth, tempYPositionOffset, LineSize, LineSize), new Rectangle((LineSize * 2), LineSize * 2, LineSize, LineSize), Color.White, 0, new Vector2(0, 0), SpriteEffects.None, 0);
 
+            if (isRuleText)
+            {
+                Mouse_Controller.RuleBoxes.Add(new Rectangle((int)aPosition.X - (LineSize / 2), (int)aPosition.Y - (LineSize / 2),
+                        tempBoxWidth + LineSize, tempYPositionOffset - (int)aPosition.Y + LineSize));
+            }
         }
 
         public static void DrawRuleBox(string[] aStringArray, SpriteBatch aSpriteBatch)
         {
+            Mouse_Controller.RuleBoxes.Clear();
             int tempYOffset = (int)RulesPosition.Y - Rules_List.Scrolling(aStringArray);
             for (int i = 0; i < aStringArray.Length; i++)
             {
                 if (Rules_List.AccessCurrentRule != Rules_List.GetList().Length)
                 {
                     if (Rules_List.GetList()[Rules_List.AccessCurrentRule] == aStringArray[i])
-                        DrawTextBox(aStringArray[i], new Vector2(RulesPosition.X, tempYOffset), RuleSelector, aSpriteBatch);
+                        DrawTextBox(aStringArray[i], new Vector2(RulesPosition.X, tempYOffset), RuleSelector, aSpriteBatch, false, true);
                     else
-                        DrawTextBox(aStringArray[i], new Vector2(RulesPosition.X, tempYOffset), TextBoarder, aSpriteBatch);
+                        DrawTextBox(aStringArray[i], new Vector2(RulesPosition.X, tempYOffset), TextBoarder, aSpriteBatch, false, true);
                 }
                 else
-                    DrawTextBox(aStringArray[i], new Vector2(RulesPosition.X, tempYOffset), TextBoarder, aSpriteBatch);
+                    DrawTextBox(aStringArray[i], new Vector2(RulesPosition.X, tempYOffset), TextBoarder, aSpriteBatch, false, true);
 
                 List<string> tempTextBox = SeparateText(aStringArray[i]);
                 tempYOffset += tempTextBox.Count * LineSize;
@@ -143,10 +155,13 @@ namespace Cheatscape
                 DrawScrollBar(aStringArray, aSpriteBatch);
             }
 
-            if (Rules_List.AccessCurrentRule != Rules_List.GetList().Length)
-                DrawTextBox("Back", new Vector2(RulesPosition.X, tempYOffset), TextBoarder, aSpriteBatch);
-            else
-                DrawTextBox("Back", new Vector2(RulesPosition.X, tempYOffset), RuleSelector, aSpriteBatch);
+            if (Level_Manager.CurrentBundle != 0 || Level_Manager.CurrentLevel != 0)
+            {
+                if (Rules_List.AccessCurrentRule != Rules_List.GetList().Length)
+                    DrawTextBox("Back", new Vector2(RulesPosition.X, tempYOffset), TextBoarder, aSpriteBatch, false, true);
+                else
+                    DrawTextBox("Back", new Vector2(RulesPosition.X, tempYOffset), RuleSelector, aSpriteBatch, false, true);
+            }
         }
 
         static void DrawScrollBar(string[] aStringArray, SpriteBatch aSpriteBatch)
@@ -216,11 +231,6 @@ namespace Cheatscape
         {
             if (TutorialText != "" && TutorialText != null && Level_Manager.isOnTransitionScreen == false)
                 DrawTextBox(TutorialText, TutorialPosition, TextBoarder, aSpriteBatch, true);
-        }
-
-        public static void DrawTurnCounter(SpriteBatch aSpriteBatch)
-        {
-            DrawTextBox("Turns left: " + File_Manager.turnCounter,Game_Board.boardPosition-new Vector2(TextBoarder.Width/2,TextBoarder.Height+12), TextBoarder, aSpriteBatch);
         }
 
         public static List<string> SeparateText(string aString)
