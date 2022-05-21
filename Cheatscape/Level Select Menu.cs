@@ -13,9 +13,12 @@ namespace Cheatscape
         static Texture2D NumbersTex;
         static Texture2D PanelHighLightTex;
         static Texture2D Bg1Tex;
+        static Texture2D Bg2Tex;
+        static Texture2D Bg3Tex;
         static Texture2D optionButtonTex;
         static Texture2D optionHighlightTex;
-        
+        static Texture2D lockTex;
+
         public static List<float> highScores;
         public static List<float> AccessHighScores { get => highScores; set => highScores = value; }
 
@@ -38,19 +41,23 @@ namespace Cheatscape
             NumbersTex = Global_Info.AccessContentManager.Load<Texture2D>("Numbers");
             PanelHighLightTex = Global_Info.AccessContentManager.Load<Texture2D>("LevelPanelHighlight");
             Bg1Tex = Global_Info.AccessContentManager.Load<Texture2D>("Kindergarten");
+            Bg2Tex = Global_Info.AccessContentManager.Load<Texture2D>("Desk");
+            Bg3Tex = Global_Info.AccessContentManager.Load<Texture2D>("Park");
             optionButtonTex = Global_Info.AccessContentManager.Load<Texture2D>("OptionsButton");
             optionHighlightTex = Global_Info.AccessContentManager.Load<Texture2D>("OptionsButtonHighlight");
+            lockTex = Global_Info.AccessContentManager.Load<Texture2D>("Lock");
 
-            highScores = new List<float>();
-
+            highScores = new List<float>();          
             foreach (var item in Global_Tracker.completedBundels)
             {
                 highScores.Add(item.Item2);
             }
+            highScores.Add(0);
             for (int i = 0; i < 10; i++)
             {
-                highScores.Add(0);
+                highScores.Add(1);
             }
+
         }
 
         public static void Update()
@@ -125,7 +132,9 @@ namespace Cheatscape
         public static void Draw(SpriteBatch aSpriteBatch)
         {
             aSpriteBatch.Draw(Bg1Tex, new Rectangle(50, 50, PanelTex.Width, PanelTex.Height), Color.White);
-            
+            aSpriteBatch.Draw(Bg2Tex, new Rectangle(150, 50, PanelTex.Width, PanelTex.Height), Color.White);
+            aSpriteBatch.Draw(Bg3Tex, new Rectangle(250, 50, PanelTex.Width, PanelTex.Height), Color.White);
+
             if (optionHighlight)
             {
                 aSpriteBatch.Draw(optionHighlightTex, new Vector2(50, 200), Color.White);
@@ -143,9 +152,15 @@ namespace Cheatscape
                 {
                     aSpriteBatch.Draw(NumbersTex, new Rectangle(55 + j * 100, 55 + i * 75, 9, 5), new Rectangle(9 * j + i * 45, 0, 9, 5), Color.White, 0, new Vector2(0, 0), SpriteEffects.None, 0);
                     aSpriteBatch.Draw(PanelTex, new Vector2(50 + j * 100, 50 + i * 75), Color.White);
-                    if (i <= highScores.Count)
-                    {
+
+                    if (highScores[j + i * 5] != 1)
+                    {                        
                         Text_Manager.DrawText(highScores[j + i * 5].ToString(), 55 + j * 100, 99 + i * 75, aSpriteBatch);
+                    }
+
+                    else
+                    {
+                        aSpriteBatch.Draw(lockTex, new Vector2((55 + j * 100) - 1, (99 + i * 75) - 11), Color.White);
                     }
                 }
             }

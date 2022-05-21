@@ -72,6 +72,7 @@ namespace Cheatscape
                         }
                         else if (endIndex == 1) //Continue
                         {
+                            Level_Select_Menu.Load();
                             Transition.StartTransition(Transition.TransitionState.ToLvSelect);
                         }
 
