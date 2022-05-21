@@ -108,12 +108,12 @@ namespace Cheatscape
                                 unlockedHints = -1;
                                 displayingHint = false;
                                 rating += 100;
-                                CurrentLevel++;
-                                File_Manager.LoadLevel();
                                 Hint_File_Manager.LoadHints();
                                 Pause_Menu.gameIsPaused = true;
                                 Level_Transition.LoadSpecialRule();
                                 isOnTransitionScreen = true;
+                                CurrentLevel++;
+                                File_Manager.LoadLevel();
                             }
                             else if (Rules_List.AccessCurrentRule != Rules_List.GetList().Length)
                             {

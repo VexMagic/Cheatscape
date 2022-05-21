@@ -65,7 +65,7 @@ namespace Cheatscape
                     
                     if (cleared)
                     {
-                        if (endIndex == 0) //Retry
+                        if (endIndex == 0 ) //Retry
                         {
                             Level_Manager.AccessCurrentLevel = 0;
                             Transition.StartTransition(Transition.TransitionState.ToLevel);

@@ -61,14 +61,14 @@ namespace Cheatscape
 
                     break;
                 case GameState.PlayingLevel:
+                    End_Screen.Update();
                     if (!Transition.transitioning && !End_Screen.AccessIsEnded)
                     {
                         Level_Manager.Play(gameTime);
                         Level_Manager.Update();
                         Hand_Animation_Manager.Update();
                     }
-                    Pause_Menu.Update(gameTime);
-                    End_Screen.Update();
+                    Pause_Menu.Update(gameTime);                   
                     Transition.Update(gameTime);
                     break;
                 case GameState.MainMenu:

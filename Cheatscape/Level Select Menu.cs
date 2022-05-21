@@ -37,6 +37,7 @@ namespace Cheatscape
             Bg1Tex = Global_Info.AccessContentManager.Load<Texture2D>("Kindergarten");
             optionButtonTex = Global_Info.AccessContentManager.Load<Texture2D>("OptionsButton");
             optionHighlightTex = Global_Info.AccessContentManager.Load<Texture2D>("OptionsButtonHighlight");
+
             highScores = new List<float>();
 
             for (int i = 0; i < 10; i++)
@@ -98,7 +99,7 @@ namespace Cheatscape
 
                     else if (Global_Tracker.completedBundels.Count == (SelectedBundleX + SelectedBundleY * 5) || Global_Tracker.completedBundels.Count > (SelectedBundleX + SelectedBundleY * 5))
                     {
-                        /*Music_Player.ChangeMusic(SelectedBundleX);*/ // Den här hindrar koden från att köras eftersom att det inte finns n¨gon song3 att ladda in
+                        Music_Player.ChangeMusic(SelectedBundleX); // Den här hindrar koden från att köras eftersom att det inte finns n¨gon song3 att ladda in
                         Music_Player.PlayMusic();
                         Level_Manager.AccessRating = 1000;
                         Transition.StartTransition(Transition.TransitionState.ToLevel);
@@ -108,7 +109,7 @@ namespace Cheatscape
                 }
                 catch
                 {
-
+                    
                 }
 
             }
