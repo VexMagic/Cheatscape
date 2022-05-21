@@ -42,7 +42,7 @@ namespace Cheatscape
             catch
             {
                 End_Screen.AccessCleared = true;
-                End_Screen.AccessIsEnded = false;
+                End_Screen.AccessIsEnded = true;
             }
         }
     }
