@@ -33,6 +33,8 @@ namespace Cheatscape
         static int endIndex = 0;
         static int endAmount = 1;
 
+
+
         public static void Load()
         {
             levelClear = Global_Info.AccessContentManager.Load<Texture2D>("LevelClearPanel");
