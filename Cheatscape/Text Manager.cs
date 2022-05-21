@@ -20,8 +20,11 @@ namespace Cheatscape
         public static int LineSize = 9;
         public static int BetweenLineSize = 12;
         public static bool IsTextCentered = false;
+        static int max = 4;
+        static int min = 0;
+        static int headstart = 0;
 
-        public enum TextStyle { Standard, DropShadow, Boarder, Blood}
+        public enum TextStyle { Standard, DropShadow, Boarder, Blood }
         public static TextStyle CurrentTextStyle = TextStyle.Boarder;
 
         public static string TutorialText;
@@ -38,7 +41,23 @@ namespace Cheatscape
             RuleSelector = Global_Info.AccessContentManager.Load<Texture2D>("Selector");
             ScrollBar = Global_Info.AccessContentManager.Load<Texture2D>("Scroll Bar");
         }
-        
+        public static void Scrolling(Keys key)
+        {
+
+            if (key == Keys.Up && Input_Manager.KeyPressed(Keys.Up))
+            {
+                min--;
+
+            }
+            if (key == Keys.Down && Input_Manager.KeyPressed(Keys.Down)/* && max !> Rules_List.GetList(Rules_List.AccessCurrentRuleList).Length*/)
+            {
+                headstart++;
+                if (min < headstart && headstart == 4)
+                    min = headstart;
+
+            }
+
+        }
         public static void DrawText(string aString, int anXPos, int aYPos, SpriteBatch aSpriteBatch) //draw text
         {
             switch (CurrentTextStyle)
@@ -107,7 +126,7 @@ namespace Cheatscape
             for (int j = 0; j < tempTextBox.Count; j++)
             {
                 int tempOffset = 0;
-                
+
                 if (IsTextCentered)
                     tempOffset = (int)((Font.MeasureString(tempTextBox[j]).X - tempBoxWidth) / 2);
 
@@ -145,9 +164,6 @@ namespace Cheatscape
                 else
                     DrawTextBox(aStringArray[i], new Vector2(RulesPosition.X, tempYOffset), TextBoarder, aSpriteBatch, false, true);
 
-                }
-
-
                 List<string> tempTextBox = SeparateText(aStringArray[i]);
                 tempYOffset += tempTextBox.Count * LineSize;
                 tempYOffset += BetweenLineSize;
@@ -172,12 +188,12 @@ namespace Cheatscape
         static void DrawScrollBar(string[] aStringArray, SpriteBatch aSpriteBatch)
         {
             aSpriteBatch.Draw(ScrollBar, new Rectangle(0, (int)RulesPosition.Y - 6, 20, 21), new Rectangle(0, 0, 20, 21), Color.White);
-            aSpriteBatch.Draw(ScrollBar, new Rectangle(0, (int)(Global_Info.AccessWindowSize.Y / Global_Info.AccessScreenScale) - 21, 
+            aSpriteBatch.Draw(ScrollBar, new Rectangle(0, (int)(Global_Info.AccessWindowSize.Y / Global_Info.AccessScreenScale) - 21,
                 20, 21), new Rectangle(0, 22, 20, 21), Color.White);
 
             int tempBarFullLength = (int)(Global_Info.AccessWindowSize.Y / Global_Info.AccessScreenScale) - 36 - (int)RulesPosition.Y;
 
-            aSpriteBatch.Draw(ScrollBar, new Rectangle(0, (int)(Global_Info.AccessWindowSize.Y / Global_Info.AccessScreenScale) - 
+            aSpriteBatch.Draw(ScrollBar, new Rectangle(0, (int)(Global_Info.AccessWindowSize.Y / Global_Info.AccessScreenScale) -
                 21 - tempBarFullLength, 20, tempBarFullLength), new Rectangle(0, 21, 20, 1), Color.White);
 
             int tempProcent = (tempBarFullLength * 100) / ScrollPercent(aStringArray);
