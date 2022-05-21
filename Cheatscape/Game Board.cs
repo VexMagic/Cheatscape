@@ -20,13 +20,16 @@ namespace Cheatscape
 
         static Rectangle SplashArtSize = new Rectangle(400, 0, 200, 100);
 
+        static Texture2D Kindergarten;
+        static Texture2D Desk;
+        static Texture2D Park;
+
         static Texture2D ChessBoard;
-        static Texture2D Background;
         static Texture2D CheckArt;
         static Texture2D CheckmateArt;
         static Texture2D fogOfWarTex;
+        static Texture2D SlideButtons;       
 
-        static Texture2D SlideButtons;
         enum SplashArt { None, Check, Checkmate }
         static SplashArt CurrentSplashArt = SplashArt.None;
 
@@ -34,8 +37,11 @@ namespace Cheatscape
 
         public static void Load()
         {
-            ChessBoard = Global_Info.AccessContentManager.Load<Texture2D>("Chess Board");
-            Background = Global_Info.AccessContentManager.Load<Texture2D>("Background");
+            Kindergarten = Global_Info.AccessContentManager.Load<Texture2D>("Kindergarten");
+            Desk = Global_Info.AccessContentManager.Load<Texture2D>("Desk");
+            Park = Global_Info.AccessContentManager.Load<Texture2D>("Park");
+
+            ChessBoard = Global_Info.AccessContentManager.Load<Texture2D>("Chess Board");          
             CheckArt = Global_Info.AccessContentManager.Load<Texture2D>("Check Art");
             CheckmateArt = Global_Info.AccessContentManager.Load<Texture2D>("Checkmate Art");
             fogOfWarTex = Global_Info.AccessContentManager.Load<Texture2D>("FogOfWar");
@@ -65,6 +71,14 @@ namespace Cheatscape
         {
             Level_Manager.AccessAllAnswers.Clear();
             Rules_List.AllowedRules.Clear();
+
+            switch (Level_Manager.AccessCurrentBundle)
+            {
+                default:
+
+                    break;
+            }
+
             for (int i = 0; i < Level_Manager.AccessAllMoves.Count; i++)
             {
                 for (int j = 0; j < Level_Manager.AccessAllMoves[i].Count; j++)
@@ -86,17 +100,6 @@ namespace Cheatscape
                             break;
                         case Chess_Move.MoveType.IncludeList:
                             Rules_List.IncludeList(Level_Manager.AccessAllMoves[i][j].myRuleList);
-                            break;
-                        case Chess_Move.MoveType.ChessBackground:
-                            switch (Level_Manager.AccessAllMoves[i][j].myText.ToLower())
-                            {
-                                default:
-                                    Background = Global_Info.AccessContentManager.Load<Texture2D>("Background");
-                                    break;
-                                case "kindergarden":
-                                    Background = Global_Info.AccessContentManager.Load<Texture2D>("Background");
-                                    break;
-                            }
                             break;
                         case Chess_Move.MoveType.ChessBoard:
                             switch (Level_Manager.AccessAllMoves[i][j].myText.ToLower())
@@ -312,8 +315,15 @@ namespace Cheatscape
 
         public static void Draw(SpriteBatch aSpriteBatch)
         {
-            aSpriteBatch.Draw(Background, new Rectangle(0, 0, (int)(Global_Info.AccessWindowSize.X / Global_Info.AccessScreenScale),
-                (int)(Global_Info.AccessWindowSize.Y / Global_Info.AccessScreenScale)), Color.White);
+            if (Level_Manager.CurrentBundle == 0)
+            {
+                aSpriteBatch.Draw(Kindergarten, new Rectangle(0, 0, (int)(Global_Info.AccessWindowSize.X / Global_Info.AccessScreenScale), (int)(Global_Info.AccessWindowSize.Y / Global_Info.AccessScreenScale)), Color.White);
+            }
+
+            if (Level_Manager.CurrentBundle == 1)
+            {
+                aSpriteBatch.Draw(Desk, new Rectangle(0, 0, (int)(Global_Info.AccessWindowSize.X / Global_Info.AccessScreenScale), (int)(Global_Info.AccessWindowSize.Y / Global_Info.AccessScreenScale)), Color.White);
+            }
 
             Vector2 BoardOffset = new Vector2(BoardPosition.X - ((ChessBoard.Width - (TileSize * 8)) / 2), 
                 BoardPosition.Y - ((ChessBoard.Height - (TileSize * 8)) / 2));
