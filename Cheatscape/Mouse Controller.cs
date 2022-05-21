@@ -104,6 +104,7 @@ namespace Cheatscape
                 else if (!Level_Select_Menu.optionHighlight && 
                     LevelButtons[Level_Select_Menu.SelectedBundleX, Level_Select_Menu.SelectedBundleY].Contains(MousePosition))
                 {
+                    Music_Player.ChangeMusic((Level_Select_Menu.SelectedBundleX + Level_Select_Menu.SelectedBundleY * 5));
                     Music_Player.PlayMusic();
                     Level_Manager.AccessRating = 1000;
                     Transition.StartTransition(Transition.TransitionState.ToLevel);

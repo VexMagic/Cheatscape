@@ -128,7 +128,6 @@ namespace Cheatscape
                     LastRule = CurrentRule;
                     if (CurrentRule <= GetList().Length)
                     {
-                        Text_Manager.Scrolling(Microsoft.Xna.Framework.Input.Keys.Down);
                         CurrentRule++;
                     }
                     
@@ -138,7 +137,6 @@ namespace Cheatscape
                     LastRule = CurrentRule;
                     if (CurrentRule >= 0)
                     {
-                        Text_Manager.Scrolling(Microsoft.Xna.Framework.Input.Keys.Up);
                         CurrentRule--;
                     }
                     
