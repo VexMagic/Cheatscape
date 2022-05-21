@@ -37,6 +37,12 @@ namespace Cheatscape
             Bg1Tex = Global_Info.AccessContentManager.Load<Texture2D>("Kindergarten");
             optionButtonTex = Global_Info.AccessContentManager.Load<Texture2D>("OptionsButton");
             optionHighlightTex = Global_Info.AccessContentManager.Load<Texture2D>("OptionsButtonHighlight");
+            highScores = new List<float>();
+
+            for (int i = 0; i < 10; i++)
+            {
+                highScores.Add(0);
+            }
         }
 
         public static void Update()
