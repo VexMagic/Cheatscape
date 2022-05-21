@@ -42,8 +42,6 @@ namespace Cheatscape
             {
                 End_Screen.AccessCleared = true;
                 End_Screen.AccessIsEnded = true;
-                
-                //Transition.StartTransition(Transition.TransitionState.ToLvSelect);
             }
         }
 
