@@ -15,6 +15,7 @@ namespace Cheatscape
         static Texture2D Bg1Tex;
         static Texture2D optionButtonTex;
         static Texture2D optionHighlightTex;
+        
         public static List<float> highScores;
         public static List<float> AccessHighScores { get => highScores; set => highScores = value; }
 
@@ -24,6 +25,8 @@ namespace Cheatscape
 
         static int LevelAmountX = 5;
         static int LevelAmountY = 2;
+
+        //kan döpas om till levelamount
 
         public static bool optionHighlight = false;
 
@@ -93,11 +96,11 @@ namespace Cheatscape
                     else if (Global_Tracker.completedBundels.Count == (SelectedBundleX + SelectedBundleY * 5) || Global_Tracker.completedBundels.Count > (SelectedBundleX + SelectedBundleY * 5))
                     {
                         /*Music_Player.ChangeMusic(SelectedBundleX);*/ // Den här hindrar koden från att köras eftersom att det inte finns n¨gon song3 att ladda in
+                        Music_Player.ChangeMusic((SelectedBundleX + SelectedBundleY * 5));
                         Music_Player.PlayMusic();
                         Level_Manager.AccessRating = 1000;
                         Transition.StartTransition(Transition.TransitionState.ToLevel);
                     }
-
 
                 }
                 catch
@@ -108,7 +111,7 @@ namespace Cheatscape
             }
         }
 
-            public static void Draw(SpriteBatch aSpriteBatch)
+        public static void Draw(SpriteBatch aSpriteBatch)
         {
             aSpriteBatch.Draw(Bg1Tex, new Rectangle(50, 50, PanelTex.Width, PanelTex.Height), Color.White);
             
