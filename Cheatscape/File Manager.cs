@@ -35,6 +35,7 @@ namespace Cheatscape
                 }
                 turnCounter = File.ReadAllLines(tempDirectory).Length - 1;
                 file.Close();
+                Level_Transition.LoadSpecialRule();
                 Game_Board.ResetBoard();
             }
 

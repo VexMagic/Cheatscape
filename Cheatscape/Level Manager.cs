@@ -19,8 +19,8 @@ namespace Cheatscape
         static int AmountOfRuleLists = 3;
         public static bool isOnTransitionScreen = false;
         static bool completed = false;
-        static bool displayingHint = false;
-        static int currentHint = -1;
+        public static bool displayingHint = false;
+        public static int currentHint = -1;
         public static int unlockedHints = -1;
 
         public static float AccessRating { get  => rating; set => rating = value; }
@@ -236,7 +236,7 @@ namespace Cheatscape
             if (isOnTransitionScreen == false)
                 Text_Manager.DrawText(Convert.ToString("Turn counter: " + File_Manager.turnCounter), (int)(Global_Info.AccessWindowSize.X / Global_Info.AccessScreenScale) - 450, 10, aSpriteBatch);
 
-            if (isOnTransitionScreen)
+            if (isOnTransitionScreen)                
                 Level_Transition.Draw(aSpriteBatch);
 
             if (Options_Menu.AccessControlView == true && isOnTransitionScreen == false)

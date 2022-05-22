@@ -106,7 +106,17 @@ namespace Cheatscape
 
                         Music_Player.ChangeMusic((SelectedBundleX + SelectedBundleY * 5));
                         Music_Player.PlayMusic();
+                        Level_Manager.currentHint = -1;
+                        Level_Manager.unlockedHints = -1;
+                        Level_Manager.displayingHint = false;
+                        Hint_File_Manager.LoadHints();
+                        Level_Transition.LoadSpecialRule();
+                        Level_Manager.isOnTransitionScreen = true;
                         Level_Manager.AccessRating = 1000;
+                        Level_Manager.CurrentLevel = 0;
+                        Level_Manager.AccessCurrentBundle = SelectedBundleX + SelectedBundleY * 5;
+                        File_Manager.LoadLevel();
+                        Game_Board.ResetBoard();
 
                         Transition.StartTransition(Transition.TransitionState.ToLevel);
                     }
@@ -116,7 +126,18 @@ namespace Cheatscape
                         /*Music_Player.ChangeMusic(SelectedBundleX);*/ // Den här hindrar koden från att köras eftersom att det inte finns n¨gon song3 att ladda in
                         Music_Player.ChangeMusic((SelectedBundleX + SelectedBundleY * 5));
                         Music_Player.PlayMusic();
+                        Level_Manager.currentHint = -1;
+                        Level_Manager.unlockedHints = -1;
+                        Level_Manager.displayingHint = false;
+                        Hint_File_Manager.LoadHints();
+                        Level_Transition.LoadSpecialRule();
+                        Level_Manager.isOnTransitionScreen = true;
                         Level_Manager.AccessRating = 1000;
+                        Level_Manager.CurrentLevel = 0;
+                        Level_Manager.AccessCurrentBundle = SelectedBundleX + SelectedBundleY * 5;
+                        File_Manager.LoadLevel();
+                        Game_Board.ResetBoard();
+
                         Transition.StartTransition(Transition.TransitionState.ToLevel);
                     }
 
