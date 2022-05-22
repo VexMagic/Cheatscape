@@ -43,6 +43,7 @@ namespace Cheatscape
             catch
             {
                 Global_Tracker.AddCompletedLevel(Level_Select_Menu.SelectedBundleX, Level_Manager.AccessRating);
+                Level_Manager.isOnTransitionScreen = false;
                 End_Screen.AccessCleared = true;
                 End_Screen.AccessIsEnded = true;
             }
