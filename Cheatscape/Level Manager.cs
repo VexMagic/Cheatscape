@@ -109,7 +109,7 @@ namespace Cheatscape
                                 displayingHint = false;
                                 rating += 100;
                                 Hint_File_Manager.LoadHints();
-                                Pause_Menu.gameIsPaused = true;
+                                Pause_Menu.gameIsPaused = false;
                                 Level_Transition.LoadSpecialRule();
                                 isOnTransitionScreen = true;
                                 CurrentLevel++;

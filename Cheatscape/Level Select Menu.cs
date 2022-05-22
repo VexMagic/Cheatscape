@@ -106,9 +106,6 @@ namespace Cheatscape
 
                         Music_Player.ChangeMusic((SelectedBundleX + SelectedBundleY * 5));
                         Music_Player.PlayMusic();
-                        Level_Manager.currentHint = -1;
-                        Level_Manager.unlockedHints = -1;
-                        Level_Manager.displayingHint = false;
                         Hint_File_Manager.LoadHints();
                         Level_Transition.LoadSpecialRule();
                         Level_Manager.isOnTransitionScreen = true;
@@ -164,6 +161,8 @@ namespace Cheatscape
             {
                 aSpriteBatch.Draw(PanelHighLightTex, new Vector2(50 + SelectedBundleX * 100, 50 + SelectedBundleY * 75), Color.White);
             }
+            Text_Manager.DrawText("Arrow Keys: Change Level             Space: Select", 30,
+                (int)(Global_Info.AccessWindowSize.Y / Global_Info.AccessScreenScale - 40), aSpriteBatch);
 
             aSpriteBatch.Draw(optionButtonTex, new Vector2(50, 200), Color.White);
             
