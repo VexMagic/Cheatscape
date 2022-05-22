@@ -106,6 +106,7 @@ namespace Cheatscape
 
                         Music_Player.ChangeMusic((SelectedBundleX + SelectedBundleY * 5));
                         Music_Player.PlayMusic();
+                        Game_Board.AdjustMap((SelectedBundleX + SelectedBundleY * 5));
                         Hint_File_Manager.LoadHints();
                         Level_Transition.LoadSpecialRule();
                         Level_Manager.isOnTransitionScreen = true;
@@ -123,6 +124,7 @@ namespace Cheatscape
                         /*Music_Player.ChangeMusic(SelectedBundleX);*/ // Den här hindrar koden från att köras eftersom att det inte finns n¨gon song3 att ladda in
                         Music_Player.ChangeMusic((SelectedBundleX + SelectedBundleY * 5));
                         Music_Player.PlayMusic();
+                        Game_Board.AdjustMap((SelectedBundleX + SelectedBundleY * 5));
                         Level_Manager.currentHint = -1;
                         Level_Manager.unlockedHints = -1;
                         Level_Manager.displayingHint = false;

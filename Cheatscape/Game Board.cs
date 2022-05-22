@@ -18,11 +18,10 @@ namespace Cheatscape
         public static Vector2 AccessBoardPosition { get => BoardPosition; set => BoardPosition = value; }
         public static int AccessTileSize { get => TileSize; set => TileSize = value; }
 
-        static Rectangle SplashArtSize = new Rectangle(400, 0, 200, 100);
+        public static List<Texture2D> MapPack = new List<Texture2D>();
+        static Texture2D currentMap;
 
-        static Texture2D Kindergarten;
-        static Texture2D Desk;
-        static Texture2D Park;
+        static Rectangle SplashArtSize = new Rectangle(400, 0, 200, 100);
 
         static Texture2D ChessBoard;
         static Texture2D CheckArt;
@@ -37,10 +36,15 @@ namespace Cheatscape
 
         public static void Load()
         {
-            Kindergarten = Global_Info.AccessContentManager.Load<Texture2D>("Kindergarten");
-            Desk = Global_Info.AccessContentManager.Load<Texture2D>("Desk");
-            Park = Global_Info.AccessContentManager.Load<Texture2D>("Park");
+            Texture2D Kindergarten = Global_Info.AccessContentManager.Load<Texture2D>("Kindergarten");
+            Texture2D Desk = Global_Info.AccessContentManager.Load<Texture2D>("Desk");
+            Texture2D Park = Global_Info.AccessContentManager.Load<Texture2D>("Park");
+            Texture2D Train = Global_Info.AccessContentManager.Load<Texture2D>("cheatscape Train");
 
+            MapPack.Add(Kindergarten);
+            MapPack.Add(Desk);
+            MapPack.Add(Park);
+            MapPack.Add(Train);
             ChessBoard = Global_Info.AccessContentManager.Load<Texture2D>("Chess Board");          
             CheckArt = Global_Info.AccessContentManager.Load<Texture2D>("Check Art");
             CheckmateArt = Global_Info.AccessContentManager.Load<Texture2D>("Checkmate Art");
@@ -48,6 +52,18 @@ namespace Cheatscape
             SlideButtons = Global_Info.AccessContentManager.Load<Texture2D>("Slide Buttons");
 
             SetBasicBoardState();
+        }
+
+        public static void AdjustMap(int map)
+        {
+            try
+            {
+                currentMap = MapPack[map];
+            }
+            catch
+            {
+                currentMap = MapPack[0];
+            }
         }
 
         public static void ResetBoard()
@@ -315,15 +331,8 @@ namespace Cheatscape
 
         public static void Draw(SpriteBatch aSpriteBatch)
         {
-            if (Level_Manager.CurrentBundle == 0)
-            {
-                aSpriteBatch.Draw(Kindergarten, new Rectangle(0, 0, (int)(Global_Info.AccessWindowSize.X / Global_Info.AccessScreenScale), (int)(Global_Info.AccessWindowSize.Y / Global_Info.AccessScreenScale)), Color.White);
-            }
+                aSpriteBatch.Draw(currentMap, new Rectangle(0, 0, (int)(Global_Info.AccessWindowSize.X / Global_Info.AccessScreenScale), (int)(Global_Info.AccessWindowSize.Y / Global_Info.AccessScreenScale)), Color.White);
 
-            if (Level_Manager.CurrentBundle == 1)
-            {
-                aSpriteBatch.Draw(Desk, new Rectangle(0, 0, (int)(Global_Info.AccessWindowSize.X / Global_Info.AccessScreenScale), (int)(Global_Info.AccessWindowSize.Y / Global_Info.AccessScreenScale)), Color.White);
-            }
 
             Vector2 BoardOffset = new Vector2(BoardPosition.X - ((ChessBoard.Width - (TileSize * 8)) / 2), 
                 BoardPosition.Y - ((ChessBoard.Height - (TileSize * 8)) / 2));
