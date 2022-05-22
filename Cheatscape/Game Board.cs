@@ -319,10 +319,13 @@ namespace Cheatscape
             {
                 aSpriteBatch.Draw(Kindergarten, new Rectangle(0, 0, (int)(Global_Info.AccessWindowSize.X / Global_Info.AccessScreenScale), (int)(Global_Info.AccessWindowSize.Y / Global_Info.AccessScreenScale)), Color.White);
             }
-
             if (Level_Manager.CurrentBundle == 1)
             {
                 aSpriteBatch.Draw(Desk, new Rectangle(0, 0, (int)(Global_Info.AccessWindowSize.X / Global_Info.AccessScreenScale), (int)(Global_Info.AccessWindowSize.Y / Global_Info.AccessScreenScale)), Color.White);
+            }
+            if (Level_Manager.CurrentBundle == 2)
+            {
+                aSpriteBatch.Draw(Park, new Rectangle(0, 0, (int)(Global_Info.AccessWindowSize.X / Global_Info.AccessScreenScale), (int)(Global_Info.AccessWindowSize.Y / Global_Info.AccessScreenScale)), Color.White);
             }
 
             Vector2 BoardOffset = new Vector2(BoardPosition.X - ((ChessBoard.Width - (TileSize * 8)) / 2), 
