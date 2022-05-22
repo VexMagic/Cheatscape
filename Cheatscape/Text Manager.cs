@@ -179,9 +179,9 @@ namespace Cheatscape
             if (Level_Manager.CurrentBundle != 0 || Level_Manager.CurrentLevel != 0)
             {
                 if (Rules_List.AccessCurrentRule != Rules_List.GetList().Length)
-                    DrawTextBox("Back", new Vector2(RulesPosition.X, tempYOffset), TextBoarder, aSpriteBatch, false, true);
+                    DrawTextBox("Back", new Vector2(RulesPosition.X, tempYOffset+1), TextBoarder, aSpriteBatch, false, true);
                 else
-                    DrawTextBox("Back", new Vector2(RulesPosition.X, tempYOffset), RuleSelector, aSpriteBatch, false, true);
+                    DrawTextBox("Back", new Vector2(RulesPosition.X, tempYOffset+1), RuleSelector, aSpriteBatch, false, true);
             }
         }
 
