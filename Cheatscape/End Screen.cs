@@ -69,13 +69,14 @@ namespace Cheatscape
                     
                     if (cleared)
                     {
-                        if (endIndex == 0) //Retry
+                        if (endIndex == 0 ) //Retry
                         {
                             Level_Manager.AccessCurrentLevel = 0;
                             Transition.StartTransition(Transition.TransitionState.ToLevel);
                         }
                         else if (endIndex == 1) //Continue
                         {
+                            Level_Select_Menu.Load();
                             Transition.StartTransition(Transition.TransitionState.ToLvSelect);
                         }
 
@@ -94,6 +95,7 @@ namespace Cheatscape
                         }
                         else if (endIndex == 1) //Retry
                         {
+                            Level_Manager.isOnTransitionScreen = false;
                             Level_Manager.AccessCurrentLevel = 0;
                             Transition.StartTransition(Transition.TransitionState.ToLevel);
                         }

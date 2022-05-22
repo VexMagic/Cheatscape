@@ -27,10 +27,10 @@ namespace Cheatscape
         public static void Load()
         {
             Hint_File_Manager.LoadHints();
-            Level_Transition.Load();
             Global_Tracker.LoadCompletedBundles();
             Pause_Menu.Load();
             Game_Board.Load();
+            Level_Transition.Load();
             Music_Player.Load();
             //File_Manager.LoadLevel();
             Main_Menu.Load();
@@ -61,14 +61,14 @@ namespace Cheatscape
 
                     break;
                 case GameState.PlayingLevel:
+                    End_Screen.Update();
                     if (!Transition.transitioning && !End_Screen.AccessIsEnded)
                     {
                         Level_Manager.Play(gameTime);
                         Level_Manager.Update();
                         Hand_Animation_Manager.Update();
                     }
-                    Pause_Menu.Update(gameTime);
-                    End_Screen.Update();
+                    Pause_Menu.Update(gameTime);                   
                     Transition.Update(gameTime);
                     break;
                 case GameState.MainMenu:

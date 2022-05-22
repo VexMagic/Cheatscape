@@ -84,7 +84,7 @@ namespace Cheatscape
                                 Level_Manager.AccessCurrentLevel = 0;
                                 Level_Manager.AccessAllMoves.Clear();
                                 Level_Manager.AccessCompleted = false;
-                                Music_Player.StopMusic();
+                                Music_Player.PlayMainTheme();
                             }
 
                             break;
@@ -99,6 +99,7 @@ namespace Cheatscape
                                 {
                                     Level_Manager.AccessCurrentBundle = Level_Select_Menu.SelectedBundleX + Level_Select_Menu.SelectedBundleY * 5;
                                     Level_Manager.AccessRating = 1000;
+                                    Level_Manager.isOnTransitionScreen = true;
                                     File_Manager.LoadLevel();
                                     Hint_File_Manager.LoadHints();
                                 }
