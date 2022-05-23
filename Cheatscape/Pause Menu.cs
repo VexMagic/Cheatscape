@@ -22,6 +22,17 @@ namespace Cheatscape
         static int pauseIndexY = 0;
         static int pauseAmount = 1;
 
+        public static int AccessPauseIndexX
+        {
+            get => pauseIndexX;
+            set => pauseIndexX = value;
+        }
+        public static int AccessPauseIndexY
+        {
+            get => pauseIndexY;
+            set => pauseIndexY = value;
+        }
+
         public static void Load()
         {
             pauseMenu = Global_Info.AccessContentManager.Load<Texture2D>("Pause_Menu");
@@ -38,7 +49,6 @@ namespace Cheatscape
         {
             if (gameIsPaused)
             {
-                
                 if (Input_Manager.KeyPressed(Keys.Right) && pauseIndexX < pauseAmount)
                 {
                     pauseIndexX++;

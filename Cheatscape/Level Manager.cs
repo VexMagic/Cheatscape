@@ -67,7 +67,7 @@ namespace Cheatscape
                     Rules_List.AccessCurrentRule = 0;
                 }
 
-                else if (CurrentBundle != 0 && FindingCheat == true && Input_Manager.KeyPressed(Keys.H) && unlockedHints <= Hint_File_Manager.hintList.Count - 2 )
+                else if (CurrentBundle != 0 && FindingCheat == true && Input_Manager.KeyPressed(Keys.H) && unlockedHints <= Hint_File_Manager.hintList.Count - 2)
                 {
                     displayingHint = true;
                     rating -= 100;
@@ -104,30 +104,32 @@ namespace Cheatscape
                                 AllAnswers[i].Item1.myRule.Y == Rules_List.AccessCurrentRule &&
                                 AllAnswers[i].Item2 == CurrentSlide)
                             {
+                                isOnTransitionScreen = true;
                                 currentHint = -1;
                                 unlockedHints = -1;
                                 displayingHint = false;
                                 rating += 100;
                                 Hint_File_Manager.LoadHints();
                                 Pause_Menu.gameIsPaused = false;
-                                Level_Transition.LoadSpecialRule();
-                                isOnTransitionScreen = true;
+                                Level_Transition.LoadSpecialRule();                                
                                 CurrentLevel++;
                                 File_Manager.LoadLevel();
                             }
-                            else if (Rules_List.AccessCurrentRule != Rules_List.GetList().Length)
+
+                        }
+                        if (!isOnTransitionScreen && !End_Screen.AccessCleared)
+                        {
+                            
+                            if (rating / 2 > 400)
                             {
-                                if (rating / 2 > 400)
-                                {
-                                    rating /= 2;
-                                }
-                                else if (rating - 400 > 0)
-                                {
-                                    rating -= 400;
-                                }
-                                else
-                                    rating = 0;
+                                rating /= 2;
                             }
+                            else if (rating - 400 > 0)
+                            {
+                                rating -= 400;
+                            }
+                            else
+                                rating = 0;
                         }
                         FindingCheat = false;
                     }
@@ -170,10 +172,6 @@ namespace Cheatscape
                 File_Manager.turnCounter--;
                 CurrentSlide++;
                 Game_Board.SetBoardState();
-                for (int i = 0; i < AllMoves[CurrentSlide - 1].Count; i++)
-                {
-                    Game_Board.MakeAMove(AllMoves[CurrentSlide - 1][i], true);
-                }
             }
             else
             {
@@ -258,11 +256,6 @@ namespace Cheatscape
                     Text_Manager.DrawText("Right: Next move               Left: Previous move               Space: Rules", 150, 
                         (int)(Global_Info.AccessWindowSize.Y / Global_Info.AccessScreenScale) - 20, aSpriteBatch);
                 }
-
-                if (rating == 0)
-                Text_Manager.DrawText(Convert.ToString("You've failed the tutorial..."), 20, (int)(Global_Info.AccessWindowSize.Y / Global_Info.AccessScreenScale) - 200
-                        , aSpriteBatch);
-
             }
         }
     }

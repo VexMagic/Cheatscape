@@ -31,7 +31,7 @@ namespace Cheatscape
                     switch (Level_Manager.AccessAllMoves[i][j].MyMoveType)
                     {
                         case Chess_Move.MoveType.SpecialRule:
-                                specialRule = Level_Manager.AccessAllMoves[i][j].myText.ToLower();
+                                specialRule = Level_Manager.AccessAllMoves[i][j].myText;
                             break;
                     }
                 }
