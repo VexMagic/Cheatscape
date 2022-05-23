@@ -241,6 +241,8 @@ namespace Cheatscape
 
             if (Level_Manager.CurrentBundle != 0)
             {
+                aSpriteBatch.Draw(BannerArrows, Mouse_Controller.hintArrowRects[0], Color.White);
+
                 aSpriteBatch.Draw(lightBulb, new Vector2((int)Global_Info.AccessWindowSize.X / 2 - lightBulb.Width - 55, 10), Color.White);
                 Text_Manager.DrawText("Press H for a hint", 485, 60, aSpriteBatch);
                 Text_Manager.DrawText(2 - Level_Manager.unlockedHints +  " hints remaining", 485, 86, aSpriteBatch);

@@ -67,7 +67,7 @@ namespace Cheatscape
                     Rules_List.AccessCurrentRule = 0;
                 }
 
-                else if (CurrentBundle != 0 && FindingCheat == true && Input_Manager.KeyPressed(Keys.H) && unlockedHints <= Hint_File_Manager.hintList.Count - 2 )
+                else if (CurrentBundle != 0 && FindingCheat == true && Input_Manager.KeyPressed(Keys.H) && unlockedHints <= Hint_File_Manager.hintList.Count - 2)
                 {
                     displayingHint = true;
                     rating -= 100;
@@ -212,11 +212,10 @@ namespace Cheatscape
 
             if (CurrentBundle != 0 && FindingCheat && displayingHint)
             {
-                Text_Manager.DrawTextBox(Hint_File_Manager.hintList[currentHint], new Vector2(475, 120), Text_Manager.TextBoarder, aSpriteBatch);
+                Text_Manager.DrawTextBox(Hint_File_Manager.hintList[currentHint], new Vector2(473, 127), Text_Manager.TextBoarder, aSpriteBatch);
 
                 if(unlockedHints > 0)
                 {
-
                     if (currentHint == 0)
                     Text_Manager.DrawText("    J >", 508, 100, aSpriteBatch);
 
