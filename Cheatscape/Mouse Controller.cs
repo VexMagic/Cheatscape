@@ -142,6 +142,14 @@ namespace Cheatscape
                 }
             }
 
+            for (int i = 0; i < RuleBoxes.Count; i++)
+            {
+                if (RuleBoxes[i].Contains(MousePosition))
+                {
+                    SelectedRule = i;
+                }
+            }
+
             if (CurrentMS.LeftButton == ButtonState.Pressed && PreviousMS.LeftButton == ButtonState.Released && LevelBool())
             {
                 if (Level_Manager.FindingCheat && (ScrollButtons[0].Contains(MousePosition) || ScrollButtons[1].Contains(MousePosition)))
@@ -481,7 +489,7 @@ namespace Cheatscape
                     aSpriteBatch.Draw(TileSelect, tempPosition, Color.White);
                 }
             }
-            if (SelectedRule != 100)
+            if (SelectedRule != 100 && Level_Manager.FindingCheat)
             {
                 aSpriteBatch.Draw(TileSelect, RuleBoxes[SelectedRule], new Rectangle(0, 0, 1, 1), Color.White * 0.75f);
             }

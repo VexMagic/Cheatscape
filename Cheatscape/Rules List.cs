@@ -13,6 +13,8 @@ namespace Cheatscape
         static Texture2D ImageBoarder;
         static Texture2D lightBulb;
         static Texture2D BannerArrows;
+        static Texture2D tempRuleImage;
+        static Texture2D blankRule;
 
         static int CurrentRuleList = 0;
         static int CurrentRule = 0;
@@ -261,11 +263,15 @@ namespace Cheatscape
 
             if (CurrentRule < GetList().Length)
             {
-
-                Texture2D tempRuleImage = Global_Info.AccessContentManager.Load<Texture2D>("Rule Images/" + CurrentRuleList + "-" + CurrentRule);
-
+                tempRuleImage = Global_Info.AccessContentManager.Load<Texture2D>("Rule Images/" + CurrentRuleList + "-" + CurrentRule);
                 aSpriteBatch.Draw(tempRuleImage, new Rectangle((int)ImagePosition.X-1, (int)ImagePosition.Y + 3, 104, 96), Color.White);
                 aSpriteBatch.Draw(ImageBoarder, new Rectangle((int)ImagePosition.X-4, (int)ImagePosition.Y, 110, 102), Color.White);
+            }
+            else
+            {
+                tempRuleImage = Global_Info.AccessContentManager.Load<Texture2D>("Rule Images/" + 0 + "-" + 5);
+                aSpriteBatch.Draw(tempRuleImage, new Rectangle((int)ImagePosition.X - 1, (int)ImagePosition.Y + 3, 104, 96), Color.White);
+                aSpriteBatch.Draw(ImageBoarder, new Rectangle((int)ImagePosition.X - 4, (int)ImagePosition.Y, 110, 102), Color.White);
             }
         }
 

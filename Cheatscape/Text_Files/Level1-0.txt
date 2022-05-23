@@ -1,4 +1,4 @@
-remove;f1,remove;b8,remove;d7,remove;h7,remove;e7,remove;b1,remove;d2,remove;e2,remove;h7,remove;h2,add;bn;c6,add;bp;d5,add;bp;h5,add;wn;c3,add;wp;d4,add;bp;e6,add;wp;e3,add;wb;f3,add;wp;h4,special rule;None
+remove;f1,remove;b8,remove;d7,remove;h7,remove;e7,remove;e2,remove;b1,remove;d2,remove;h7,remove;h2,add;bn;c6,add;bp;d5,add;bp;h5,add;wn;c3,add;wp;d4,add;bp;e6,add;wb;f3,add;wp;h4,add;wp;e4,special rule;None
 move;d5;e4
 move;c3;e4
 move;c6;d4
