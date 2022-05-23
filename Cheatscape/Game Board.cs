@@ -13,7 +13,11 @@ namespace Cheatscape
         static List<Chess_Piece> CapturedBlackPieces = new List<Chess_Piece>();
         public static Vector2 BoardPosition = new Vector2(Global_Info.AccessWindowSize.X / 4 - 128, Global_Info.AccessWindowSize.Y / 4 - 128);
         static int TileSize = 32;
+        static float timer;
+        static float timeLimit = 90f;
+        static int currentFrame;
 
+        static Rectangle mapRectangle;
         public static Chess_Piece[,] AccessChessPiecesOnBoard { get => ChessPiecesOnBoard; set => ChessPiecesOnBoard = value; }
         public static Vector2 AccessBoardPosition { get => BoardPosition; set => BoardPosition = value; }
         public static int AccessTileSize { get => TileSize; set => TileSize = value; }
@@ -63,6 +67,24 @@ namespace Cheatscape
             catch
             {
                 currentMap = MapPack[0];
+            }
+        }
+        public static void DrawMap(GameTime gameTime)
+        {
+            int MaxFrame = 4;
+            mapRectangle = new Rectangle(0, 1080* currentFrame, 1920, 1080);
+            if (currentMap == MapPack[3])
+            {
+                timer += (float)gameTime.ElapsedGameTime.TotalMilliseconds;
+                if (timer >= timeLimit)
+                {
+                    currentFrame++;
+                    timer = 0;
+                    if (currentFrame == MaxFrame)
+                    {
+                        currentFrame = 0;
+                    }
+                }
             }
         }
 
@@ -331,9 +353,10 @@ namespace Cheatscape
 
         public static void Draw(SpriteBatch aSpriteBatch)
         {
-                aSpriteBatch.Draw(currentMap, new Rectangle(0, 0, (int)(Global_Info.AccessWindowSize.X / Global_Info.AccessScreenScale), (int)(Global_Info.AccessWindowSize.Y / Global_Info.AccessScreenScale)), Color.White);
-
-
+            if(currentMap == MapPack[3])
+            aSpriteBatch.Draw(currentMap, new Rectangle(0, 0, (int)(Global_Info.AccessWindowSize.X / Global_Info.AccessScreenScale), (int)(Global_Info.AccessWindowSize.Y / Global_Info.AccessScreenScale)), mapRectangle, Color.White);
+            else
+            aSpriteBatch.Draw(currentMap, new Rectangle(0, 0, (int)(Global_Info.AccessWindowSize.X / Global_Info.AccessScreenScale), (int)(Global_Info.AccessWindowSize.Y / Global_Info.AccessScreenScale)), Color.White);
             Vector2 BoardOffset = new Vector2(BoardPosition.X - ((ChessBoard.Width - (TileSize * 8)) / 2), 
                 BoardPosition.Y - ((ChessBoard.Height - (TileSize * 8)) / 2));
 

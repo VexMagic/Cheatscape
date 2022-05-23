@@ -65,6 +65,7 @@ namespace Cheatscape
                     if (!Transition.transitioning && !End_Screen.AccessIsEnded)
                     {
                         Level_Manager.Play(gameTime);
+                        Game_Board.DrawMap(gameTime);
                         Level_Manager.Update();
                         Hand_Animation_Manager.Update();
                     }
