@@ -104,18 +104,18 @@ namespace Cheatscape
                                 AllAnswers[i].Item1.myRule.Y == Rules_List.AccessCurrentRule &&
                                 AllAnswers[i].Item2 == CurrentSlide)
                             {
+                                isOnTransitionScreen = true;
                                 currentHint = -1;
                                 unlockedHints = -1;
                                 displayingHint = false;
                                 rating += 100;
                                 Hint_File_Manager.LoadHints();
                                 Pause_Menu.gameIsPaused = false;
-                                Level_Transition.LoadSpecialRule();
-                                isOnTransitionScreen = true;
+                                Level_Transition.LoadSpecialRule();                                
                                 CurrentLevel++;
                                 File_Manager.LoadLevel();
                             }
-                            else if (Rules_List.AccessCurrentRule != Rules_List.GetList().Length)
+                            else if (isOnTransitionScreen == false)
                             {
                                 if (rating / 2 > 400)
                                 {
@@ -258,11 +258,6 @@ namespace Cheatscape
                     Text_Manager.DrawText("Right: Next move               Left: Previous move               Space: Rules", 150, 
                         (int)(Global_Info.AccessWindowSize.Y / Global_Info.AccessScreenScale) - 20, aSpriteBatch);
                 }
-
-                if (rating == 0)
-                Text_Manager.DrawText(Convert.ToString("You've failed the tutorial..."), 20, (int)(Global_Info.AccessWindowSize.Y / Global_Info.AccessScreenScale) - 200
-                        , aSpriteBatch);
-
             }
         }
     }
