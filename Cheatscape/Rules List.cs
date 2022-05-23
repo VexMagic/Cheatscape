@@ -14,7 +14,9 @@ namespace Cheatscape
         static Texture2D lightBulb;
         static Texture2D BannerArrows;
         static Texture2D tempRuleImage;
-        static Texture2D blankRule;
+        public static Texture2D hintArrows;
+        public static Texture2D hintArrowsLeft;
+        public static Texture2D hintArrowsRight;
 
         static int CurrentRuleList = 0;
         static int CurrentRule = 0;
@@ -62,6 +64,9 @@ namespace Cheatscape
             ImageBoarder = Global_Info.AccessContentManager.Load<Texture2D>("Rule Image Boarder");
             lightBulb = Global_Info.AccessContentManager.Load<Texture2D>("Light Bulb");
             BannerArrows = Global_Info.AccessContentManager.Load<Texture2D>("Banner Arrows");
+            hintArrows = Global_Info.AccessContentManager.Load<Texture2D>("Hint Arrows");
+            hintArrowsLeft = Global_Info.AccessContentManager.Load<Texture2D>("Hint Arrows Left");
+            hintArrowsRight = Global_Info.AccessContentManager.Load<Texture2D>("Hint Arrows Right");
         }
 
         public static void IncludeList(int aList)
@@ -240,9 +245,7 @@ namespace Cheatscape
             Text_Manager.DrawRuleBox(tempArray, aSpriteBatch);
 
             if (Level_Manager.CurrentBundle != 0)
-            {
-                aSpriteBatch.Draw(BannerArrows, Mouse_Controller.hintArrowRects[0], Color.White);
-
+            {               
                 aSpriteBatch.Draw(lightBulb, new Vector2((int)Global_Info.AccessWindowSize.X / 2 - lightBulb.Width - 55, 10), Color.White);
                 Text_Manager.DrawText("Press H for a hint", 485, 60, aSpriteBatch);
                 Text_Manager.DrawText(2 - Level_Manager.unlockedHints +  " hints remaining", 485, 86, aSpriteBatch);
