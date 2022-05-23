@@ -115,19 +115,21 @@ namespace Cheatscape
                                 CurrentLevel++;
                                 File_Manager.LoadLevel();
                             }
-                            else if (isOnTransitionScreen == false)
+
+                        }
+                        if (!isOnTransitionScreen)
+                        {
+                            
+                            if (rating / 2 > 400)
                             {
-                                if (rating / 2 > 400)
-                                {
-                                    rating /= 2;
-                                }
-                                else if (rating - 400 > 0)
-                                {
-                                    rating -= 400;
-                                }
-                                else
-                                    rating = 0;
+                                rating /= 2;
                             }
+                            else if (rating - 400 > 0)
+                            {
+                                rating -= 400;
+                            }
+                            else
+                                rating = 0;
                         }
                         FindingCheat = false;
                     }
