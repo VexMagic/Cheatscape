@@ -25,6 +25,7 @@ namespace Cheatscape
         public static Rectangle[] pauseRects = { new Rectangle(150, 130, 32, 32), new Rectangle(418, 130, 32, 32), new Rectangle(150, 230, 32, 32),
             new Rectangle(418, 230, 32, 32) };
         public static Rectangle[] endRects = { new Rectangle(150, 230, 32, 32), new Rectangle(418, 230, 32, 32) };
+        public static Rectangle hintRect = new Rectangle((int)Global_Info.AccessWindowSize.X / 2 - 95, 10, 40, 40);
         static int SelectedRule = 100;
 
         public static void Load()
@@ -219,6 +220,18 @@ namespace Cheatscape
                 if (CurrentMS.ScrollWheelValue < PreviousMS.ScrollWheelValue)
                 {
                     Rules_List.AccessCurrentRule++;
+                }
+
+                if (Level_Manager.CurrentBundle != 0 && hintRect.Contains(MousePosition) && 
+                    CurrentMS.LeftButton == ButtonState.Pressed && PreviousMS.LeftButton == ButtonState.Released && 
+                    Level_Manager.unlockedHints <= Hint_File_Manager.hintList.Count - 2)
+                {
+                    Level_Manager.displayingHint = true;
+                    Level_Manager.AccessRating -= 100;
+                    Level_Manager.currentHint++;
+                    Level_Manager.unlockedHints++;
+                    if (Level_Manager.currentHint < Level_Manager.unlockedHints)
+                        Level_Manager.currentHint = Level_Manager.unlockedHints;
                 }
             }
 
