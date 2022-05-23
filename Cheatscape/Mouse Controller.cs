@@ -22,6 +22,9 @@ namespace Cheatscape
         static Vector2 SelectedTile;
         public static Rectangle[] optionRects = { new Rectangle(263, 45, 64, 24), new Rectangle(263, 95, 64, 24), new Rectangle(200, 145, 192, 24), 
             new Rectangle(200, 195, 192, 24), new Rectangle(284, 245, 32, 32) };
+        public static Rectangle[] pauseRects = { new Rectangle(150, 130, 32, 32), new Rectangle(418, 130, 32, 32), new Rectangle(150, 230, 32, 32),
+            new Rectangle(418, 230, 32, 32) };
+        public static Rectangle[] endRects = { new Rectangle(150, 230, 32, 32), new Rectangle(418, 230, 32, 32) };
         static int SelectedRule = 100;
 
         public static void Load()
@@ -224,6 +227,97 @@ namespace Cheatscape
                 if (CurrentMS.ScrollWheelValue < PreviousMS.ScrollWheelValue)
                 {
                     Rules_List.AccessCurrentRule++;
+                }
+            }
+
+            if (Pause_Menu.gameIsPaused)
+            {
+                if (pauseRects[0].Contains(MousePosition))
+                {
+                    Pause_Menu.AccessPauseIndexX = 0;
+                    Pause_Menu.AccessPauseIndexY = 0;
+                }
+                else if (pauseRects[1].Contains(MousePosition))
+                {
+                    Pause_Menu.AccessPauseIndexX = 1;
+                    Pause_Menu.AccessPauseIndexY = 0;
+                }
+                else if (pauseRects[2].Contains(MousePosition))
+                {
+                    Pause_Menu.AccessPauseIndexX = 0;
+                    Pause_Menu.AccessPauseIndexY = 1;
+                }
+                else if (pauseRects[3].Contains(MousePosition))
+                {
+                    Pause_Menu.AccessPauseIndexX = 1;
+                    Pause_Menu.AccessPauseIndexY = 1;
+                }
+
+                if (CurrentMS.LeftButton == ButtonState.Released && PreviousMS.LeftButton == ButtonState.Pressed)
+                {
+                    if (pauseRects[0].Contains(MousePosition))
+                    {
+                        Pause_Menu.gameIsPaused = false;
+                    }
+                    else if (pauseRects[1].Contains(MousePosition))
+                    {
+                        Transition.StartTransition(Transition.TransitionState.ToLevel);
+                        Pause_Menu.gameIsPaused = false;
+                    }
+                    else if (pauseRects[2].Contains(MousePosition))
+                    {
+                        Transition.nextTransitionState = Transition.TransitionState.ToLevel;
+                        Transition.StartTransition(Transition.TransitionState.ToOptions);
+                    }
+                    else if (pauseRects[3].Contains(MousePosition))
+                    {
+                        Transition.StartTransition(Transition.TransitionState.ToLvSelect);
+                        Pause_Menu.gameIsPaused = false;
+                    }
+                }
+            }
+
+            if (End_Screen.AccessIsEnded)
+            {
+                if (endRects[0].Contains(MousePosition))
+                {
+                    End_Screen.AccessEndIndex = 0;
+                }
+                else if (endRects[1].Contains(MousePosition))
+                {
+                    End_Screen.AccessEndIndex = 1;
+                }
+
+                if (End_Screen.AccessCleared && CurrentMS.LeftButton == ButtonState.Released && PreviousMS.LeftButton == ButtonState.Pressed)
+                {
+                    if (endRects[0].Contains(MousePosition))
+                    {
+                        Level_Manager.AccessCurrentLevel = 0;
+                        Transition.StartTransition(Transition.TransitionState.ToLevel);
+                    }
+                    else if (endRects[1].Contains(MousePosition))
+                    {
+                        Transition.StartTransition(Transition.TransitionState.ToLvSelect);
+                    }
+
+                    if (Level_Manager.AccessRating >
+                            Level_Select_Menu.AccessHighScores[Level_Select_Menu.SelectedBundleX + Level_Select_Menu.SelectedBundleY * 5])
+                    {
+                        Level_Select_Menu.AccessHighScores[Level_Select_Menu.SelectedBundleX + Level_Select_Menu.SelectedBundleY * 5] =
+                            Level_Manager.AccessRating;
+                    }
+                }
+                else if (CurrentMS.LeftButton == ButtonState.Released && PreviousMS.LeftButton == ButtonState.Pressed)
+                {
+                    if (endRects[0].Contains(MousePosition))
+                    {
+                        Transition.StartTransition(Transition.TransitionState.ToLvSelect);
+                    }
+                    else if (endRects[1].Contains(MousePosition))
+                    {
+                        Level_Manager.AccessCurrentLevel = 0;
+                        Transition.StartTransition(Transition.TransitionState.ToLevel);
+                    }
                 }
             }
         }
