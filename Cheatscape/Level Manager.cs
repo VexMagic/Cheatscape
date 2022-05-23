@@ -67,7 +67,7 @@ namespace Cheatscape
                     Rules_List.AccessCurrentRule = 0;
                 }
 
-                else if (CurrentBundle != 0 && FindingCheat == true && Input_Manager.KeyPressed(Keys.H) && unlockedHints <= Hint_File_Manager.hintList.Count - 2 )
+                else if (CurrentBundle != 0 && FindingCheat == true && Input_Manager.KeyPressed(Keys.H) && unlockedHints <= Hint_File_Manager.hintList.Count - 2)
                 {
                     displayingHint = true;
                     rating -= 100;
@@ -117,7 +117,7 @@ namespace Cheatscape
                             }
 
                         }
-                        if (!isOnTransitionScreen)
+                        if (!isOnTransitionScreen && !End_Screen.AccessCleared)
                         {
                             
                             if (rating / 2 > 400)
