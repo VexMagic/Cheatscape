@@ -25,6 +25,7 @@ namespace Cheatscape
         public static Rectangle[] pauseRects = { new Rectangle(150, 130, 32, 32), new Rectangle(418, 130, 32, 32), new Rectangle(150, 230, 32, 32),
             new Rectangle(418, 230, 32, 32) };
         public static Rectangle[] endRects = { new Rectangle(150, 230, 32, 32), new Rectangle(418, 230, 32, 32) };
+        static int SelectedRule = 100;
 
         public static void Load()
         {
