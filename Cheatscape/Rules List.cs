@@ -298,17 +298,12 @@ namespace Cheatscape
             else if (tempScrollAmount > MaxScroll(aStringArray))
             {
                 if (MaxScroll(aStringArray) > 0)
-                {
-                    
                     return MaxScroll(aStringArray);
-                }
-                    
                 else
                     return 0;
             }
             else
-                return 0;
-            
+                return tempScrollAmount;
         }
 
         public static int MaxScroll(string[] aStringArray)
