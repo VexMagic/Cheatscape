@@ -25,6 +25,8 @@ namespace Cheatscape
         public static Rectangle[] pauseRects = { new Rectangle(150, 130, 32, 32), new Rectangle(418, 130, 32, 32), new Rectangle(150, 230, 32, 32),
             new Rectangle(418, 230, 32, 32) };
         public static Rectangle[] endRects = { new Rectangle(150, 230, 32, 32), new Rectangle(418, 230, 32, 32) };
+        public static Rectangle hintRect = new Rectangle((int)Global_Info.AccessWindowSize.X / 2 - 95, 10, 40, 40);
+        public static Rectangle[] hintArrowRects = { new Rectangle(467, 100, 112, 20), new Rectangle(467, 100, 16, 20), new Rectangle(563, 100, 16, 20) };
         static int SelectedRule = 100;
 
         public static void Load()
@@ -57,23 +59,26 @@ namespace Cheatscape
             PreviousMS = CurrentMS;
             CurrentMS = Mouse.GetState();
             MousePosition = new Vector2(CurrentMS.X, CurrentMS.Y) / Global_Info.AccessScreenScale;
-
-            switch (Global_Info.AccessCurrentGameState)
+            if (CurrentMS != PreviousMS)
             {
-                case Global_Info.GameState.LevelSelect:
-                    LevelSelectUpdate();
-                    break;
-                case Global_Info.GameState.PlayingLevel:
-                    LevelUpdate();
-                    break;
-                case Global_Info.GameState.MainMenu:
-                    if (CurrentMS.LeftButton == ButtonState.Pressed && PreviousMS.LeftButton == ButtonState.Released)
-                        Main_Menu.animating = true;
-                    break;
-                case Global_Info.GameState.Options:
-                    OptionUpdate();
-                    break;
+                switch (Global_Info.AccessCurrentGameState)
+                {
+                    case Global_Info.GameState.LevelSelect:
+                        LevelSelectUpdate();
+                        break;
+                    case Global_Info.GameState.PlayingLevel:
+                        LevelUpdate();
+                        break;
+                    case Global_Info.GameState.MainMenu:
+                        if (CurrentMS.LeftButton == ButtonState.Pressed && PreviousMS.LeftButton == ButtonState.Released)
+                            Main_Menu.animating = true;
+                        break;
+                    case Global_Info.GameState.Options:
+                        OptionUpdate();
+                        break;
+                }
             }
+            
         }
 
         static void LevelSelectUpdate()
@@ -213,6 +218,26 @@ namespace Cheatscape
                             Level_Manager.FindingCheat = true;
                         }
                     }
+                }
+                else if (Level_Manager.CurrentBundle != 0 && hintArrowRects[0].Contains(MousePosition) && Level_Manager.displayingHint == true)
+                {
+                    if (hintArrowRects[1].Contains(MousePosition) && Level_Manager.currentHint > 0)
+                    {
+                        Level_Manager.currentHint--;
+                    }
+                    else if (hintArrowRects[2].Contains(MousePosition) && Level_Manager.currentHint < Level_Manager.unlockedHints)
+                    {
+                        Level_Manager.currentHint++;
+                    }
+                }
+                else if (Level_Manager.CurrentBundle != 0 && hintRect.Contains(MousePosition) && Level_Manager.unlockedHints <= Hint_File_Manager.hintList.Count - 2)
+                {
+                    Level_Manager.displayingHint = true;
+                    Level_Manager.AccessRating -= 100;
+                    Level_Manager.currentHint++;
+                    Level_Manager.unlockedHints++;
+                    if (Level_Manager.currentHint < Level_Manager.unlockedHints)
+                        Level_Manager.currentHint = Level_Manager.unlockedHints;
                 }
                 else
                     Level_Manager.FindingCheat = false;
