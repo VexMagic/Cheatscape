@@ -170,10 +170,6 @@ namespace Cheatscape
                 File_Manager.turnCounter--;
                 CurrentSlide++;
                 Game_Board.SetBoardState();
-                for (int i = 0; i < AllMoves[CurrentSlide - 1].Count; i++)
-                {
-                    Game_Board.MakeAMove(AllMoves[CurrentSlide - 1][i], true);
-                }
             }
             else
             {
