@@ -13,6 +13,8 @@ namespace Cheatscape
         static Texture2D ImageBoarder;
         static Texture2D lightBulb;
         static Texture2D BannerArrows;
+        static Texture2D tempRuleImage;
+        static Texture2D blankRule;
 
         static int CurrentRuleList = 0;
         static int CurrentRule = 0;
@@ -124,14 +126,22 @@ namespace Cheatscape
             switch (aMoveDirection)
             {
                 case 0: //Move Down
+                    
                     LastRule = CurrentRule;
                     if (CurrentRule <= GetList().Length)
+                    {
                         CurrentRule++;
+                    }
+                    
                     break;
                 case 1: //Move Up
+                    
                     LastRule = CurrentRule;
                     if (CurrentRule >= 0)
+                    {
                         CurrentRule--;
+                    }
+                    
                     break;
                 case 2: //Move Left
                     CurrentRuleList--;
@@ -253,9 +263,15 @@ namespace Cheatscape
 
             if (CurrentRule < GetList().Length)
             {
-                Texture2D tempRuleImage = Global_Info.AccessContentManager.Load<Texture2D>("Rule Images/" + CurrentRuleList + "-" + CurrentRule);
-                aSpriteBatch.Draw(tempRuleImage, new Rectangle((int)ImagePosition.X + 3, (int)ImagePosition.Y + 3, 96, 96), Color.White);
-                aSpriteBatch.Draw(ImageBoarder, new Rectangle((int)ImagePosition.X, (int)ImagePosition.Y, 102, 102), Color.White);
+                tempRuleImage = Global_Info.AccessContentManager.Load<Texture2D>("Rule Images/" + CurrentRuleList + "-" + CurrentRule);
+                aSpriteBatch.Draw(tempRuleImage, new Rectangle((int)ImagePosition.X-1, (int)ImagePosition.Y + 3, 104, 96), Color.White);
+                aSpriteBatch.Draw(ImageBoarder, new Rectangle((int)ImagePosition.X-4, (int)ImagePosition.Y, 110, 102), Color.White);
+            }
+            else
+            {
+                tempRuleImage = Global_Info.AccessContentManager.Load<Texture2D>("Rule Images/" + 0 + "-" + 5);
+                aSpriteBatch.Draw(tempRuleImage, new Rectangle((int)ImagePosition.X - 1, (int)ImagePosition.Y + 3, 104, 96), Color.White);
+                aSpriteBatch.Draw(ImageBoarder, new Rectangle((int)ImagePosition.X - 4, (int)ImagePosition.Y, 110, 102), Color.White);
             }
         }
 
@@ -282,12 +298,17 @@ namespace Cheatscape
             else if (tempScrollAmount > MaxScroll(aStringArray))
             {
                 if (MaxScroll(aStringArray) > 0)
+                {
+                    
                     return MaxScroll(aStringArray);
+                }
+                    
                 else
                     return 0;
             }
             else
-                return tempScrollAmount;
+                return 0;
+            
         }
 
         public static int MaxScroll(string[] aStringArray)

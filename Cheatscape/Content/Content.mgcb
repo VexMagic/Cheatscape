@@ -25,18 +25,6 @@
 /processorParam:TextureFormat=Color
 /build:BackButton.png
 
-#begin Background.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Background.png
-
 #begin Banner Arrows.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -109,6 +97,18 @@
 /processorParam:TextureFormat=Color
 /build:ContinueButton.png
 
+#begin Desk.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Desk.png
+
 #begin ExitButton.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -170,6 +170,18 @@
 /processorParam:Quality=Best
 /build:Holding Out for a Hero Eurobeat Remix.mp3
 
+#begin Kindergarten.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Kindergarten.png
+
 #begin LargeFont.spritefont
 /importer:FontDescriptionImporter
 /processor:FontDescriptionProcessor
@@ -224,6 +236,18 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Light Bulb.png
+
+#begin Lock.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Lock.png
 
 #begin Main_Menu.png
 /importer:TextureImporter
@@ -338,6 +362,18 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:OptionSliders.png
+
+#begin Park.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Park.png
 
 #begin Pause_Menu.png
 /importer:TextureImporter
@@ -663,11 +699,23 @@
 /processorParam:TextureFormat=Color
 /build:Slide Buttons.png
 
+#begin song0.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:song0.mp3
+
 #begin Song1.mp3
 /importer:Mp3Importer
 /processor:SongProcessor
 /processorParam:Quality=Best
 /build:Song1.mp3
+
+#begin song2.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:song2.mp3
 
 #begin Text Boarder.png
 /importer:TextureImporter

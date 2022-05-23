@@ -11,7 +11,6 @@ namespace Cheatscape
     static class Global_Tracker
     {
         public static List<Tuple<int, float>> completedBundels = new List<Tuple<int, float>>();
-        public static char[] MyChar = { '(', ')', ' ' };
 
         public static void Deconstruct<T>(this IList<T> completedBundels, out T first, out T second, out IList<T> rest)
         {
@@ -21,7 +20,22 @@ namespace Cheatscape
         }
         public static void AddCompletedLevel(int completedBundle, float grade) //Add Text to file
         {
-            completedBundels.Add(new Tuple<int, float>(completedBundle, grade));
+            try
+            {
+                if (grade >= completedBundels[completedBundle].Item2)
+                {
+                    completedBundels[completedBundle] = new Tuple<int, float>(completedBundle, grade);
+                }
+                else
+                {
+                    
+                }
+            }
+            catch
+            {
+                completedBundels.Add(new Tuple<int, float>(completedBundle, grade));
+            }
+            
 
             File.WriteAllText(@"..\..\..\Text_Files\Global_Tracker.txt", String.Empty);
 
@@ -34,17 +48,23 @@ namespace Cheatscape
         }
         public static void LoadCompletedBundles()
         {
-           
-            foreach (string line in File.ReadLines(@"..\..\..\Text_Files\Global_Tracker.txt"))
+            try
             {
-                var (first, second, rest) = line.Split(',');
-                string firstConverted = Regex.Replace(first, "[^0-9]", "");
-                string secondConverted = Regex.Replace(second, "[^0-9]", "");
+                foreach (string line in File.ReadLines(@"..\..\..\Text_Files\Global_Tracker.txt"))
+                {
+                    var (first, second, rest) = line.Split(',');
+                    string firstConverted = Regex.Replace(first, "[^0-9]", "");
+                    string secondConverted = Regex.Replace(second, "[^0-9]", "");
 
-                int bundleID = Int32.Parse(firstConverted);
-                float grade = float.Parse(secondConverted);
+                    int bundleID = Int32.Parse(firstConverted);
+                    float grade = float.Parse(secondConverted);
 
-                completedBundels.Add(new Tuple<int, float>(bundleID, grade));
+                    completedBundels.Add(new Tuple<int, float>(bundleID, grade));
+                }
+            }
+            catch
+            {
+
             }
         }
     }

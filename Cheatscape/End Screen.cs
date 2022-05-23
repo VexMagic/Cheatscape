@@ -12,8 +12,16 @@ namespace Cheatscape
         static bool gameIsEnded;
         static bool cleared;
 
-        public static bool AccessIsEnded { get => gameIsEnded; set => gameIsEnded = value; }
-        public static bool AccessCleared { get => cleared; set => cleared = value; }
+        public static bool AccessIsEnded
+        {
+            get => gameIsEnded;
+            set => gameIsEnded = value;
+        }
+        public static bool AccessCleared 
+        { 
+            get => cleared; 
+            set => cleared = value; 
+        }
 
         static Texture2D levelClear;
         static Texture2D gameOver;
@@ -24,6 +32,12 @@ namespace Cheatscape
 
         static int endIndex = 0;
         static int endAmount = 1;
+
+        public static int AccessEndIndex 
+        { 
+            get => endIndex;
+            set => endIndex = value;
+        }
 
         public static void Load()
         {
@@ -51,15 +65,18 @@ namespace Cheatscape
                 }
                 else if (Input_Manager.KeyPressed(Keys.Space))
                 {
+                    Music_Player.StopMusic();
+                    
                     if (cleared)
                     {
-                        if (endIndex == 0) //Retry
+                        if (endIndex == 0 ) //Retry
                         {
                             Level_Manager.AccessCurrentLevel = 0;
                             Transition.StartTransition(Transition.TransitionState.ToLevel);
                         }
                         else if (endIndex == 1) //Continue
                         {
+                            Level_Select_Menu.Load();
                             Transition.StartTransition(Transition.TransitionState.ToLvSelect);
                         }
 
@@ -78,6 +95,7 @@ namespace Cheatscape
                         }
                         else if (endIndex == 1) //Retry
                         {
+                            Level_Manager.isOnTransitionScreen = false;
                             Level_Manager.AccessCurrentLevel = 0;
                             Transition.StartTransition(Transition.TransitionState.ToLevel);
                         }
