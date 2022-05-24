@@ -117,7 +117,7 @@ namespace Cheatscape
                             }
 
                         }
-                        if (!isOnTransitionScreen && !End_Screen.AccessCleared)
+                        if (Rules_List.AccessCurrentRule != Rules_List.GetList().Length && !isOnTransitionScreen && !End_Screen.AccessCleared)
                         {
                             
                             if (rating / 2 > 400)

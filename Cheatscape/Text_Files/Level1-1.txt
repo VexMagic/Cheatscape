@@ -25,8 +25,8 @@ move;h1;h3
 move;b6;h6
 move;g2;g4
 move;g7;g6
-move;f3;c6,Check
-move;e8;d8,Answer;2-1
+move;f3;c6,Answer;2-0,Answer;2-1,Check
+move;e8;d8,Answer;2-0,Answer;2-1
 move;c6;a8
 move;d8;c7
 move;a8;f3

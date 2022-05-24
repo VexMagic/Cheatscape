@@ -21,7 +21,7 @@ move;b2;e5
 move;d7;e5
 move;b3;b4
 move;a5;b4
-move;a3;b4,remove;b4,add;wn;b4,answer;0-6
+move;a3;b4,remove;b4,add;wn;b4,answer;0-4
 move;a8;a1
 move;e1;e2
 move;a1;h1
