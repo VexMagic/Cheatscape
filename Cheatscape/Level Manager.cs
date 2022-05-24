@@ -117,21 +117,7 @@ namespace Cheatscape
                             }
 
                         }
-                        if (!isOnTransitionScreen && !End_Screen.AccessCleared)
-                        {
-                            
-                            if (rating / 2 > 400)
-                            {
-                                rating /= 2;
-                            }
-                            else if (rating - 400 > 0)
-                            {
-                                rating -= 400;
-                            }
-                            else
-                                rating = 0;
-                        }
-                        FindingCheat = false;
+                        SelectCheat();
                     }
                 }
 
