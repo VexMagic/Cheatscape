@@ -110,10 +110,12 @@ namespace Cheatscape
                     Transition.StartTransition(Transition.TransitionState.ToOptions);
                 }
                 else if (!Level_Select_Menu.optionHighlight && 
-                    LevelButtons[Level_Select_Menu.SelectedBundleX, Level_Select_Menu.SelectedBundleY].Contains(MousePosition))
+                    LevelButtons[Level_Select_Menu.SelectedBundleX, Level_Select_Menu.SelectedBundleY].Contains(MousePosition)&&(Global_Tracker.completedBundels.Count == (Level_Select_Menu.SelectedBundleX + Level_Select_Menu.SelectedBundleY * 5) || Global_Tracker.completedBundels.Count > (Level_Select_Menu.SelectedBundleX + Level_Select_Menu.SelectedBundleY * 5))
+)
                 {
                     Music_Player.ChangeMusic((Level_Select_Menu.SelectedBundleX + Level_Select_Menu.SelectedBundleY * 5));
                     Music_Player.PlayMusic();
+                    Game_Board.AdjustMap((Level_Select_Menu.SelectedBundleX + Level_Select_Menu.SelectedBundleY * 5));
                     Level_Manager.AccessRating = 1000;
                     Transition.StartTransition(Transition.TransitionState.ToLevel);
                 }

@@ -15,6 +15,8 @@ namespace Cheatscape
         static Texture2D Bg1Tex;
         static Texture2D Bg2Tex;
         static Texture2D Bg3Tex;
+        static Texture2D Bg4Tex;
+        static Texture2D Bg5Tex;
         static Texture2D optionButtonTex;
         static Texture2D optionHighlightTex;
         static Texture2D lockTex;
@@ -43,6 +45,8 @@ namespace Cheatscape
             Bg1Tex = Global_Info.AccessContentManager.Load<Texture2D>("Kindergarten");
             Bg2Tex = Global_Info.AccessContentManager.Load<Texture2D>("Desk");
             Bg3Tex = Global_Info.AccessContentManager.Load<Texture2D>("Park");
+            Bg4Tex = Global_Info.AccessContentManager.Load<Texture2D>("cheatscape Train");
+            Bg5Tex = Global_Info.AccessContentManager.Load<Texture2D>("soon");
             optionButtonTex = Global_Info.AccessContentManager.Load<Texture2D>("OptionsButton");
             optionHighlightTex = Global_Info.AccessContentManager.Load<Texture2D>("OptionsButtonHighlight");
             lockTex = Global_Info.AccessContentManager.Load<Texture2D>("Lock");
@@ -106,6 +110,7 @@ namespace Cheatscape
 
                         Music_Player.ChangeMusic((SelectedBundleX + SelectedBundleY * 5));
                         Music_Player.PlayMusic();
+                        Game_Board.AdjustMap((SelectedBundleX + SelectedBundleY * 5));
                         Hint_File_Manager.LoadHints();
                         Level_Transition.LoadSpecialRule();
                         Level_Manager.isOnTransitionScreen = true;
@@ -123,6 +128,7 @@ namespace Cheatscape
                         /*Music_Player.ChangeMusic(SelectedBundleX);*/ // Den här hindrar koden från att köras eftersom att det inte finns n¨gon song3 att ladda in
                         Music_Player.ChangeMusic((SelectedBundleX + SelectedBundleY * 5));
                         Music_Player.PlayMusic();
+                        Game_Board.AdjustMap((SelectedBundleX + SelectedBundleY * 5));
                         Level_Manager.currentHint = -1;
                         Level_Manager.unlockedHints = -1;
                         Level_Manager.displayingHint = false;
@@ -150,8 +156,14 @@ namespace Cheatscape
         public static void Draw(SpriteBatch aSpriteBatch)
         {
             aSpriteBatch.Draw(Bg1Tex, new Rectangle(50, 50, PanelTex.Width, PanelTex.Height), Color.White);
-            aSpriteBatch.Draw(Bg2Tex, new Rectangle(150, 50, PanelTex.Width, PanelTex.Height), Color.White);
-            aSpriteBatch.Draw(Bg3Tex, new Rectangle(250, 50, PanelTex.Width, PanelTex.Height), Color.White);
+            aSpriteBatch.Draw(Bg1Tex, new Rectangle(150, 50, PanelTex.Width, PanelTex.Height), Color.White);
+            aSpriteBatch.Draw(Bg2Tex, new Rectangle(250, 50, PanelTex.Width, PanelTex.Height), Color.White);
+            aSpriteBatch.Draw(Bg3Tex, new Rectangle(350, 50, PanelTex.Width, PanelTex.Height), Color.White);
+            aSpriteBatch.Draw(Bg4Tex, new Rectangle(450, 50, PanelTex.Width, PanelTex.Height),new Rectangle(0,0,1920,1080), Color.White);
+            for (int i = 50; i < 550; i+=100)
+            {
+                aSpriteBatch.Draw(Bg5Tex, new Rectangle(i, 125, PanelTex.Width, PanelTex.Height), Color.White);
+            }
 
             if (optionHighlight)
             {
