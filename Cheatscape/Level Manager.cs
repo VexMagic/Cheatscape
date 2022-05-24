@@ -159,6 +159,7 @@ namespace Cheatscape
 
             if (isOnTransitionScreen == true && Input_Manager.KeyPressed(Keys.Enter))
             {
+                Hint_File_Manager.LoadHints();
                 isOnTransitionScreen = false;
                 Pause_Menu.gameIsPaused = false;
             }
