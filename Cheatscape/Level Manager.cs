@@ -144,7 +144,7 @@ namespace Cheatscape
                     Rules_List.AccessCurrentRule++;
                 }
 
-                if (rating == 0 && Input_Manager.KeyPressed(Keys.Enter))
+                if (rating <= 0)
                 {
                     End_Screen.AccessCleared = false;
                     End_Screen.AccessIsEnded = true;
@@ -244,7 +244,7 @@ namespace Cheatscape
             }
 
             if (isOnTransitionScreen == false)
-                Text_Manager.DrawText(Convert.ToString("Turn counter: " + File_Manager.turnCounter), (int)(Global_Info.AccessWindowSize.X / Global_Info.AccessScreenScale) - 450, 10, aSpriteBatch);
+                Text_Manager.DrawText(Convert.ToString("Moves Left: " + File_Manager.turnCounter), (int)(Global_Info.AccessWindowSize.X / Global_Info.AccessScreenScale) - 450, 10, aSpriteBatch);
 
             if (isOnTransitionScreen)                
                 Level_Transition.Draw(aSpriteBatch);

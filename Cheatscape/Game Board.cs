@@ -333,14 +333,6 @@ namespace Cheatscape
 
             aSpriteBatch.Draw(ChessBoard, BoardOffset, Color.White);
 
-            if (!Level_Manager.FindingCheat)
-            {
-                if (Level_Manager.AccessCurrentSlide > 1)
-                    aSpriteBatch.Draw(SlideButtons, new Rectangle(113, 148, 31, 64), new Rectangle(0, 0, 31, 64), Color.White);
-                if (Level_Manager.AccessCurrentSlide < Level_Manager.AccessAllMoves.Count)
-                    aSpriteBatch.Draw(SlideButtons, new Rectangle(456, 148, 31, 64), new Rectangle(33, 0, 31, 64), Color.White);
-            }
-
             for (int x = 0; x < ChessPiecesOnBoard.GetLength(0); x++)
             {
                 for (int y = 0; y < ChessPiecesOnBoard.GetLength(1); y++)
@@ -361,6 +353,13 @@ namespace Cheatscape
                 Vector2 tempPiecePos = new Vector2(BoardOffset.X + ChessBoard.Width,
                     BoardOffset.Y + (ChessBoard.Height - TileSize) - (i * (TileSize / 2)));
                 CapturedBlackPieces[i].Draw(aSpriteBatch, tempPiecePos);
+            }
+            if (!Level_Manager.FindingCheat)
+            {
+                if (Level_Manager.AccessCurrentSlide > 1)
+                    aSpriteBatch.Draw(SlideButtons, new Rectangle(113, 148, 31, 64), new Rectangle(0, 0, 31, 64), Color.White);
+                if (Level_Manager.AccessCurrentSlide < Level_Manager.AccessAllMoves.Count)
+                    aSpriteBatch.Draw(SlideButtons, new Rectangle(456, 148, 31, 64), new Rectangle(33, 0, 31, 64), Color.White);
             }
 
             if (CurrentSplashArt == SplashArt.Check)
