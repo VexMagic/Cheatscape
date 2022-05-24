@@ -36,7 +36,7 @@ namespace Cheatscape
             "Only one piece may be moved per turn (not including Castling).",
             "A piece can only be moved on its player's turn.",
             "A piece can only move to an unoccupied space or one occupied by an opposing piece.",
-            "The only way to remove a piece from the game is if a piece is moved to a space occupied by an opposing piece, the opposing piece is captured and removed from the game.",
+            "The only way to remove a piece from the game is if a piece is moved to a space occupied by an opposing piece, the opposing piece is captured and then removed.",
             "The only time a piece can change type is when a Pawn reaches the other side of the board, it is replaced by a new queen, rook, bishop, or knight of the same color."};
         static string[] MovementRules = {
             "The Pawn moves one space forward but on its first move it can move one or two spaces forward.",
