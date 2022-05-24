@@ -10,4 +10,4 @@ move;f6;h5
 move;d1;h5
 move;c6;d4
 move;e1;g1,move;h1;f1
-move;d8;b8,move;a8;c8,answer;2-4
+move;d8;b8,move;a8;c8,answer;2-3
