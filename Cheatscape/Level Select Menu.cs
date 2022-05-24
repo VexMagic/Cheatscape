@@ -185,7 +185,6 @@ namespace Cheatscape
                     aSpriteBatch.Draw(NumbersTex, new Rectangle(55 + j * 100, 55 + i * 75, 9, 5), new Rectangle(9 * j + i * 45, 0, 9, 5), Color.White, 0, new Vector2(0, 0), SpriteEffects.None, 0);
                     aSpriteBatch.Draw(PanelTex, new Vector2(50 + j * 100, 50 + i * 75), Color.White);
 
-                    
                     if (highScores[j + i * 5] != 1)
                     {                        
                         Text_Manager.DrawText(highScores[j + i * 5].ToString(), 55 + j * 100, 99 + i * 75, aSpriteBatch);

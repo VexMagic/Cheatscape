@@ -74,7 +74,6 @@ namespace Cheatscape
                     else if (pauseIndexX == 1 && pauseIndexY == 0) //Restart
                     {
                         Transition.StartTransition(Transition.TransitionState.ToLevel);
-                        Music_Player.PlayMusic();
                         gameIsPaused = false;
                     }
                     else if (pauseIndexX == 0 && pauseIndexY == 1) //Options
