@@ -38,15 +38,15 @@ namespace Cheatscape
             }
         }
 
-            public static void Draw(SpriteBatch aSpriteBatch)
+        public static void Draw(SpriteBatch aSpriteBatch)
         {
             aSpriteBatch.Draw(transitionScreen, new Rectangle(0, 0, (int)(Global_Info.WindowSize.X / Global_Info.AccessScreenScale), (int)(Global_Info.WindowSize.Y / Global_Info.AccessScreenScale)), Color.White);
             
             Text_Manager.DrawLargeText("Level: " + bundlePlus1 + "-" + levelPlus1, 300 - ((int)Text_Manager.LargeFont.MeasureString("Level: 0-0").Length() / 2), 90, aSpriteBatch);
-            if (Level_Manager.CurrentBundle !=0)           
+            if (Level_Manager.CurrentBundle !=0)
                 Text_Manager.DrawText("Special rules: " + specialRule, 130, 140, aSpriteBatch);
 
-            Text_Manager.DrawLargeText("Press Enter to begin", 300 - ((int)Text_Manager.LargeFont.MeasureString("Press Enter to begin").Length() / 2), 235, aSpriteBatch);
+            Text_Manager.DrawLargeText("Click or press Space", 300 - ((int)Text_Manager.LargeFont.MeasureString("Click or press Space").Length() / 2), 235, aSpriteBatch);
         }
     }
 }
