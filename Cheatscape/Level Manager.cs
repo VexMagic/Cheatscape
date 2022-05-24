@@ -217,16 +217,29 @@ namespace Cheatscape
                 if(unlockedHints > 0)
                 {
                     if (currentHint == 0)
-                    Text_Manager.DrawText("    J >", 508, 100, aSpriteBatch);
+                    {
+                        aSpriteBatch.Draw(Rules_List.hintArrowsRight, Mouse_Controller.hintArrowRects[0], Color.White);
+                        Text_Manager.DrawText("J", Mouse_Controller.hintArrowRects[0].X + Rules_List.hintArrowsRight.Width - 24, Mouse_Controller.hintArrowRects[0].Y + 2, aSpriteBatch);
+                    }
 
                     if (currentHint == 1 && unlockedHints > 1)
-                        Text_Manager.DrawText("< G J >", 508, 100, aSpriteBatch);
+                    {
+                        aSpriteBatch.Draw(Rules_List.hintArrows, Mouse_Controller.hintArrowRects[0], Color.White);
+                        Text_Manager.DrawText("G", Mouse_Controller.hintArrowRects[0].X +19, Mouse_Controller.hintArrowRects[0].Y+2, aSpriteBatch);
+                        Text_Manager.DrawText("J", Mouse_Controller.hintArrowRects[0].X + Rules_List.hintArrowsRight.Width -24, Mouse_Controller.hintArrowRects[0].Y+2, aSpriteBatch);
+                    }
 
                     if (currentHint == 1 && unlockedHints < 2)
-                        Text_Manager.DrawText("< G", 508, 100, aSpriteBatch);
+                    {
+                        aSpriteBatch.Draw(Rules_List.hintArrowsLeft, Mouse_Controller.hintArrowRects[0], Color.White);
+                        Text_Manager.DrawText("G", Mouse_Controller.hintArrowRects[0].X + 19, Mouse_Controller.hintArrowRects[0].Y + 2, aSpriteBatch);
+                    }
 
                     if (currentHint == 2)
-                        Text_Manager.DrawText("< G", 508, 100, aSpriteBatch);
+                    {
+                        aSpriteBatch.Draw(Rules_List.hintArrowsLeft, Mouse_Controller.hintArrowRects[0], Color.White);
+                        Text_Manager.DrawText("G", Mouse_Controller.hintArrowRects[0].X + 19, Mouse_Controller.hintArrowRects[0].Y + 2, aSpriteBatch);
+                    }
                 }
             }
 
