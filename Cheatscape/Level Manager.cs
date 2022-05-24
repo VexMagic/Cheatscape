@@ -157,7 +157,7 @@ namespace Cheatscape
         public static void Play(GameTime gameTime)
         {
 
-            if (isOnTransitionScreen == true && Input_Manager.KeyPressed(Keys.Enter))
+            if (isOnTransitionScreen == true && Input_Manager.KeyPressed(Keys.Space))
             {
                 isOnTransitionScreen = false;
                 Pause_Menu.gameIsPaused = false;
