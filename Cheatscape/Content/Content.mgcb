@@ -13,12 +13,6 @@
 
 #---------------------------------- Content ---------------------------------#
 
-#begin ../../../../../../Downloads/LevelMusic.mp3
-/importer:Mp3Importer
-/processor:SongProcessor
-/processorParam:Quality=Best
-/build:../../../../../../Downloads/LevelMusic.mp3;LevelMusic.mp3
-
 #begin BackButton.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -266,6 +260,12 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:LevelClearPanel.png
+
+#begin LevelMusic.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:LevelMusic.mp3
 
 #begin LevelPanelHighlight.png
 /importer:TextureImporter
