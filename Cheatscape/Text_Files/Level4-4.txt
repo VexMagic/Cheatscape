@@ -1,2 +1,10 @@
-﻿remove;b1,remove;c1,remove;d1,remove;e1,remove;f1,remove;g1,remove;h1,remove;d2,remove;e2,remove;g2,add;wn;g4,add;wp;f3,Add;wp;g3,add;wk;g1,add;wb;h6,add;wn;e6,remove;a8,remove;b8,remove;c8,remove;d8,remove;c7,remove;d7,remove;e7,remove;e8,remove;f8,remove;g8,remove;f7,remove;g7,add;bk;g8,add;bn;d7,add;bb;e7,add;bp;d5,add;bq;d4,add;bp;g2,special rule;None
-move;g4;h6,answer;0-4,checkmate
+﻿remove;a1,remove;b1,remove;c1,remove;d1,remove;e1,remove;f1,remove;g1,remove;h1,remove;a2,remove;b2,remove;c2,remove;d2,remove;e2,remove;f2,remove;g2,remove;h2,remove;a8,remove;b8,remove;c8,remove;d8,remove;e8,remove;f8,remove;g8,remove;h8,remove;a7,remove;b7,remove;c7,remove;d7,remove;e7,remove;f7,remove;g7,remove;h7,add;wp;b3,add;wk;d4,add;bk;d6,add;bp;e7,add;bp;e6,add;wq;g2,special rule;None
+move;g2;d5,check
+move;d6;c7
+move;d5;e6
+move;c7;d8
+move;e6;e7,check
+move;d8;e7
+move;b3;b2,answer;1-0
+move;e7;d6
+move;b2;b1,remove;b1,add;wq;b1,answer;1-0
