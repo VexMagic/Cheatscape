@@ -37,7 +37,7 @@ namespace Cheatscape
             "A piece can only be moved on its player's turn.",
             "A piece can only move to an unoccupied space or one occupied by an opposing piece.",
             "If a piece is moved to a space occupied by an opposing piece, the opposing piece is captured and removed from the game.",
-            "If a Pawn reaches the other side of the board, it is replaced by a new queen, rook, bishop, or knight of the same color."};
+            "The only time a piece can change type is when a Pawn reaches the other side of the board, it is replaced by a new queen, rook, bishop, or knight of the same color."};
         static string[] MovementRules = {
             "The Pawn moves one space forward but on its first move it can move one or two spaces forward.",
             "The Pawn can only attack one space diagonally ahead and not straight forward.",
