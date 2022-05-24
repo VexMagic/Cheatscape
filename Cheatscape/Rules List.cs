@@ -43,7 +43,7 @@ namespace Cheatscape
             "The Pawn can only attack one space diagonally ahead and not straight forward.",
             "The Rook can move any number of spaces in a straight line vertically or horizontally.",
             "The Bishop can move any number of spaces in a straight line diagonally.",
-            "The Knight can move in an L shape.",
+            "The Knight can move in an L shape in any direction.",
             "The Queen can move any number of spaces in a straight line vertically, horizontally or diagonally.",
             "The King can move one space in any direction.",
             "The Knight is the only piece that can jump over other pieces"};
