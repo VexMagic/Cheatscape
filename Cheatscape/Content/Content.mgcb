@@ -735,6 +735,18 @@
 /processorParam:Quality=Best
 /build:song2.mp3
 
+#begin soon.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:soon.png
+
 #begin Text Boarder.png
 /importer:TextureImporter
 /processor:TextureProcessor

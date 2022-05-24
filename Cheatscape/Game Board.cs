@@ -46,6 +46,7 @@ namespace Cheatscape
             Texture2D Train = Global_Info.AccessContentManager.Load<Texture2D>("cheatscape Train");
 
             MapPack.Add(Kindergarten);
+            MapPack.Add(Kindergarten);
             MapPack.Add(Desk);
             MapPack.Add(Park);
             MapPack.Add(Train);
@@ -73,7 +74,7 @@ namespace Cheatscape
         {
             int MaxFrame = 4;
             mapRectangle = new Rectangle(0, 1080* currentFrame, 1920, 1080);
-            if (currentMap == MapPack[3])
+            if (currentMap == MapPack[4])
             {
                 timer += (float)gameTime.ElapsedGameTime.TotalMilliseconds;
                 if (timer >= timeLimit)
@@ -353,7 +354,7 @@ namespace Cheatscape
 
         public static void Draw(SpriteBatch aSpriteBatch)
         {
-            if(currentMap == MapPack[3])
+            if(currentMap == MapPack[4])
             aSpriteBatch.Draw(currentMap, new Rectangle(0, 0, (int)(Global_Info.AccessWindowSize.X / Global_Info.AccessScreenScale), (int)(Global_Info.AccessWindowSize.Y / Global_Info.AccessScreenScale)), mapRectangle, Color.White);
             else
             aSpriteBatch.Draw(currentMap, new Rectangle(0, 0, (int)(Global_Info.AccessWindowSize.X / Global_Info.AccessScreenScale), (int)(Global_Info.AccessWindowSize.Y / Global_Info.AccessScreenScale)), Color.White);
