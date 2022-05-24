@@ -46,7 +46,7 @@ namespace Cheatscape
             if (Level_Manager.CurrentBundle !=0)
                 Text_Manager.DrawText("Special rules: " + specialRule, 130, 140, aSpriteBatch);
 
-            Text_Manager.DrawLargeText("Click or press Space", 300 - ((int)Text_Manager.LargeFont.MeasureString("Click or press Space").Length() / 2), 235, aSpriteBatch);
+            Text_Manager.DrawLargeText("Click or press Enter", 300 - ((int)Text_Manager.LargeFont.MeasureString("Click or press Space").Length() / 2), 235, aSpriteBatch);
         }
     }
 }
