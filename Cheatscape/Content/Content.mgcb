@@ -13,6 +13,12 @@
 
 #---------------------------------- Content ---------------------------------#
 
+#begin ../../../../../../Downloads/LevelMusic.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:../../../../../../Downloads/LevelMusic.mp3;LevelMusic.mp3
+
 #begin BackButton.png
 /importer:TextureImporter
 /processor:TextureProcessor

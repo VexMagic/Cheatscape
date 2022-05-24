@@ -1,1 +1,2 @@
-﻿
+﻿remove;b1,remove;c1,remove;d1,remove;e1,remove;f1,remove;g1,remove;h1,remove;d2,remove;e2,remove;g2,add;wn;g4,add;wp;f3,Add;wp;g3,add;wk;g1,add;wb;h6,add;wn;e6,remove;a8,remove;b8,remove;c8,remove;d8,remove;c7,remove;d7,remove;e7,remove;e8,remove;f8,remove;g8,remove;f7,remove;g7,add;bk;g8,add;bn;d7,add;bb;e7,add;bp;d5,add;bq;d4,add;bp;g2,special rule;None
+move;g4;h6,answer;0-4,checkmate
