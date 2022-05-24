@@ -4,7 +4,7 @@ move;b8;c6
 move;c1;g5
 move;c6;d4
 move;c3;d5
-add;bb;g5,move;g5;f4,remove;f4,add;wb;f4,answer;0-3
+add;bb;g5,move;g5;f4,remove;f4,add;wb;f4,answer;0-1
 move;d5;f6
 move;d8;f6
 move;f4;g5

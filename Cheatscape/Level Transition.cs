@@ -44,7 +44,7 @@ namespace Cheatscape
             
             Text_Manager.DrawLargeText("Level: " + bundlePlus1 + "-" + levelPlus1, 300 - ((int)Text_Manager.LargeFont.MeasureString("Level: 0-0").Length() / 2), 90, aSpriteBatch);
             if (Level_Manager.CurrentBundle !=0)
-                Text_Manager.DrawText("Special rules: " + specialRule, 130, 140, aSpriteBatch);
+                Text_Manager.DrawText("Special rules: " + specialRule, 115, 140, aSpriteBatch);
 
             Text_Manager.DrawLargeText("Click or press Enter", 300 - ((int)Text_Manager.LargeFont.MeasureString("Click or press Enter").Length() / 2), 235, aSpriteBatch);
         }
