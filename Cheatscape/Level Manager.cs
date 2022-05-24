@@ -223,7 +223,7 @@ namespace Cheatscape
 
         public static void Draw(SpriteBatch aSpriteBatch)
         {
-            if (FindingCheat)
+            if (FindingCheat && !isOnTransitionScreen)
                 Rules_List.Draw(aSpriteBatch);
 
             if (CurrentBundle != 0 && FindingCheat && displayingHint)
