@@ -19,8 +19,8 @@ namespace Cheatscape
         public static int SelectedBundleX = 0;
         public static int SelectedBundleY = 0;
 
-        static int LevelAmountX = 5;
-        static int LevelAmountY = 2;
+        static int bundleamountX = 5;
+        static int bundleamountY = 2;
 
         public static bool optionHighlight = false;
 
@@ -50,7 +50,7 @@ namespace Cheatscape
             {
                 SelectedBundleX--;
             }
-            else if (Input_Manager.KeyPressed(Keys.Right) && SelectedBundleX < LevelAmountX - 1)
+            else if (Input_Manager.KeyPressed(Keys.Right) && SelectedBundleX < bundleamountX - 1)
             {
                 SelectedBundleX++;
             }
@@ -58,7 +58,7 @@ namespace Cheatscape
             {
                 SelectedBundleY--;
             }
-            else if (Input_Manager.KeyPressed(Keys.Down) && SelectedBundleY < LevelAmountY - 1)
+            else if (Input_Manager.KeyPressed(Keys.Down) && SelectedBundleY < bundleamountY - 1)
             {
                 SelectedBundleY++;
             }
@@ -107,9 +107,9 @@ namespace Cheatscape
 
             aSpriteBatch.Draw(optionButtonTex, new Vector2(50, 200), Color.White);
             
-            for (int i = 0; i < LevelAmountY; i++)
+            for (int i = 0; i < bundleamountY; i++)
             {
-                for (int j = 0; j < LevelAmountX; j++)
+                for (int j = 0; j < bundleamountX; j++)
                 {
                     aSpriteBatch.Draw(NumbersTex, new Rectangle(55 + j * 100, 55 + i * 75, 9, 5), new Rectangle(9 * j + i * 45, 0, 9, 5), Color.White, 0, new Vector2(0, 0), SpriteEffects.None, 0);
                     aSpriteBatch.Draw(PanelTex, new Vector2(50 + j * 100, 50 + i * 75), Color.White);

@@ -42,7 +42,7 @@ namespace Cheatscape
         {
             if (animating == true)
             {
-                timer += (float)gameTime.ElapsedGameTime.Milliseconds;
+                timer += gameTime.ElapsedGameTime.Milliseconds;
 
                 if (timer >= framesPerSecond)
                 {

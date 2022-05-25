@@ -19,7 +19,6 @@ namespace Cheatscape
         static int CurrentSlide = 1;
         static float rating;
         public static bool FindingCheat = false;
-        static int AmountOfRuleLists = 3;
         public static bool isOnTransitionScreen = false;
         public static bool isOnFirstTransitionScreen = false;
         public static int exitedFirstTransitionScreen = 0;

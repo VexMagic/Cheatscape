@@ -34,7 +34,7 @@ namespace Cheatscape
             buttonHighLight = Global_Info.AccessContentManager.Load<Texture2D>("OptionsButtonHighlight");
         }
 
-        public static void Update(GameTime gameTime)
+        public static void Update()
         {
             if (gameIsPaused)
             {

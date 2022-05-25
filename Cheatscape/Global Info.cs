@@ -13,15 +13,30 @@ namespace Cheatscape
         static ContentManager ContentManager;
         static float ScreenScale = 2f;
         public static Vector2 WindowSize = new Vector2(600 * ScreenScale, 360 * ScreenScale);
-        public enum GameState { LevelSelect, PlayingLevel, MainMenu, Options };
+        public enum GameState 
+        {
+            LevelSelect, PlayingLevel, MainMenu, Options 
+        };
         static GameState CurrentGameState = GameState.MainMenu;
 
 
-        public static ContentManager AccessContentManager { get => ContentManager; set => ContentManager = value; }
-        public static float AccessScreenScale { get => ScreenScale; set => ScreenScale = value; }
-        public static Vector2 AccessWindowSize { get => WindowSize; set => WindowSize = value; }
+        public static ContentManager AccessContentManager 
+        {
+            get => ContentManager; set => ContentManager = value; 
+        }
+        public static float AccessScreenScale 
+        {
+            get => ScreenScale; set => ScreenScale = value;
+        }
+        public static Vector2 AccessWindowSize 
+        {
+            get => WindowSize; set => WindowSize = value;
+        }
         
-        public static GameState AccessCurrentGameState { get => CurrentGameState; set => CurrentGameState = value; }
+        public static GameState AccessCurrentGameState 
+        {
+            get => CurrentGameState; set => CurrentGameState = value; 
+        }
 
 
         public static void Load()
@@ -32,7 +47,6 @@ namespace Cheatscape
             Pause_Menu.Load();
             Game_Board.Load();
             Music_Player.Load();
-            //File_Manager.LoadLevel();
             Main_Menu.Load();
             Hand_Animation_Manager.Load();
             Level_Select_Menu.Load();
@@ -67,7 +81,7 @@ namespace Cheatscape
                         Level_Manager.Update();
                         Hand_Animation_Manager.Update();
                     }
-                    Pause_Menu.Update(gameTime);
+                    Pause_Menu.Update();
                     End_Screen.Update();
                     Transition.Update(gameTime);
                     break;
