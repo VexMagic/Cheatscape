@@ -92,7 +92,10 @@ namespace Cheatscape
 
                             if (transitionPos.X <= transitionWidth / 2 - Global_Info.AccessWindowSize.X / Global_Info.AccessScreenScale)
                             {
-                                
+                                Level_Manager.currentHint = -1;
+                                Level_Manager.unlockedHints = -1;
+                                Level_Manager.displayingHint = false;
+                                Level_Manager.FindingCheat = false;
                                 Global_Info.AccessCurrentGameState = Global_Info.GameState.PlayingLevel;
 
                                 if (!Pause_Menu.gameIsPaused)

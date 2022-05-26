@@ -110,10 +110,12 @@ namespace Cheatscape
                     Transition.StartTransition(Transition.TransitionState.ToOptions);
                 }
                 else if (!Level_Select_Menu.optionHighlight && 
-                    LevelButtons[Level_Select_Menu.SelectedBundleX, Level_Select_Menu.SelectedBundleY].Contains(MousePosition))
+                    LevelButtons[Level_Select_Menu.SelectedBundleX, Level_Select_Menu.SelectedBundleY].Contains(MousePosition)&&(Global_Tracker.completedBundels.Count == (Level_Select_Menu.SelectedBundleX + Level_Select_Menu.SelectedBundleY * 5) || Global_Tracker.completedBundels.Count > (Level_Select_Menu.SelectedBundleX + Level_Select_Menu.SelectedBundleY * 5))
+)
                 {
                     Music_Player.ChangeMusic((Level_Select_Menu.SelectedBundleX + Level_Select_Menu.SelectedBundleY * 5));
                     Music_Player.PlayMusic();
+                    Game_Board.AdjustMap((Level_Select_Menu.SelectedBundleX + Level_Select_Menu.SelectedBundleY * 5));
                     Level_Manager.AccessRating = 1000;
                     Transition.StartTransition(Transition.TransitionState.ToLevel);
                 }
@@ -243,12 +245,6 @@ namespace Cheatscape
                     Level_Manager.FindingCheat = false;
             }
 
-            if (CurrentMS.LeftButton == ButtonState.Pressed && PreviousMS.LeftButton == ButtonState.Released && Level_Manager.isOnTransitionScreen)
-            {
-                Level_Manager.isOnTransitionScreen = false;
-                Pause_Menu.gameIsPaused = false;
-            }
-
             if (Level_Manager.FindingCheat)
             {
                 if (CurrentMS.ScrollWheelValue > PreviousMS.ScrollWheelValue)
@@ -328,7 +324,6 @@ namespace Cheatscape
                     }
                     else if (endRects[1].Contains(MousePosition))
                     {
-                        Level_Select_Menu.Load();
                         Transition.StartTransition(Transition.TransitionState.ToLvSelect);
                     }
 
@@ -338,26 +333,18 @@ namespace Cheatscape
                         Level_Select_Menu.AccessHighScores[Level_Select_Menu.SelectedBundleX + Level_Select_Menu.SelectedBundleY * 5] =
                             Level_Manager.AccessRating;
                     }
-
-                    End_Screen.AccessIsEnded = false;
-                    End_Screen.AccessCleared = false;
                 }
                 else if (CurrentMS.LeftButton == ButtonState.Released && PreviousMS.LeftButton == ButtonState.Pressed)
                 {
                     if (endRects[0].Contains(MousePosition))
                     {
-                        Level_Select_Menu.Load();
                         Transition.StartTransition(Transition.TransitionState.ToLvSelect);
                     }
                     else if (endRects[1].Contains(MousePosition))
                     {
-                        Level_Manager.isOnTransitionScreen = false;
                         Level_Manager.AccessCurrentLevel = 0;
                         Transition.StartTransition(Transition.TransitionState.ToLevel);
                     }
-
-                    End_Screen.AccessIsEnded = false;
-                    End_Screen.AccessCleared = false;
                 }
             }
         }
@@ -524,7 +511,7 @@ namespace Cheatscape
 
         public static bool LevelBool()
         {
-            if (Pause_Menu.gameIsPaused || End_Screen.AccessIsEnded || Level_Manager.isOnTransitionScreen)
+            if (Pause_Menu.gameIsPaused || End_Screen.AccessIsEnded || Level_Manager.isOnTransitionScreen || Level_Manager.isOnTransitionScreen)
             {
                 return false;
             }

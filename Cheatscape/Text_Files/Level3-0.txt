@@ -1,11 +1,13 @@
-remove;a7,remove;b7,remove;c7,remove;d7,remove;e7,remove;f7,remove;g7,remove;h7,remove;a2,remove;b2,remove;c2,remove;d2,remove;e2,remove;f2,remove;g2,remove;h2,special rule;The game doesn't include pawns
-move;d1;e2,check
-move;f8;e7
-move;c1;a3
-move;a8;a3
-move;b1;a3
-move;d8;a5,check
-move;e1;c1,move;a1;d1,Answer;2-5
-move;h8;h1
-move;f1;g2
-move;h1;g1
+﻿remove;f1,remove;g1,remove;e2,add;wb;c4,add;wn;g5,add;wp;e4,remove;b8,remove;g8,remove;e7,remove;b7,add;bp;b6,add;bn;c6,add;bp;e5,add;bn;f6,special rule;None
+move;g5;f7
+move;d8;e7
+move;f7;h8
+move;c8;b7
+move;c4;f7,check
+move;e8;d8
+move;f7;h5
+move;f6;h5
+move;d1;h5
+move;c6;d4
+move;e1;g1,move;h1;f1
+move;d8;b8,move;a8;c8,answer;2-4

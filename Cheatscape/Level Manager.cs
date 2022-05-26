@@ -117,7 +117,7 @@ namespace Cheatscape
                             }
 
                         }
-                        if (!isOnTransitionScreen)
+                        if (Rules_List.AccessCurrentRule != Rules_List.GetList().Length && !isOnTransitionScreen && !End_Screen.AccessCleared)
                         {
                             
                             if (rating / 2 > 400)
@@ -144,7 +144,7 @@ namespace Cheatscape
                     Rules_List.AccessCurrentRule++;
                 }
 
-                if (rating == 0 && Input_Manager.KeyPressed(Keys.Enter))
+                if (rating <= 0)
                 {
                     End_Screen.AccessCleared = false;
                     End_Screen.AccessIsEnded = true;
@@ -157,8 +157,9 @@ namespace Cheatscape
         public static void Play(GameTime gameTime)
         {
 
-            if (isOnTransitionScreen == true && Input_Manager.KeyPressed(Keys.Space))
+            if (isOnTransitionScreen == true && Input_Manager.KeyPressed(Keys.Enter))
             {
+                Hint_File_Manager.LoadHints();
                 isOnTransitionScreen = false;
                 Pause_Menu.gameIsPaused = false;
             }
@@ -186,28 +187,44 @@ namespace Cheatscape
         public static void SelectCheat()
         {
             for (int i = 0; i < AllAnswers.Count; i++)
-            {     
-                
-                if (Rules_List.AccessCurrentRule != Rules_List.GetList().Length)
+            {
+                if (AllAnswers[i].Item1.myRule.X == Rules_List.AccessCurrentRuleList &&
+                    AllAnswers[i].Item1.myRule.Y == Rules_List.AccessCurrentRule &&
+                    AllAnswers[i].Item2 == CurrentSlide)
                 {
-                    if (rating / 2 > 400)
-                    {
-                        rating /= 2;
-                    }
-                    else if (rating - 400 > 0)
-                    {
-                        rating -= 400;
-                    }
-                    else
-                        rating = 0;
+                    isOnTransitionScreen = true;
+                    currentHint = -1;
+                    unlockedHints = -1;
+                    displayingHint = false;
+                    rating += 100;
+                    Hint_File_Manager.LoadHints();
+                    Pause_Menu.gameIsPaused = false;
+                    Level_Transition.LoadSpecialRule();
+                    CurrentLevel++;
+                    File_Manager.LoadLevel();
                 }
+
             }
+            if (Rules_List.AccessCurrentRule != Rules_List.GetList().Length && !isOnTransitionScreen && !End_Screen.AccessCleared)
+            {
+
+                if (rating / 2 > 400)
+                {
+                    rating /= 2;
+                }
+                else if (rating - 400 > 0)
+                {
+                    rating -= 400;
+                }
+                else
+                    rating = 0;
+            }      
             FindingCheat = false;
         }
 
         public static void Draw(SpriteBatch aSpriteBatch)
         {
-            if (FindingCheat)
+            if (FindingCheat && !isOnTransitionScreen)
                 Rules_List.Draw(aSpriteBatch);
 
             if (CurrentBundle != 0 && FindingCheat && displayingHint)
@@ -244,7 +261,7 @@ namespace Cheatscape
             }
 
             if (isOnTransitionScreen == false)
-                Text_Manager.DrawText(Convert.ToString("Turn counter: " + File_Manager.turnCounter), (int)(Global_Info.AccessWindowSize.X / Global_Info.AccessScreenScale) - 450, 10, aSpriteBatch);
+                Text_Manager.DrawText(Convert.ToString("Moves Left: " + File_Manager.turnCounter), (int)(Global_Info.AccessWindowSize.X / Global_Info.AccessScreenScale) - 450, 10, aSpriteBatch);
 
             if (isOnTransitionScreen)                
                 Level_Transition.Draw(aSpriteBatch);

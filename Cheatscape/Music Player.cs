@@ -16,21 +16,21 @@ namespace Cheatscape
     {
         static List<SoundEffect> soundEffects = new List<SoundEffect>();
         static List<Song> songs = new List<Song>();
-        static SoundEffect move1, move2, move3, move4, move5;
-        static Song mainTheme, song1, song2, currentSong;
+        static Song mainTheme, currentSong;
 
         //song 1, 2 & soundeffects kan flyttas till load och behöver inte deklareras där.
 
         public static void Load()
         {
-            move1 = Global_Info.AccessContentManager.Load<SoundEffect>("move");
-            move2 = Global_Info.AccessContentManager.Load<SoundEffect>("move2");
-            move3 = Global_Info.AccessContentManager.Load<SoundEffect>("move3");
-            move4 = Global_Info.AccessContentManager.Load<SoundEffect>("move4");
-            move5 = Global_Info.AccessContentManager.Load<SoundEffect>("move5");
+
+            SoundEffect move1 = Global_Info.AccessContentManager.Load<SoundEffect>("move");
+            SoundEffect move2 = Global_Info.AccessContentManager.Load<SoundEffect>("move2");
+            SoundEffect move3 = Global_Info.AccessContentManager.Load<SoundEffect>("move3");
+            SoundEffect move4 = Global_Info.AccessContentManager.Load<SoundEffect>("move4");
+            SoundEffect move5 = Global_Info.AccessContentManager.Load<SoundEffect>("move5");
             mainTheme = Global_Info.AccessContentManager.Load<Song>("song0");
-            song1 = Global_Info.AccessContentManager.Load<Song>("song1");
-            song2 = Global_Info.AccessContentManager.Load<Song>("song2");
+            Song song1 = Global_Info.AccessContentManager.Load<Song>("LevelMusic");
+            Song song2 = Global_Info.AccessContentManager.Load<Song>("song2");
             songs.Add(song1);
             songs.Add(song2);
 
@@ -56,7 +56,6 @@ namespace Cheatscape
         {
             MediaPlayer.Play(currentSong);
             MediaPlayer.IsRepeating = true;
-            // mediaPlayer.Volume = 0; för att inte spela upp musik.
         }
 
         public static void StopMusic()
@@ -68,11 +67,11 @@ namespace Cheatscape
         {
             try
             {
-                currentSong = songs[selectedSong];
+                currentSong = songs[0];
             }
             catch
             {
-                MediaPlayer.Play(mainTheme);
+                MediaPlayer.Play(songs[0]);
             }
         }
 

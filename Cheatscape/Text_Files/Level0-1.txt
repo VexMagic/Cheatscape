@@ -1,4 +1,4 @@
-Include Rule;1-0,Include Rule;1-7,Include Rule;1-4,Text;This time you will choose from 3 different rules. You can check the rules any time by pressing Spacebar and close the list by selecting the Back.
+Include Rule;1-0,Include Rule;1-7,Include Rule;1-4,Text;This time you will choose from 3 different rules. You can check the rules any time by pressing Spacebar or clicking anywhere on the board and you can close the list by selecting or clicking the Back button in the rule list.
 Move;E2;E4
 Move;E7;E5,Background;Kindergarden
 Move;B1;B3,Answer;1-4

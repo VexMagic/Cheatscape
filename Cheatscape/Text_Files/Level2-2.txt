@@ -1,0 +1,11 @@
+remove;a7,remove;b7,remove;c7,remove;d7,remove;e7,remove;f7,remove;g7,remove;h7,remove;a2,remove;b2,remove;c2,remove;d2,remove;e2,remove;f2,remove;g2,remove;h2,special rule;The game doesn't include pawns
+move;d1;e2,check
+move;f8;e7
+move;c1;a3
+move;a8;a3
+move;b1;a3
+move;d8;a5,check
+move;e1;c1,move;a1;d1,Answer;2-4
+move;h8;h1
+move;f1;g2
+move;h1;g1

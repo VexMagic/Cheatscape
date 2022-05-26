@@ -1,0 +1,16 @@
+remove;f1,remove;c2,remove;d2,remove;e2,remove;g2,remove;b7,remove;c7,remove;b8,remove;d8,remove;g8,add;wb;b3,add;wp;c3,add;wp;e3,add;wp;g3,add;wp;d4,add;bp;c5,add;bp;d5,add;bp;b6,add;bn;f6,add;bn;d7,Special rule;none
+move;h7;h6
+move;a2;a3
+move;g7;g5
+move;d1;f3
+move;d7;b8
+move;c3;c4
+move;c8;g4,add;bq;g4,answer;0-4
+move;f3;g2
+move;c5;d4
+move;c4;d5
+move;d4;d3
+move;g2;g2,move;b1;c3
+add;wq;g2,move;b8;d7
+move;h2;h3
+move;g4;h5

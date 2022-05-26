@@ -33,19 +33,17 @@ namespace Cheatscape
         public static List<int> AllowedRuleIndexes = new List<int>();
 
         static string[] GeneralRules = {
-            "The white player always starts.",
-            "The starting board state is shown to the right.",
             "Only one piece may be moved per turn (not including Castling).",
             "A piece can only be moved on its player's turn.",
             "A piece can only move to an unoccupied space or one occupied by an opposing piece.",
-            "If a piece is moved to a space occupied by an opposing piece, the opposing piece is captured and removed from the game.",
-            "If a Pawn reaches the other side of the board, it is replaced by a new queen, rook, bishop, or knight of the same color."};
+            "The only way to remove a piece from the game is if a piece is moved to a space occupied by an opposing piece, the opposing piece is captured and then removed.",
+            "The only time a piece can change type is when a Pawn reaches the other side of the board, it is replaced by a new queen, rook, bishop, or knight of the same color."};
         static string[] MovementRules = {
             "The Pawn moves one space forward but on its first move it can move one or two spaces forward.",
             "The Pawn can only attack one space diagonally ahead and not straight forward.",
             "The Rook can move any number of spaces in a straight line vertically or horizontally.",
             "The Bishop can move any number of spaces in a straight line diagonally.",
-            "The Knight can move in an L shape.",
+            "The Knight can move in an L shape in any direction.",
             "The Queen can move any number of spaces in a straight line vertically, horizontally or diagonally.",
             "The King can move one space in any direction.",
             "The Knight is the only piece that can jump over other pieces"};
@@ -53,11 +51,10 @@ namespace Cheatscape
             "If the King is being threatened by an opposing piece, its player has to move a piece to secure the King. This is called Check.",
             "If the King is in Check and its player can't secure it on their turn, the opponent wins. This is called Checkmate.",
             "The a piece can't make a move that causes its King to be in Check.",
-            "A tie happens when the same board state occurs 3 times or when both players have made 50 moves.",
             "If the King and a Rook have not moved yet, the King can move 2 spaces towards the Rook causing the Rook to move to the space next to the King on the opposite side. This is called Castling.",
             "Castling is not allowed if the King moves out of, through or into a space where it would be in Check."};
 
-        public static void Load() //get font
+        public static void Load()
         {
             Font = Global_Info.AccessContentManager.Load<SpriteFont>("Font");
             Banner = Global_Info.AccessContentManager.Load<Texture2D>("Rules Banner");
@@ -274,7 +271,7 @@ namespace Cheatscape
             }
             else
             {
-                tempRuleImage = Global_Info.AccessContentManager.Load<Texture2D>("Rule Images/" + 0 + "-" + 5);
+                tempRuleImage = Global_Info.AccessContentManager.Load<Texture2D>("Rule Images/" + 0 + "-" + 3);
                 aSpriteBatch.Draw(tempRuleImage, new Rectangle((int)ImagePosition.X - 1, (int)ImagePosition.Y + 3, 104, 96), Color.White);
                 aSpriteBatch.Draw(ImageBoarder, new Rectangle((int)ImagePosition.X - 4, (int)ImagePosition.Y, 110, 102), Color.White);
             }
@@ -303,17 +300,12 @@ namespace Cheatscape
             else if (tempScrollAmount > MaxScroll(aStringArray))
             {
                 if (MaxScroll(aStringArray) > 0)
-                {
-                    
                     return MaxScroll(aStringArray);
-                }
-                    
                 else
                     return 0;
             }
             else
-                return 0;
-            
+                return tempScrollAmount;
         }
 
         public static int MaxScroll(string[] aStringArray)

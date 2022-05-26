@@ -13,16 +13,19 @@ namespace Cheatscape
         static List<Chess_Piece> CapturedBlackPieces = new List<Chess_Piece>();
         public static Vector2 BoardPosition = new Vector2(Global_Info.AccessWindowSize.X / 4 - 128, Global_Info.AccessWindowSize.Y / 4 - 128);
         static int TileSize = 32;
+        static float timer;
+        static float timeLimit = 90f;
+        static int currentFrame;
 
+        static Rectangle mapRectangle;
         public static Chess_Piece[,] AccessChessPiecesOnBoard { get => ChessPiecesOnBoard; set => ChessPiecesOnBoard = value; }
         public static Vector2 AccessBoardPosition { get => BoardPosition; set => BoardPosition = value; }
         public static int AccessTileSize { get => TileSize; set => TileSize = value; }
 
-        static Rectangle SplashArtSize = new Rectangle(400, 0, 200, 100);
+        public static List<Texture2D> MapPack = new List<Texture2D>();
+        static Texture2D currentMap;
 
-        static Texture2D Kindergarten;
-        static Texture2D Desk;
-        static Texture2D Park;
+        static Rectangle SplashArtSize = new Rectangle(400, 0, 200, 100);
 
         static Texture2D ChessBoard;
         static Texture2D CheckArt;
@@ -37,10 +40,16 @@ namespace Cheatscape
 
         public static void Load()
         {
-            Kindergarten = Global_Info.AccessContentManager.Load<Texture2D>("Kindergarten");
-            Desk = Global_Info.AccessContentManager.Load<Texture2D>("Desk");
-            Park = Global_Info.AccessContentManager.Load<Texture2D>("Park");
+            Texture2D Kindergarten = Global_Info.AccessContentManager.Load<Texture2D>("Kindergarten");
+            Texture2D Desk = Global_Info.AccessContentManager.Load<Texture2D>("Desk");
+            Texture2D Park = Global_Info.AccessContentManager.Load<Texture2D>("Park");
+            Texture2D Train = Global_Info.AccessContentManager.Load<Texture2D>("cheatscape Train");
 
+            MapPack.Add(Kindergarten);
+            MapPack.Add(Kindergarten);
+            MapPack.Add(Desk);
+            MapPack.Add(Park);
+            MapPack.Add(Train);
             ChessBoard = Global_Info.AccessContentManager.Load<Texture2D>("Chess Board");          
             CheckArt = Global_Info.AccessContentManager.Load<Texture2D>("Check Art");
             CheckmateArt = Global_Info.AccessContentManager.Load<Texture2D>("Checkmate Art");
@@ -48,6 +57,36 @@ namespace Cheatscape
             SlideButtons = Global_Info.AccessContentManager.Load<Texture2D>("Slide Buttons");
 
             SetBasicBoardState();
+        }
+
+        public static void AdjustMap(int map)
+        {
+            try
+            {
+                currentMap = MapPack[map];
+            }
+            catch
+            {
+                currentMap = MapPack[0];
+            }
+        }
+        public static void DrawMap(GameTime gameTime)
+        {
+            int MaxFrame = 4;
+            mapRectangle = new Rectangle(0, 1080* currentFrame, 1920, 1080);
+            if (currentMap == MapPack[4])
+            {
+                timer += (float)gameTime.ElapsedGameTime.TotalMilliseconds;
+                if (timer >= timeLimit)
+                {
+                    currentFrame++;
+                    timer = 0;
+                    if (currentFrame == MaxFrame)
+                    {
+                        currentFrame = 0;
+                    }
+                }
+            }
         }
 
         public static void ResetBoard()
@@ -315,31 +354,14 @@ namespace Cheatscape
 
         public static void Draw(SpriteBatch aSpriteBatch)
         {
-            if (Level_Manager.CurrentBundle == 0)
-            {
-                aSpriteBatch.Draw(Kindergarten, new Rectangle(0, 0, (int)(Global_Info.AccessWindowSize.X / Global_Info.AccessScreenScale), (int)(Global_Info.AccessWindowSize.Y / Global_Info.AccessScreenScale)), Color.White);
-            }
-            if (Level_Manager.CurrentBundle == 1)
-            {
-                aSpriteBatch.Draw(Desk, new Rectangle(0, 0, (int)(Global_Info.AccessWindowSize.X / Global_Info.AccessScreenScale), (int)(Global_Info.AccessWindowSize.Y / Global_Info.AccessScreenScale)), Color.White);
-            }
-            if (Level_Manager.CurrentBundle == 2)
-            {
-                aSpriteBatch.Draw(Park, new Rectangle(0, 0, (int)(Global_Info.AccessWindowSize.X / Global_Info.AccessScreenScale), (int)(Global_Info.AccessWindowSize.Y / Global_Info.AccessScreenScale)), Color.White);
-            }
-
+            if(currentMap == MapPack[4])
+            aSpriteBatch.Draw(currentMap, new Rectangle(0, 0, (int)(Global_Info.AccessWindowSize.X / Global_Info.AccessScreenScale), (int)(Global_Info.AccessWindowSize.Y / Global_Info.AccessScreenScale)), mapRectangle, Color.White);
+            else
+            aSpriteBatch.Draw(currentMap, new Rectangle(0, 0, (int)(Global_Info.AccessWindowSize.X / Global_Info.AccessScreenScale), (int)(Global_Info.AccessWindowSize.Y / Global_Info.AccessScreenScale)), Color.White);
             Vector2 BoardOffset = new Vector2(BoardPosition.X - ((ChessBoard.Width - (TileSize * 8)) / 2), 
                 BoardPosition.Y - ((ChessBoard.Height - (TileSize * 8)) / 2));
 
             aSpriteBatch.Draw(ChessBoard, BoardOffset, Color.White);
-
-            if (!Level_Manager.FindingCheat)
-            {
-                if (Level_Manager.AccessCurrentSlide > 1)
-                    aSpriteBatch.Draw(SlideButtons, new Rectangle(113, 148, 31, 64), new Rectangle(0, 0, 31, 64), Color.White);
-                if (Level_Manager.AccessCurrentSlide < Level_Manager.AccessAllMoves.Count)
-                    aSpriteBatch.Draw(SlideButtons, new Rectangle(456, 148, 31, 64), new Rectangle(33, 0, 31, 64), Color.White);
-            }
 
             for (int x = 0; x < ChessPiecesOnBoard.GetLength(0); x++)
             {
@@ -361,6 +383,13 @@ namespace Cheatscape
                 Vector2 tempPiecePos = new Vector2(BoardOffset.X + ChessBoard.Width,
                     BoardOffset.Y + (ChessBoard.Height - TileSize) - (i * (TileSize / 2)));
                 CapturedBlackPieces[i].Draw(aSpriteBatch, tempPiecePos);
+            }
+            if (!Level_Manager.FindingCheat)
+            {
+                if (Level_Manager.AccessCurrentSlide > 1)
+                    aSpriteBatch.Draw(SlideButtons, new Rectangle(113, 148, 31, 64), new Rectangle(0, 0, 31, 64), Color.White);
+                if (Level_Manager.AccessCurrentSlide < Level_Manager.AccessAllMoves.Count)
+                    aSpriteBatch.Draw(SlideButtons, new Rectangle(456, 148, 31, 64), new Rectangle(33, 0, 31, 64), Color.White);
             }
 
             if (CurrentSplashArt == SplashArt.Check)
