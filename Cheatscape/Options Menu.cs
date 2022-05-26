@@ -21,6 +21,9 @@ namespace Cheatscape
         static Vector2 HighLightEdgeSize = new Vector2(36, 34);
         static Vector2 HighLightMidSize = new Vector2(32, 34);
 
+        static Rectangle[] optionRects = { new Rectangle(263, 45, 64, 24), new Rectangle(263, 95, 64, 24), new Rectangle(200, 145, 192, 24),
+            new Rectangle(200, 195, 192, 24), new Rectangle(284, 245, 32, 32) };
+
         public static int OptionIndex = 1;
         static int OptionAmount = 5;
         public static Color HighLightColor = Color.White;
@@ -158,6 +161,53 @@ namespace Cheatscape
                             Transition.StartTransition(Transition.AccessNextTransitionState);
                         }
                     }
+                    else if (Input_Manager.AccessMouseActivity)
+                    {
+                        if (optionRects[0].Contains(Input_Manager.GetMousePosition()))
+                        {
+                            OptionIndex = 1;
+                        }
+                        else if (optionRects[1].Contains(Input_Manager.GetMousePosition()))
+                        {
+                            OptionIndex = 2;
+                        }
+                        else if (optionRects[2].Contains(Input_Manager.GetMousePosition()))
+                        {
+                            OptionIndex = 3;
+                        }
+                        else if (optionRects[3].Contains(Input_Manager.GetMousePosition()))
+                        {
+                            OptionIndex = 4;
+                        }
+                        else if (optionRects[4].Contains(Input_Manager.GetMousePosition()))
+                        {
+                            OptionIndex = 5;
+                        }
+
+                        if (Input_Manager.MouseLBPressed())
+                        {
+                            if (OptionIndex == 1 && optionRects[0].Contains(Input_Manager.GetMousePosition()))
+                            {
+                                selectedOption = SelectedOption.FullScreen;
+                            }
+                            else if (OptionIndex == 2 && optionRects[1].Contains(Input_Manager.GetMousePosition()))
+                            {
+                                selectedOption = SelectedOption.ViewControls;
+                            }
+                            else if (OptionIndex == 3 && optionRects[2].Contains(Input_Manager.GetMousePosition()))
+                            {
+                                selectedOption = SelectedOption.MusicVolume;
+                            }
+                            else if (OptionIndex == 4 && optionRects[3].Contains(Input_Manager.GetMousePosition()))
+                            {
+                                selectedOption = SelectedOption.SFXVolume;
+                            }
+                            else if (OptionIndex == 5 && optionRects[4].Contains(Input_Manager.GetMousePosition()))
+                            {
+                                Transition.StartTransition(Transition.AccessNextTransitionState);
+                            }
+                        }
+                    }
 
                     if (selectedOption != SelectedOption.None)
                     {
@@ -168,8 +218,14 @@ namespace Cheatscape
 
                 case SelectedOption.FullScreen:
 
-                    if (FullScreenIndex == 0) { FullScreenOnOff = "OFF"; }
-                    else if (FullScreenIndex == 1) { FullScreenOnOff = "ON"; }
+                    if (FullScreenIndex == 0) 
+                    { 
+                        FullScreenOnOff = "OFF"; 
+                    }
+                    else if (FullScreenIndex == 1) 
+                    { 
+                        FullScreenOnOff = "ON"; 
+                    }
 
                     if (Input_Manager.KeyPressed(Keys.Left) && FullScreenIndex > 0)
                     {
@@ -179,7 +235,7 @@ namespace Cheatscape
                     {
                         FullScreenIndex++;
                     }
-                    else if (Input_Manager.KeyPressed(Keys.Space))
+                    else if (Input_Manager.KeyPressed(Keys.Space) || Input_Manager.MouseLBReleased())
                     {
                         HighLightColor = Color.White;
                         
@@ -192,6 +248,17 @@ namespace Cheatscape
                         else
                         {
                             Game1.ControlFullScreen(false);
+                        }
+                    }
+                    else if (Input_Manager.AccessMouseActivity && Input_Manager.MouseLBHeldDown())
+                    {
+                        if (Input_Manager.GetMousePosition().X - 32 > 263 + FullScreenIndex * 32 && FullScreenIndex < FullScreenAmount)
+                        {
+                            FullScreenIndex++;
+                        }
+                        else if (Input_Manager.GetMousePosition().X < 263 + FullScreenIndex * 32 && FullScreenIndex > 0)
+                        {
+                            FullScreenIndex--;
                         }
                     }
                     
@@ -217,11 +284,22 @@ namespace Cheatscape
                     {
                         ViewControlsIndex--;
                     }
-                    else if (Input_Manager.KeyPressed(Keys.Space))
+                    else if (Input_Manager.KeyPressed(Keys.Space) || Input_Manager.MouseLBReleased())
                     {
                         HighLightColor = Color.White;
 
                         selectedOption = SelectedOption.None;
+                    }
+                    else if (Input_Manager.AccessMouseActivity && Input_Manager.MouseLBHeldDown())
+                    {
+                        if (Input_Manager.GetMousePosition().X - 32 > 263 + ViewControlsIndex * 32 && ViewControlsIndex < ViewControlsAmount)
+                        {
+                            ViewControlsIndex++;
+                        }
+                        else if (Input_Manager.GetMousePosition().X < 263 + ViewControlsIndex * 32 && ViewControlsIndex > 0)
+                        {
+                            ViewControlsIndex--;
+                        }
                     }
 
                     break;
@@ -248,7 +326,7 @@ namespace Cheatscape
                     {
                         Music_Player.StopMusic();
                     }
-                    else if (Input_Manager.KeyPressed(Keys.Space))
+                    else if (Input_Manager.KeyPressed(Keys.Space) || Input_Manager.MouseLBReleased())
                     {
                         HighLightColor = Color.White;
                         
@@ -256,10 +334,20 @@ namespace Cheatscape
 
                         Music_Player.StopMusic();
                     }
+                    else if (Input_Manager.AccessMouseActivity && Input_Manager.MouseLBHeldDown())
+                    {
+                        if (Input_Manager.GetMousePosition().X - 32 > 200 + MusicVolumeIndex * 16 && MusicVolumeIndex < MusicVolumeAmount)
+                        {
+                            MusicVolumeIndex++;
+                        }
+                        else if (Input_Manager.GetMousePosition().X < 200 + MusicVolumeIndex * 16 && MusicVolumeIndex > 0)
+                        {
+                            MusicVolumeIndex--;
+                        }
+                    }
 
                     break;
                 case SelectedOption.SFXVolume:
-
 
                     SFXVolumePercent = (SFXVolumeIndex * 10).ToString() + "%";
 
@@ -278,11 +366,22 @@ namespace Cheatscape
                     {
                         Music_Player.MoveEffect();
                     }
-                    else if (Input_Manager.KeyPressed(Keys.Space))
+                    else if (Input_Manager.KeyPressed(Keys.Space) || Input_Manager.MouseLBReleased())
                     {
                         HighLightColor = Color.White;
 
                         selectedOption = SelectedOption.None;
+                    }
+                    else if (Input_Manager.AccessMouseActivity && Input_Manager.MouseLBHeldDown())
+                    {
+                        if (Input_Manager.GetMousePosition().X - 32 > 200 + SFXVolumeIndex * 16 && SFXVolumeIndex < SFXVolumeAmount)
+                        {
+                            SFXVolumeIndex++;
+                        }
+                        else if (Input_Manager.GetMousePosition().X < 200 + SFXVolumeIndex * 16 && SFXVolumeIndex > 0)
+                        {
+                            SFXVolumeIndex--;
+                        }
                     }
 
                     break;

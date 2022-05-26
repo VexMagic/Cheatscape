@@ -64,7 +64,7 @@ namespace Cheatscape
                 switch (Global_Info.AccessCurrentGameState)
                 {
                     case Global_Info.GameState.LevelSelect:
-                        LevelSelectUpdate();
+                        //LevelSelectUpdate();
                         break;
                     case Global_Info.GameState.PlayingLevel:
                         LevelUpdate();
@@ -74,14 +74,14 @@ namespace Cheatscape
                             Main_Menu.animating = true;
                         break;
                     case Global_Info.GameState.Options:
-                        OptionUpdate();
+                        //OptionUpdate();
                         break;
                 }
             }
             
         }
 
-        static void LevelSelectUpdate()
+        /*static void LevelSelectUpdate()
         {
             for (int i = 0; i < LevelButtons.GetLength(0); i++)
             {
@@ -118,7 +118,7 @@ namespace Cheatscape
                     Transition.StartTransition(Transition.TransitionState.ToLevel);
                 }
             }
-        }
+        }*/
 
         static void LevelUpdate()
         {
@@ -362,7 +362,7 @@ namespace Cheatscape
             }
         }
 
-        public static void OptionUpdate()
+        /*public static void OptionUpdate()
         {
             switch (Options_Menu.AccessSelectedOption)
             {
@@ -503,7 +503,7 @@ namespace Cheatscape
 
                     break;
             }
-        }
+        }*/
 
         public static void LevelDraw(SpriteBatch aSpriteBatch)
         {

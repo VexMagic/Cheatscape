@@ -19,6 +19,9 @@ namespace Cheatscape
         static Texture2D optionHighlightTex;
         static Texture2D lockTex;
 
+        static Rectangle[,] LevelButtons = new Rectangle[5, 2];
+        static Rectangle OptionsButton = new Rectangle(50, 200, 32, 32);
+
         public static List<float> highScores;
         public static List<float> AccessHighScores { get => highScores; set => highScores = value; }
 
@@ -52,12 +55,18 @@ namespace Cheatscape
             {
                 highScores.Add(item.Item2);
             }
-            highScores.Add(0);
             for (int i = 0; i < 10; i++)
             {
                 highScores.Add(1);
             }
 
+            for (int i = 0; i < LevelButtons.GetLength(0); i++)
+            {
+                for (int j = 0; j < LevelButtons.GetLength(1); j++)
+                {
+                    LevelButtons[i, j] = new Rectangle(50 + i * 100, 50 + j * 75, 96, 64);
+                }
+            }
         }
 
         public static void Update()
@@ -86,18 +95,41 @@ namespace Cheatscape
             {
                 optionHighlight = false;
             }
-            else if (Input_Manager.KeyPressed(Keys.Back))
+            else if (Input_Manager.AccessMouseActivity)
+            {
+                for (int i = 0; i < LevelButtons.GetLength(0); i++)
+                {
+                    for (int j = 0; j < LevelButtons.GetLength(1); j++)
+                    {
+                        if (LevelButtons[i, j].Contains(Input_Manager.GetMousePosition()))
+                        {
+                            SelectedBundleX = i;
+                            SelectedBundleY = j;
+                            optionHighlight = false;
+                        }
+                    }
+                }
+
+                if (OptionsButton.Contains(Input_Manager.GetMousePosition()))
+                {
+                    optionHighlight = true;
+                }
+            }
+
+            if (Input_Manager.KeyPressed(Keys.Back))
             {
                 Main_Menu.Return();
                 Global_Info.AccessCurrentGameState = Global_Info.GameState.MainMenu;
             }
-            else if (optionHighlight && Input_Manager.KeyPressed(Keys.Space))
+            else if (optionHighlight && Input_Manager.KeyPressed(Keys.Space) || (OptionsButton.Contains(Input_Manager.GetMousePosition()) 
+                && Input_Manager.MouseLBPressed()))
             {
                 Transition.AccessNextTransitionState = Transition.TransitionState.ToLvSelect;
 
                 Transition.StartTransition(Transition.TransitionState.ToOptions);
             }
-            else if (!optionHighlight && Input_Manager.KeyPressed(Keys.Space))
+            else if (!optionHighlight && Input_Manager.KeyPressed(Keys.Space) || 
+                LevelButtons[SelectedBundleX, SelectedBundleY].Contains(Input_Manager.GetMousePosition()) && Input_Manager.MouseLBPressed())
             {
                 try
                 {
