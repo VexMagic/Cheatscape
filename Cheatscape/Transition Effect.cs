@@ -7,7 +7,7 @@ using Microsoft.Xna.Framework.Input;
 
 namespace Cheatscape
 {
-    class Transition
+    class Transition_Effect
     {
         static Texture2D transitionTex;
 

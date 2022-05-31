@@ -90,5 +90,15 @@ namespace Cheatscape
         {
             return new Vector2(currentMS.X, currentMS.Y) / Global_Info.AccessScreenScale;
         }
+
+        public static int CurrentScrollValue()
+        {
+            return currentMS.ScrollWheelValue;
+        }
+
+        public static int PreviousScrollValue()
+        {
+            return previousMS.ScrollWheelValue;
+        }
     }
 }

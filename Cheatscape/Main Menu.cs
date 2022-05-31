@@ -51,7 +51,7 @@ namespace Cheatscape
                 }
             }
 
-            if (Input_Manager.KeyPressed(Keys.Space) && Global_Info.AccessCurrentGameState == Global_Info.GameState.MainMenu)
+            if ((Input_Manager.KeyPressed(Keys.Space) || Input_Manager.MouseLBPressed()) && Global_Info.AccessCurrentGameState == Global_Info.GameState.MainMenu)
             {
                 animating = true;
             }

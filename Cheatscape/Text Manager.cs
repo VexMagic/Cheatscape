@@ -143,14 +143,14 @@ namespace Cheatscape
 
             if (isRuleText)
             {
-                Mouse_Controller.RuleBoxes.Add(new Rectangle((int)aPosition.X - (LineSize / 2) - 1, (int)aPosition.Y - (LineSize / 2) - 1,
+                Level_Manager.RuleBoxes.Add(new Rectangle((int)aPosition.X - (LineSize / 2) - 1, (int)aPosition.Y - (LineSize / 2) - 1,
                         tempBoxWidth + LineSize + 1, tempYPositionOffset - (int)aPosition.Y + LineSize + 1));
             }
         }
 
         public static void DrawRuleBox(string[] aStringArray, SpriteBatch aSpriteBatch)
         {
-            Mouse_Controller.RuleBoxes.Clear();
+            Level_Manager.RuleBoxes.Clear();
             int tempYOffset = (int)RulesPosition.Y - Rules_List.Scrolling(aStringArray);
             for (int i = 0; i < aStringArray.Length; i++)
             {

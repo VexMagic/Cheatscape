@@ -36,51 +36,50 @@ namespace Cheatscape
             Main_Menu.Load();
             Hand_Animation_Manager.Load();
             Level_Select_Menu.Load();
+            Level_Manager.Load();
             Rules_List.Load();
             Text_Manager.Load();
             Options_Menu.Load();
-            Transition.Load();
-            Mouse_Controller.Load();
+            Transition_Effect.Load();
             End_Screen.Load();
         }
 
         public static void Update(GameTime gameTime)
         {
             Input_Manager.Update();
-            Mouse_Controller.Update();
 
             switch (CurrentGameState)
             {
                 case GameState.LevelSelect:
-                    if (!Transition.transitioning)
+                    if (!Transition_Effect.transitioning)
                     {
                         Level_Select_Menu.Update();
                     }
                     Main_Menu.Update(gameTime);
-                    Transition.Update(gameTime);
+                    Transition_Effect.Update(gameTime);
 
                     break;
                 case GameState.PlayingLevel:
                     End_Screen.Update();
-                    if (!Transition.transitioning && !End_Screen.AccessIsEnded)
+                    if (!Transition_Effect.transitioning && !End_Screen.AccessIsEnded)
                     {
-                        Level_Manager.Play(gameTime);
                         Game_Board.DrawMap(gameTime);
                         Level_Manager.Update();
+                        Level_Manager.Play(gameTime);
                         Hand_Animation_Manager.Update();
                     }
                     Pause_Menu.Update(gameTime);                   
-                    Transition.Update(gameTime);
+                    Transition_Effect.Update(gameTime);
                     break;
                 case GameState.MainMenu:
                     Main_Menu.Update(gameTime);
                     break;
                 case GameState.Options:
-                    if (!Transition.transitioning)
+                    if (!Transition_Effect.transitioning)
                     {
                         Options_Menu.Update();
                     }
-                    Transition.Update(gameTime);
+                    Transition_Effect.Update(gameTime);
                     break;
             }
         }
@@ -92,7 +91,7 @@ namespace Cheatscape
                 case GameState.LevelSelect:
                     Main_Menu.Draw(aSpriteBatch);
                     Level_Select_Menu.Draw(aSpriteBatch);
-                    Transition.Draw(aSpriteBatch);
+                    Transition_Effect.Draw(aSpriteBatch);
                     break;
                 case GameState.PlayingLevel:
                     Game_Board.Draw(aSpriteBatch);
@@ -101,12 +100,12 @@ namespace Cheatscape
                     Text_Manager.DrawTutorialBox(aSpriteBatch);           
                     Pause_Menu.Draw(aSpriteBatch);
                     End_Screen.Draw(aSpriteBatch);
-                    Transition.Draw(aSpriteBatch);
-                    Mouse_Controller.LevelDraw(aSpriteBatch);
+                    Transition_Effect.Draw(aSpriteBatch);
+                    Level_Manager.LevelDraw(aSpriteBatch);
                     break;
                 case GameState.Options:
                     Options_Menu.Draw(aSpriteBatch);
-                    Transition.Draw(aSpriteBatch);
+                    Transition_Effect.Draw(aSpriteBatch);
                     break;
                 case GameState.MainMenu:
                     Main_Menu.Draw(aSpriteBatch);

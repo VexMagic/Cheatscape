@@ -21,8 +21,8 @@ namespace Cheatscape
         static Texture2D optionHighlightTex;
         static Texture2D lockTex;
 
-        static Rectangle[,] LevelButtons = new Rectangle[5, 2];
-        static Rectangle OptionsButton = new Rectangle(50, 200, 32, 32);
+        static Rectangle[,] levelButtons = new Rectangle[5, 2];
+        static Rectangle optionsButton = new Rectangle(50, 200, 32, 32);
 
         public static List<float> highScores;
         public static List<float> AccessHighScores { get => highScores; set => highScores = value; }
@@ -64,11 +64,11 @@ namespace Cheatscape
                 highScores.Add(1);
             }
 
-            for (int i = 0; i < LevelButtons.GetLength(0); i++)
+            for (int i = 0; i < levelButtons.GetLength(0); i++)
             {
-                for (int j = 0; j < LevelButtons.GetLength(1); j++)
+                for (int j = 0; j < levelButtons.GetLength(1); j++)
                 {
-                    LevelButtons[i, j] = new Rectangle(50 + i * 100, 50 + j * 75, 96, 64);
+                    levelButtons[i, j] = new Rectangle(50 + i * 100, 50 + j * 75, 96, 64);
                 }
             }
         }
@@ -101,11 +101,11 @@ namespace Cheatscape
             }
             else if (Input_Manager.AccessMouseActivity)
             {
-                for (int i = 0; i < LevelButtons.GetLength(0); i++)
+                for (int i = 0; i < levelButtons.GetLength(0); i++)
                 {
-                    for (int j = 0; j < LevelButtons.GetLength(1); j++)
+                    for (int j = 0; j < levelButtons.GetLength(1); j++)
                     {
-                        if (LevelButtons[i, j].Contains(Input_Manager.GetMousePosition()))
+                        if (levelButtons[i, j].Contains(Input_Manager.GetMousePosition()))
                         {
                             SelectedBundleX = i;
                             SelectedBundleY = j;
@@ -114,7 +114,7 @@ namespace Cheatscape
                     }
                 }
 
-                if (OptionsButton.Contains(Input_Manager.GetMousePosition()))
+                if (optionsButton.Contains(Input_Manager.GetMousePosition()))
                 {
                     optionHighlight = true;
                 }
@@ -125,24 +125,24 @@ namespace Cheatscape
                 Main_Menu.Return();
                 Global_Info.AccessCurrentGameState = Global_Info.GameState.MainMenu;
             }
-            else if (optionHighlight && Input_Manager.KeyPressed(Keys.Space) || (OptionsButton.Contains(Input_Manager.GetMousePosition()) 
+            else if (optionHighlight && Input_Manager.KeyPressed(Keys.Space) || (optionsButton.Contains(Input_Manager.GetMousePosition()) 
                 && Input_Manager.MouseLBPressed()))
             {
-                Transition.AccessNextTransitionState = Transition.TransitionState.ToLvSelect;
+                Transition_Effect.AccessNextTransitionState = Transition_Effect.TransitionState.ToLvSelect;
 
-                Transition.StartTransition(Transition.TransitionState.ToOptions);
+                Transition_Effect.StartTransition(Transition_Effect.TransitionState.ToOptions);
             }
             else if (!optionHighlight && Input_Manager.KeyPressed(Keys.Space) || 
-                LevelButtons[SelectedBundleX, SelectedBundleY].Contains(Input_Manager.GetMousePosition()) && Input_Manager.MouseLBPressed())
+                levelButtons[SelectedBundleX, SelectedBundleY].Contains(Input_Manager.GetMousePosition()) && Input_Manager.MouseLBPressed())
             {
                 try
                 {
                     if ((SelectedBundleX + SelectedBundleY * 5) == 0)
                     {
 
-                        Music_Player.ChangeMusic((SelectedBundleX + SelectedBundleY * 5));
+                        Music_Player.ChangeMusic(SelectedBundleX + SelectedBundleY * 5);
                         Music_Player.PlayMusic();
-                        Game_Board.AdjustMap((SelectedBundleX + SelectedBundleY * 5));
+                        Game_Board.AdjustMap(SelectedBundleX + SelectedBundleY * 5);
                         Hint_File_Manager.LoadHints();
                         Level_Transition.LoadSpecialRule();
                         Level_Manager.isOnTransitionScreen = true;
@@ -152,7 +152,7 @@ namespace Cheatscape
                         File_Manager.LoadLevel();
                         Game_Board.ResetBoard();
 
-                        Transition.StartTransition(Transition.TransitionState.ToLevel);
+                        Transition_Effect.StartTransition(Transition_Effect.TransitionState.ToLevel);
                     }
 
                     else if (Global_Tracker.completedBundels.Count == (SelectedBundleX + SelectedBundleY * 5) || Global_Tracker.completedBundels.Count > (SelectedBundleX + SelectedBundleY * 5))
@@ -173,7 +173,7 @@ namespace Cheatscape
                         File_Manager.LoadLevel();
                         Game_Board.ResetBoard();
 
-                        Transition.StartTransition(Transition.TransitionState.ToLevel);
+                        Transition_Effect.StartTransition(Transition_Effect.TransitionState.ToLevel);
                     }
 
                 }
@@ -208,14 +208,14 @@ namespace Cheatscape
             Text_Manager.DrawText("Arrow Keys: Change Level             Space: Select", 30,
                 (int)(Global_Info.AccessWindowSize.Y / Global_Info.AccessScreenScale - 40), aSpriteBatch);
 
-            aSpriteBatch.Draw(optionButtonTex, new Vector2(50, 200), Color.White);
+            aSpriteBatch.Draw(optionButtonTex, optionsButton, Color.White);
             
             for (int i = 0; i < LevelAmountY; i++)
             {
                 for (int j = 0; j < LevelAmountX; j++)
                 {
                     aSpriteBatch.Draw(NumbersTex, new Rectangle(55 + j * 100, 55 + i * 75, 9, 5), new Rectangle(9 * j + i * 45, 0, 9, 5), Color.White, 0, new Vector2(0, 0), SpriteEffects.None, 0);
-                    aSpriteBatch.Draw(PanelTex, new Vector2(50 + j * 100, 50 + i * 75), Color.White);
+                    aSpriteBatch.Draw(PanelTex, levelButtons[j, i], Color.White);
 
                     if (highScores[j + i * 5] != 1)
                     {                        

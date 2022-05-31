@@ -158,7 +158,7 @@ namespace Cheatscape
                         }
                         else if (OptionIndex == 5)
                         {
-                            Transition.StartTransition(Transition.AccessNextTransitionState);
+                            Transition_Effect.StartTransition(Transition_Effect.AccessNextTransitionState);
                         }
                     }
                     else if (Input_Manager.AccessMouseActivity)
@@ -204,7 +204,7 @@ namespace Cheatscape
                             }
                             else if (OptionIndex == 5 && optionRects[4].Contains(Input_Manager.GetMousePosition()))
                             {
-                                Transition.StartTransition(Transition.AccessNextTransitionState);
+                                Transition_Effect.StartTransition(Transition_Effect.AccessNextTransitionState);
                             }
                         }
                     }
@@ -437,9 +437,9 @@ namespace Cheatscape
             //Back button
             if (backHighLight)
             {
-                spriteBatch.Draw(backHighLightTex, new Vector2(284, 245), Color.White);
+                spriteBatch.Draw(backHighLightTex, optionRects[4], Color.White);
             }
-            spriteBatch.Draw(backButtonTex, new Vector2(284, 245), Color.White);
+            spriteBatch.Draw(backButtonTex, optionRects[4], Color.White);
             Text_Manager.DrawText("Return", 284, 230, spriteBatch);
         }
 

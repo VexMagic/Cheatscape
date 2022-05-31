@@ -12,6 +12,8 @@ namespace Cheatscape
         static bool gameIsEnded;
         static bool cleared;
 
+        static Rectangle[] endRects = { new Rectangle(150, 230, 32, 32), new Rectangle(418, 230, 32, 32) };
+
         public static bool AccessIsEnded
         {
             get => gameIsEnded;
@@ -63,7 +65,20 @@ namespace Cheatscape
                 {
                     endIndex--;
                 }
-                else if (Input_Manager.KeyPressed(Keys.Space))
+                else if (Input_Manager.AccessMouseActivity)
+                {
+                    if (endRects[0].Contains(Input_Manager.GetMousePosition()))
+                    {
+                        AccessEndIndex = 0;
+                    }
+                    else if (endRects[1].Contains(Input_Manager.GetMousePosition()))
+                    {
+                        AccessEndIndex = 1;
+                    }
+                }
+
+                if (Input_Manager.KeyPressed(Keys.Space) || endRects[endIndex].Contains(Input_Manager.GetMousePosition()) 
+                    && Input_Manager.MouseLBPressed())
                 {
                     Music_Player.StopMusic();
                     
@@ -72,12 +87,12 @@ namespace Cheatscape
                         if (endIndex == 0 ) //Retry
                         {
                             Level_Manager.AccessCurrentLevel = 0;
-                            Transition.StartTransition(Transition.TransitionState.ToLevel);
+                            Transition_Effect.StartTransition(Transition_Effect.TransitionState.ToLevel);
                         }
                         else if (endIndex == 1) //Continue
                         {
                             Level_Select_Menu.Load();
-                            Transition.StartTransition(Transition.TransitionState.ToLvSelect);
+                            Transition_Effect.StartTransition(Transition_Effect.TransitionState.ToLvSelect);
                         }
 
                         if (Level_Manager.AccessRating > 
@@ -91,13 +106,13 @@ namespace Cheatscape
                     {
                         if (endIndex == 0) //Exit
                         {
-                            Transition.StartTransition(Transition.TransitionState.ToLvSelect);
+                            Transition_Effect.StartTransition(Transition_Effect.TransitionState.ToLvSelect);
                         }
                         else if (endIndex == 1) //Retry
                         {
                             Level_Manager.isOnTransitionScreen = false;
                             Level_Manager.AccessCurrentLevel = 0;
-                            Transition.StartTransition(Transition.TransitionState.ToLevel);
+                            Transition_Effect.StartTransition(Transition_Effect.TransitionState.ToLevel);
                         }
                     }
 
@@ -122,10 +137,10 @@ namespace Cheatscape
                         , spriteBatch);
 
                     Text_Manager.DrawText("Retry", 190, 240, spriteBatch);
-                    spriteBatch.Draw(restartButton, new Vector2(150, 230), Color.White);
+                    spriteBatch.Draw(restartButton, endRects[0], Color.White);
 
                     Text_Manager.DrawText("Continue", 350, 240, spriteBatch);
-                    spriteBatch.Draw(continueButton, new Vector2(418, 230), Color.White);
+                    spriteBatch.Draw(continueButton, endRects[1], Color.White);
                 }
                 else
                 {
@@ -138,10 +153,10 @@ namespace Cheatscape
                         , spriteBatch);
 
                     Text_Manager.DrawText("Return to Menu", 190, 240, spriteBatch);
-                    spriteBatch.Draw(exitButton, new Vector2(150, 230), Color.White);
+                    spriteBatch.Draw(exitButton, endRects[0], Color.White);
 
                     Text_Manager.DrawText("Retry", 350, 240, spriteBatch);
-                    spriteBatch.Draw(restartButton, new Vector2(418, 230), Color.White);
+                    spriteBatch.Draw(restartButton, endRects[1], Color.White);
                 }
             }
         }
