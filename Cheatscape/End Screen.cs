@@ -1,9 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using System;
 
 namespace Cheatscape
 {
@@ -12,8 +10,14 @@ namespace Cheatscape
         static bool gameIsEnded;
         static bool cleared;
 
-        public static bool AccessIsEnded { get => gameIsEnded; set => gameIsEnded = value; }
-        public static bool AccessCleared { get => cleared; set => cleared = value; }
+        public static bool AccessIsEnded 
+        {
+            get => gameIsEnded; set => gameIsEnded = value; 
+        }
+        public static bool AccessCleared 
+        {
+            get => cleared; set => cleared = value;
+        }
 
         static Texture2D levelClear;
         static Texture2D gameOver;
@@ -41,32 +45,32 @@ namespace Cheatscape
         {
             if (gameIsEnded)
             {
-                if (Input_Manager.KeyPressed(Keys.Right) && endIndex < endAmount)
+                if (Keyboard_Inputs.KeyPressed(Keys.Right) && endIndex < endAmount)
                 {
                     endIndex++;
                 }
-                else if (Input_Manager.KeyPressed(Keys.Left) && endIndex > 0)
+                else if (Keyboard_Inputs.KeyPressed(Keys.Left) && endIndex > 0)
                 {
                     endIndex--;
                 }
-                else if (Input_Manager.KeyPressed(Keys.Space))
+                else if (Keyboard_Inputs.KeyPressed(Keys.Space))
                 {
                     if (cleared)
                     {
                         if (endIndex == 0) //Retry
                         {
                             Level_Manager.AccessCurrentLevel = 0;
-                            Transition.StartTransition(Transition.TransitionState.ToLevel);
+                            Transition_Effect.StartTransition(Transition_Effect.TransitionState.toLevel);
                         }
                         else if (endIndex == 1) //Continue
                         {
-                            Transition.StartTransition(Transition.TransitionState.ToLvSelect);
+                            Transition_Effect.StartTransition(Transition_Effect.TransitionState.toLvSelect);
                         }
 
                         if (Level_Manager.AccessRating > 
-                            Level_Select_Menu.AccessHighScores[Level_Select_Menu.SelectedBundleX + Level_Select_Menu.SelectedBundleY * 5])
+                            Level_Select_Menu.AccessHighScores[Level_Select_Menu.selectedBundleX + Level_Select_Menu.selectedBundleY * 5])
                         {
-                            Level_Select_Menu.AccessHighScores[Level_Select_Menu.SelectedBundleX + Level_Select_Menu.SelectedBundleY * 5] =
+                            Level_Select_Menu.AccessHighScores[Level_Select_Menu.selectedBundleX + Level_Select_Menu.selectedBundleY * 5] =
                                 Level_Manager.AccessRating;
                         }
                     }
@@ -74,12 +78,12 @@ namespace Cheatscape
                     {
                         if (endIndex == 0) //Exit
                         {
-                            Transition.StartTransition(Transition.TransitionState.ToLvSelect);
+                            Transition_Effect.StartTransition(Transition_Effect.TransitionState.toLvSelect);
                         }
                         else if (endIndex == 1) //Retry
                         {
                             Level_Manager.AccessCurrentLevel = 0;
-                            Transition.StartTransition(Transition.TransitionState.ToLevel);
+                            Transition_Effect.StartTransition(Transition_Effect.TransitionState.toLevel);
                         }
                     }
 
@@ -95,8 +99,8 @@ namespace Cheatscape
             {
                 if (cleared)
                 {
-                    spriteBatch.Draw(levelClear, new Rectangle(0, 0, (int)(Global_Info.WindowSize.X / Global_Info.AccessScreenScale), 
-                        (int)(Global_Info.WindowSize.Y / Global_Info.AccessScreenScale)), Color.White);
+                    spriteBatch.Draw(levelClear, new Rectangle(0, 0, (int)(Global_Info.windowSize.X / Global_Info.AccessScreenScale), 
+                        (int)(Global_Info.windowSize.Y / Global_Info.AccessScreenScale)), Color.White);
 
                     spriteBatch.Draw(buttonHighLight, new Vector2(150 + 268 * endIndex, 230), Color.White);
 
@@ -111,8 +115,8 @@ namespace Cheatscape
                 }
                 else
                 {
-                    spriteBatch.Draw(gameOver, new Rectangle(0, 0, (int)(Global_Info.WindowSize.X / Global_Info.AccessScreenScale),
-                        (int)(Global_Info.WindowSize.Y / Global_Info.AccessScreenScale)), Color.White);
+                    spriteBatch.Draw(gameOver, new Rectangle(0, 0, (int)(Global_Info.windowSize.X / Global_Info.AccessScreenScale),
+                        (int)(Global_Info.windowSize.Y / Global_Info.AccessScreenScale)), Color.White);
 
                     spriteBatch.Draw(buttonHighLight, new Vector2(150 + 268 * endIndex, 230), Color.White);
 

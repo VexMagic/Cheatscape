@@ -1,13 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Linq;
-using System.Runtime.InteropServices;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Content;
-using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Audio;
+﻿using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Media;
+using System;
+using System.Collections.Generic;
 
 namespace Cheatscape
 {
@@ -16,9 +10,12 @@ namespace Cheatscape
         static List<SoundEffect> soundEffects = new List<SoundEffect>();
         public static List<Song> songs = new List<Song>();
         static SoundEffect move1, move2, move3, move4, move5;
-        static Song song1, song2 , currentSong;
+        static Song song1, song2, currentSong;
 
-        public static Song AccessCurrentSong { get => currentSong; set => currentSong = value; }
+        public static Song AccessCurrentSong
+        {
+            get => currentSong; set => currentSong = value;
+        }
 
         public static void Load()
         {
@@ -36,11 +33,6 @@ namespace Cheatscape
             soundEffects.Add(move5);
             songs.Add(song1);
             songs.Add(song2);
-            //for (int i = 1; i < 3; i++)
-            //{
-            //    tempString = "move" + i;
-            //    soundEffects.Add(tempString);
-            //}
             MediaPlayer.Volume = 0.5f;
             SoundEffect.MasterVolume = 0.5f;
         }
@@ -56,7 +48,6 @@ namespace Cheatscape
         {
             MediaPlayer.Play(currentSong);
             MediaPlayer.IsRepeating = true;
-            // mediaPlayer.Volume = 0; för att inte spela upp musik.
         }
 
         public static void StopMusic()

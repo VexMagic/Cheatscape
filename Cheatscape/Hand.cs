@@ -1,8 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Cheatscape
 {
@@ -28,7 +25,7 @@ namespace Cheatscape
         public Hand(Vector2 aHomePos, bool aHandIsFlipped)
         {
             myTexture = Global_Info.AccessContentManager.Load<Texture2D>("Hands");
-            myHomePos = aHomePos;            
+            myHomePos = aHomePos;
             myPosition = myHomePos;
             myHandIsFlipped = aHandIsFlipped;
         }
@@ -59,7 +56,7 @@ namespace Cheatscape
 
         public void Update()
         {
-            if (!isDone && !Level_Manager.isOnTransitionScreen && !Pause_Menu.gameIsPaused && !Level_Manager.FindingCheat)
+            if (!isDone && !Level_Manager.isOnTransitionScreen && !Pause_Menu.gameIsPaused && !Level_Manager.findingCheat)
             {
                 myPosition += myMoveDirection;
                 myMoveAmount++;
@@ -75,7 +72,7 @@ namespace Cheatscape
                             isHolding = true;
                             myHoldingPiece = new Chess_Piece(Game_Board.AccessChessPiecesOnBoard[(int)myMove.myStartingPos.X, (int)myMove.myStartingPos.Y]);
                             Game_Board.AccessChessPiecesOnBoard[(int)myMove.myStartingPos.X, (int)myMove.myStartingPos.Y].myPieceType = 0;
-                            
+
 
                             break;
                         case 2: //after dropping the piece in its new spot

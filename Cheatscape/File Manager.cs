@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
-using System.Text;
-using System.Linq;
 
 namespace Cheatscape
 {
@@ -40,8 +37,7 @@ namespace Cheatscape
 
             catch
             {
-                Transition.StartTransition(Transition.TransitionState.ToLvSelect);
-                //Global_Info.AccessCurrentGameState = Global_Info.GameState.LevelSelect;
+                Transition_Effect.StartTransition(Transition_Effect.TransitionState.toLvSelect);
             }
         }
 

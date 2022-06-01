@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-using System.Threading;
 
 namespace Cheatscape
 {
@@ -38,24 +34,24 @@ namespace Cheatscape
         {
             if (gameIsPaused)
             {
-                
-                if (Input_Manager.KeyPressed(Keys.Right) && pauseIndexX < pauseAmount)
+
+                if (Keyboard_Inputs.KeyPressed(Keys.Right) && pauseIndexX < pauseAmount)
                 {
                     pauseIndexX++;
                 }
-                else if (Input_Manager.KeyPressed(Keys.Left) && pauseIndexX > 0)
+                else if (Keyboard_Inputs.KeyPressed(Keys.Left) && pauseIndexX > 0)
                 {
                     pauseIndexX--;
                 }
-                else if (Input_Manager.KeyPressed(Keys.Down) && pauseIndexY < pauseAmount)
+                else if (Keyboard_Inputs.KeyPressed(Keys.Down) && pauseIndexY < pauseAmount)
                 {
                     pauseIndexY++;
                 }
-                else if (Input_Manager.KeyPressed(Keys.Up) && pauseIndexY > 0)
+                else if (Keyboard_Inputs.KeyPressed(Keys.Up) && pauseIndexY > 0)
                 {
                     pauseIndexY--;
                 }
-                else if (Input_Manager.KeyPressed(Keys.Space))
+                else if (Keyboard_Inputs.KeyPressed(Keys.Space))
                 {
                     if (pauseIndexX == 0 && pauseIndexY == 0) //Continue
                     {
@@ -63,17 +59,17 @@ namespace Cheatscape
                     }
                     else if (pauseIndexX == 1 && pauseIndexY == 0) //Restart
                     {
-                        Transition.StartTransition(Transition.TransitionState.ToLevel);
+                        Transition_Effect.StartTransition(Transition_Effect.TransitionState.toLevel);
                         gameIsPaused = false;
                     }
                     else if (pauseIndexX == 0 && pauseIndexY == 1) //Options
                     {
-                        Transition.nextTransitionState = Transition.TransitionState.ToLevel;
-                        Transition.StartTransition(Transition.TransitionState.ToOptions);
+                        Transition_Effect.nextTransitionState = Transition_Effect.TransitionState.toLevel;
+                        Transition_Effect.StartTransition(Transition_Effect.TransitionState.toOptions);
                     }
                     else if (pauseIndexX == 1 && pauseIndexY == 1) //Back to Menu
                     {
-                        Transition.StartTransition(Transition.TransitionState.ToLvSelect);
+                        Transition_Effect.StartTransition(Transition_Effect.TransitionState.toLvSelect);
                         gameIsPaused = false;
                     }
                 }
@@ -83,12 +79,12 @@ namespace Cheatscape
         {
             if (gameIsPaused)
             {
-                aSpriteBatch.Draw(pauseMenu, new Rectangle(0, 0, (int)(Global_Info.WindowSize.X / Global_Info.AccessScreenScale), (int)(Global_Info.WindowSize.Y / Global_Info.AccessScreenScale)), Color.White);
+                aSpriteBatch.Draw(pauseMenu, new Rectangle(0, 0, (int)(Global_Info.windowSize.X / Global_Info.AccessScreenScale), (int)(Global_Info.windowSize.Y / Global_Info.AccessScreenScale)), Color.White);
 
                 aSpriteBatch.Draw(buttonHighLight, new Vector2(150 + 268 * pauseIndexX, 130 + 100 * pauseIndexY), Color.White);
 
-                Text_Manager.DrawLargeText("Cheatscape", 300 - ((int)Text_Manager.LargeFont.MeasureString("Cheatscape").Length() / 2), 85, aSpriteBatch);
-                
+                Text_Manager.DrawLargeText("Cheatscape", 300 - ((int)Text_Manager.largeFont.MeasureString("Cheatscape").Length() / 2), 85, aSpriteBatch);
+
                 Text_Manager.DrawText("Continue", 190, 140, aSpriteBatch);
                 aSpriteBatch.Draw(continueButton, new Vector2(150, 130), Color.White);
 
@@ -100,7 +96,7 @@ namespace Cheatscape
 
                 Text_Manager.DrawText("Back to Menu", 350, 240, aSpriteBatch);
                 aSpriteBatch.Draw(exitButton, new Vector2(418, 230), Color.White);
-            }       
+            }
         }
     }
 }

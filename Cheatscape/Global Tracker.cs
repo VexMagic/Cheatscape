@@ -1,10 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Text;
 using System.Linq;
 using System.Text.RegularExpressions;
-using System.Runtime.CompilerServices;
 
 namespace Cheatscape
 {
@@ -16,7 +14,7 @@ namespace Cheatscape
         {
             first = completedBundels.Count > 0 ? completedBundels[0] : default(T);
             second = completedBundels.Count > 1 ? completedBundels[1] : default(T);
-            rest = completedBundels.Skip(2).ToList();           
+            rest = completedBundels.Skip(2).ToList();
         }
         public static void AddCompletedLevel(int completedBundle, float grade) //Add Text to file
         {
@@ -26,14 +24,14 @@ namespace Cheatscape
 
             TextWriter tw = new StreamWriter(@"..\..\..\Text_Files\Global_Tracker.txt");
 
-            foreach (var s in completedBundels)      
-                tw.WriteLine(s);           
+            foreach (var s in completedBundels)
+                tw.WriteLine(s);
 
             tw.Close();
         }
         public static void LoadCompletedBundles()
         {
-           
+
             foreach (string line in File.ReadLines(@"..\..\..\Text_Files\Global_Tracker.txt"))
             {
                 var (first, second, rest) = line.Split(',');

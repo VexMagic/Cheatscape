@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Text;
 using System.Linq;
 
 namespace Cheatscape
@@ -19,7 +18,7 @@ namespace Cheatscape
             }
             catch (Exception)
             {
-                Transition.StartTransition(Transition.TransitionState.ToLvSelect);
+                Transition_Effect.StartTransition(Transition_Effect.TransitionState.toLvSelect);
             }
 
         }
