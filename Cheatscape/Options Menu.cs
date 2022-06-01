@@ -1,79 +1,74 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Media;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Cheatscape
 {
     static class Options_Menu
     {
-        static Texture2D SliderTex;
-        static Texture2D HighLightTex;
-        static Texture2D BackgroundTex;
+        static Texture2D sliderTex;
+        static Texture2D highLightTex;
+        static Texture2D backgroundTex;
         static Texture2D backButtonTex;
         static Texture2D backHighLightTex;
 
-        static Vector2 SliderSize = new Vector2(32, 24);
-        static Vector2 HighLightEdgeSize = new Vector2(36, 34);
-        static Vector2 HighLightMidSize = new Vector2(32, 34);
+        static Vector2 sliderSize = new Vector2(32, 24);
+        static Vector2 highLightEdgeSize = new Vector2(36, 34);
+        static Vector2 highLightMidSize = new Vector2(32, 34);
 
-        static Rectangle[] optionRects = { new Rectangle(263, 45, 64, 24), new Rectangle(263, 95, 64, 24), new Rectangle(200, 145, 192, 24),
-            new Rectangle(200, 195, 192, 24), new Rectangle(284, 245, 32, 32) };
+        public static int optionIndex = 1;
+        static int optionAmount = 5;
+        public static Color highLightColor = Color.White;
 
-        public static int OptionIndex = 1;
-        static int OptionAmount = 5;
-        public static Color HighLightColor = Color.White;
-
-        public enum SelectedOption { None, FullScreen, ViewControls, MusicVolume, SFXVolume };
-        static SelectedOption selectedOption = SelectedOption.None;
+        public enum SelectedOption
+        {
+            none, fullScreen, viewControls, musicVolume, sFXVolume
+        };
+        static SelectedOption selectedOption = SelectedOption.none;
         public static SelectedOption AccessSelectedOption
         {
-            get => selectedOption;
-            set => selectedOption = value;
+            get => selectedOption; set => selectedOption = value;
         }
 
         //Screen Size
-        public static int FullScreenIndex = 0;
-        public static int FullScreenAmount = 1;
-        static bool FullScreenHighLight = false;
-        static string FullScreenOnOff = "OFF";
+        public static int fullScreenIndex = 0;
+        public static int fullScreenAmount = 1;
+        static bool fullScreenHighLight = false;
+        static string fullScreenOnOff = "OFF";
 
         //View Controls
-        public static int ViewControlsIndex = 1;
-        public static int ViewControlsAmount = 1;
-        static bool ViewControlsHighLight = false;
+        public static int viewControlsIndex = 1;
+        public static int viewControlsAmount = 1;
+        static bool viewControlsHighLight = false;
         static bool showControls = true;
-        static string ViewControlsOnOff = "ON";
-        public static bool AccessControlView 
+        static string viewControlsOnOff = "ON";
+        public static bool AccessControlView
         {
-            get => showControls;
-            set => showControls = value;
+            get => showControls; set => showControls = value;
         }
 
         //Music Volume
-        public static int MusicVolumeIndex = 5;
-        public static int MusicVolumeAmount = 10;
-        static bool MusicVolumeHighLight = false;
-        static string MusicVolumePercent = "50%";
+        public static int musicVolumeIndex = 5;
+        public static int musicVolumeAmount = 10;
+        static bool musicVolumeHighLight = false;
+        static string musicVolumePercent = "50%";
 
         //SFX Volume
-        public static int SFXVolumeIndex = 5;
-        public static int SFXVolumeAmount = 10;
-        static bool SFXVolumeHighLight = false;
-        static string SFXVolumePercent = "50%";
+        public static int sFXVolumeIndex = 5;
+        public static int sFXVolumeAmount = 10;
+        static bool sFXVolumeHighLight = false;
+        static string sFXVolumePercent = "50%";
 
         //Back button
         static bool backHighLight = false;
 
         public static void Load()
         {
-            SliderTex = Global_Info.AccessContentManager.Load<Texture2D>("OptionSliders");
-            HighLightTex = Global_Info.AccessContentManager.Load<Texture2D>("OptionHighLight");
-            BackgroundTex = Global_Info.AccessContentManager.Load<Texture2D>("OptionsBackground");
+            sliderTex = Global_Info.AccessContentManager.Load<Texture2D>("OptionSliders");
+            highLightTex = Global_Info.AccessContentManager.Load<Texture2D>("OptionHighLight");
+            backgroundTex = Global_Info.AccessContentManager.Load<Texture2D>("OptionsBackground");
             backButtonTex = Global_Info.AccessContentManager.Load<Texture2D>("BackButton");
             backHighLightTex = Global_Info.AccessContentManager.Load<Texture2D>("OptionsButtonHighlight");
         }
@@ -82,166 +77,119 @@ namespace Cheatscape
         {
             switch (selectedOption)
             {
-                case SelectedOption.None:
+                case SelectedOption.none:
 
-                    if (OptionIndex == 1)
+                    if (optionIndex == 1)
                     {
-                        FullScreenHighLight = true;
+                        fullScreenHighLight = true;
 
-                        ViewControlsHighLight = false;
-                        MusicVolumeHighLight = false;
-                        SFXVolumeHighLight = false;
+                        viewControlsHighLight = false;
+                        musicVolumeHighLight = false;
+                        sFXVolumeHighLight = false;
                         backHighLight = false;
                     }
-                    else if (OptionIndex == 2)
+                    else if (optionIndex == 2)
                     {
-                        ViewControlsHighLight = true;
+                        viewControlsHighLight = true;
 
-                        FullScreenHighLight = false;
-                        MusicVolumeHighLight = false;
-                        SFXVolumeHighLight = false;
+                        fullScreenHighLight = false;
+                        musicVolumeHighLight = false;
+                        sFXVolumeHighLight = false;
                         backHighLight = false;
                     }
-                    else if (OptionIndex == 3)
+                    else if (optionIndex == 3)
                     {
-                        MusicVolumeHighLight = true;
+                        musicVolumeHighLight = true;
 
-                        FullScreenHighLight = false;
-                        ViewControlsHighLight = false;
-                        SFXVolumeHighLight = false;
+                        fullScreenHighLight = false;
+                        viewControlsHighLight = false;
+                        sFXVolumeHighLight = false;
                         backHighLight = false;
                     }
-                    else if (OptionIndex == 4)
+                    else if (optionIndex == 4)
                     {
-                        SFXVolumeHighLight = true;
+                        sFXVolumeHighLight = true;
 
-                        FullScreenHighLight = false;
-                        ViewControlsHighLight = false;
-                        MusicVolumeHighLight = false;
+                        fullScreenHighLight = false;
+                        viewControlsHighLight = false;
+                        musicVolumeHighLight = false;
                         backHighLight = false;
                     }
-                    else if (OptionIndex == 5)
+                    else if (optionIndex == 5)
                     {
                         backHighLight = true;
 
-                        FullScreenHighLight = false;
-                        ViewControlsHighLight = false;
-                        MusicVolumeHighLight = false;
-                        SFXVolumeHighLight = false;
+                        fullScreenHighLight = false;
+                        viewControlsHighLight = false;
+                        musicVolumeHighLight = false;
+                        sFXVolumeHighLight = false;
                     }
-                    
-                    if (Input_Manager.KeyPressed(Keys.Up) && OptionIndex > 1)
+
+                    if (Keyboard_Inputs.KeyPressed(Keys.Up) && optionIndex > 1)
                     {
-                        OptionIndex--;
+                        optionIndex--;
                     }
-                    else if (Input_Manager.KeyPressed(Keys.Down) && OptionIndex < OptionAmount)
+                    else if (Keyboard_Inputs.KeyPressed(Keys.Down) && optionIndex < optionAmount)
                     {
-                        OptionIndex++;
+                        optionIndex++;
                     }
-                    else if (Input_Manager.KeyPressed(Keys.Space))
+                    else if (Keyboard_Inputs.KeyPressed(Keys.Space))
                     {
-                        if (OptionIndex == 1)
+                        if (optionIndex == 1)
                         {
-                            selectedOption = SelectedOption.FullScreen;
+                            selectedOption = SelectedOption.fullScreen;
                         }
-                        else if (OptionIndex == 2)
+                        else if (optionIndex == 2)
                         {
-                            selectedOption = SelectedOption.ViewControls;
+                            selectedOption = SelectedOption.viewControls;
                         }
-                        else if (OptionIndex == 3)
+                        else if (optionIndex == 3)
                         {
-                            selectedOption = SelectedOption.MusicVolume;
+                            selectedOption = SelectedOption.musicVolume;
                         }
-                        else if (OptionIndex == 4)
+                        else if (optionIndex == 4)
                         {
-                            selectedOption = SelectedOption.SFXVolume;
+                            selectedOption = SelectedOption.sFXVolume;
                         }
-                        else if (OptionIndex == 5)
+                        else if (optionIndex == 5)
                         {
                             Transition_Effect.StartTransition(Transition_Effect.AccessNextTransitionState);
                         }
                     }
-                    else if (Input_Manager.AccessMouseActivity)
-                    {
-                        if (optionRects[0].Contains(Input_Manager.GetMousePosition()))
-                        {
-                            OptionIndex = 1;
-                        }
-                        else if (optionRects[1].Contains(Input_Manager.GetMousePosition()))
-                        {
-                            OptionIndex = 2;
-                        }
-                        else if (optionRects[2].Contains(Input_Manager.GetMousePosition()))
-                        {
-                            OptionIndex = 3;
-                        }
-                        else if (optionRects[3].Contains(Input_Manager.GetMousePosition()))
-                        {
-                            OptionIndex = 4;
-                        }
-                        else if (optionRects[4].Contains(Input_Manager.GetMousePosition()))
-                        {
-                            OptionIndex = 5;
-                        }
 
-                        if (Input_Manager.MouseLBPressed())
-                        {
-                            if (OptionIndex == 1 && optionRects[0].Contains(Input_Manager.GetMousePosition()))
-                            {
-                                selectedOption = SelectedOption.FullScreen;
-                            }
-                            else if (OptionIndex == 2 && optionRects[1].Contains(Input_Manager.GetMousePosition()))
-                            {
-                                selectedOption = SelectedOption.ViewControls;
-                            }
-                            else if (OptionIndex == 3 && optionRects[2].Contains(Input_Manager.GetMousePosition()))
-                            {
-                                selectedOption = SelectedOption.MusicVolume;
-                            }
-                            else if (OptionIndex == 4 && optionRects[3].Contains(Input_Manager.GetMousePosition()))
-                            {
-                                selectedOption = SelectedOption.SFXVolume;
-                            }
-                            else if (OptionIndex == 5 && optionRects[4].Contains(Input_Manager.GetMousePosition()))
-                            {
-                                Transition_Effect.StartTransition(Transition_Effect.AccessNextTransitionState);
-                            }
-                        }
-                    }
-
-                    if (selectedOption != SelectedOption.None)
+                    if (selectedOption != SelectedOption.none)
                     {
-                        HighLightColor = Color.Blue;
+                        highLightColor = Color.Blue;
                     }
 
                     break;
 
-                case SelectedOption.FullScreen:
+                case SelectedOption.fullScreen:
 
-                    if (FullScreenIndex == 0) 
-                    { 
-                        FullScreenOnOff = "OFF"; 
+                    if (fullScreenIndex == 0)
+                    {
+                        fullScreenOnOff = "OFF";
                     }
-                    else if (FullScreenIndex == 1) 
-                    { 
-                        FullScreenOnOff = "ON"; 
+                    else if (fullScreenIndex == 1)
+                    {
+                        fullScreenOnOff = "ON";
                     }
 
-                    if (Input_Manager.KeyPressed(Keys.Left) && FullScreenIndex > 0)
+                    if (Keyboard_Inputs.KeyPressed(Keys.Left) && fullScreenIndex > 0)
                     {
-                        FullScreenIndex--;
+                        fullScreenIndex--;
                     }
-                    else if (Input_Manager.KeyPressed(Keys.Right) && FullScreenIndex < FullScreenAmount)
+                    else if (Keyboard_Inputs.KeyPressed(Keys.Right) && fullScreenIndex < fullScreenAmount)
                     {
-                        FullScreenIndex++;
+                        fullScreenIndex++;
                     }
-                    else if (Input_Manager.KeyPressed(Keys.Space) || Input_Manager.MouseLBReleased())
+                    else if (Keyboard_Inputs.KeyPressed(Keys.Space))
                     {
-                        HighLightColor = Color.White;
-                        
-                        selectedOption = SelectedOption.None;
+                        highLightColor = Color.White;
 
-                        if (FullScreenIndex > 0)
+                        selectedOption = SelectedOption.none;
+
+                        if (fullScreenIndex > 0)
                         {
                             Game1.ControlFullScreen(true);
                         }
@@ -250,138 +198,95 @@ namespace Cheatscape
                             Game1.ControlFullScreen(false);
                         }
                     }
-                    else if (Input_Manager.AccessMouseActivity && Input_Manager.MouseLBHeldDown())
-                    {
-                        if (Input_Manager.GetMousePosition().X - 32 > 263 + FullScreenIndex * 32 && FullScreenIndex < FullScreenAmount)
-                        {
-                            FullScreenIndex++;
-                        }
-                        else if (Input_Manager.GetMousePosition().X < 263 + FullScreenIndex * 32 && FullScreenIndex > 0)
-                        {
-                            FullScreenIndex--;
-                        }
-                    }
-                    
+
                     break;
-                case SelectedOption.ViewControls:
+                case SelectedOption.viewControls:
 
-                    if (ViewControlsIndex == 0) 
-                    { 
-                        ViewControlsOnOff = "OFF"; 
-                        AccessControlView = false; 
+                    if (viewControlsIndex == 0)
+                    {
+                        viewControlsOnOff = "OFF";
+                        AccessControlView = false;
                     }
-                    else if (ViewControlsIndex == 1) 
-                    { 
-                        ViewControlsOnOff = "ON"; 
-                        AccessControlView = true; 
+                    else if (viewControlsIndex == 1)
+                    {
+                        viewControlsOnOff = "ON";
+                        AccessControlView = true;
                     }
 
-                    if (Input_Manager.KeyPressed(Keys.Right) && ViewControlsIndex < ViewControlsAmount)
+                    if (Keyboard_Inputs.KeyPressed(Keys.Right) && viewControlsIndex < viewControlsAmount)
                     {
-                        ViewControlsIndex++;
+                        viewControlsIndex++;
                     }
-                    else if (Input_Manager.KeyPressed(Keys.Left) && ViewControlsIndex > 0)
+                    else if (Keyboard_Inputs.KeyPressed(Keys.Left) && viewControlsIndex > 0)
                     {
-                        ViewControlsIndex--;
+                        viewControlsIndex--;
                     }
-                    else if (Input_Manager.KeyPressed(Keys.Space) || Input_Manager.MouseLBReleased())
+                    else if (Keyboard_Inputs.KeyPressed(Keys.Space))
                     {
-                        HighLightColor = Color.White;
+                        highLightColor = Color.White;
 
-                        selectedOption = SelectedOption.None;
-                    }
-                    else if (Input_Manager.AccessMouseActivity && Input_Manager.MouseLBHeldDown())
-                    {
-                        if (Input_Manager.GetMousePosition().X - 32 > 263 + ViewControlsIndex * 32 && ViewControlsIndex < ViewControlsAmount)
-                        {
-                            ViewControlsIndex++;
-                        }
-                        else if (Input_Manager.GetMousePosition().X < 263 + ViewControlsIndex * 32 && ViewControlsIndex > 0)
-                        {
-                            ViewControlsIndex--;
-                        }
+                        selectedOption = SelectedOption.none;
                     }
 
                     break;
-                case SelectedOption.MusicVolume:
+                case SelectedOption.musicVolume:
 
-                    MusicVolumePercent = (MusicVolumeIndex * 10).ToString() + "%";
+                    musicVolumePercent = (musicVolumeIndex * 10).ToString() + "%";
 
-                    float newMVol = MusicVolumeIndex / 10f;
+                    float newMVol = musicVolumeIndex / 10f;
                     MediaPlayer.Volume = newMVol;
 
-                    if (Input_Manager.KeyPressed(Keys.Right) && MusicVolumeIndex < MusicVolumeAmount)
+                    if (Keyboard_Inputs.KeyPressed(Keys.Right) && musicVolumeIndex < musicVolumeAmount)
                     {
-                        MusicVolumeIndex++;
+                        musicVolumeIndex++;
                     }
-                    else if (Input_Manager.KeyPressed(Keys.Left) && MusicVolumeIndex > 0)
+                    else if (Keyboard_Inputs.KeyPressed(Keys.Left) && musicVolumeIndex > 0)
                     {
-                        MusicVolumeIndex--;
+                        musicVolumeIndex--;
                     }
-                    else if (Input_Manager.KeyPressed(Keys.V))
+                    else if (Keyboard_Inputs.KeyPressed(Keys.V))
                     {
                         Music_Player.PlayMusic();
                     }
-                    else if (Input_Manager.KeyReleased(Keys.V))
+                    else if (Keyboard_Inputs.KeyReleased(Keys.V))
                     {
                         Music_Player.StopMusic();
                     }
-                    else if (Input_Manager.KeyPressed(Keys.Space) || Input_Manager.MouseLBReleased())
+                    else if (Keyboard_Inputs.KeyPressed(Keys.Space))
                     {
-                        HighLightColor = Color.White;
-                        
-                        selectedOption = SelectedOption.None;
+                        highLightColor = Color.White;
+
+                        selectedOption = SelectedOption.none;
 
                         Music_Player.StopMusic();
-                    }
-                    else if (Input_Manager.AccessMouseActivity && Input_Manager.MouseLBHeldDown())
-                    {
-                        if (Input_Manager.GetMousePosition().X - 32 > 200 + MusicVolumeIndex * 16 && MusicVolumeIndex < MusicVolumeAmount)
-                        {
-                            MusicVolumeIndex++;
-                        }
-                        else if (Input_Manager.GetMousePosition().X < 200 + MusicVolumeIndex * 16 && MusicVolumeIndex > 0)
-                        {
-                            MusicVolumeIndex--;
-                        }
                     }
 
                     break;
-                case SelectedOption.SFXVolume:
+                case SelectedOption.sFXVolume:
 
-                    SFXVolumePercent = (SFXVolumeIndex * 10).ToString() + "%";
 
-                    float newSVol = SFXVolumeIndex / 10f;
+                    sFXVolumePercent = (sFXVolumeIndex * 10).ToString() + "%";
+
+                    float newSVol = sFXVolumeIndex / 10f;
                     SoundEffect.MasterVolume = newSVol;
 
-                    if (Input_Manager.KeyPressed(Keys.Right) && SFXVolumeIndex < SFXVolumeAmount)
+                    if (Keyboard_Inputs.KeyPressed(Keys.Right) && sFXVolumeIndex < sFXVolumeAmount)
                     {
-                        SFXVolumeIndex++;
+                        sFXVolumeIndex++;
                     }
-                    else if (Input_Manager.KeyPressed(Keys.Left) && SFXVolumeIndex > 0)
+                    else if (Keyboard_Inputs.KeyPressed(Keys.Left) && sFXVolumeIndex > 0)
                     {
-                        SFXVolumeIndex--;
+                        sFXVolumeIndex--;
                     }
-                    else if (Input_Manager.KeyPressed(Keys.V))
+                    else if (Keyboard_Inputs.KeyPressed(Keys.V))
                     {
                         Music_Player.MoveEffect();
                     }
-                    else if (Input_Manager.KeyPressed(Keys.Space) || Input_Manager.MouseLBReleased())
+                    else if (Keyboard_Inputs.KeyPressed(Keys.Space))
                     {
-                        HighLightColor = Color.White;
+                        highLightColor = Color.White;
 
-                        selectedOption = SelectedOption.None;
-                    }
-                    else if (Input_Manager.AccessMouseActivity && Input_Manager.MouseLBHeldDown())
-                    {
-                        if (Input_Manager.GetMousePosition().X - 32 > 200 + SFXVolumeIndex * 16 && SFXVolumeIndex < SFXVolumeAmount)
-                        {
-                            SFXVolumeIndex++;
-                        }
-                        else if (Input_Manager.GetMousePosition().X < 200 + SFXVolumeIndex * 16 && SFXVolumeIndex > 0)
-                        {
-                            SFXVolumeIndex--;
-                        }
+                        selectedOption = SelectedOption.none;
                     }
 
                     break;
@@ -390,12 +295,12 @@ namespace Cheatscape
 
         public static void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(BackgroundTex, new Rectangle(0, 0, 
-                (int)(Global_Info.WindowSize.X / Global_Info.AccessScreenScale), (int)(Global_Info.WindowSize.Y / Global_Info.AccessScreenScale)), 
+            spriteBatch.Draw(backgroundTex, new Rectangle(0, 0,
+                (int)(Global_Info.windowSize.X / Global_Info.AccessScreenScale), (int)(Global_Info.windowSize.Y / Global_Info.AccessScreenScale)),
                 Color.White);
             if (AccessControlView)
             {
-                if (selectedOption == SelectedOption.None)
+                if (selectedOption == SelectedOption.none)
                 {
                     Text_Manager.DrawText("Up/Down: Scroll             Space: Select", 30,
                         (int)(Global_Info.AccessWindowSize.Y / Global_Info.AccessScreenScale - 40), spriteBatch);
@@ -404,11 +309,11 @@ namespace Cheatscape
                 {
                     string text = "Left/Right: Adjust          Space: Confirm";
 
-                    if (selectedOption == SelectedOption.MusicVolume)
+                    if (selectedOption == SelectedOption.musicVolume)
                     {
                         text += "          V (Hold): Test Audio";
                     }
-                    else if (selectedOption == SelectedOption.SFXVolume)
+                    else if (selectedOption == SelectedOption.sFXVolume)
                     {
                         text += "          V: Test Audio";
                     }
@@ -419,27 +324,27 @@ namespace Cheatscape
             }
 
             //Fullscreen
-            DrawSlider(FullScreenAmount, FullScreenIndex, 1, spriteBatch, new Vector2(263, 45), FullScreenHighLight);
-            Text_Manager.DrawText("Fullscreen " + FullScreenOnOff, 262, 30, spriteBatch);
+            DrawSlider(fullScreenAmount, fullScreenIndex, 1, spriteBatch, new Vector2(263, 45), fullScreenHighLight);
+            Text_Manager.DrawText("Fullscreen " + fullScreenOnOff, 262, 30, spriteBatch);
 
             //View Controls
-            DrawSlider(ViewControlsAmount, ViewControlsIndex, 1, spriteBatch, new Vector2(263, 95), ViewControlsHighLight);
-            Text_Manager.DrawText("View Controls " + ViewControlsOnOff,259, 80, spriteBatch);
+            DrawSlider(viewControlsAmount, viewControlsIndex, 1, spriteBatch, new Vector2(263, 95), viewControlsHighLight);
+            Text_Manager.DrawText("View Controls " + viewControlsOnOff, 259, 80, spriteBatch);
 
             //Music Volume
-            DrawSlider(MusicVolumeAmount, MusicVolumeIndex, 5, spriteBatch, new Vector2(200, 145), MusicVolumeHighLight);
-            Text_Manager.DrawText("Music Volume " + MusicVolumePercent, 255, 130, spriteBatch);
+            DrawSlider(musicVolumeAmount, musicVolumeIndex, 5, spriteBatch, new Vector2(200, 145), musicVolumeHighLight);
+            Text_Manager.DrawText("Music Volume " + musicVolumePercent, 255, 130, spriteBatch);
 
             //SFX Volume
-            DrawSlider(SFXVolumeAmount, SFXVolumeIndex, 5, spriteBatch, new Vector2(200, 195), SFXVolumeHighLight);
-            Text_Manager.DrawText("Sound Effect Volume " + SFXVolumePercent, 259, 180, spriteBatch);
+            DrawSlider(sFXVolumeAmount, sFXVolumeIndex, 5, spriteBatch, new Vector2(200, 195), sFXVolumeHighLight);
+            Text_Manager.DrawText("Sound Effect Volume " + sFXVolumePercent, 259, 180, spriteBatch);
 
             //Back button
             if (backHighLight)
             {
-                spriteBatch.Draw(backHighLightTex, optionRects[4], Color.White);
+                spriteBatch.Draw(backHighLightTex, new Vector2(284, 245), Color.White);
             }
-            spriteBatch.Draw(backButtonTex, optionRects[4], Color.White);
+            spriteBatch.Draw(backButtonTex, new Vector2(284, 245), Color.White);
             Text_Manager.DrawText("Return", 284, 230, spriteBatch);
         }
 
@@ -449,40 +354,40 @@ namespace Cheatscape
             {
                 if (i == 0)
                 {
-                    spriteBatch.Draw(SliderTex, new Rectangle((int)position.X, (int)position.Y, (int)SliderSize.X, (int)SliderSize.Y),
+                    spriteBatch.Draw(sliderTex, new Rectangle((int)position.X, (int)position.Y, (int)sliderSize.X, (int)sliderSize.Y),
                         new Rectangle(100, 0, 100, 75), Color.White, 0, Vector2.Zero, SpriteEffects.FlipHorizontally, 0);
 
                     if (highLight)
                     {
-                        spriteBatch.Draw(HighLightTex, new Rectangle((int)position.X - 4, (int)position.Y - 5, (int)HighLightEdgeSize.X, (int)HighLightEdgeSize.Y),
-                            new Rectangle(0, 0, 112, 99), HighLightColor);
+                        spriteBatch.Draw(highLightTex, new Rectangle((int)position.X - 4, (int)position.Y - 5, (int)highLightEdgeSize.X, (int)highLightEdgeSize.Y),
+                            new Rectangle(0, 0, 112, 99), highLightColor);
                     }
                 }
                 else if (i == size)
                 {
-                    spriteBatch.Draw(SliderTex, new Rectangle((int)position.X + 32 * i, (int)position.Y, (int)SliderSize.X, (int)SliderSize.Y),
+                    spriteBatch.Draw(sliderTex, new Rectangle((int)position.X + 32 * i, (int)position.Y, (int)sliderSize.X, (int)sliderSize.Y),
                         new Rectangle(100, 0, 100, 75), Color.White);
 
                     if (highLight)
                     {
-                        spriteBatch.Draw(HighLightTex, new Rectangle((int)position.X + 32 * i, (int)position.Y - 5, (int)HighLightEdgeSize.X, (int)HighLightEdgeSize.Y),
-                            new Rectangle(HighLightTex.Width - 112, 0, 112, 99), HighLightColor);
+                        spriteBatch.Draw(highLightTex, new Rectangle((int)position.X + 32 * i, (int)position.Y - 5, (int)highLightEdgeSize.X, (int)highLightEdgeSize.Y),
+                            new Rectangle(highLightTex.Width - 112, 0, 112, 99), highLightColor);
                     }
                 }
                 else
                 {
-                    spriteBatch.Draw(SliderTex, new Rectangle((int)position.X + 32 * i, (int)position.Y, (int)SliderSize.X, (int)SliderSize.Y),
+                    spriteBatch.Draw(sliderTex, new Rectangle((int)position.X + 32 * i, (int)position.Y, (int)sliderSize.X, (int)sliderSize.Y),
                         new Rectangle(200, 0, 100, 75), Color.White);
 
                     if (highLight)
                     {
-                        spriteBatch.Draw(HighLightTex, new Rectangle((int)position.X + 32 * i, (int)position.Y - 5, (int)HighLightMidSize.X, (int)HighLightMidSize.Y),
-                            new Rectangle(100, 0, 100, 99), HighLightColor);
+                        spriteBatch.Draw(highLightTex, new Rectangle((int)position.X + 32 * i, (int)position.Y - 5, (int)highLightMidSize.X, (int)highLightMidSize.Y),
+                            new Rectangle(100, 0, 100, 99), highLightColor);
                     }
                 }
             }
 
-            spriteBatch.Draw(SliderTex, new Rectangle((int)(position.X + 32 * size / options * selectionIndex), (int)position.Y, 32, 24),
+            spriteBatch.Draw(sliderTex, new Rectangle((int)(position.X + 32 * size / options * selectionIndex), (int)position.Y, 32, 24),
                 new Rectangle(0, 0, 100, 75), Color.White);
         }
     }

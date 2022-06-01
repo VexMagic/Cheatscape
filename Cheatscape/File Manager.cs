@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
-using System.Text;
-using System.Linq;
 
 namespace Cheatscape
 {
@@ -35,18 +32,28 @@ namespace Cheatscape
                 }
                 turnCounter = File.ReadAllLines(tempDirectory).Length - 1;
                 file.Close();
-                Level_Transition.LoadSpecialRule();
                 Game_Board.ResetBoard();
             }
 
-
             catch
             {
-                Global_Tracker.AddCompletedLevel(Level_Select_Menu.SelectedBundleX, Level_Manager.AccessRating);
-                Level_Manager.isOnTransitionScreen = false;
-                End_Screen.AccessCleared = true;
-                End_Screen.AccessIsEnded = true;
+                Transition_Effect.StartTransition(Transition_Effect.TransitionState.toLvSelect);
             }
+        }
+
+        public static void SaveTest() //save the winrate of each card
+        {
+            string tempDirectory = Directory.GetCurrentDirectory() + @"\Text Files\Level" + Level_Manager.AccessCurrentLevel + ".txt";
+
+            using (StreamWriter tempFileStream = File.CreateText(tempDirectory)) //skriver in i filen
+            {
+                AddText(tempFileStream, "A2;B2");
+            }
+        }
+        static void AddText(StreamWriter aStreamWriter, string aStringToAdd) //Add Text to file
+        {
+            char[] tempTextToWrite = aStringToAdd.ToCharArray();
+            aStreamWriter.WriteLine(tempTextToWrite, 0, tempTextToWrite.Length);
         }
     }
 }

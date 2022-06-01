@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Input;
 
 namespace Cheatscape
 {
@@ -17,14 +13,20 @@ namespace Cheatscape
 
         static int dir;
 
-        static float transitionWidth = 300 + Global_Info.WindowSize.X / Global_Info.AccessScreenScale;
+        static float transitionWidth = 300 + Global_Info.windowSize.X / Global_Info.AccessScreenScale;
         static float timeSinceLastMove;
         static float timeBetweenMoves = 30f;
 
-        public enum TransitionState { ToOptions, ToLvSelect, ToLevel };
+        public enum TransitionState
+        {
+            toOptions, toLvSelect, toLevel
+        };
         public static TransitionState transitionState, nextTransitionState;
 
-        public static TransitionState AccessNextTransitionState { get => nextTransitionState; set => nextTransitionState = value; }
+        public static TransitionState AccessNextTransitionState
+        {
+            get => nextTransitionState; set => nextTransitionState = value;
+        }
         public static void Load()
         {
             transitionTex = Global_Info.AccessContentManager.Load<Texture2D>("TransitionShadow");
@@ -39,13 +41,13 @@ namespace Cheatscape
 
                 switch (transitionState)
                 {
-                    case TransitionState.ToLvSelect:
+                    case TransitionState.toLvSelect:
                         dir = -1;
                         break;
-                    case TransitionState.ToOptions:
+                    case TransitionState.toOptions:
                         dir = 1;
                         break;
-                    case TransitionState.ToLevel:
+                    case TransitionState.toLevel:
                         dir = -1;
                         break;
                 }
@@ -68,45 +70,41 @@ namespace Cheatscape
 
                     switch (transitionState)
                     {
-                        case TransitionState.ToOptions:
-                            
+                        case TransitionState.toOptions:
+
                             if (transitionPos.X >= transitionWidth / 2 - Global_Info.AccessWindowSize.X / Global_Info.AccessScreenScale)
                             {
-                                Global_Info.AccessCurrentGameState = Global_Info.GameState.Options;
+                                Global_Info.AccessCurrentGameState = Global_Info.GameState.options;
                             }
 
                             break;
-                        case TransitionState.ToLvSelect:
-                            
+                        case TransitionState.toLvSelect:
+
                             if (transitionPos.X <= transitionWidth / 2 - Global_Info.AccessWindowSize.X / Global_Info.AccessScreenScale)
                             {
-                                Global_Info.AccessCurrentGameState = Global_Info.GameState.LevelSelect;
+                                Global_Info.AccessCurrentGameState = Global_Info.GameState.levelSelect;
                                 Level_Manager.AccessCurrentLevel = 0;
                                 Level_Manager.AccessAllMoves.Clear();
                                 Level_Manager.AccessCompleted = false;
-                                Music_Player.PlayMainTheme();
+                                Music_Player.StopMusic();
                             }
 
                             break;
-                        case TransitionState.ToLevel:
+                        case TransitionState.toLevel:
 
                             if (transitionPos.X <= transitionWidth / 2 - Global_Info.AccessWindowSize.X / Global_Info.AccessScreenScale)
                             {
-                                Level_Manager.currentHint = -1;
-                                Level_Manager.unlockedHints = -1;
-                                Level_Manager.displayingHint = false;
-                                Level_Manager.FindingCheat = false;
-                                Global_Info.AccessCurrentGameState = Global_Info.GameState.PlayingLevel;
+
+                                Global_Info.AccessCurrentGameState = Global_Info.GameState.playingLevel;
 
                                 if (!Pause_Menu.gameIsPaused)
                                 {
-                                    Level_Manager.AccessCurrentBundle = Level_Select_Menu.SelectedBundleX + Level_Select_Menu.SelectedBundleY * 5;
+                                    Level_Manager.AccessCurrentBundle = Level_Select_Menu.selectedBundleX + Level_Select_Menu.selectedBundleY * 5;
                                     Level_Manager.AccessRating = 1000;
-                                    Level_Manager.isOnTransitionScreen = true;
                                     File_Manager.LoadLevel();
                                     Hint_File_Manager.LoadHints();
                                 }
-                                
+
                             }
 
                             break;
@@ -124,8 +122,8 @@ namespace Cheatscape
         {
             if (transitioning)
             {
-                spriteBatch.Draw(transitionTex, new Rectangle((int)transitionPos.X, (int)transitionPos.Y, 
-                    (int)transitionWidth, (int)(Global_Info.WindowSize.Y / Global_Info.AccessScreenScale)), 
+                spriteBatch.Draw(transitionTex, new Rectangle((int)transitionPos.X, (int)transitionPos.Y,
+                    (int)transitionWidth, (int)(Global_Info.windowSize.Y / Global_Info.AccessScreenScale)),
                     Color.White);
             }
         }

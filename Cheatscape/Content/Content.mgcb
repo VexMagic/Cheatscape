@@ -25,6 +25,18 @@
 /processorParam:TextureFormat=Color
 /build:BackButton.png
 
+#begin Background.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Background.png
+
 #begin Banner Arrows.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -36,18 +48,6 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Banner Arrows.png
-
-#begin cheatscape Train.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:cheatscape Train.png
 
 #begin Check Art.png
 /importer:TextureImporter
@@ -109,18 +109,6 @@
 /processorParam:TextureFormat=Color
 /build:ContinueButton.png
 
-#begin Desk.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Desk.png
-
 #begin ExitButton.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -176,59 +164,11 @@
 /processorParam:TextureFormat=Color
 /build:Hands.png
 
-#begin Hint Arrows Left.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Hint Arrows Left.png
-
-#begin Hint Arrows Right.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Hint Arrows Right.png
-
-#begin Hint Arrows.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Hint Arrows.png
-
 #begin Holding Out for a Hero Eurobeat Remix.mp3
 /importer:Mp3Importer
 /processor:SongProcessor
 /processorParam:Quality=Best
 /build:Holding Out for a Hero Eurobeat Remix.mp3
-
-#begin Kindergarten.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Kindergarten.png
 
 #begin LargeFont.spritefont
 /importer:FontDescriptionImporter
@@ -261,12 +201,6 @@
 /processorParam:TextureFormat=Color
 /build:LevelClearPanel.png
 
-#begin LevelMusic.mp3
-/importer:Mp3Importer
-/processor:SongProcessor
-/processorParam:Quality=Best
-/build:LevelMusic.mp3
-
 #begin LevelPanelHighlight.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -290,18 +224,6 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Light Bulb.png
-
-#begin Lock.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Lock.png
 
 #begin Main_Menu.png
 /importer:TextureImporter
@@ -417,18 +339,6 @@
 /processorParam:TextureFormat=Color
 /build:OptionSliders.png
 
-#begin Park.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Park.png
-
 #begin Pause_Menu.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -512,6 +422,30 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Rule Images/0-4.png
+
+#begin Rule Images/0-5.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Rule Images/0-5.png
+
+#begin Rule Images/0-6.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Rule Images/0-6.png
 
 #begin Rule Images/1-0.png
 /importer:TextureImporter
@@ -669,6 +603,18 @@
 /processorParam:TextureFormat=Color
 /build:Rule Images/2-4.png
 
+#begin Rule Images/2-5.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Rule Images/2-5.png
+
 #begin Rules Banner.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -717,35 +663,11 @@
 /processorParam:TextureFormat=Color
 /build:Slide Buttons.png
 
-#begin song0.mp3
-/importer:Mp3Importer
-/processor:SongProcessor
-/processorParam:Quality=Best
-/build:song0.mp3
-
 #begin Song1.mp3
 /importer:Mp3Importer
 /processor:SongProcessor
 /processorParam:Quality=Best
 /build:Song1.mp3
-
-#begin song2.mp3
-/importer:Mp3Importer
-/processor:SongProcessor
-/processorParam:Quality=Best
-/build:song2.mp3
-
-#begin soon.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:soon.png
 
 #begin Text Boarder.png
 /importer:TextureImporter

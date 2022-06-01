@@ -1,9 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using System;
 
 namespace Cheatscape
 {
@@ -12,17 +10,13 @@ namespace Cheatscape
         static bool gameIsEnded;
         static bool cleared;
 
-        static Rectangle[] endRects = { new Rectangle(150, 230, 32, 32), new Rectangle(418, 230, 32, 32) };
-
-        public static bool AccessIsEnded
+        public static bool AccessIsEnded 
         {
-            get => gameIsEnded;
-            set => gameIsEnded = value;
+            get => gameIsEnded; set => gameIsEnded = value; 
         }
         public static bool AccessCleared 
-        { 
-            get => cleared; 
-            set => cleared = value; 
+        {
+            get => cleared; set => cleared = value;
         }
 
         static Texture2D levelClear;
@@ -34,12 +28,6 @@ namespace Cheatscape
 
         static int endIndex = 0;
         static int endAmount = 1;
-
-        public static int AccessEndIndex 
-        { 
-            get => endIndex;
-            set => endIndex = value;
-        }
 
         public static void Load()
         {
@@ -57,48 +45,32 @@ namespace Cheatscape
         {
             if (gameIsEnded)
             {
-                if (Input_Manager.KeyPressed(Keys.Right) && endIndex < endAmount)
+                if (Keyboard_Inputs.KeyPressed(Keys.Right) && endIndex < endAmount)
                 {
                     endIndex++;
                 }
-                else if (Input_Manager.KeyPressed(Keys.Left) && endIndex > 0)
+                else if (Keyboard_Inputs.KeyPressed(Keys.Left) && endIndex > 0)
                 {
                     endIndex--;
                 }
-                else if (Input_Manager.AccessMouseActivity)
+                else if (Keyboard_Inputs.KeyPressed(Keys.Space))
                 {
-                    if (endRects[0].Contains(Input_Manager.GetMousePosition()))
-                    {
-                        AccessEndIndex = 0;
-                    }
-                    else if (endRects[1].Contains(Input_Manager.GetMousePosition()))
-                    {
-                        AccessEndIndex = 1;
-                    }
-                }
-
-                if (Input_Manager.KeyPressed(Keys.Space) || endRects[endIndex].Contains(Input_Manager.GetMousePosition()) 
-                    && Input_Manager.MouseLBPressed())
-                {
-                    Music_Player.StopMusic();
-                    
                     if (cleared)
                     {
-                        if (endIndex == 0 ) //Retry
+                        if (endIndex == 0) //Retry
                         {
                             Level_Manager.AccessCurrentLevel = 0;
-                            Transition_Effect.StartTransition(Transition_Effect.TransitionState.ToLevel);
+                            Transition_Effect.StartTransition(Transition_Effect.TransitionState.toLevel);
                         }
                         else if (endIndex == 1) //Continue
                         {
-                            Level_Select_Menu.Load();
-                            Transition_Effect.StartTransition(Transition_Effect.TransitionState.ToLvSelect);
+                            Transition_Effect.StartTransition(Transition_Effect.TransitionState.toLvSelect);
                         }
 
                         if (Level_Manager.AccessRating > 
-                            Level_Select_Menu.AccessHighScores[Level_Select_Menu.SelectedBundleX + Level_Select_Menu.SelectedBundleY * 5])
+                            Level_Select_Menu.AccessHighScores[Level_Select_Menu.selectedBundleX + Level_Select_Menu.selectedBundleY * 5])
                         {
-                            Level_Select_Menu.AccessHighScores[Level_Select_Menu.SelectedBundleX + Level_Select_Menu.SelectedBundleY * 5] =
+                            Level_Select_Menu.AccessHighScores[Level_Select_Menu.selectedBundleX + Level_Select_Menu.selectedBundleY * 5] =
                                 Level_Manager.AccessRating;
                         }
                     }
@@ -106,13 +78,12 @@ namespace Cheatscape
                     {
                         if (endIndex == 0) //Exit
                         {
-                            Transition_Effect.StartTransition(Transition_Effect.TransitionState.ToLvSelect);
+                            Transition_Effect.StartTransition(Transition_Effect.TransitionState.toLvSelect);
                         }
                         else if (endIndex == 1) //Retry
                         {
-                            Level_Manager.isOnTransitionScreen = false;
                             Level_Manager.AccessCurrentLevel = 0;
-                            Transition_Effect.StartTransition(Transition_Effect.TransitionState.ToLevel);
+                            Transition_Effect.StartTransition(Transition_Effect.TransitionState.toLevel);
                         }
                     }
 
@@ -128,8 +99,8 @@ namespace Cheatscape
             {
                 if (cleared)
                 {
-                    spriteBatch.Draw(levelClear, new Rectangle(0, 0, (int)(Global_Info.WindowSize.X / Global_Info.AccessScreenScale), 
-                        (int)(Global_Info.WindowSize.Y / Global_Info.AccessScreenScale)), Color.White);
+                    spriteBatch.Draw(levelClear, new Rectangle(0, 0, (int)(Global_Info.windowSize.X / Global_Info.AccessScreenScale), 
+                        (int)(Global_Info.windowSize.Y / Global_Info.AccessScreenScale)), Color.White);
 
                     spriteBatch.Draw(buttonHighLight, new Vector2(150 + 268 * endIndex, 230), Color.White);
 
@@ -137,15 +108,15 @@ namespace Cheatscape
                         , spriteBatch);
 
                     Text_Manager.DrawText("Retry", 190, 240, spriteBatch);
-                    spriteBatch.Draw(restartButton, endRects[0], Color.White);
+                    spriteBatch.Draw(restartButton, new Vector2(150, 230), Color.White);
 
                     Text_Manager.DrawText("Continue", 350, 240, spriteBatch);
-                    spriteBatch.Draw(continueButton, endRects[1], Color.White);
+                    spriteBatch.Draw(continueButton, new Vector2(418, 230), Color.White);
                 }
                 else
                 {
-                    spriteBatch.Draw(gameOver, new Rectangle(0, 0, (int)(Global_Info.WindowSize.X / Global_Info.AccessScreenScale),
-                        (int)(Global_Info.WindowSize.Y / Global_Info.AccessScreenScale)), Color.White);
+                    spriteBatch.Draw(gameOver, new Rectangle(0, 0, (int)(Global_Info.windowSize.X / Global_Info.AccessScreenScale),
+                        (int)(Global_Info.windowSize.Y / Global_Info.AccessScreenScale)), Color.White);
 
                     spriteBatch.Draw(buttonHighLight, new Vector2(150 + 268 * endIndex, 230), Color.White);
 
@@ -153,10 +124,10 @@ namespace Cheatscape
                         , spriteBatch);
 
                     Text_Manager.DrawText("Return to Menu", 190, 240, spriteBatch);
-                    spriteBatch.Draw(exitButton, endRects[0], Color.White);
+                    spriteBatch.Draw(exitButton, new Vector2(150, 230), Color.White);
 
                     Text_Manager.DrawText("Retry", 350, 240, spriteBatch);
-                    spriteBatch.Draw(restartButton, endRects[1], Color.White);
+                    spriteBatch.Draw(restartButton, new Vector2(418, 230), Color.White);
                 }
             }
         }
