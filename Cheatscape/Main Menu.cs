@@ -1,14 +1,18 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System;
+using System.Collections.Generic;
+using System.Text;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using System.Threading;
 
 namespace Cheatscape
 {
     static class Main_Menu
     {
 
-        public static int currentFrame = 0;
-        const int mAXFRAME = 8;
+        public static int CurrentFrame = 0;
+        const int MAXFRAME = 8;
         public static bool animating = false;
         static int frame = 1;
         static float timer;
@@ -32,7 +36,7 @@ namespace Cheatscape
         {
             animating = false;
             frame = 1;
-            currentFrame = 0;
+            CurrentFrame = 0;
         }
         public static void Update(GameTime gameTime)
         {
@@ -42,34 +46,33 @@ namespace Cheatscape
 
                 if (timer >= framesPerSecond)
                 {
-                    currentFrame += frame;
+                    CurrentFrame += frame;
                     timer = 0;
                 }
             }
 
-            if (Keyboard_Inputs.KeyPressed(Keys.Space) && Global_Info.AccessCurrentGameState == Global_Info.GameState.mainMenu)
+            if ((Input_Manager.KeyPressed(Keys.Space) || Input_Manager.MouseLBPressed()) && Global_Info.AccessCurrentGameState == Global_Info.GameState.MainMenu)
             {
                 animating = true;
             }
 
-            if (currentFrame == mAXFRAME && Global_Info.AccessCurrentGameState == Global_Info.GameState.mainMenu && frame > 0)
+            if (CurrentFrame == MAXFRAME && Global_Info.AccessCurrentGameState == Global_Info.GameState.MainMenu && frame > 0)
             {
                 animating = false;
-                Global_Info.AccessCurrentGameState = Global_Info.GameState.levelSelect;
+                Global_Info.AccessCurrentGameState = Global_Info.GameState.LevelSelect;
             }
 
-
-            if (currentFrame < 0)
+            if (CurrentFrame < 0)
             {
                 Stop();
             }
 
-            srcRect = new Rectangle(0, height * currentFrame, width, height);
+            srcRect = new Rectangle(0, height * CurrentFrame, width, height);
 
         }
         public static void Draw(SpriteBatch aSpriteBatch)
         {
-            aSpriteBatch.Draw(menuScreen, new Rectangle(0, 0, (int)(Global_Info.windowSize.X / Global_Info.AccessScreenScale), (int)(Global_Info.windowSize.Y / Global_Info.AccessScreenScale)), srcRect, Color.White);
+            aSpriteBatch.Draw(menuScreen, new Rectangle(0,0,(int)(Global_Info.WindowSize.X/Global_Info.AccessScreenScale), (int)(Global_Info.WindowSize.Y / Global_Info.AccessScreenScale)), srcRect, Color.White);
         }
     }
 }

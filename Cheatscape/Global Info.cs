@@ -1,67 +1,56 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Audio;
+using System;
+using System.Collections.Generic;
+using System.Text;
 
 namespace Cheatscape
 {
     static class Global_Info
     {
-        static ContentManager contentManager;
-        static float screenScale = 2f;
-        public static Vector2 windowSize = new Vector2(600 * screenScale, 360 * screenScale);
-        public enum GameState
-        {
-            levelSelect, playingLevel, mainMenu, options
-        };
-        static GameState currentGameState = GameState.mainMenu;
+        static ContentManager ContentManager;
+        static float ScreenScale = 2f;
+        public static Vector2 WindowSize = new Vector2(600 * ScreenScale, 360 * ScreenScale);
+        public enum GameState { LevelSelect, PlayingLevel, MainMenu, Options };
+        static GameState CurrentGameState = GameState.MainMenu;
 
 
-        public static ContentManager AccessContentManager
-        {
-            get => contentManager; set => contentManager = value;
-        }
-        public static float AccessScreenScale
-        {
-            get => screenScale; set => screenScale = value;
-        }
-        public static Vector2 AccessWindowSize
-        {
-            get => windowSize; set => windowSize = value;
-        }
-
-        public static GameState AccessCurrentGameState
-        {
-            get => currentGameState; set => currentGameState = value;
-        }
+        public static ContentManager AccessContentManager { get => ContentManager; set => ContentManager = value; }
+        public static float AccessScreenScale { get => ScreenScale; set => ScreenScale = value; }
+        public static Vector2 AccessWindowSize { get => WindowSize; set => WindowSize = value; }
+        
+        public static GameState AccessCurrentGameState { get => CurrentGameState; set => CurrentGameState = value; }
 
 
         public static void Load()
         {
             Hint_File_Manager.LoadHints();
-            Level_Transition.Load();
             Global_Tracker.LoadCompletedBundles();
             Pause_Menu.Load();
             Game_Board.Load();
+            Level_Transition.Load();
             Music_Player.Load();
+            //File_Manager.LoadLevel();
             Main_Menu.Load();
             Hand_Animation_Manager.Load();
             Level_Select_Menu.Load();
+            Level_Manager.Load();
             Rules_List.Load();
             Text_Manager.Load();
             Options_Menu.Load();
             Transition_Effect.Load();
-            Mouse_Controller.Load();
             End_Screen.Load();
         }
 
         public static void Update(GameTime gameTime)
         {
-            Keyboard_Inputs.Update();
-            Mouse_Controller.Update();
+            Input_Manager.Update();
 
-            switch (currentGameState)
+            switch (CurrentGameState)
             {
-                case GameState.levelSelect:
+                case GameState.LevelSelect:
                     if (!Transition_Effect.transitioning)
                     {
                         Level_Select_Menu.Update();
@@ -70,21 +59,22 @@ namespace Cheatscape
                     Transition_Effect.Update(gameTime);
 
                     break;
-                case GameState.playingLevel:
+                case GameState.PlayingLevel:
+                    End_Screen.Update();
                     if (!Transition_Effect.transitioning && !End_Screen.AccessIsEnded)
                     {
-                        Level_Manager.Play(gameTime);
+                        Game_Board.DrawMap(gameTime);
                         Level_Manager.Update();
+                        Level_Manager.Play(gameTime);
                         Hand_Animation_Manager.Update();
                     }
-                    Pause_Menu.Update();
-                    End_Screen.Update();
+                    Pause_Menu.Update(gameTime);                   
                     Transition_Effect.Update(gameTime);
                     break;
-                case GameState.mainMenu:
+                case GameState.MainMenu:
                     Main_Menu.Update(gameTime);
                     break;
-                case GameState.options:
+                case GameState.Options:
                     if (!Transition_Effect.transitioning)
                     {
                         Options_Menu.Update();
@@ -96,28 +86,28 @@ namespace Cheatscape
 
         public static void Draw(SpriteBatch aSpriteBatch)
         {
-            switch (currentGameState)
+            switch (CurrentGameState)
             {
-                case GameState.levelSelect:
+                case GameState.LevelSelect:
                     Main_Menu.Draw(aSpriteBatch);
                     Level_Select_Menu.Draw(aSpriteBatch);
                     Transition_Effect.Draw(aSpriteBatch);
                     break;
-                case GameState.playingLevel:
+                case GameState.PlayingLevel:
                     Game_Board.Draw(aSpriteBatch);
                     Hand_Animation_Manager.Draw(aSpriteBatch);
                     Level_Manager.Draw(aSpriteBatch);
-                    Text_Manager.DrawTutorialBox(aSpriteBatch);
+                    Text_Manager.DrawTutorialBox(aSpriteBatch);           
                     Pause_Menu.Draw(aSpriteBatch);
-                    Transition_Effect.Draw(aSpriteBatch);
                     End_Screen.Draw(aSpriteBatch);
-                    Mouse_Controller.LevelDraw(aSpriteBatch);
+                    Transition_Effect.Draw(aSpriteBatch);
+                    Level_Manager.LevelDraw(aSpriteBatch);
                     break;
-                case GameState.options:
+                case GameState.Options:
                     Options_Menu.Draw(aSpriteBatch);
                     Transition_Effect.Draw(aSpriteBatch);
                     break;
-                case GameState.mainMenu:
+                case GameState.MainMenu:
                     Main_Menu.Draw(aSpriteBatch);
                     break;
             }

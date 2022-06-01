@@ -1,0 +1,12 @@
+remove;a1,remove;a2,remove;a7,remove;a8,remove;h1,remove;h2,remove;h7,remove;h8,Special rule;Pieces are removed if moved to the left or right edges of the board
+move;d2;d3
+move;g8;f6
+move;c1;g5
+move;c7;c5
+move;g5;e3
+move;f6;g4
+move;e3;c5
+move;d8;a5,remove;a5
+move;d1;g4,Answer;1-7
+move;d7;d5
+move;g4;g3
