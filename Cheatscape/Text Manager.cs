@@ -20,7 +20,6 @@ namespace Cheatscape
         public static int LineSize = 9;
         public static int BetweenLineSize = 12;
         public static bool IsTextCentered = false;
-        static int max = 4;
         static int min = 0;
         static int headstart = 0;
 
