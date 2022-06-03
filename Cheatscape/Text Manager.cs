@@ -25,10 +25,10 @@ namespace Cheatscape
         }
         public static TextStyle currentTextStyle = TextStyle.boarder;
 
-        public static string TutorialText;
+        public static string tutorialText;
 
-        public static Vector2 RulesPosition = new Vector2(6 + Rules_List.scrollBarWidth, 144);
-        public static Vector2 TutorialPosition = new Vector2(470, 50);
+        public static Vector2 rulesPosition = new Vector2(6 + Rules_List.scrollBarWidth, 144);
+        public static Vector2 tutorialPosition = new Vector2(470, 50);
 
         public static void Load()
         {
@@ -133,18 +133,18 @@ namespace Cheatscape
         public static void DrawRuleBox(string[] aStringArray, SpriteBatch aSpriteBatch)
         {
             Mouse_Controller.ruleBoxes.Clear();
-            int tempYOffset = (int)RulesPosition.Y - Rules_List.Scrolling(aStringArray);
+            int tempYOffset = (int)rulesPosition.Y - Rules_List.Scrolling(aStringArray);
             for (int i = 0; i < aStringArray.Length; i++)
             {
                 if (Rules_List.AccessCurrentRule != Rules_List.GetList().Length)
                 {
                     if (Rules_List.GetList()[Rules_List.AccessCurrentRule] == aStringArray[i])
-                        DrawTextBox(aStringArray[i], new Vector2(RulesPosition.X, tempYOffset), ruleSelector, aSpriteBatch, false, true);
+                        DrawTextBox(aStringArray[i], new Vector2(rulesPosition.X, tempYOffset), ruleSelector, aSpriteBatch, false, true);
                     else
-                        DrawTextBox(aStringArray[i], new Vector2(RulesPosition.X, tempYOffset), textBoarder, aSpriteBatch, false, true);
+                        DrawTextBox(aStringArray[i], new Vector2(rulesPosition.X, tempYOffset), textBoarder, aSpriteBatch, false, true);
                 }
                 else
-                    DrawTextBox(aStringArray[i], new Vector2(RulesPosition.X, tempYOffset), textBoarder, aSpriteBatch, false, true);
+                    DrawTextBox(aStringArray[i], new Vector2(rulesPosition.X, tempYOffset), textBoarder, aSpriteBatch, false, true);
 
                 List<string> tempTextBox = SeparateText(aStringArray[i]);
                 tempYOffset += tempTextBox.Count * lineSize;
@@ -160,19 +160,19 @@ namespace Cheatscape
             if (Level_Manager.currentBundle != 0 || Level_Manager.currentLevel != 0)
             {
                 if (Rules_List.AccessCurrentRule != Rules_List.GetList().Length)
-                    DrawTextBox("Back", new Vector2(RulesPosition.X, tempYOffset), textBoarder, aSpriteBatch, false, true);
+                    DrawTextBox("Back", new Vector2(rulesPosition.X, tempYOffset), textBoarder, aSpriteBatch, false, true);
                 else
-                    DrawTextBox("Back", new Vector2(RulesPosition.X, tempYOffset), ruleSelector, aSpriteBatch, false, true);
+                    DrawTextBox("Back", new Vector2(rulesPosition.X, tempYOffset), ruleSelector, aSpriteBatch, false, true);
             }
         }
 
         static void DrawScrollBar(string[] aStringArray, SpriteBatch aSpriteBatch)
         {
-            aSpriteBatch.Draw(scrollBar, new Rectangle(0, (int)RulesPosition.Y - 6, 20, 21), new Rectangle(0, 0, 20, 21), Color.White);
+            aSpriteBatch.Draw(scrollBar, new Rectangle(0, (int)rulesPosition.Y - 6, 20, 21), new Rectangle(0, 0, 20, 21), Color.White);
             aSpriteBatch.Draw(scrollBar, new Rectangle(0, (int)(Global_Info.AccessWindowSize.Y / Global_Info.AccessScreenScale) - 21,
                 20, 21), new Rectangle(0, 22, 20, 21), Color.White);
 
-            int tempBarFullLength = (int)(Global_Info.AccessWindowSize.Y / Global_Info.AccessScreenScale) - 36 - (int)RulesPosition.Y;
+            int tempBarFullLength = (int)(Global_Info.AccessWindowSize.Y / Global_Info.AccessScreenScale) - 36 - (int)rulesPosition.Y;
 
             aSpriteBatch.Draw(scrollBar, new Rectangle(0, (int)(Global_Info.AccessWindowSize.Y / Global_Info.AccessScreenScale) -
                 21 - tempBarFullLength, 20, tempBarFullLength), new Rectangle(0, 21, 20, 1), Color.White);
@@ -183,10 +183,7 @@ namespace Cheatscape
 
             double tempBarScrollAmount = (double)(100 * Scrolling(aStringArray)) / ScrollPercent(aStringArray) / 100;
 
-            //int tempScrollAmount = (int)RulesPosition.Y - 6 + 19 + (0);
-            //int tempScrollAmount = (int)RulesPosition.Y - 6 + 19 + ((tempBarFullLength - tempScrollBarLenth) / 2);
-            //int tempScrollAmount = (int)RulesPosition.Y - 6 + 19 + (tempBarFullLength - tempScrollBarLenth);
-            int tempScrollAmount = (int)(RulesPosition.Y + 13 + ((tempBarFullLength - tempScrollBarLenth) * tempBarScrollAmount));
+            int tempScrollAmount = (int)(rulesPosition.Y + 13 + ((tempBarFullLength - tempScrollBarLenth) * tempBarScrollAmount));
 
             aSpriteBatch.Draw(scrollBar, new Rectangle(0, tempScrollAmount + 2, 20, tempScrollBarLenth), new Rectangle(0, 45, 20, 1), Color.White);
             aSpriteBatch.Draw(scrollBar, new Rectangle(0, tempScrollAmount, 20, 2), new Rectangle(0, 43, 20, 2), Color.White);
@@ -195,7 +192,7 @@ namespace Cheatscape
 
         public static int Scrolling(string[] aStringArray)
         {
-            int tempScrollAmount = ((int)RulesPosition.Y / 2) - (int)(Global_Info.AccessWindowSize.Y / (2 * Global_Info.AccessScreenScale));
+            int tempScrollAmount = ((int)rulesPosition.Y / 2) - (int)(Global_Info.AccessWindowSize.Y / (2 * Global_Info.AccessScreenScale));
 
             for (int i = 0; i < aStringArray.Length; i++)
             {
@@ -216,7 +213,7 @@ namespace Cheatscape
 
         static int ScrollPercent(string[] aStringArray)
         {
-            int tempRuleArea = ((int)RulesPosition.Y / 2) - (int)(Global_Info.AccessWindowSize.Y / (2 * Global_Info.AccessScreenScale));
+            int tempRuleArea = ((int)rulesPosition.Y / 2) - (int)(Global_Info.AccessWindowSize.Y / (2 * Global_Info.AccessScreenScale));
 
             for (int i = 0; i < aStringArray.Length; i++)
             {
@@ -231,8 +228,8 @@ namespace Cheatscape
 
         public static void DrawTutorialBox(SpriteBatch aSpriteBatch)
         {
-            if (TutorialText != "" && TutorialText != null && Level_Manager.isOnTransitionScreen == false)
-                DrawTextBox(TutorialText, TutorialPosition, textBoarder, aSpriteBatch, true);
+            if (tutorialText != "" && tutorialText != null && Level_Manager.isOnTransitionScreen == false)
+                DrawTextBox(tutorialText, tutorialPosition, textBoarder, aSpriteBatch, true);
         }
 
         public static List<string> SeparateText(string aString)

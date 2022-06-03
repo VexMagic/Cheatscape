@@ -248,18 +248,18 @@ namespace Cheatscape
             }
 
             aSpriteBatch.Draw(banner, new Rectangle((int)bannerPosition.X, (int)bannerPosition.Y,
-                Text_Manager.maximumTextBoxWidth + (int)((Text_Manager.RulesPosition.X - scrollBarWidth) * 2), 20),
-                new Rectangle(0, 0, Text_Manager.maximumTextBoxWidth + (int)((Text_Manager.RulesPosition.X - scrollBarWidth) * 2), 20),
+                Text_Manager.maximumTextBoxWidth + (int)((Text_Manager.rulesPosition.X - scrollBarWidth) * 2), 20),
+                new Rectangle(0, 0, Text_Manager.maximumTextBoxWidth + (int)((Text_Manager.rulesPosition.X - scrollBarWidth) * 2), 20),
                 Color.White, 0, new Vector2(0, 0), SpriteEffects.None, 0);
 
             aSpriteBatch.Draw(banner, new Rectangle((int)bannerPosition.X, (int)bannerPosition.Y + 20,
-                Text_Manager.maximumTextBoxWidth + (int)((Text_Manager.RulesPosition.X - scrollBarWidth) * 2), 17),
-                new Rectangle(0, (currentRuleList * 17) + 20, Text_Manager.maximumTextBoxWidth + (int)((Text_Manager.RulesPosition.X - scrollBarWidth) * 2), 17),
+                Text_Manager.maximumTextBoxWidth + (int)((Text_Manager.rulesPosition.X - scrollBarWidth) * 2), 17),
+                new Rectangle(0, (currentRuleList * 17) + 20, Text_Manager.maximumTextBoxWidth + (int)((Text_Manager.rulesPosition.X - scrollBarWidth) * 2), 17),
                 Color.White, 0, new Vector2(0, 0), SpriteEffects.None, 0);
 
             if (AmountOfUsedLists() > 1)
                 aSpriteBatch.Draw(bannerArrows, new Rectangle((int)bannerPosition.X, (int)bannerPosition.Y + 20,
-                    Text_Manager.maximumTextBoxWidth + (int)((Text_Manager.RulesPosition.X - scrollBarWidth) * 2), 17), Color.White);
+                    Text_Manager.maximumTextBoxWidth + (int)((Text_Manager.rulesPosition.X - scrollBarWidth) * 2), 17), Color.White);
 
             if (currentRule < GetList().Length)
             {
@@ -271,7 +271,7 @@ namespace Cheatscape
 
         public static int Scrolling(string[] aStringArray)
         {
-            int tempScrollAmount = ((int)Text_Manager.RulesPosition.Y / 2) - (int)(Global_Info.AccessWindowSize.Y / (2 * Global_Info.AccessScreenScale));
+            int tempScrollAmount = ((int)Text_Manager.rulesPosition.Y / 2) - (int)(Global_Info.AccessWindowSize.Y / (2 * Global_Info.AccessScreenScale));
 
             for (int i = 0; i < aStringArray.Length; i++)
             {
@@ -330,7 +330,7 @@ namespace Cheatscape
 
             tempMaxScroll += Text_Manager.lineSize + Text_Manager.betweenLineSize - 4;
 
-            return tempMaxScroll + (int)Text_Manager.RulesPosition.Y - 2;
+            return tempMaxScroll + (int)Text_Manager.rulesPosition.Y - 2;
         }
     }
 }

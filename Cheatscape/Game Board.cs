@@ -61,7 +61,7 @@ namespace Cheatscape
             Level_Manager.AccessCurrentSlide = 1;
             Rules_List.AccessCurrentRule = 0;
             Rules_List.AccessCurrentRuleList = 0;
-            Text_Manager.TutorialText = null;
+            Text_Manager.tutorialText = null;
             Hand_Animation_Manager.ResetAllHands();
             SetBasicBoardState();
 
@@ -222,9 +222,9 @@ namespace Cheatscape
                     break;
                 case Chess_Move.MoveType.tutorialText:
                     if (isCurrentTurn)
-                        Text_Manager.TutorialText = aMove.myText;
+                        Text_Manager.tutorialText = aMove.myText;
                     else
-                        Text_Manager.TutorialText = "";
+                        Text_Manager.tutorialText = "";
                     break;
                 case Chess_Move.MoveType.callCheck:
                     if (isCurrentTurn)

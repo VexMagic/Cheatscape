@@ -25,7 +25,6 @@ namespace Cheatscape
         static bool displayingHint = false;
         static int currentHint = -1;
         public static int unlockedHints = -1;
-
         public static float AccessRating
         {
             get => rating; set => rating = value;
