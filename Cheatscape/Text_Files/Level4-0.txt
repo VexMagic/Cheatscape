@@ -3,11 +3,11 @@ move;d5;e4
 move;c3;e4
 move;c6;d4
 move;e4;c5
-move;d4;f3,Check	
+move;d4;f3,check
 move;g1;f3
 move;f8;c5
 move;c1;e3
-move;d8;d1,Check
+move;d8;d1,check
 move;a1;d1
 move;e3;c5,Answer;0-0
 move;b7;b6

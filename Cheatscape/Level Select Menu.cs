@@ -21,8 +21,8 @@ namespace Cheatscape
         static Texture2D optionHighlightTex;
         static Texture2D lockTex;
 
-        static Rectangle[,] levelButtons = new Rectangle[5, 2];
-        static Rectangle optionsButton = new Rectangle(50, 200, 32, 32);
+        static Rectangle[,] levelButtons = new Rectangle[5, 1];
+        static Rectangle optionsButton = new Rectangle(50, 120, 32, 32);
 
         public static List<float> highScores;
         public static List<float> AccessHighScores { get => highScores; set => highScores = value; }
@@ -32,7 +32,7 @@ namespace Cheatscape
         public static int SelectedBundleY = 0;
 
         static int LevelAmountX = 5;
-        static int LevelAmountY = 2;
+        static int LevelAmountY = 1;
 
         //kan döpas om till levelamount
 
@@ -192,14 +192,10 @@ namespace Cheatscape
             aSpriteBatch.Draw(Bg2Tex, new Rectangle(250, 50, PanelTex.Width, PanelTex.Height), Color.White);
             aSpriteBatch.Draw(Bg3Tex, new Rectangle(350, 50, PanelTex.Width, PanelTex.Height), Color.White);
             aSpriteBatch.Draw(Bg4Tex, new Rectangle(450, 50, PanelTex.Width, PanelTex.Height),new Rectangle(0,0,1920,1080), Color.White);
-            for (int i = 50; i < 550; i+=100)
-            {
-                aSpriteBatch.Draw(Bg5Tex, new Rectangle(i, 125, PanelTex.Width, PanelTex.Height), Color.White);
-            }
 
             if (optionHighlight)
             {
-                aSpriteBatch.Draw(optionHighlightTex, new Vector2(50, 200), Color.White);
+                aSpriteBatch.Draw(optionHighlightTex, new Vector2(50, 120), Color.White);
             }
             else
             {
